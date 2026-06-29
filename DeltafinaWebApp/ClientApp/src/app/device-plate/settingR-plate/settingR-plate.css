@@ -1,0 +1,190 @@
+/* settingR-plate.component.css */
+
+/* Sovrascrittura CONTAINER principale */
+.wide-dialog-container.mat-dialog-container {
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  min-width: 700px !important;
+  max-width: 90vw !important;
+  background: #f5f5f5 !important;
+}
+
+/* Contenitore principale con alta specificità */
+:host {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-width: 700px !important;
+  max-width: 90vw !important;
+}
+
+/* Sovrascrittura CONTENUTO */
+.wide-dialog-container .mat-dialog-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-height: none !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Header del dialog con stili specifici */
+.dialog-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 12px 24px !important;
+  background: #369 !important;
+  color: white !important;
+  position: relative !important;
+  margin: 0 !important;
+  cursor: move !important;
+}
+
+/* Titolo con override degli stili globali */
+.mat-dialog-title {
+  margin: 0 !important;
+  flex-grow: 1 !important;
+  text-align: center !important;
+  padding: 0 !important;
+  font-size: 1.2rem !important;
+  background: transparent !important;
+}
+
+/* Pulsante di chiusura con stili consistenti */
+.close.mat-button {
+  position: absolute !important;
+  right: 12px !important;
+  top: 12px !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  padding: 0 !important;
+  line-height: 24px !important;
+  color: white !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  z-index: 1000 !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50% !important;
+  transition: all 0.2s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  outline: none !important;
+}
+
+  .close.mat-button:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    transform: scale(1.1) !important;
+  }
+
+  .close.mat-button:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4) !important;
+  }
+
+/* Contenuto principale con gestione dello scroll */
+.mat-dialog-content {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-height: none !important;
+  overflow: auto !important;
+  background: #f5f5f5 !important;
+}
+
+/* Contenitore tabs con layout flessibile */
+.nav-tabs-top {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 16px !important;
+  min-height: 0 !important;
+}
+
+  .nav-tabs-top > ul.nav-tabs {
+    margin-bottom: 16px !important;
+  }
+
+/* Contenuto tabs con scroll interno */
+.tab-content {
+  flex: 1 !important;
+  overflow: auto !important;
+}
+
+/* Sezioni impostazioni */
+.section-title {
+  margin: 24px 0 16px 0 !important;
+  padding: 0 8px !important;
+}
+
+  .section-title h5 {
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    color: #3f51b5 !important;
+    font-size: 1.05rem !important;
+    font-weight: 500 !important;
+    background: rgba(63, 81, 181, 0.1) !important;
+    border-left: 4px solid #3f51b5 !important;
+    border-radius: 4px 0 0 4px !important;
+  }
+
+/* Tabelle responsive */
+.table-responsive {
+  width: 100% !important;
+  margin-bottom: 16px !important;
+}
+
+.card-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+  .card-table th,
+  .card-table td {
+    padding: 12px !important;
+    vertical-align: middle !important;
+  }
+
+  .card-table th {
+    background-color: #f8f9fa !important;
+  }
+
+/* Input e pulsanti */
+.form-control {
+  width: 100% !important;
+  min-width: 120px !important;
+  padding: 8px 12px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 4px !important;
+}
+
+.btn-success {
+  background-color: #28a745 !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  transition: background-color 0.2s !important;
+}
+
+  .btn-success:hover {
+    background-color: #218838 !important;
+  }
+
+/* Adattamento per il primo titolo */
+.nav-tabs > li:first-child .section-title:first-child {
+  margin-top: 8px !important;
+}
+
+/* Nel tuo componente CSS */
+:host ::ng-deep .wide-dialog .mat-dialog-container {
+  padding: 0 !important;
+}

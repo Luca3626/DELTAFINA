@@ -1,0 +1,14 @@
+Modificato:
+- ClientApp->src->app->app.service.ts
+- ClientApp->src->app->app.module.ts
+- ClientApp->src->app->app.component.ts, metodo costruttore
+- ClientApp->src->app->app.service.ts, metodo costruttore
+
+Aggiunto:
+- ClientApp->src->app->authentication
+- ClientApp->src->app->models
+- ClientApp->src->app->services
+
+
+- ClientApp->src->app->app.component.ts, metodo costruttore
+  Inserito qui il controllo utente loggato

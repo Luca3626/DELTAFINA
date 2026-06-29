@@ -1,0 +1,43 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{data.title}}</h1>
+<div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
+  <div class="nav-tabs-top" style="padding:2px;">
+    <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+      <li ngbNavItem>
+        <a ngbNavLink>Generale</a>
+        <ng-template ngbNavContent>
+          <div style="padding:8px;">
+
+            <div style="font-size:14px;margin-top:16px;">SOGLIA ASSORBIMENTO MISCELATORE PER GENERAZIONE ALLARME BLOCCANTE </div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_SOGLIA_AMP_MAX_MIX.value}} A
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newSET_SOGLIA_MAX_ASSORB" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onSET_SOGLIA_MAX_ASSORBConfirm()">OK</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="userTabs"></div>
+  </div>
+</div>

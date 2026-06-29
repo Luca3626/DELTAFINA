@@ -1,0 +1,418 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  <div>Elenco Notifiche Allarmi Impianto</div>
+  <!--<button type="button" class="btn btn-primary rounded-pill d-block" (click)="onBnNewClick()"><span class="ion ion-md-add"></span>&nbsp; Crea Nuova Ricetta</button>-->
+</h4>
+
+<div class="card mb-4" style="display:none;">
+  <h6 class="card-header">
+    Ricerca Allarmi
+  </h6>
+  <div class="card-body">
+    <!--<form> se utilizzo il form il time picker non funziona bene-->
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="form-label">Filtra zone per tipo zona</label>
+        <ng-select id="zoneTypes" name="zoneTypes"
+                   [items]="selectZoneTypes"
+                   [multiple]="false"
+                   [closeOnSelect]="true"
+                   bindLabel="label"
+                   bindValue="value"
+                   placeholder="Seleziona Tipo Zona"
+                   [(ngModel)]="zoneTypeSelected"
+                   [hideSelected]="true"
+                   (close)="onZoneTypeFilterChange()"
+                   #zoneTypes="ngModel">
+        </ng-select>
+      </div>
+      <div class="form-group col-md-6">
+        <label class="form-label">Filtra allarmi per zone</label>
+        <ng-select id="zones" name="zones"
+                   [items]="selectZones"
+                   [multiple]="true"
+                   [closeOnSelect]="true"
+                   bindLabel="label"
+                   bindValue="label"
+                   placeholder="Seleziona Zone"
+                   [(ngModel)]="zoneSelected"
+                   [hideSelected]="true"
+                   #zones="ngModel">
+        </ng-select>
+      </div>
+    </div>
+    <button type="button" [disabled]="false" class="btn btn-primary" style="margin-right:24px;" (click)="onSaveClick()"><i class="fas fa-save"></i> Trova</button>
+    <!--</form>-->
+  </div>
+</div>
+
+  <!-- Table controls -->
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        Per pagina: &nbsp;
+        <select [(ngModel)]="perPage"
+                (change)="update()"
+                class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [20, 50, 100, 200]">{{limit}}</option>
+        </select>
+      </div>
+      <!--<div class="col">
+        <input type="text"
+               [(ngModel)]="filterVal"
+               (input)="currentPage = 1; update()"
+               class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+               placeholder="Search...">
+      </div>-->
+    </div>
+  </div>
+  <!-- / Table controls -->
+  <!-- Table -->
+  <hr class="border-light m-0">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th style="width:40px;">
+            <input class="align-middle" type="checkbox" [(ngModel)]="selectAll" style="margin-left:-10px!important;" (click)="onSelectAll()" />
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('textLang')" style="min-width: 18rem">
+            Descrizione<i class="ion text-muted ml-2" *ngIf="sortBy=='textLang'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('zone')" style="min-width: 18rem">
+            Zona<i class="ion text-muted ml-2" *ngIf="sortBy=='zone'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('plcName')" style="min-width: 18rem">
+            PLC<i class="ion text-muted ml-2" *ngIf="sortBy=='plcName'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('tagName')">
+            Tag<i class="ion text-muted ml-2" *ngIf="sortBy=='tagName'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('alarmNotifyToUserOnAlarm')">
+            Notifiche allarme attivo<i class="ion text-muted ml-2" *ngIf="sortBy=='alarmNotifyToUserOnAlarm'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('alarmNotifyToOnAlarm')">
+            Notifiche utenti allarme attivo<i class="ion text-muted ml-2" *ngIf="sortBy=='alarmNotifyToOnAlarm'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('alarmNotifyToUserOnReset')">
+            Notifiche allarme rientrato<i class="ion text-muted ml-2" *ngIf="sortBy=='alarmNotifyToUserOnReset'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('alarmNotifyToOnReset')">
+            Notifiche utenti allarme rientrato<i class="ion text-muted ml-2" *ngIf="sortBy=='alarmNotifyToOnReset'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <!--<th></th>-->
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <!--<input class="form-control" type="text" (keyup)="onKey($event)" id="fSelected" name="fSelected" placeholder="Filtra per selezionati">-->
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fTextLang" name="fTextLang" placeholder="Filtra per descrizione">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fZone" name="fZone" placeholder="Filtra per zona">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fPlcName" name="fPlcName" placeholder="Filtra per plc">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fTagName" name="fTagName" placeholder="Filtra per tag">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fAlarmNotifyToUserOnAlarm" name="fAlarmNotifyToUserOnAlarm" placeholder="Filtra per notifiche allarme attivo">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fAlarmNotifyToOnAlarm" name="fAlarmNotifyToOnAlarm" placeholder="Filtra per utente allarme attivo">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fAlarmNotifyToUserOnReset" name="fAlarmNotifyToUserOnReset" placeholder="Filtra per notifiche allarme rientrato">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fAlarmNotifyToOnReset" name="fAlarmNotifyToOnReset" placeholder="Filtra per utente allarme rientrato">
+          </td>
+          <!--<td class="text-center text-nowrap align-middle">
+            <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Rimuovi Filtri"><i class="ion ion-md-close"></i></a>
+          </td>-->
+        </tr>
+        <tr *ngFor="let item of alarmActionData.alarms">
+          <td><input class="align-middle" type="checkbox" [(ngModel)]="item.selected" style="margin-left:-10px!important;"></td>
+          <!--<td class="align-middle"><a [routerLink]="['/alarms-settings/edit' + item.id]">{{item.textLang}}</a></td>-->
+          <td class="align-middle">{{item.textLang}}</td>
+          <td class="align-middle">{{item.zone}}</td>
+          <td class="align-middle">{{item.plcName}}</td>
+          <td class="align-middle">{{item.tagName}}</td>
+          <td class="align-middle">{{item.alarmNotifyToUserOnAlarm}}</td>
+          <td class="align-middle">{{item.alarmNotifyToOnAlarm}}</td>
+          <td class="align-middle">{{item.alarmNotifyToUserOnReset}}</td>
+          <td class="align-middle">{{item.alarmNotifyToOnReset}}</td>
+          <!--<td class="text-center text-nowrap align-middle">
+            <a [routerLink]="['/alarms-settings/edit/' + item.id]" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Modifica"><i class="ion ion-md-create"></i></a>
+          </td>-->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- / Table -->
+  <!-- Pagination -->
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">Page {{ currentPage }} of {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems"
+                        [pageSize]="perPage"
+                        [(page)]="currentPage"
+                        (pageChange)="update()"
+                        size="sm"
+                        class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- / Pagination -->
+</div>
+
+<div class="card mb-4">
+  <h6 class="card-header">
+    Impostazioni per gli allarmi selezionati
+  </h6>
+  <div class="card-body">
+    <!--<form>-->
+    <!--<div class="form-group row">
+      <label class="col-form-label col-sm-2 text-sm-right">Zona/Tipologia</label>
+      <div class="col-sm-10">
+        <ng-select class="ng-select-secondary" [items]="selectZones"
+                   [multiple]="true"
+                   [closeOnSelect]="true"
+                   bindLabel="label"
+                   bindValue="value"
+                   placeholder="Seleziona Zone"
+                   [(ngModel)]="multipleSelectZoneValue"
+                   [hideSelected]="true"
+                   [dropdownPosition]="'top'"
+                   [disabled]="disabled">
+        </ng-select>
+      </div>
+    </div>-->
+    <!--<div class="form-group row">
+      <label class="col-form-label col-sm-2 text-sm-right">Priorità</label>
+      <div class="col-sm-10">
+        <select class="custom-select">
+          <option>Priorità Alta</option>
+          <option>Priorità Media</option>
+          <option>Priorità Bassa</option>
+        </select>
+      </div>
+    </div>-->
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2 text-sm-right">Segnalazione agli utenti</label>
+      <div class="col-sm-10">
+        <ng-select class="ng-select-secondary" [items]="selectUsers"
+                   [multiple]="true"
+                   [closeOnSelect]="false"
+                   bindLabel="fullName"
+                   bindValue="id"
+                   groupBy="timezone"
+                   [selectableGroup]="true"
+                   placeholder="Seleziona Utenti"
+                   [(ngModel)]="alarmActionData.alarmNotifyToUserOnAlarmList"
+                   [hideSelected]="true"
+                   [dropdownPosition]="'top'"
+                   [disabled]="disabled">
+        </ng-select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2 text-sm-right">Segnalazione alle email</label>
+      <div class="col-sm-10">
+        <tag-input class="ngx-chips-secondary"
+                   [placeholder]="'+ Indirizzo email'"
+                   [secondaryPlaceholder]="'Aggiungi un indirizzo email'"
+                   [(ngModel)]="notifyToOnAlarm"
+                   [editable]="true"
+                   [disable]="false">
+          <!--<tag-input-dropdown [showDropdownIfEmpty]="true"
+                              [autocompleteItems]="autocompleteItems">
+          </tag-input-dropdown>-->
+        </tag-input>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2 text-sm-right">Notifica riconoscimento agli utenti</label>
+      <div class="col-sm-10">
+        <ng-select class="ng-select-secondary" [items]="selectUsers"
+                   [multiple]="true"
+                   [closeOnSelect]="false"
+                   bindLabel="fullName"
+                   bindValue="id"
+                   groupBy="timezone"
+                   [selectableGroup]="true"
+                   placeholder="Seleziona Utenti"
+                   [(ngModel)]="alarmActionData.alarmNotifyToUserOnResetList"
+                   [hideSelected]="true"
+                   [dropdownPosition]="'top'"
+                   [disabled]="disabled">
+        </ng-select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2 text-sm-right">Notifica riconoscimento alle email</label>
+      <div class="col-sm-10">
+        <tag-input class="ngx-chips-secondary"
+                   [placeholder]="'+ Indirizzo email'"
+                   [secondaryPlaceholder]="'Aggiungi un indirizzo email'"
+                   [(ngModel)]="notifyToOnReset"
+                   [editable]="true"
+                   [disable]="false">
+          <!--<tag-input-dropdown [showDropdownIfEmpty]="true"
+                              [autocompleteItems]="autocompleteItems">
+          </tag-input-dropdown>-->
+        </tag-input>
+      </div>
+    </div>
+    <!--<fieldset class="form-group">
+      <div class="row">
+        <label class="col-form-legend col-sm-2 text-sm-right mt-sm-0">Radios</label>
+        ol
+        <div class="col-sm-10">
+          <div class="custom-controls-stacked">
+            <label class="custom-control custom-radio">
+              <input name="custom-radio-3" type="radio" class="custom-control-input" checked>
+              <span class="custom-control-label">Option one is this and that—be sure to include why it's great</span>
+            </label>
+            <label class="custom-control custom-radio">
+              <input name="custom-radio-3" type="radio" class="custom-control-input">
+              <span class="custom-control-label">Option two can be something else and selecting it will deselect option one</span>
+            </label>
+            <label class="custom-control custom-radio">
+              <input name="custom-radio-3" type="radio" class="custom-control-input" disabled>
+              <span class="custom-control-label">Option three is disabled</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="form-group row">
+      <label class="col-form-legend col-sm-2 text-sm-right mt-sm-0">Checkbox</label>
+      <div class="col-sm-10">
+        <label class="custom-control custom-checkbox m-0">
+          <input type="checkbox" class="custom-control-input">
+          <span class="custom-control-label">Check me out</span>
+        </label>
+      </div>
+    </div>-->
+    <div class="form-group row">
+      <div class="col-sm-10 ml-sm-auto">
+        <button type="button" (click)="onSave()" class="btn btn-primary">Salva</button>
+      </div>
+    </div>
+    <!--</form>-->
+  </div>
+</div>
+
+<!--<ng-template #defaultModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      Impostazioni per gli allarmi selezionati <br>
+
+    </h5>
+    <button type="button" class="close" (click)="d('Cross click')">&times;</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-label">Zona/Tipologia</label>
+      <ng-select class="ng-select-secondary form-control" [items]="selectZones"
+                 [multiple]="true"
+                 [closeOnSelect]="true"
+                 bindLabel="label"
+                 bindValue="value"
+                 placeholder="Seleziona Zone"
+                 [(ngModel)]="multipleSelectZoneValue"
+                 [hideSelected]="true"
+                 [dropdownPosition]="'top'"
+                 [disabled]="disabled">
+      </ng-select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Priorità</label>
+      <select class="custom-select form-control">
+
+        <option>Priorità Alta</option>
+        <option>Priorità Media</option>
+        <option>Priorità Bassa</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Segnalazione agli utenti</label>
+      <ng-select class="ng-select-secondary" [items]="selectUsers"
+                 [multiple]="true"
+                 [closeOnSelect]="false"
+                 bindLabel="label"
+                 bindValue="value"
+                 groupBy="timezone"
+                 [selectableGroup]="true"
+                 placeholder="Seleziona Utenti"
+                 [(ngModel)]="multipleSelectUserAlarmON"
+                 [hideSelected]="true"
+                 [dropdownPosition]="'top'"
+                 [disabled]="disabled">
+      </ng-select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Segnalazione alle email</label>
+      <tag-input class="ngx-chips-secondary"
+                 placeholder="+ Indirizzo email"
+                 [(ngModel)]="items"
+                 [editable]="!disabled"
+                 [disable]="disabled">
+        <tag-input-dropdown [showDropdownIfEmpty]="true"
+                            [autocompleteItems]="autocompleteItems">
+        </tag-input-dropdown>
+      </tag-input>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notifica riconoscimento agli utenti</label>
+      <ng-select class="ng-select-secondary" [items]="selectUsers"
+                 [multiple]="true"
+                 [closeOnSelect]="false"
+                 bindLabel="label"
+                 bindValue="value"
+                 groupBy="timezone"
+                 [selectableGroup]="true"
+                 placeholder="Seleziona Utenti"
+                 [(ngModel)]="multipleSelectUserAlarmOFF"
+                 [hideSelected]="true"
+                 [dropdownPosition]="'top'"
+                 [disabled]="disabled">
+      </ng-select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notifica riconoscimento alle email</label>
+      <tag-input class="ngx-chips-secondary"
+                 placeholder="+ Indirizzo email"
+                 [(ngModel)]="items"
+                 [editable]="!disabled"
+                 [disable]="disabled">
+        <tag-input-dropdown [showDropdownIfEmpty]="true"
+                            [autocompleteItems]="autocompleteItems">
+        </tag-input-dropdown>
+      </tag-input>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Salva</button>
+  </div>
+</ng-template>
+
+<style type="text/css">
+  .mat-dialog-container {
+    overflow: visible !important;
+  }
+
+  .custom-dialog-container .mat-dialog-container {
+    overflow: visible !important;
+    clear: both;
+  }
+</style>-->

@@ -1,0 +1,61 @@
+
+.mat-dialog-container {
+  min-width: 400px !important;
+  max-width: 400px !important;
+  padding: 4px !important;
+  background: #f5f5f5;
+}
+
+.mat-dialog-background {
+  background: #f5f5f5;
+}
+
+#Button_Impostazioni {
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0.45, 1.1), filter 0.3s ease-out, fill 0.25s ease;
+  fill: url(#buttonGradient);
+  transform: matrix(1, 0, 0.02311793, 0.99973276, 0, 0);
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+  cursor: pointer;
+  transform-origin: center;
+}
+
+  /* Hover più pronunciato ma fluido */
+  #Button_Impostazioni:hover {
+    fill: url(#buttonGradientHover);
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+    transform: matrix(1, 0, 0.02311793, 0.99973276, 0, -1.5);
+  }
+
+  /* Click ultra smooth */
+  #Button_Impostazioni:active {
+    fill: url(#buttonGradientActive);
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
+    transform: matrix(1, 0, 0.02311793, 0.98, 0, 0.4);
+    transition-duration: 0.2s;
+  }
+
+/* LABEL CON ANIMAZIONE PERFETTA E CAMBI COLORE */
+#LBL_Impostazioni {
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0.45, 1.1), text-shadow 0.3s ease, fill 0.25s ease;
+  pointer-events: none;
+  user-select: none;
+  transform: translateY(0);
+  fill: #ffffff;
+  backface-visibility: hidden;
+}
+
+/* Animazione label hover con cambio colore */
+#Button_Impostazioni:hover ~ #LBL_Impostazioni {
+  transform: translateY(-1.2px);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+  fill: #f0f0f0; /* Bianco più luminoso */
+}
+
+/* Animazione label click */
+#Button_Impostazioni:active ~ #LBL_Impostazioni {
+  transform: translateY(0.3px);
+  fill: #e0e0e0; /* Bianco leggermente più scuro */
+  transition-duration: 0.2s;
+  text-shadow: 0 0.5px 1px rgba(255,255,255,0.3);
+}
+

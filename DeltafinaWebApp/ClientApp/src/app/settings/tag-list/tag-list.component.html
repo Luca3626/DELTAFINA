@@ -1,0 +1,171 @@
+<h4 class="font-weight-bold py-3 mb-4">
+  <span class="text-muted font-weight-light">IMPOSTAZIONI /</span> Lista Tag
+</h4>
+
+<div class="card">
+  <!-- Table controls -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        Per pagina: &nbsp;
+        <select [(ngModel)]="perPage"
+                (change)="update()"
+                class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [100, 200, 300, 400, 500]">{{limit}}</option>
+        </select>
+      </div>
+      <!--<div class="col">
+        <input type="text"
+               [(ngModel)]="filterVal"
+               (input)="currentPage = 1; update()"
+               class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+               placeholder="Search...">
+      </div>-->
+    </div>
+  </div>
+  <!-- / Table controls -->
+  <!-- Table -->
+  <hr class="border-light m-0">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('id')" style="min-width: 18rem">
+            Id<i class="ion text-muted ml-2" *ngIf="sortBy=='id'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('name')" style="min-width: 18rem">
+            Nome<i class="ion text-muted ml-2" *ngIf="sortBy=='name'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('plcName')" style="min-width: 18rem">
+            PLC<i class="ion text-muted ml-2" *ngIf="sortBy=='plcName'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('address')">
+            Indirizzo<i class="ion text-muted ml-2" *ngIf="sortBy=='address'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('value')">
+            Valore<i class="ion text-muted ml-2" *ngIf="sortBy=='value'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('type')">
+            Tipo<i class="ion text-muted ml-2" *ngIf="sortBy=='type'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('date')">
+            Data<i class="ion text-muted ml-2" *ngIf="sortBy=='date'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('sequence')">
+            Pacchetto<i class="ion text-muted ml-2" *ngIf="sortBy=='sequence'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <!--<th class="text-nowrap cursor-pointer" (click)="setSort('status')">
+    Status<i class="ion text-muted ml-2" *ngIf="sortBy=='status'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+  </th>-->
+          <!--<th></th>-->
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fId" name="fId" [(ngModel)]="filterService.tagClientFilters.id" placeholder="Filtra per id">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fName" name="fName" [(ngModel)]="filterService.tagClientFilters.name" placeholder="Filtra per nome">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fPlcName" name="fPlcName" [(ngModel)]="filterService.tagClientFilters.plcName" placeholder="Filtra per PLC">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fAddress" name="fAddress" [(ngModel)]="filterService.tagClientFilters.address" placeholder="Filtra per indirizzo">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fValue" name="fValue" [(ngModel)]="filterService.tagClientFilters.value" placeholder="Filtra per valore">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fType" name="fType" [(ngModel)]="filterService.tagClientFilters.type" placeholder="Filtra per tipo">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fDate" name="fDate" [(ngModel)]="filterService.tagClientFilters.date" placeholder="Filtra per data">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fSequence" name="fSequence" [(ngModel)]="filterService.tagClientFilters.sequence" placeholder="Filtra per sequenza">
+          </td>
+          <!--<td class="text-center text-nowrap align-middle">
+            <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Rimuovi Filtri" (click)="removeFilters()"><i class="ion ion-md-close"></i></a>
+          </td>-->
+        </tr>
+        <tr *ngFor="let item of tagsData">
+          <td class="align-middle"><!--<a [routerLink]="['/setting/tag-edit/' + item.tagLogName]">-->{{item.id}}<!--</a>--></td>
+          <td class="align-middle">{{item.name}}</td>
+          <td class="align-middle">{{item.plc_name}}</td>
+          <td class="align-middle">{{item.address}}</td>
+          <td class="align-middle"><input type="text" [(ngModel)]="item.value" class="form-control" /></td>
+          <!--<td class="align-middle">{{item.value}}</td>-->
+          <td class="align-middle">{{item.typeStr}}</td>
+          <td class="align-middle">{{item.date | date: 'dd/MM/yyyy HH:mm'}}</td>
+          <td class="align-middle">{{item.sequence}}</td>
+          <!--<td class="text-center text-nowrap align-middle">
+    <a [routerLink]="['/trend/trend-edit/' + item.tagLogName]" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Modifica"><i class="ion ion-md-create"></i></a>
+  </td>-->
+        </tr>
+      </tbody>
+    </table>
+    <!--<table class="table table-striped table-bordered card-table">
+    <thead>
+      <tr>
+        <th class="text-nowrap cursor-pointer" (click)="setSort('id')">
+          ID<i class="ion text-muted ml-2" *ngIf="sortBy=='id'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+        </th>
+        <th class="text-nowrap cursor-pointer" (click)="setSort('title')" style="min-width: 18rem">
+          Title<i class="ion text-muted ml-2" *ngIf="sortBy=='title'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+        </th>
+        <th class="text-nowrap cursor-pointer" (click)="setSort('likes')">
+          Likes<i class="ion text-muted ml-2" *ngIf="sortBy=='likes'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+        </th>
+        <th class="text-nowrap cursor-pointer" (click)="setSort('comments')">
+          Comments<i class="ion text-muted ml-2" *ngIf="sortBy=='comments'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+        </th>
+        <th class="text-nowrap cursor-pointer" (click)="setSort('createdAt')">
+          Created At<i class="ion text-muted ml-2" *ngIf="sortBy=='createdAt'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+        </th>
+        <th class="text-nowrap cursor-pointer" (click)="setSort('status')">
+          Status<i class="ion text-muted ml-2" *ngIf="sortBy=='status'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let article of articlesData">
+        <td class="align-middle">{{article.id}}</td>
+        <td class="align-middle"><a href="javascript:void(0)">{{article.title}}</a></td>
+        <td class="align-middle">{{article.likes}}</td>
+        <td class="align-middle">{{article.comments}}</td>
+        <td class="align-middle">{{article.createdAt}}</td>
+        <td class="align-middle">
+          <span class="badge badge-outline-success" *ngIf="article.status === 1">Published</span>
+          <span class="badge badge-outline-info" *ngIf="article.status === 2">Draft</span>
+          <span class="badge badge-outline-default" *ngIf="article.status === 3">Deleted</span>
+        </td>
+        <td class="text-center text-nowrap align-middle">
+          <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit"><i class="ion ion-md-create"></i></a>
+          <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Remove"><i class="ion ion-md-close"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>-->
+  </div>
+  <!-- / Table -->
+  <!-- Pagination -->
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">Page {{ currentPage }} of {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems"
+                        [pageSize]="perPage"
+                        [(page)]="currentPage"
+                        (pageChange)="update()"
+                        size="sm"
+                        class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- / Pagination -->
+</div>

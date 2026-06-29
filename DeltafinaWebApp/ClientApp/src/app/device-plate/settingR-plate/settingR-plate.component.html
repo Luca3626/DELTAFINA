@@ -1,0 +1,688 @@
+<div class="dialog-header" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+  <button class="close" mat-button (click)="onNoClick()">
+    <span class="mat-button-wrapper">X</span>
+  </button>
+  <h1 mat-dialog-title>{{data.title}}</h1>
+</div>
+<div mat-dialog-content >
+  <div class="nav-tabs-top">
+    <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+
+      <!-- SEZIONE IMPOSTAZIONI GENERALI-->
+      <li ngbNavItem>
+        <a ngbNavLink>Generale</a>
+        <ng-template ngbNavContent>
+
+          <!-- div CARICO ROTTAME -->
+          <div *ngIf="data.title == 'IMPOSTAZIONI CARICO ROTTAME'">
+
+            <!-- RIFERIMENTO MASSIMO PER INVERTER RICEZIONE ROTTAME -->
+            <div class="section-title"><h5>RIFERIMENTO MASSIMO PER INVERTER ROTTAME</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.MAX_RIF_INV_ROTTAME.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newRifInverterRottame" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onRifInvRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 1 TRAMOGGIA ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 1 TRAMOGGIA</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_1_TRAMOGGIA.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggiaRottame_1" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_1_TramoggiaRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 2 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 2 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_2_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_2" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_2_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 3 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 3 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_3_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_3" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_3_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 4 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 4 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_4_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_4" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_4_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 5 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 5 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_5_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_5" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_5_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 6 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 6 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_6_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_6" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_6_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          <!-- div CARICO SABBIA -->
+          <div *ngIf="data.title == 'IMPOSTAZIONI CARICO SABBIA'">
+
+            <!-- RIFERIMENTO MASSIMO PER INVERTER RICEZIONE SABBIA -->
+            <div class="section-title"><h5>RIFERIMENTO MASSIMO PER INVERTER SABBIA</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.MAX_RIF_INV_SABBIA.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newRifInverterSabbia" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onRifInvSabbiaConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 1 TRAMOGGIA SABBIA -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 1 TRAMOGGIA</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_SABBIA_1_TRAMOGGIA.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggiaSabbia_1" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_1_TramoggiarSabbiaConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 2 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 2 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_2_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_2" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_2_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 3 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 3 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_3_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_3" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_3_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 4 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 4 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_4_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_4" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_4_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VELOCITA' PERCENTUALE 5 TRAMOGGE ROTTAME -->
+            <div class="section-title"><h5>VELOCITA' PERCENTUALE 5 TRAMOGGE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_VEL_PERC_ROTTAME_5_TRAMOGGE.value}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newVelocitaTramoggeRottame_5" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onVelocita_5_TramoggeRottameConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          <!--  div IMPOSTAZIONI IMPIANTO DEPOLVERAZIONE -->
+          <div *ngIf="data.title == 'IMPOSTAZIONI IMPIANTO ASPIRAZIONE'">
+
+            <!-- TEMPO PAUSA PER NUOVA RICHIESTA AVVIO CICLONE -->
+            <div class="section-title"><h5>TEMPO PAUSA PER NUOVA RICHIESTA AVVIO CICLONE</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_T_RESET_RICHIESTA_AVVIO_CICLONE_AD_ASPIRAZIONE.value}} s.
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newTempoRichiestaAvvioCiclone" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onTempoRichiestaAvvioCicloneConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- TEMPO LAVORO ROTOCELLA/VALVOLA STELLATA RECUPERO POLVERI -->
+            <div class="section-title"><h5>TEMPO LAVORO ROTOCELLA/VALVOLA STELLATA RECUPERO POLVERI</h5></div>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{TagList.PC_T_STOP_ROTOCELLA_RECUPERO_POLVERI.value}} s.
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newTempoScaricoRotocella" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onTempoScaricoRotocellaConfirm()">OK</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- div FEEDBACK IMPIANTO ASPIRAZIONE -->
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <tbody>
+
+                  <!-- COUNTDOWN RICHIESTA AVVIO ROTOCELLA/VALVOLA STELLATA RECUPERO POLVERICOUNTDOWN TEMPO ATTESA AVVIO ROTOCELLA RECUPERO POLVERI -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      COUNTDOWN RICHIESTA AVVIO ROTOCELLA/VALVOLA STELLATA RECUPERO POLVERI
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_CD_START_ROTOCELLA_RECUPERO_POLVERI.value}} s.
+                    </td>
+                  </tr>
+
+                  <!-- COUNTDOWN LAVORO ROTOCELLA/VALVOLA STELLATA RECUPERO POLVERI -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      COUNTDOWN LAVORO ROTOCELLA/VALVOLA STELLATA RECUPERO POLVERI
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_CD_STOP_ROTOCELLA_RECUPERO_POLVERI.value}} s.
+                    </td>
+                  </tr>
+
+                  <!-- COUNTDOWN PAUSA PER NUOVA RICHIESTA AVVIO CICLONE -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      COUNTDOWN PAUSA PER NUOVA RICHIESTA AVVIO CICLONE
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_CD_RESET_RICHIESTA_AVVIO_CICLONE_AD_ASPIRAZIONE.value}} s.
+                    </td>
+                  </tr>
+
+
+                  <!-- STATI SEGNALI DA IMPIANTO DI ASPIRAZIONE: -->
+
+                  <!-- RICHIESTA AVVIO CICLONE -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      RICHIESTA AVVIO CICLONE <br>
+                      (uscita 5016.02)
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_STS_IMP_ASP_RICH_AVVIO_CICLONE.value ? 'SI' : 'NO'}}
+                    </td>
+                  </tr>
+
+                  <!-- RICHIESTA AVVIO COCLEA -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      RICHIESTA AVVIO COCLEA<br>
+                      (uscita 5016.03)
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_STS_IMP_ASP_RICH_AVVIO_COCLEA.value ? 'SI' : 'NO'}}
+                    </td>
+                  </tr>
+
+                  <!-- CICLONE COMPLETAMENTE AVVIATO -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      CICLONE COMPLETAMENTE AVVIATO <br>
+                      (ingresso 3015.06)
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_STS_IMP_ASP_PARTITO.value ? 'AVVIATO' : 'NON AVVIATO'}}
+                    </td>
+                  </tr>
+
+                  <!-- PRESENZA ALLARME -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      PRESENZA ALLARME <br>
+                      (ingresso 3015.05)
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_STS_IMP_ASP_ALLARME.value ? 'NESSUN ALLARME' : 'ALLARME'}}
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </ng-template>
+      </li>
+
+      <!-- SEZIONE FEEDBACK -->
+      <li ngbNavItem *ngIf="data.title != 'IMPOSTAZIONI IMPIANTO ASPIRAZIONE'">
+        <a ngbNavLink>Feedback</a>
+        <ng-template ngbNavContent>
+          <div style="padding:8px;">
+
+            <!-- div FEEDBACK VELOCITA' CARICO ROTTAME -->
+            <div class="table-responsive" *ngIf="data.title == 'IMPOSTAZIONI CARICO ROTTAME'">
+              <table class="table table-striped table-bordered card-table">
+                <tbody>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR1 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR1
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS121A.value}} %
+                    </td>
+                  </tr>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR2 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR2
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS122A.value}} %
+                    </td>
+                  </tr>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR3 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR3
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS123A.value}} %
+                    </td>
+                  </tr>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR4 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR4
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS124A.value}} %
+                    </td>
+                  </tr>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR5 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR5
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS125A.value}} %
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- div FEEDBACK VELOCITA' CARICO SABBIA -->
+            <div class="table-responsive" *ngIf="data.title == 'IMPOSTAZIONI CARICO SABBIA'">
+              <table class="table table-striped table-bordered card-table">
+                <tbody>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR6 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR6
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS151A.value}} %
+                    </td>
+                  </tr>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR7 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR7
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS152A.value}} %
+                    </td>
+                  </tr>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR8 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR8
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS153A.value}} %
+                    </td>
+                  </tr>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR9 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR9
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS154A.value}} %
+                    </td>
+                  </tr>
+
+                  <!-- FEEDBACK VELOCITA' PERCENTUALE TR10 -->
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      Feedback velocita percentuale TR10
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      {{TagList.FDB_VEL_P_VS155A.value}} %
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+        </ng-template>
+      </li>
+
+    </ul>
+    <div [ngbNavOutlet]="userTabs"></div>
+  </div>
+</div>
+

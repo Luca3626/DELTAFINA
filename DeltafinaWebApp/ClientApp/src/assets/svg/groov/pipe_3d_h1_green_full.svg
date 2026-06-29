@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="100px"
+   height="100px"
+   viewBox="0 0 100 100"
+   enable-background="0 0 100 100"
+   xml:space="preserve"
+   sodipodi:docname="pipe_3d_h1._green_full.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview13193"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:pageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="8.24"
+   inkscape:cx="49.757282"
+   inkscape:cy="50.06068"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="g13190" /><desc
+   id="desc13169">Copyright Opto 22</desc> <desc
+   id="desc13171">Created with Snap</desc><defs
+   id="defs13173" /><g
+   id="g13190">
+<g
+   id="frame">
+	<rect
+   fill="none"
+   width="100"
+   height="100"
+   id="rect13175"
+   x="0"
+   y="0" />
+</g>
+<g
+   id="shape">
+	<rect
+   y="42"
+   fill="#006837"
+   width="100"
+   height="16"
+   id="rect13178"
+   x="0" />
+</g>
+<g
+   id="dark">
+	<rect
+   y="43"
+   fill="#009245"
+   width="100"
+   height="14"
+   id="rect13181"
+   x="0" />
+</g>
+<g
+   id="light">
+	<rect
+   y="45"
+   fill="#96d48d"
+   width="100"
+   height="10"
+   id="rect13184"
+   x="0" />
+</g>
+<g
+   id="hlight">
+	<rect
+   y="46.5"
+   fill="#ffffff"
+   width="100"
+   height="7"
+   id="rect13187"
+   x="0"
+   style="fill:#96d48d;fill-opacity:1" />
+</g>
+</g></svg>

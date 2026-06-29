@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="fan.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="1.0985947"
+     inkscape:cx="685.42109"
+     inkscape:cy="394.59501"
+     inkscape:window-width="2560"
+     inkscape:window-height="1417"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid824" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       id="rectFans"
+       fill="#7d8d9c"
+       width="256"
+       height="128"
+       rx="2"
+       x="0"
+       y="166" />
+    <svg
+       id="fanSx_1"
+       width="128"
+       height="128"
+       viewBox="0 0 64 64"
+       y="166"
+       version="1.1">
+      <g
+         id="flat">
+        <rect
+           fill="#7d8d9c"
+           height="58"
+           rx="2"
+           width="58"
+           x="3"
+           y="3"
+           id="rect7" />
+        <circle
+           cx="32"
+           cy="32"
+           fill="#394d5c"
+           r="22"
+           id="circle9" />
+        <g
+           id="pale"
+           fill="#f4f4e6">
+          <path
+             d="M 43.041,12 A 20.866,20.866 0 0 0 32,8.839 C 42,18.839 32,28 32,28 a 3.986,3.986 0 0 1 3.388,1.9 C 37.376,29.307 46.323,23.807 43.041,12 Z"
+             id="path11" />
+          <path
+             d="M 53.4,26.025 53.271,26 C 46.271,34 36,32 36,32 a 3.966,3.966 0 0 1 -0.74,2.3 c 1.416,1.61 9.792,8.993 17.74,4.832 A 20.748,20.748 0 0 0 53.4,26.02 Z"
+             id="path13" />
+          <path
+             d="M 33.063,35.839 A 3.834,3.834 0 0 1 29.839,35.358 C 29.053,37.192 25.9,47.9 32.954,55 a 20.885,20.885 0 0 0 12.7,-5.014 C 35.146,48.219 33.366,38.414 33.063,35.839 Z"
+             id="path15" />
+          <path
+             d="m 28,32 a 3.972,3.972 0 0 1 0.624,-2.128 C 26.5,29.2 15.8,28.787 12.1,41 a 21.013,21.013 0 0 0 6.908,9.8 C 19.25,38.248 28,33 28,33 l 0.077,-0.232 A 4.049,4.049 0 0 1 28,32 Z"
+             id="path17" />
+          <path
+             d="M 30.872,28.181 C 30.405,25.748 26.34,18.475 18,14.781 a 21.062,21.062 0 0 0 -7.271,8.878 c 9.075,-1.4 16.79,4.592 18.016,6.033 a 3.994,3.994 0 0 1 2.127,-1.511 z"
+             id="path19" />
+        </g>
+        <circle
+           cx="9"
+           cy="9"
+           fill="#fcf05a"
+           r="2"
+           id="circle22" />
+        <circle
+           cx="55"
+           cy="9"
+           fill="#fcf05a"
+           r="2"
+           id="circle24" />
+        <circle
+           cx="9"
+           cy="55"
+           fill="#fcf05a"
+           r="2"
+           id="circle26" />
+        <circle
+           cx="55"
+           cy="55"
+           fill="#fcf05a"
+           r="2"
+           id="circle28" />
+        <circle
+           cx="32"
+           cy="32"
+           fill="#7d8d9c"
+           r="5"
+           id="circle30" />
+        <path
+           d="M 32,7 A 25,25 0 1 0 57,32 25,25 0 0 0 32,7 Z m 0,46 A 21,21 0 1 1 53,32 21,21 0 0 1 32,53 Z"
+           fill="#aabece"
+           id="path32" />
+      </g>
+    </svg>
+    <svg
+       id="fanDx_1"
+       width="128"
+       height="128"
+       viewBox="0 0 64 64"
+       x="120"
+       y="166"
+       version="1.1">
+      <g
+         id="g64">
+        <rect
+           fill="#7d8d9c"
+           height="58"
+           rx="2"
+           width="58"
+           x="3"
+           y="3"
+           id="rect36" />
+        <circle
+           cx="32"
+           cy="32"
+           fill="#394d5c"
+           r="22"
+           id="circle38" />
+        <g
+           fill="#f4f4e6"
+           id="g50">
+          <path
+             d="M 43.041,12 A 20.866,20.866 0 0 0 32,8.839 C 42,18.839 32,28 32,28 a 3.986,3.986 0 0 1 3.388,1.9 C 37.376,29.307 46.323,23.807 43.041,12 Z"
+             id="path40" />
+          <path
+             d="M 53.4,26.025 53.271,26 C 46.271,34 36,32 36,32 a 3.966,3.966 0 0 1 -0.74,2.3 c 1.416,1.61 9.792,8.993 17.74,4.832 A 20.748,20.748 0 0 0 53.4,26.02 Z"
+             id="path42" />
+          <path
+             d="M 33.063,35.839 A 3.834,3.834 0 0 1 29.839,35.358 C 29.053,37.192 25.9,47.9 32.954,55 a 20.885,20.885 0 0 0 12.7,-5.014 C 35.146,48.219 33.366,38.414 33.063,35.839 Z"
+             id="path44" />
+          <path
+             d="m 28,32 a 3.972,3.972 0 0 1 0.624,-2.128 C 26.5,29.2 15.8,28.787 12.1,41 a 21.013,21.013 0 0 0 6.908,9.8 C 19.25,38.248 28,33 28,33 l 0.077,-0.232 A 4.049,4.049 0 0 1 28,32 Z"
+             id="path46" />
+          <path
+             d="M 30.872,28.181 C 30.405,25.748 26.34,18.475 18,14.781 a 21.062,21.062 0 0 0 -7.271,8.878 c 9.075,-1.4 16.79,4.592 18.016,6.033 a 3.994,3.994 0 0 1 2.127,-1.511 z"
+             id="path48" />
+        </g>
+        <circle
+           cx="9"
+           cy="9"
+           fill="#fcf05a"
+           r="2"
+           id="circle52" />
+        <circle
+           cx="55"
+           cy="9"
+           fill="#fcf05a"
+           r="2"
+           id="circle54" />
+        <circle
+           cx="9"
+           cy="55"
+           fill="#fcf05a"
+           r="2"
+           id="circle56" />
+        <circle
+           cx="55"
+           cy="55"
+           fill="#fcf05a"
+           r="2"
+           id="circle58" />
+        <circle
+           cx="32"
+           cy="32"
+           fill="#7d8d9c"
+           r="5"
+           id="circle60" />
+        <path
+           d="M 32,7 A 25,25 0 1 0 57,32 25,25 0 0 0 32,7 Z m 0,46 A 21,21 0 1 1 53,32 21,21 0 0 1 32,53 Z"
+           fill="#aabece"
+           id="path62" />
+      </g>
+    </svg>
+  </g>
+</svg>

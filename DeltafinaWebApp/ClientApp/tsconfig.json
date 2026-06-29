@@ -1,0 +1,116 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "allowJs": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "preserveWhitespaces": true
+  }
+}
+
+
+
+
+
+
+
+
+
+//{
+//  "compileOnSave": false,
+//  "compilerOptions": {
+//    "baseUrl": "./",
+//    "outDir": "./dist/out-tsc",
+//    "sourceMap": true,
+//    "declaration": false,
+//    "moduleResolution": "node",
+//    "experimentalDecorators": true,
+//    "target": "es5",
+//    "downlevelIteration": true,
+//    "module": "esnext",
+//    "importHelpers": true,
+//    "allowJs": true,
+//    "forceConsistentCasingInFileNames": true,
+//    "noImplicitReturns": true,
+//    "noFallthroughCasesInSwitch": true,
+//    "typeRoots": [
+//      "node_modules/@types"
+//    ],
+//    "lib": [
+//      "es2017",
+//      "dom"
+//    ]
+//  },
+//  "angularCompilerOptions": {
+//    "strictInjectionParameters": true,
+//    "preserveWhitespaces": true,
+//    "allowSyntheticDefaultImports": true,
+//    "enableI18nLegacyMessageIdFormat": false,
+//    "strictInputAccessModifiers": true,
+//    "strictTemplates": true,
+//    "enableIvy": true
+//  }
+//}
+
+
+
+
+
+
+
+
+
+//{
+//  "compileOnSave": false,
+//  "compilerOptions": {
+//    "baseUrl": "./",
+//    "outDir": "./dist/out-tsc",
+//    "sourceMap": true,
+//    "declaration": false,
+//    "moduleResolution": "node",
+//    "experimentalDecorators": true,
+//    "target": "es5",
+//    "downlevelIteration": true,
+//    "module": "esnext",
+//    "importHelpers": true,
+//    "allowJs": true,
+//    "strict": true,//rimuovere sempre senno non fa compilare causa molti errori di null non gestiti
+//    "forceConsistentCasingInFileNames": true,
+//    "noImplicitReturns": true,
+//    "noFallthroughCasesInSwitch": true,
+//    "typeRoots": [
+//      "node_modules/@types"
+//    ],
+//    "lib": [
+//      "es2017",
+//      "dom"
+//    ]
+//  },
+//  "angularCompilerOptions": {
+//    "strictInjectionParameters": true,
+//    "preserveWhitespaces": true,
+//    "allowSyntheticDefaultImports": true,
+//    "enableI18nLegacyMessageIdFormat": false,
+//    "strictInputAccessModifiers": true,
+//    "strictTemplates": true,
+//    "enableIvy": true
+//  }
+//}

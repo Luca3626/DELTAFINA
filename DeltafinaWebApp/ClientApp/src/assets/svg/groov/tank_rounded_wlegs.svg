@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 192 512"
+   xml:space="preserve"
+   sodipodi:docname="tank_rounded_wlegs.svg"
+   width="192"
+   height="512"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs43" /><sodipodi:namedview
+   id="namedview41"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="1.09"
+   inkscape:cx="265.13761"
+   inkscape:cy="150"
+   inkscape:window-width="1920"
+   inkscape:window-height="1057"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" /><desc
+   id="desc2">Copyright Opto 22</desc> 
+<g
+   id="g38"
+   transform="matrix(5.12,0,0,5.12,-162.40728,0)">
+	<g
+   id="linear">
+			<linearGradient
+   class="linear"
+   id="SVGID_1_"
+   gradientUnits="userSpaceOnUse"
+   x1="32"
+   y1="-287.15302"
+   x2="70"
+   y2="-287.15302">
+			<stop
+   offset="0"
+   style="stop-color:#7F7F7F"
+   id="stop4" />
+			<stop
+   offset="1"
+   style="stop-color:#3F3F3F"
+   id="stop6" />
+		</linearGradient>
+		<path
+   class="linear"
+   fill="url(#SVGID_1_)"
+   d="M 32.077,18.389 C 32.077,8.233 40.332,0 50.514,0 60.696,0 68.95,8.233 68.95,18.389 v 47.528 c 0,10.156 -8.254,18.389 -18.437,18.389 -10.183,0 -18.437,-8.233 -18.437,-18.389 V 18.389 Z"
+   id="path9"
+   style="fill:url(#SVGID_1_)" />
+	</g>
+	<g
+   id="shadow">
+		<path
+   fill="#4f4f4f"
+   d="m 59.004,23.037 -0.068,-0.495 c 5.932,-0.824 9.765,-2.454 9.765,-4.152 h 0.5 c -10e-4,2.023 -3.812,3.76 -10.197,4.647 z"
+   id="path12" />
+		<path
+   fill="#4f4f4f"
+   d="M 57.992,70.694 57.933,70.198 C 64.372,69.432 68.7,67.712 68.7,65.916 h 0.5 c 0,2.541 -5.79,4.134 -11.208,4.778 z"
+   id="path14" />
+		<path
+   fill="#4f4f4f"
+   d="m 67.32,60.879 c -0.949,0.564 -2.284,1.071 -3.908,1.499 V 100 h 3.908 z"
+   id="path16" />
+	</g>
+	<g
+   id="light">
+		<path
+   fill="#b5b5b5"
+   d="m 43.309,23.208 c -5.555,-0.631 -11.49,-2.229 -11.49,-4.82 h 0.519 c 0,1.825 4.433,3.555 11.03,4.304 z"
+   id="path19" />
+		<path
+   fill="#b5b5b5"
+   d="m 43.309,70.735 c -5.555,-0.631 -11.49,-2.229 -11.49,-4.819 h 0.519 c 0,1.824 4.433,3.554 11.03,4.304 z"
+   id="path21" />
+		<path
+   fill="#7f7f7f"
+   d="M 33.708,60.879 V 100 h 3.845 V 62.361 c -1.596,-0.424 -2.908,-0.925 -3.845,-1.482 z"
+   id="path23" />
+	</g>
+	<g
+   id="dark">
+		<path
+   fill="#757575"
+   d="m 38.814,62.67 c -0.44,-0.097 -0.857,-0.201 -1.261,-0.308 V 100 h 1.261 z"
+   id="path26" />
+		<path
+   fill="#757575"
+   d="M 62.214,62.67 V 100 h 1.198 V 62.378 c -0.385,0.101 -0.781,0.2 -1.198,0.292 z"
+   id="path28" />
+	</g>
+	<g
+   id="hlight">
+		<path
+   fill="#b5b5b5"
+   d="m 33.958,100 h -0.5 V 60.439 l 0.377,0.225 c 0.908,0.539 2.181,1.029 3.782,1.457 l -0.129,0.482 C 36.05,62.22 34.865,61.784 33.957,61.304 V 100 Z"
+   id="path31" />
+		<path
+   fill="#b5b5b5"
+   d="m 38.329,5.152 c -1.477,1.473 -1.836,3.503 -0.802,4.534 1.034,1.031 3.069,0.673 4.546,-0.8 1.477,-1.473 1.836,-3.503 0.802,-4.534 -1.034,-1.031 -3.07,-0.673 -4.546,0.8 z"
+   id="path33" />
+		<path
+   fill="#b5b5b5"
+   d="M 50.187,0 C 41.845,0 35,8.233 35,18.389 V 61.68 c 1,0.244 1.438,0.473 2.226,0.682 L 38,62.53 V 18.389 C 38,8.233 43.41,0 50.187,0 Z"
+   id="path35" />
+	</g>
+</g>
+</svg>

@@ -1,0 +1,27 @@
+# ---- .NET / Visual Studio ----
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+*.cache
+
+# ---- Node / Angular (ClientApp) ----
+node_modules/
+**/dist/
+**/out-tsc/
+npm-debug.log*
+
+# ---- Logs / temp ----
+*.log
+Thumbs.db
+.DS_Store
+
+# ---- Build snapshots / archivi generati ----
+*-dist.zip
+
+# ---- Config locale con eventuali segreti (NON committare) ----
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+secrets.json

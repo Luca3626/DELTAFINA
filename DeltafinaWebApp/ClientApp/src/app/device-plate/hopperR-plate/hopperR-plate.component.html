@@ -1,0 +1,117 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{this.data.hopperR.name.toUpperCase()}} | {{this.data.hopperR.description.toUpperCase()}}</h1>
+<div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
+  <div class="nav-tabs-top" style="padding:2px;">
+    <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+      <li ngbNavItem>
+        <a ngbNavLink>Generale</a>
+        <ng-template ngbNavContent>
+          <div style="padding:8px;">
+
+            <div *ngIf="this.data.hopperR.FDB_LL" style="font-size:14px;margin-top:16px;"><h5>Sensori di livello</h5></div>
+            <div *ngIf="this.data.hopperR.FDB_LL" class="row">
+              <div class="col-sm-2">
+                <span *ngIf="this.data.hopperR.FDB_LL.value" class="badge badge-success">SI</span>
+                <span *ngIf="!this.data.hopperR.FDB_LL.value" class="badge badge-secondary">NO</span>
+              </div>
+              <div class="col-sm-10">
+                Livello LL
+              </div>
+            </div>
+
+            <div *ngIf="this.data.hopperR.CMD_ABILITA_VIBRATORE" style="font-size:14px;margin-top:16px;"><h5>Abilitazioni</h5></div>
+            <div *ngIf="this.data.hopperR.CMD_ABILITA_VIBRATORE" class="row" style="font-size:14px;margin-top:4px;">
+              <div class="col-3">
+                <label class="switcher">
+                  <input type="checkbox" [(ngModel)]="CmdAbilitaVibratore" class="switcher-input" />
+                  <span class="switcher-indicator">
+                    <span class="switcher-yes"></span>
+                    <span class="switcher-no"></span>
+                  </span>
+                  <span class="switcher-label"></span>
+                </label>
+              </div>
+              <div class="col-7" style="vertical-align:middle">Abilita vibratore</div>
+            </div>
+
+            <div *ngIf="this.data.hopperR.CMD_ESCLUDE" style="font-size:14px;margin-top:16px;"><h5>Esclusioni</h5></div>
+            <div *ngIf="this.data.hopperR.CMD_ESCLUDE" class="row" style="font-size:14px;margin-top:4px;">
+              <div class="col-3">
+                <label class="switcher">
+                  <input type="checkbox" [(ngModel)]="CmdDisabilitaScarico" class="switcher-input" />
+                  <span class="switcher-indicator">
+                    <span class="switcher-yes"></span>
+                    <span class="switcher-no"></span>
+                  </span>
+                  <span class="switcher-label"></span>
+                </label>
+              </div>
+              <div class="col-7" style="vertical-align:middle">Disabilita scarico</div>
+            </div>
+
+            <div *ngIf="this.data.hopperR.CMD_SIMULA_MINIMO" style="font-size:14px;margin-top:16px;"><h5>Forzature</h5></div>
+            <div *ngIf="this.data.hopperR.CMD_SIMULA_MINIMO" class="row" style="font-size:14px;margin-top:4px;">
+              <div class="col-3">
+                <label class="switcher">
+                  <input type="checkbox" [(ngModel)]="CmdForzaLL" class="switcher-input" />
+                  <span class="switcher-indicator">
+                    <span class="switcher-yes"></span>
+                    <span class="switcher-no"></span>
+                  </span>
+                  <span class="switcher-label"></span>
+                </label>
+              </div>
+              <div class="col-7" style="vertical-align:middle">Forza minimo</div>
+            </div>
+
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="userTabs"></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!--<li ngbNavItem>
+  <a ngbNavLink>Esclusioni</a>
+  <ng-template ngbNavContent>
+    <div style="padding:8px;">
+
+      <div *ngIf="this.data.hopperR.CMD_ESCLUDE" class="row" style="font-size:14px;margin-top:4px;">
+        <div class="col-3">
+          <label class="switcher">
+            <input type="checkbox" [(ngModel)]="CmdDisabilitaScarico" class="switcher-input" />
+            <span class="switcher-indicator">
+              <span class="switcher-yes"></span>
+              <span class="switcher-no"></span>
+            </span>
+            <span class="switcher-label"></span>
+          </label>
+        </div>
+        <div class="col-7" style="vertical-align:middle">Disabilita scarico</div>
+      </div>
+
+      <div *ngIf="this.data.hopperR.CMD_SIMULA_MINIMO" class="row" style="font-size:14px;margin-top:4px;">
+        <div class="col-3">
+          <label class="switcher">
+            <input type="checkbox" [(ngModel)]="CmdForzaLL" class="switcher-input" />
+            <span class="switcher-indicator">
+              <span class="switcher-yes"></span>
+              <span class="switcher-no"></span>
+            </span>
+            <span class="switcher-label"></span>
+          </label>
+        </div>
+        <div class="col-7" style="vertical-align:middle">Disabilita scarico</div>
+      </div>
+
+    </div>
+  </ng-template>
+</li>-->

@@ -1,0 +1,48 @@
+Scaffold-DbContext "Initial Catalog=DELTAFINA_DB;Data Source=__DB_SERVER__\SQL2012;uid=__DB_USER__;pwd=__DB_PASSWORD__" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data\Anagrafiche
+
+
+
+
+Scaffold-DbContext "Initial Catalog=DELTAFINA_DB;Data Source=__DB_SERVER__\SQL2012;uid=__DB_USER__;pwd=__DB_PASSWORD__" Microsoft.EntityFrameworkCore.SqlServer -OutputDir TestDb
+
+
+
+Prerequisiti:
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.EntityFrameworkCore.SqlServer.Design
+
+
+
+Option 1: Using Package Manager Console
+Go to Tools –> NuGet Package Manager –> Package Manager Console
+And then run the following command below to create a model from the existing database:
+Hide   Copy Code
+
+Scaffold-DbContext "Server=(local)\SQLEXPRESS;Database=PAC2000A_DB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data\Anagrafiche
+
+The Server attribute above is the SQL server instance name. You can find it in SQL Management Studio by right clicking on your database. For this example, the server name is “SSAI-L0028-HP\SQLEXPRESS”.
+
+The Database attribute is your database name. In this case, the database name is “EFCoreDBFirstDemo”.
+
+The –OutputDir attribute allows you to specify the location of the files generated. In this case, we’ve set it to Models/DB.
+
+
+
+
+
+Option 2: Using Command Window
+If for some unknown reason Option 1 will not work for you, try the following instead:
+
+Go to the root folder of your application. In this case the “DBFirstDevelopment”.
+Do a Shift + Right Click and select “Open command window here”
+Then run the following script:
+Hide   Copy Code
+dotnet ef dbcontext scaffold "Server=SSAI-L0028-HP\SQLEXPRESS;Database=EFCoreDBFirstDemo;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer --output-dir Models/DB
+
+
+
+
+USARE QUELLA CHE SEGUE!!!!!!
+dotnet ef dbcontext scaffold "Server=(local)\SQLEXPRESS;Database=DELTAFINA_DB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer --output-dir Data/Archives --force
+

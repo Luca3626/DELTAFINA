@@ -1,0 +1,3973 @@
+<h4 class="font-weight-bold py-3 mb-4">
+  <span class="text-muted font-weight-light">IMPOSTAZIONI /</span> {{myTitle}}
+</h4>
+
+<div class="nav-tabs-top" style="padding:2px;">
+  <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+
+    <!-- GENERALI -->
+    <li ngbNavItem>
+      <a ngbNavLink>Generali</a>
+      <ng-template ngbNavContent>
+
+        <!-- IMPOSTAZIONI DOSAGGIO E TRASPORTO -->
+        <div class="card-body pb-2">
+          <h4 class="mb-4">Impostazioni DOSAGGIO E TRASPORTO</h4>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- Clima umido -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Clima umido
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_CLIMA_UMIDO.value ? 'SI' : 'NO'}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <select class="form-control" [(ngModel)]="new_BOOL_PC_MISCELA_UMIDA">
+                      <option value="0">NO</option>
+                      <option value="1">SI</option>
+                    </select>
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_CLIMA_UMIDO')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- PC_SOLO_ROTTAME: da pc, fase di riempimento forno con solamente il rottame esterno -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Fase di riempimento forno: utilizzare solo il rottame
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_SOLO_ROTTAME.value ? 'SI' : 'NO'}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <select class="form-control" [(ngModel)]="new_PC_SOLO_ROTTAME">
+                      <option value="0">NO</option>
+                      <option value="1">SI</option>
+                    </select>
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_SOLO_ROTTAME')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- PC_ULTIMO_CICLO: da pc, selettore, se attivo si disabilita il dosaggio-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Fine dosaggi bilance
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ULTIMO_CICLO.value ? 'SI' : 'NO'}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <select class="form-control" [(ngModel)]="new_PC_ULTIMO_CICLO">
+                      <option value="0">NO</option>
+                      <option value="1">SI</option>
+                    </select>
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ULTIMO_CICLO')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- PC_TM1_SOGLIA_ANTICIPO: in kg, peso per il richiamo di una nuova mescolata -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Peso su TM1 per richiesta nuova miscelata
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_TM1_SOGLIA_ANTICIPO.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_REAL_PC_TM1_SOGLIA_ANTICIPO" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    Kg
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('REAL_PC_TM1_SOGLIA_ANTICIPO')">Conferma</button>
+                  </td>
+                </tr>
+
+
+                <!-- ORDINE DI CARICO B1-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B1
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B1" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B1')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO B2-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B2
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B2.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B2" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B2')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO B3-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B3
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B3.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B3" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B3')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO B3A-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B3A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B3A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B3A" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B3A')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO B4-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B4
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B4" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B4')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO B5-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B5
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B5" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B5')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO B5A-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B5A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B5A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B5A" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B5A')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO B6-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B6" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B6')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO B7-->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico B7
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_ODC_B7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_B7" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_ODC_B7')">Conferma</button>
+                  </td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- IMPOSTAZIONI CARICO SABBIA -->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <h4 class="mb-4">Impostazioni SABBIA</h4>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- N_MAX_TRAMOGGE_SABBIA: NUMERO MASSIMO DI TRAMOGGE DA ATTACCARE CONTEMPORANEAMENTE -->
+                <tr>
+                  <td style="vertical-align:middle;"> Numero massimo tramogge sabbia durante il carico </td>
+                  <td style="vertical-align:middle;"> {{TagList.PC_N_MAX_TRAMOGGE_SABBIA.value}} </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_INT_PC_N_MAX_TRAMOGGE_SABBIA" />
+                  </td>
+                  <td style="vertical-align:middle;"> &nbsp; </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_N_MAX_TRAMOGGE_SABBIA')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO SABBIA -->
+                <tr>
+                  <td style="vertical-align:middle;"> Ordine di carico SABBIA </td>
+                  <td style="vertical-align:middle;"> {{TagList.ODC_SABBIA.value}} </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="text" [(ngModel)]="new_DINT_PC_ODC_CARICO_SABBIA" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('ODC_SABBIA')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ALLARME ELEVATORE E150 FERMO TROPPO TEMPO -->
+                <tr>
+                  <td style="vertical-align:middle;">Allarme elevatore E150 fermo per troppo tempo</td>
+                  <td style="vertical-align:middle;">
+                    {{ TagList.PC_EN_ALM_E150_TROPPO_FERMO.value ? 'Abilitato' : 'Disabilitato' }}
+                  </td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <div class="custom-control custom-switch">
+                      <label class="switcher">
+                        <input id="oilReady" type="checkbox" [(ngModel)]="TagList.PC_EN_ALM_E150_TROPPO_FERMO.value" class="switcher-input" />
+                        <span class="switcher-indicator">
+                          <span class="switcher-yes"></span>
+                          <span class="switcher-no"></span>
+                        </span>
+                        <span class="switcher-label"></span>
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- IMPOSTAZIONI CARICO ROTTAME-->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <h4 class="mb-4">Impostazioni ROTTAMI</h4>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- NUMERO MASSIMO TRAMOGGE ROTTAME DURANTE IL CARICO -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Numero massimo tramogge rottame durante il carico
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_N_MAX_TRAMOGGE_ROTTAME.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_N_MAX_TRAMOGGE_ROTTAME" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    &nbsp;
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_N_MAX_TRAMOGGE_ROTTAME')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- ORDINE DI CARICO ROTTAME -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Ordine di carico ROTTAME
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.ODC_ROTTAME.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_DINT_PC_ODC_CARICO_ROTTAME_ESTERNO" />
+                  </td>
+                  <td style="vertical-align:middle;"></td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('ODC_ROTTAME')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+      </ng-template>
+    </li>
+
+    <!-- VELOCITA' -->
+    <li ngbNavItem>
+      <a ngbNavLink>Velocità</a>
+      <ng-template ngbNavContent>
+
+        <!-- VELOCITA' PERCENTUALI TRAMOGGE SABBIA -->
+        <div class="card-body pb-2">
+          <h4 class="mb-4">Velocità SABBIA</h4>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- VELOCITA' DI RIFERIMENTO MASSIMO PER INVERTER RICEZIONE SABBIA -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento massimo per inverter ricezione sabbia
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.MAX_RIF_INV_SABBIA.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_REAL_PC_RIF_MAX_INV_SABBIA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('MAX_RIF_INV_SABBIA')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 1 TRAMOGGIA -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 1 tramoggia
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_SABBIA_1_TRAMOGGIA.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_SABBIA_1TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_SABBIA_1_TRAMOGGIA')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 2 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 2 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_SABBIA_2_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_SABBIA_2TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_SABBIA_2_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 3 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 3 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_SABBIA_3_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_SABBIA_3TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_SABBIA_3_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 4 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 4 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_SABBIA_4_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_SABBIA_4TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_SABBIA_4_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 5 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 5 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_SABBIA_5_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_SABBIA_5TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_SABBIA_5_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 6 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 6 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_SABBIA_6_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_SABBIA_6TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_SABBIA_6_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' SCARICAMENTO INVERTER TRAMOGGIA TR11 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità scaricamento inverter tramoggia TR11
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_ROTTAME_TR11.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_ROTTAME_TR11" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_ROTTAME_TR11')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- VELOCITA' PERCENTUALE TRAMOGGE ROTTAME -->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <h4 class="mb-4">Velocità ROTTAMI</h4>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- VELOCITA' DI RIFERIMENTO MASSIMO PER INVERTER RICEZIONE ROTTAME -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento massimo per inverter ricezione rottame
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.MAX_RIF_INV_ROTTAME.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_REAL_PC_RIF_MAX_INV_ROTTAME" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('MAX_RIF_INV_ROTTAME')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 1 TRAMOGGIA -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 1 tramoggia
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_ROTTAME_1_TRAMOGGIA.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_ROTTAME_1TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_ROTTAME_1_TRAMOGGIA')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 2 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 2 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_ROTTAME_2_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_ROTTAME_2TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_ROTTAME_2_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 3 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 3 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_ROTTAME_3_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_ROTTAME_3TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_ROTTAME_3_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 4 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 4 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_ROTTAME_4_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_ROTTAME_4TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_ROTTAME_4_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 5 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 5 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_ROTTAME_5_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_ROTTAME_5TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_ROTTAME_5_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- VELOCITA' DI RIFERIMENTO 6 TRAMOGGE -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Velocità di riferimento per 6 tramogge
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_VEL_PERC_ROTTAME_6_TRAMOGGE.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_VEL_PERC_ROTTAME_6TRA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    %
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_VEL_PERC_ROTTAME_6_TRAMOGGE')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </ng-template>
+    </li>
+
+    <!-- TEMPI -->
+    <li ngbNavItem>
+      <a ngbNavLink>Tempi</a>
+      <ng-template ngbNavContent>
+
+        <!-- TEMPI PULIZIA -->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Tempi di PULIZIA</h4>
+            <button class="btn btn-link" (click)="showTempiPulizia = !showTempiPulizia">
+              <span *ngIf="showTempiPulizia">&#9660;</span> <!-- freccia giù -->
+              <span *ngIf="!showTempiPulizia">&#9654;</span> <!-- freccia destra -->
+            </button>
+          </div>
+          <div *ngIf="showTempiPulizia" class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- TEMPI PULIZIA N15 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N15 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N15.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N15" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N15')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N16 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N16 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N16.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N16" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N16')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N14 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N14 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N14.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N14" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N14')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N13 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N13 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N13.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N13" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N13')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA AE7 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza AE7 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_AE7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_AE7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_AE7')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA E25 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza E25 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_E25.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_E25" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_E25')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA E26 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza E26 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_E26.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_E26" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_E26')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N11 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N11 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N11.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N11" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N11')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N4B (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N4B (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N4B.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N4B" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N4B')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N4A (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N4A (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N4A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N4A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N4A')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA AE4 (DOSAGGIO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza AE4 (DOSAGGIO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_AE4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_AE4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_AE4')">Conferma</button>
+                  </td>
+                </tr>
+
+
+
+                <!-- TEMPI PULIZIA AE6 (CARICO SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza AE6 (CARICO SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_AE6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_AE6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_AE6')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N7 (CARICO SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N7 (CARICO SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N7')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA E150 (CARICO SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza E150 (CARICO SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_E150.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_E150" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_E150')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N8 (CARICO SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N8 (CARICO SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N8.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N8" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N8')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N9 (CARICO SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N9 (CARICO SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N9.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N9" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N9')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N10 (CARICO SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N10 (CARICO SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N10.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N10" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N10')">Conferma</button>
+                  </td>
+                </tr>
+
+
+
+                <!-- TEMPI PULIZIA AE3 (CARICO ROTTAME) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza AE3 (CARICO ROTTAME)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_AE3.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_AE3" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_AE3')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA E132 (CARICO ROTTAME) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza E132 (CARICO ROTTAME)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_E132.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_E132" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_E132')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA AE131 (CARICO ROTTAME) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza AE131 (CARICO ROTTAME)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_AE131.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_AE131" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_AE131')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA N127 (CARICO ROTTAME) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza N127 (CARICO ROTTAME)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_N127.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_N127" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_N127')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA AE1 (CARICO ROTTAME / ROTTAME INTERNO) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza AE1 (CARICO ROTTAME / ROTTAME INTERNO)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_AE1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_AE1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_AE1')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPI PULIZIA FR129 (CARICO ROTTAME) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pulizia utenza FR129 (CARICO ROTTAME)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PULIZIA_FR129.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PULIZIA_FR129" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PULIZIA_FR129')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TEMPI PAUSA E LAVORO SILOS -->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Tempi PAUSA E LAVORO Silos</h4>
+            <button class="btn btn-link" (click)="showTempiPausaLavoro = !showTempiPausaLavoro">
+              <span *ngIf="showTempiPausaLavoro">&#9660;</span> <!-- freccia giù -->
+              <span *ngIf="!showTempiPausaLavoro">&#9654;</span> <!-- freccia destra -->
+            </button>
+          </div>
+          <div *ngIf="showTempiPausaLavoro" class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- Tempo pausa fondo vibrante Silo S3 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S3
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S3.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S3" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S3')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S3 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S3
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S3.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S3" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S3')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S4 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S4
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S4')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S4 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S4
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S4')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S5 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S5
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S5" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S5')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S5 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S5
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S5" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S5')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S6 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S6')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S6 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S6')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S7 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S7
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S7')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S7 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S7
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S7')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S8 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S8
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S8.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S8" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S8')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S8 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S8
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S8.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S8" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S8')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S9 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S9
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S9.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S9" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S9')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S9 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S9
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S9.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S9" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S9')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S10 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S10
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S10.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S10" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S10')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S10 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S10
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S10.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S10" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S10')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S11 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S11
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S11.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S11" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S11')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S11 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S11
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S11.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S11" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S11')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo S12 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo S12
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_S12.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_S12" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_S12')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo S12 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo S12
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_S12.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_S12" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_S12')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo TP6 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo TP6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_TP6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_TP6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_TP6')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo TP6 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo TP6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_TP6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_TP6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_TP6')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa fondo vibrante Silo TP6A -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa fondo vibrante Silo TP6A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_TP6A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_TP6A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_TP6A')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro fondo vibrante Silo TP6A -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro fondo vibrante Silo TP6A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_TP6A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_TP6A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_TP6A')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TEMPI PAUSA E LAVORO UTENZE -->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Tempi PAUSA E LAVORO Utenze</h4>
+            <button class="btn btn-link" (click)="showTempiPausaLavoroUtenze = !showTempiPausaLavoroUtenze">
+              <span *ngIf="showTempiPausaLavoroUtenze">&#9660;</span> <!-- freccia giù -->
+              <span *ngIf="!showTempiPausaLavoroUtenze">&#9654;</span> <!-- freccia destra -->
+            </button>
+          </div>
+          <div *ngIf="showTempiPausaLavoroUtenze" class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- Tempo pausa utenza CRN8 (SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN8 (SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN8.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN8" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN8')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN8 (SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN8 (SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN8.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN8" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN8')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN7 (SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN7 (SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN7')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN7 (SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN7 (SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN7')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN9 (SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN9 (SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN9.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN9" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN9')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN9 (SABBIA) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN9 (SABBIA)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN9.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN9" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN9')">Conferma</button>
+                  </td>
+                </tr>
+
+
+
+                <!-- Tempo pausa utenza CRET1 (ROTTAMI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRET1 (ROTTAMI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRET1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRET1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRET1')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRET1 (ROTTAMI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRET1 (ROTTAMI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRET1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRET1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRET1')">Conferma</button>
+                  </td>
+                </tr>
+
+
+
+                <!-- Tempo pausa utenza CRN4 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN4 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN4')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN4 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN4 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN4')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN4A (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN4A (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN4A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN4A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN4A')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN4A (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN4A (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN4A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN4A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN4A')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN5 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN5 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN5" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN5')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN5 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN5 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN5" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN5')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN11 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN11 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN11.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN11" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN11')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN11 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN11 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN11.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN11" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN11')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN13 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN13 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN13.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN13" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN13')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN13 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN13 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN13.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN13" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN13')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN14 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN14 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN14.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN14" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN14')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo lavoro utenza CRN14 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN14 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN14.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN14" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN14')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN15 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN15 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN15.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN15" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN15')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo lavoro utenza CRN15 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN15 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN15.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN15" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN15')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza CRN16 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza CRN16 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_CRN16.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_CRN16" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_CRN16')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza CRN16 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza CRN16 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_CRN16.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_CRN16" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_CRN16')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza VBN4B (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza VBN4B (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_VBN4B.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_VBN4B" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_VBN4B')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza VBN4B (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza VBN4B (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_VBN4B.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_VBN4B" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_VBN4B')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- Tempo pausa utenza VBE26 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo pausa utenza VBE26 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_PAUSA_VBE26.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_PAUSA_VBE26" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_PAUSA_VBE26')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- Tempo lavoro utenza VBE26 (DOSAGGIO E TRASPORTI) -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo lavoro utenza VBE26 (DOSAGGIO E TRASPORTI)
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_LAVORO_VBE26.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_LAVORO_VBE26" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_LAVORO_VBE26')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TEMPI SGOCCIOLAMENTO -->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <!-- Header con toggle -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Tempi SGOCCIOLAMENTO Bilance</h4>
+            <button class="btn btn-link" (click)="showTempiUtenze = !showTempiUtenze">
+              <span *ngIf="showTempiUtenze">&#9660;</span> <!-- freccia giù -->
+              <span *ngIf="!showTempiUtenze">&#9654;</span> <!-- freccia destra -->
+            </button>
+          </div>
+          <!-- Tabella visibile solo se showTempiUtenze è true -->
+          <div *ngIf="showTempiUtenze" class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- TEMPO SGOCCIOLAMENTO B1 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo SGOCCIOLAMENTO B1
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_SGOCCIOLAMENTO_B1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_SGOCCIOLAMENTO_B1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_SGOCCIOLAMENTO_B1')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO SGOCCIOLAMENTO B2 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo SGOCCIOLAMENTO B2
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_SGOCCIOLAMENTO_B2.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_SGOCCIOLAMENTO_B2" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_SGOCCIOLAMENTO_B2')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO SGOCCIOLAMENTO B3 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo SGOCCIOLAMENTO B3
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_SGOCCIOLAMENTO_B3.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_SGOCCIOLAMENTO_B3" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_SGOCCIOLAMENTO_B3')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO SGOCCIOLAMENTO B4 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo SGOCCIOLAMENTO B4
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_SGOCCIOLAMENTO_B4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_SGOCCIOLAMENTO_B4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_SGOCCIOLAMENTO_B4')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO SGOCCIOLAMENTO B5 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo SGOCCIOLAMENTO B5
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_SGOCCIOLAMENTO_B5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_SGOCCIOLAMENTO_B5" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_SGOCCIOLAMENTO_B5')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO SGOCCIOLAMENTO B6 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo SGOCCIOLAMENTO B6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_SGOCCIOLAMENTO_B6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_SGOCCIOLAMENTO_B6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_SGOCCIOLAMENTO_B6')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO SGOCCIOLAMENTO B7 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo SGOCCIOLAMENTO B7
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_SGOCCIOLAMENTO_B7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_SGOCCIOLAMENTO_B7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_SGOCCIOLAMENTO_B7')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO SGOCCIOLAMENTO TM1 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo SGOCCIOLAMENTO TM1
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.FDB_T_SGOCCIOLAMENTO_TM1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_FDB_T_SGOCCIOLAMENTO_TM1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('FDB_T_SGOCCIOLAMENTO_TM1')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <!-- TEMPI MASSIMO CARICO - SCARICO BILANCE -->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <!-- Header con toggle -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Tempi MASSIMO CARICO SCARICO Bilance</h4>
+            <button class="btn btn-link" (click)="showTempiMaxCaricoScarico = !showTempiMaxCaricoScarico">
+              <span *ngIf="showTempiMaxCaricoScarico">&#9660;</span> <!-- freccia giù -->
+              <span *ngIf="!showTempiMaxCaricoScarico">&#9654;</span> <!-- freccia destra -->
+            </button>
+          </div>
+          <!-- Tabella visibile solo se showTempiUtenze è true -->
+          <div *ngIf="showTempiMaxCaricoScarico" class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- TEMPO MASSIMO CARICO B1 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B1
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B1')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B1 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B1
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B1')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO MASSIMO CARICO B2 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B2
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B2.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B2" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B2')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B2 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B2
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B2.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B2" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B2')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO MASSIMO CARICO B3 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B3
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B3.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B3" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B3')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B3 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B3
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B3.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B3" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B3')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO MASSIMO CARICO B3A -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B3A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B3A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B3A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B3A')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B3A -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B3A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B3A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B3A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B3A')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO MASSIMO CARICO B4 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B4
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B4')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B4 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B4
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B4')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO MASSIMO CARICO B5 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B5
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B5" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B5')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B5 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B5
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B5" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B5')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO MASSIMO CARICO B5A -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B5A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B5A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B5A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B5A')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B5A -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B5A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B5A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B5A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B5A')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO MASSIMO CARICO B6 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B6')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B6 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B6')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO MASSIMO CARICO B7 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO CARICO di tutti i componenti B7
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_CARICO_B7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_CARICO_B7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_CARICO_B7')">Conferma</button>
+                  </td>
+                </tr>
+                <!-- TEMPO MASSIMO SCARICO B7 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo MASSIMO SCARICO di tutti i componenti B7
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_MAX_SCARICO_B7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_MAX_SCARICO_B7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_MAX_SCARICO_B7')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TEMPI ATTESA SCARICO -->
+        <hr class="border-light m-0">
+        <div class="card-body pb-2">
+          <!-- Header con toggle -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Tempi ATTESA SCARICO</h4>
+            <button class="btn btn-link" (click)="showTempiAttesaScarico = !showTempiAttesaScarico">
+              <span *ngIf="showTempiAttesaScarico">&#9660;</span> <!-- freccia giù -->
+              <span *ngIf="!showTempiAttesaScarico">&#9654;</span> <!-- freccia destra -->
+            </button>
+          </div>
+          <!-- Tabella visibile solo se showTempiUtenze è true -->
+          <div *ngIf="showTempiAttesaScarico" class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th>DESCRIZIONE</th>
+                  <th>ATTUALE</th>
+                  <th>NUOVO</th>
+                  <th>UNITA'</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- TEMPO ATTESA SCARICO B1 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B1
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B1')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO B2 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B2
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B2.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B2" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B2')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO B3 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B3
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B3.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B3" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B3')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO B3A -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B3A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B3A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B3A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B3A')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO B4 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B4
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B4.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B4" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B4')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO B5 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B5
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B5.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B5" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B5')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO B5A -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B5A
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B5A.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B5A" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B5A')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO B6 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B6
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B6.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B6" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B6')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO B7 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico B7
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_B7.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_B7" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_B7')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO TM1 -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico TM1
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_TM1.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_TM1" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_TM1')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA SCARICO H2O -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo attesa scarico H2O
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_ATTESA_SCARICO_H2O.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_SCARICO_H2O" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_ATTESA_SCARICO_H2O')">Conferma</button>
+                  </td>
+                </tr>
+
+                <!-- TEMPO ATTESA APERTURA BOTOLA -->
+                <tr>
+                  <td style="vertical-align:middle;">
+                    Tempo apertura botola
+                  </td>
+                  <td style="vertical-align:middle;">
+                    {{TagList.PC_T_TEMPO_AperturaBotolaMix.value}}
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <input class="form-control" type="number" [(ngModel)]="new_INT_PC_T_ATTESA_APERTURA_BOTOLA" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    secondi
+                  </td>
+                  <td class="text-right" style="vertical-align:middle;">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_T_TEMPO_AperturaBotolaMix')">Conferma</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </ng-template>
+    </li>
+
+    <!-- ERRORI ESTRAZIONE -->
+    <li ngbNavItem>
+      <a ngbNavLink>Estrazione</a>
+      <ng-template ngbNavContent>
+        <!-- IMPOSTAZIONI DOSAGGIO E TRASPORTO -->
+        <div class="card-body pb-2">
+          <h4 class="mb-4">SOGLIE ED ESTRAZIONI</h4>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th style="text-align:center">BILANCIA</th>
+                  <th style="text-align:center">SILO</th>
+                  <th style="text-align:center">SOGLIA ATTUALE</th>
+                  <th style="text-align:center">NUOVA SOGLIA</th>
+                  <th style="text-align:center">ERRORI DI ESTRAZIONE</th>
+                  <th style="text-align:center">ALLARME ESTRAZIONE</th>
+                  <th style="text-align:center">RESET</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- SILOS S1 IN BILANCIA B1-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B1
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S1
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B1_S1.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B1_S1"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B1_S1')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B1_S1.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B1_S1?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B1_S1?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400; height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B1_S1.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B1_S1')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S2 IN BILANCIA B1-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B1
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S2
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B1_S2.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B1_S2"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B1_S2')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B1_S2.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B1_S2?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B1_S2?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B1_S2.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B1_S2')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S3 IN BILANCIA B2-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B2
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S3
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B2_S3.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B2_S3"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B2_S3')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B2_S3.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B2_S3?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B2_S3?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B2_S3.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B2_S3')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S4 IN BILANCIA B2-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B2
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S4
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B2_S4.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B2_S4"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B2_S4')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B2_S4.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B2_S4?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B2_S4?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B2_S4.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B2_S4')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S5 IN BILANCIA B3-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B3
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S5
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B3_S5.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B3_S5"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B3_S5')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B3_S5.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B3_S5?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B3_S5?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B3_S5.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B3_S5')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S6 IN BILANCIA B3A-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B3A
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S6
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B3A_S6.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B3A_S6"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B3A_S6')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B3A_S6.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B3A_S6?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B3A_S6?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B3A_S6.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B3A_S6')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S7 IN BILANCIA B4-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B4
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S7
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B4_S7.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B4_S7"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B4_S7')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B4_S7.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S7?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S7?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S7.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B4_S7')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S8 IN BILANCIA B4-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B4
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S8
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B4_S8.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B4_S8"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B4_S8')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B4_S8.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S8?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S8?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S8.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B4_S8')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S9 IN BILANCIA B4-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B4
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S9
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B4_S9.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B4_S9"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B4_S9')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B4_S9.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S9?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S9?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S9.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B4_S9')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S10 IN BILANCIA B4-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B4
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S10
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B4_S10.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B4_S10"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B4_S10')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B4_S10.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S10?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S10?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B4_S10.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B4_S10')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S11 IN BILANCIA B5A-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B5A
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S11
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B5A_S11.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B5A_S11"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B5A_S11')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B5A_S11.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B5A_S11?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B5A_S11?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B5A_S11.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B5A_S11')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S12 IN BILANCIA B5-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B5
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S12
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B5_S12.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B5_S12"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B5_S12')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B5_S12.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B5_S12?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B5_S12?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B5_S12.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B5_S12')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS TP6 IN BILANCIA B6-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B6
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    TP6
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B6_TP6.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B6_TP6"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B6_TP6')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B6_TP6.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B6_TP6?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B6_TP6?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B6_TP6.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B6_TP6')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS TP6A IN BILANCIA B6-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B6
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    TP6A
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B6_TP6A.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B6_TP6A"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B6_TP6A')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B6_TP6A.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B6_TP6A?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B6_TP6A?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B6_TP6A.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B6_TP6A')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S13 IN BILANCIA B7-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B7
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S13
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B7_S13.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B7_S13"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B7_S13')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B7_S13.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S13?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S13?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S13.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B7_S13')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S14 IN BILANCIA B7-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B7
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S14
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B7_S14.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B7_S14"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B7_S14')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B7_S14.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S14?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S14?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S14.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B7_S14')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S15 IN BILANCIA B7-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B7
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S15
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B7_S15.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B7_S15"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B7_S15')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B7_S15.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S15?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S15?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S15.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B7_S15')">Reset</button>
+                  </td>
+
+                </tr>
+
+                <!-- SILOS S16 IN BILANCIA B7-->
+                <tr>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    B7
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    S16
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.SOGLIA_ALM_ESTRAZIONE_B7_S16.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <input class="form-control flex-grow-0 mx-2"
+                             type="number"
+                             [(ngModel)]="new_REAL_SOGLIA_ALM_ESTR_B7_S16"
+                             style="min-width: 100px" />
+                      <button class="btn btn-success ms-3"
+                              type="button"
+                              (click)="onConfirm('SOGLIA_ALM_ESTRAZIONE_B7_S16')">
+                        Conferma
+                      </button>
+                    </div>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    {{TagList.FDB_ERRORE_ESTRAZIONE_B7_S16.value.toFixed(3)}} kg
+                  </td>
+
+                  <td style="vertical-align:middle; text-align:center;">
+                    <span [ngClass]="{
+                            'badge': true,
+                            'badge-danger blink-alarm-button': isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S16?.value),
+                            'badge-success': !isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S16?.value)
+                          }"
+                          style="font-size:0.894rem;font-weight:400;height:38.2px; vertical-align:middle; line-height:32.2px; display:inline-block; padding:5px 15px">
+                      {{isTrue(TagList.FDB_ALM_ESTRAZIONE_B7_S16.value) ? 'Attivo' : 'Non Attivo'}}
+                    </span>
+                  </td>
+
+                  <td style="vertical-align:middle;text-align:center">
+                    <button class="btn btn-success" type="button" (click)="onConfirm('PC_PULS_RESET_ERRORE_ESTRAZIONE_B7_S16')">Reset</button>
+                  </td>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </ng-template>
+    </li>
+
+  </ul>
+  <div [ngbNavOutlet]="userTabs"></div>
+</div>
+
+
+

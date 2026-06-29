@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 100 100"
+   xml:space="preserve"
+   sodipodi:docname="pipe_3d_h1_brown_full.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs10690" /><sodipodi:namedview
+   id="namedview10688"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:pageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="8.24"
+   inkscape:cx="49.757282"
+   inkscape:cy="50.06068"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="hlight" /><desc
+   id="desc10666">Copyright Opto 22</desc> <svg
+   version="1.1"
+   id="svg10685"
+   width="100%"
+   height="100%"><g
+     id="g10683">
+<g
+   id="frame">
+	<rect
+   fill="none"
+   width="100"
+   height="100"
+   id="rect10668"
+   x="0"
+   y="0" />
+</g>
+<g
+   id="shape">
+	<rect
+   y="42"
+   fill="#c78163"
+   width="100"
+   height="16"
+   id="rect10671"
+   x="0" />
+</g>
+<g
+   id="dark">
+	<rect
+   y="43"
+   fill="#947365"
+   width="100"
+   height="14"
+   id="rect10674"
+   x="0" />
+</g>
+<g
+   id="light">
+	<rect
+   y="45"
+   fill="#de9c5f"
+   width="100"
+   height="10"
+   id="rect10677"
+   x="0" />
+</g>
+<g
+   id="hlight">
+	<rect
+   y="46.5"
+   fill="#ffffff"
+   width="100"
+   height="7"
+   id="rect10680"
+   x="0"
+   inkscape:label="rect10680"
+   style="fill:#de9c5f;fill-opacity:1" />
+</g>
+</g></svg></svg>

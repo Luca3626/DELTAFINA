@@ -1,0 +1,281 @@
+<h4 class="font-weight-bold py-3 mb-4" style="line-height:38px;vertical-align:middle;padding: 0px!important;">
+  Allarmi
+  <div class="pull-right">
+    <button class="btn btn-primary" (click)="this.router.navigate(['/dashboard']);"><i class="fas fa-home"></i></button>
+  </div>
+</h4>
+
+<div class="card mb-4">
+  <ngb-accordion [closeOthers]="true">
+    <ngb-panel id="accordion-static-1">
+      <ng-template ngbPanelTitle>
+        <h6 class="text-body" style="margin-bottom: -1px;">
+          <i class="ion ion-ios-arrow-down mx-2"></i> Filtri
+        </h6>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label class="form-label">Dal</label>
+              <div class="input-group">
+                <input class="form-control form-control-lg" placeholder="gg-mm-aaaa" id="dateFrom" name="dateFrom"
+                       ngbDatepicker
+                       [(ngModel)]="modelFrom"
+                       [displayMonths]="displayMonths"
+                       [navigation]="navigation"
+                       [disabled]="false"
+                       [placement]="isRTL ? 'bottom-right' : 'bottom-left'"
+                       #dateFrom="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="input-group-text" [disabled]="false" (click)="dateFrom.toggle()" type="button">
+                    <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label class="form-label">Al</label>
+              <div class="input-group">
+                <input class="form-control form-control-lg" placeholder="gg-mm-aaaa" id="dateTo" name="dateTo"
+                       ngbDatepicker
+                       [(ngModel)]="modelTo"
+                       [displayMonths]="displayMonths"
+                       [navigation]="navigation"
+                       [placement]="isRTL ? 'bottom-right' : 'bottom-left'"
+                       #dateTo="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="input-group-text" [disabled]="false" (click)="dateTo.toggle()" type="button">
+                    <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label class="form-label">Stato</label>
+              <select class="custom-select form-control-lg" [(ngModel)]="this.query.state" style="margin-top:15px;">
+                <option>Tutti</option>
+                <option selected="selected">Attivi</option>>
+                <option>Rientrati</option>
+              </select>
+            </div>
+          </div>
+          <!--<div class="form-group">
+            <label class="form-label">Ricerca per utenza o zona</label>
+            <input type="text" [(ngModel)]="this.query.queryText" class="form-control" placeholder="Ricerca sulla descrizione dell'allarme">
+          </div>-->
+          <div class="form-group">
+            <label class="custom-control custom-checkbox m-0">
+              <input class="custom-control-input" type="checkbox" [(ngModel)]="useFilter" />
+              <span class="custom-control-label">Filtro si/no</span>
+            </label>
+          </div>
+          <button type="button" (click)="onClickFilter()" class="btn btn-primary">Cerca</button>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+
+<div class="card mb-4">
+  <h6 class="card-header">
+    Ricerca per utenza o zona
+  </h6>
+  <div class="card-body">
+    <input type="text" (keyup)="onKey($event)" id="fQueryText" name="fQueryText"class="form-control" placeholder="Ricerca sulla descrizione dell'allarme">
+  </div>
+  <!--<ngb-accordion [closeOthers]="true">
+    <ngb-panel id="accordion-static-1">
+      <ng-template ngbPanelTitle>
+        <h6 class="text-body" style="margin-bottom: -1px;">
+          <i class="ion ion-ios-arrow-down mx-2"></i> Ricerca per utenza o zona
+        </h6>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div>
+          <input type="text" [(ngModel)]="this.query.queryText" class="form-control" placeholder="Ricerca sulla descrizione dell'allarme">
+
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>-->
+</div>
+
+<div class="card mb-4">
+  <h6 class="card-header">Elenco</h6>
+  <div class="table-responsive mb-4">
+    <table class="table mb-0 card-table">
+      <thead>
+        <tr>
+          <th>ALLARME</th>
+          <th>ZONA</th>
+          <!--<th>PLC</th>-->
+          <th>UTENZA</th>
+          <th>IN</th>
+          <th>OUT</th>
+          <th>STATE</th>
+        </tr>
+      </thead>
+      <tbody style="color:white">
+        <tr *ngFor="let item of alarmsData" [ngClass]="[item.state == 'I' ? 'bg-danger' : 'bg-success'  ]">
+          <th>{{ item.textLang1 }}  <small> ({{ item.tagName }})</small></th>
+          <th>{{ item.zone }}</th>
+          <!--<th>{{ item.plcName.toUpperCase() }}</th>-->
+          <th>{{ item.machineUser }}</th>
+          <th>{{ item.dateIN | date:'dd-MM-yyyy HH:mm' }}</th>
+          <th>{{ item.dateOUT | date:'dd-MM-yyyy HH:mm' }}</th>
+          <th>{{ item.state }}</th>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--<ng-template #defaultModal let-c="close" let-d="dismiss">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">
+          Mancato avvio ventilatori <br>
+          <small>Riconoscimento allarme da parte degli operatori.</small>
+        </h5>
+        <button type="button" class="close" (click)="d('Cross click')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Priorità</label>
+          <label class="form-control">Alta</label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Zona/Tipologia</label>
+          <label class="form-control">Cella Ossa, Quadro x</label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Commento</label>
+          <textarea class="form-control" autosize>Questo è un esempio di inserimento di commento dell'operatore.</textarea>
+        </div>
+        <div class="form-group">
+          <div class="ng2-file-upload-drop-zone text-center py-5 px-3"
+               ng2FileDrop
+               [ngClass]="{'ng2-file-upload-file-over': hasBaseDropZoneOver}"
+               (fileOver)="fileOver($event)"
+               [uploader]="uploader">
+            <h4>Trascina qui i file da caricare oppure</h4>
+            <label class="btn btn-secondary">
+              Seleziona un file
+              <input type="file" class="sr-only" ng2FileSelect [uploader]="uploader">
+            </label>
+            <label class="btn btn-secondary">
+              Seleziona più files
+              <input type="file" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
+            </label>
+          </div>
+          <div class="media mt-4" [class.d-none]="!uploader?.queue?.length">
+            <div class="mr-3">
+              <button type="button" class="progress-resume-link btn icon-btn btn-primary" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" ngbTooltip="Upload all"><i class="ion ion-md-play"></i></button>
+              <button type="button" class="progress-pause-link btn icon-btn btn-warning" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading" ngbTooltip="Cancel all"><i class="ion ion-md-close"></i></button>
+              <button type="button" class="progress-cancel-link btn icon-btn btn-danger" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length" ngbTooltip="Remove all"><i class="ion ion-md-trash"></i></button>
+            </div>
+            <div class="media-body align-self-center">
+              <div class="progress-container progress"><div class="progress-bar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div></div>
+            </div>
+          </div>
+          <ul class="list-group mt-4" [class.d-none]="!uploader?.queue?.length">
+            <li class="list-group-item" *ngFor="let item of uploader.queue">
+              <div class="media">
+                <div class="media-body">
+                  <div>
+                    <span><i class="ion ion-md-checkmark text-success text-big mr-2"></i></span>
+                    <span><i class="ion ion-md-close text-warning text-big mr-2"></i></span>
+                    <span><i class="ion ion-md-alert text-danger text-big mr-2"></i></span>
+                    <strong>{{ item?.file?.name }}</strong>
+                    <span>
+                      - <em class="text-muted">{{ item.progress + '%' }}</em>
+                    </span>
+                  </div>
+                  <div>
+                    <small class="text-muted" nowrap>
+                      {{ item?.file?.size/1024/1024 | number:'.2' }} MB
+                    </small>
+                  </div>
+                </div>
+                <div class="align-self-center ml-3">
+                  <button type="button" class="btn btn-sm icon-btn btn-outline-success" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess"><i class="ion ion-md-play"></i></button>
+                  <button type="button" class="btn btn-sm icon-btn btn-outline-warning" (click)="item.cancel()" [disabled]="!item.isUploading"><i class="ion ion-md-close"></i></button>
+                  <button type="button" class="btn btn-sm icon-btn btn-outline-danger" (click)="item.remove()"><i class="ion ion-md-trash"></i></button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Salva</button>
+      </div>
+    </ng-template>-->
+    <!--<ng-template #defaultModalAck let-c="close" let-d="dismiss">
+      <div class="modal-header bg-success">
+        <h5 class="modal-title">
+          Mancato arresto resistenza di sbrinamento <br>
+          <small>Allarme riconosciuto dall'operatore.</small>
+        </h5>
+        <button type="button" class="close" (click)="d('Cross click')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Priorità</label>
+          <label class="form-control">Alta</label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Zona/Tipologia</label>
+          <label class="form-control">Cella Ossa, Quadro x</label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Operatore</label>
+          <label class="form-control">Mario Bianchi</label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Commento</label>
+          <label class="form-control">Questo è un esempio di inserimento di commento dell'operatore.</label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Elenco file allegati</label>
+          <ul class="list-group mt-4">
+            <li class="list-group-item">
+              <div class="media">
+                <div class="media-body">
+                  <div>
+                    <span><i class="ion ion-md-checkmark text-success text-big mr-2"></i></span>
+                    <strong><a href="#">File 001.pdf</a></strong>
+                  </div>
+                  <div>
+                    <small class="text-muted" nowrap>
+                      1,2 MB
+                    </small>
+                  </div>
+                </div>
+                <div class="align-self-center ml-3">
+                  <button type="button" class="btn btn-sm icon-btn btn-outline-danger"><i class="ion ion-md-trash"></i></button>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="media">
+                <div class="media-body">
+                  <div>
+                    <span><i class="ion ion-md-checkmark text-success text-big mr-2"></i></span>
+                    <strong><a href="#">File 002.pdf</a></strong>
+                  </div>
+                  <div>
+                    <small class="text-muted" nowrap>
+                      0,700 MB
+                    </small>
+                  </div>
+                </div>
+                <div class="align-self-center ml-3">
+                  <button type="button" class="btn btn-sm icon-btn btn-outline-danger"><i class="ion ion-md-trash"></i></button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>-->
+
+  </div>
+</div>

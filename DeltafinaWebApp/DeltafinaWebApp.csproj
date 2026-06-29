@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-DeltafinaWebApp-FD77C4E6-9C7C-4A2C-AFFD-63EEC7750613</UserSecretsId>
+    <TypeScriptToolsVersion>4.0</TypeScriptToolsVersion>
+    <AssemblyName>DeltafinaWebApp</AssemblyName>
+    <RootNamespace>DeltafinaWebApp</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientApp\src\app\contracts\**" />
+    <Compile Remove="ClientApp\src\app\device-plate\setting-r-plate\**" />
+    <Compile Remove="CommunicationLib\Proxy\**" />
+    <Content Remove="ClientApp\src\app\contracts\**" />
+    <Content Remove="ClientApp\src\app\device-plate\setting-r-plate\**" />
+    <Content Remove="CommunicationLib\Proxy\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\contracts\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\device-plate\setting-r-plate\**" />
+    <EmbeddedResource Remove="CommunicationLib\Proxy\**" />
+    <None Remove="ClientApp\src\app\contracts\**" />
+    <None Remove="ClientApp\src\app\device-plate\setting-r-plate\**" />
+    <None Remove="CommunicationLib\Proxy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CommunicationLib\Communication\CommunicationClient.cs" />
+    <Compile Remove="CommunicationLib\Communication\CommunicationServer.cs" />
+    <Compile Remove="Controllers\RecycleController.cs" />
+    <Compile Remove="Controllers\SupplierController.cs" />
+    <Compile Remove="Services\CalendarOilMillServices.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\device-plate\mixer-plate\mixer-plate.component.ts" />
+    <None Remove="ClientApp\src\app\device-plate\settingR-plate\settingR-plate.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="QRCoder" Version="1.4.2" />
+    <PackageReference Include="Sharp7" Version="1.1.79" />
+    <PackageReference Include="System.IO.Ports" Version="5.0.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\device-plate\mixer-plate\mixer-plate.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\device-plate\settingR-plate\settingR-plate.component.ts" />
+  </ItemGroup>
+
+</Project>

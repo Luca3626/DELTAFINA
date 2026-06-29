@@ -1,0 +1,406 @@
+<h4 class="font-weight-bold py-3 mb-4">
+  <span class="text-muted font-weight-light">TRENDS /</span> {{myTitle}}
+</h4>
+
+<div class="card mb-4">
+  <h6 class="card-header">
+    Filtri di ricerca
+  </h6>
+  <div class="card-body">
+    <!--<form> se utilizzo il form il time picker non funziona bene-->
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="form-label">Filtra zone per tipo zona (opzionale)</label>
+        <ng-select id="zoneTypes" name="zoneTypes"
+                   [items]="selectZoneTypes"
+                   [multiple]="false"
+                   [closeOnSelect]="true"
+                   bindLabel="label"
+                   bindValue="value"
+                   placeholder="Seleziona Tipo Zona"
+                   [(ngModel)]="zoneType"
+                   [hideSelected]="true"
+                   (close)="onZoneTypeFilterChange()"
+                   #zoneTypes="ngModel">
+        </ng-select>
+      </div>
+      <div class="form-group col-md-6">
+        <label class="form-label">Filtra trends per zone (opzionale)</label>
+        <ng-select id="trends" name="trends"
+                   [items]="selectZones"
+                   [multiple]="true"
+                   [closeOnSelect]="true"
+                   bindLabel="label"
+                   bindValue="label"
+                   placeholder="Seleziona Zone"
+                   [(ngModel)]="trendQuery.zoneFilterList"
+                   [hideSelected]="true"
+                   (close)="onZoneFilterChange()"
+                   #trends="ngModel">
+        </ng-select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Trends</label>
+      <ng-select id="trends" name="trends"
+                 [items]="selectTrends"
+                 [multiple]="true"
+                 [closeOnSelect]="true"
+                 bindLabel="description"
+                 bindValue="tagLogName"
+                 placeholder="Seleziona Trends"
+                 [(ngModel)]="trendQuery.tagLogNameList"
+                 [hideSelected]="true"
+                 #trends="ngModel">
+      </ng-select>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="form-label form-label">Data/Ora Inizio</label>
+        <div class="row-fluid">
+          <div class="input-group" style="float:left;width:180px;margin-top:25px;margin-right:24px;">
+            <input class="form-control form-control" placeholder="gg-mm-aaaa" id="dateFrom" name="dateFrom"
+                   ngbDatepicker
+                   [(ngModel)]="modelFrom"
+                   [displayMonths]="displayMonths"
+                   [navigation]="navigation"
+                   [disabled]="false"
+                   [placement]="isRTL ? 'bottom-right' : 'bottom-left'"
+                   #dateFrom="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="input-group-text" [disabled]="false" (click)="dateFrom.toggle()" type="button">
+                <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+              </button>
+            </div>
+          </div>
+          <ngb-timepicker [(ngModel)]="modelTime.from" [ngModelOptions]="{standalone: true}" [seconds]="false" [minuteStep]="5"></ngb-timepicker>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label class="form-label form-label">Data/Ora Fine</label>
+        <div class="row-fluid">
+          <div class="input-group" style="float:left;width:180px;margin-top:25px;margin-right:24px;">
+            <input class="form-control form-control" placeholder="gg-mm-aaaa" id="dateTo" name="dateTo"
+                   ngbDatepicker
+                   [(ngModel)]="modelTo"
+                   [displayMonths]="displayMonths"
+                   [navigation]="navigation"
+                   [placement]="isRTL ? 'bottom-right' : 'bottom-left'"
+                   #dateTo="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="input-group-text" [disabled]="false" (click)="dateTo.toggle()" type="button">
+                <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+              </button>
+            </div>
+          </div>
+          <ngb-timepicker [(ngModel)]="modelTime.to" [ngModelOptions]="{standalone: true}" [seconds]="false" [minuteStep]="5"></ngb-timepicker>
+        </div>
+      </div>
+    </div>
+    <button type="button" [disabled]="false" class="btn btn-primary" style="margin-right:24px;" (click)="onSaveClick()"><i class="fas fa-save"></i> Cerca</button>
+    <!--</form>-->
+  </div>
+</div>
+
+<div class="nav-tabs-top">
+  <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>Dati</a>
+      <ng-template ngbNavContent>
+
+        <div class="card-body pb-2">
+
+          <h6 class="mb-4">Esportazione Dati Trend</h6>
+          <hr class="border-light m-0">
+
+          <div class="card">
+            <!-- Table controls -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  Per pagina: &nbsp;
+                  <select [(ngModel)]="perPage"
+                          (change)="update()"
+                          class="custom-select custom-select-sm d-inline-block w-auto">
+                    <option *ngFor="let limit of [100, 200, 500, 1000]">{{limit}}</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <div class="form-control-sm d-inline-block w-auto float-sm-right">
+                    <button class="btn btn-outline-success" type="button" (click)="exportCSV()"><em class="fa fa-file-export"></em> .CSV</button>
+                  </div>
+                  <!--<input type="text"
+             [(ngModel)]="filterVal"
+             (input)="currentPage = 1; update()"
+             class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+             placeholder="Search...">-->
+                </div>
+              </div>
+            </div>
+            <!-- / Table controls -->
+            <!-- Table -->
+            <hr class="border-light m-0">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th class="text-nowrap cursor-pointer" (click)="setSort('description')" style="min-width: 18rem">
+                      Descrizione<i class="ion text-muted ml-2" *ngIf="sortBy=='description'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                    </th>
+                    <th class="text-nowrap cursor-pointer" (click)="setSort('zoneName')" style="min-width: 18rem">
+                      Zona<i class="ion text-muted ml-2" *ngIf="sortBy=='zoneName'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                    </th>
+                    <th class="text-nowrap cursor-pointer" (click)="setSort('plcName')" style="min-width: 18rem">
+                      PLC<i class="ion text-muted ml-2" *ngIf="sortBy=='plcName'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                    </th>
+                    <th class="text-nowrap cursor-pointer" (click)="setSort('logValue')">
+                      Valore<i class="ion text-muted ml-2" *ngIf="sortBy=='logValue'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                    </th>
+                    <th class="text-nowrap cursor-pointer" (click)="setSort('unit')">
+                      UdM<i class="ion text-muted ml-2" *ngIf="sortBy=='unit'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                    </th>
+                    <th class="text-nowrap cursor-pointer" (click)="setSort('lastLog')">
+                      Data Reg.<i class="ion text-muted ml-2" *ngIf="sortBy=='lastLog'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                    </th>
+                    <th class="text-nowrap cursor-pointer" (click)="setSort('lastLog')">
+                      Tag<i class="ion text-muted ml-2" *ngIf="sortBy=='lastLog'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                    </th>
+                    <!--<th class="text-nowrap cursor-pointer" (click)="setSort('status')">
+                Status<i class="ion text-muted ml-2" *ngIf="sortBy=='status'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+              </th>-->
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input class="form-control" type="text" (keyup)="onKey($event)" id="fDescription" name="fDescription" [(ngModel)]="filterService.logTrendFilters.description" placeholder="Filtra per descrizione">
+                    </td>
+                    <td>
+                      <input class="form-control" type="text" (keyup)="onKey($event)" id="fZoneName" name="fZoneName" [(ngModel)]="filterService.logTrendFilters.zoneName" placeholder="Filtra per zona">
+                    </td>
+                    <td>
+                      <input class="form-control" type="text" (keyup)="onKey($event)" id="fPlcName" name="fPlcName" [(ngModel)]="filterService.logTrendFilters.plcName" placeholder="Filtra per PLC">
+                    </td>
+                    <td>
+                      <input class="form-control" type="text" (keyup)="onKey($event)" id="fLogValue" name="fLogValue" [(ngModel)]="filterService.logTrendFilters.logValue" placeholder="Filtra per valore">
+                    </td>
+                    <td>
+                      <input class="form-control" type="text" (keyup)="onKey($event)" id="fUnit" name="fUnit" [(ngModel)]="filterService.logTrendFilters.unit" placeholder="Filtra per unità di misura">
+                    </td>
+                    <td>
+                      <input class="form-control" type="text" (keyup)="onKey($event)" id="fLogDate" name="fLogDate" [(ngModel)]="filterService.logTrendFilters.logDate" placeholder="Filtra per data reg.">
+                    </td>
+                    <td>
+                      <input class="form-control" type="text" (keyup)="onKey($event)" id="fTagPlcName" name="fTagPlcName" [(ngModel)]="filterService.logTrendFilters.tagPlcName" placeholder="Filtra per tag">
+                    </td>
+                    <td class="text-center text-nowrap align-middle">
+                      <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Rimuovi Filtri" (click)="removeFilters()"><i class="ion ion-md-close"></i></a>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let item of trendsData">
+                    <!--<td class="align-middle"><a [routerLink]="['/recipes/celle-edit/' + item.id]">{{item.name}}</a></td>-->
+                    <td class="align-middle">{{item.description}}</td>
+                    <td class="align-middle">{{item.zoneName}}</td>
+                    <td class="align-middle">{{item.plcName}}</td>
+                    <td class="align-middle">{{item.logValue}}</td>
+                    <td class="align-middle">{{item.unit}}</td>
+                    <td class="align-middle">{{item.logDate | date: 'dd/MM/yyyy HH:mm'}}</td>
+                    <td class="align-middle">{{item.tagPlcName}}</td>
+                    <td class="text-center text-nowrap align-middle">
+                      <!--<a [routerLink]="['/recipes/celle-edit/' + item.id]" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Modifica"><i class="ion ion-md-create"></i></a>-->
+                      <!--<a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Remove"><i class="ion ion-md-close"></i></a>-->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!--<table class="table table-striped table-bordered card-table">
+          <thead>
+            <tr>
+              <th class="text-nowrap cursor-pointer" (click)="setSort('id')">
+                ID<i class="ion text-muted ml-2" *ngIf="sortBy=='id'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+              </th>
+              <th class="text-nowrap cursor-pointer" (click)="setSort('title')" style="min-width: 18rem">
+                Title<i class="ion text-muted ml-2" *ngIf="sortBy=='title'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+              </th>
+              <th class="text-nowrap cursor-pointer" (click)="setSort('likes')">
+                Likes<i class="ion text-muted ml-2" *ngIf="sortBy=='likes'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+              </th>
+              <th class="text-nowrap cursor-pointer" (click)="setSort('comments')">
+                Comments<i class="ion text-muted ml-2" *ngIf="sortBy=='comments'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+              </th>
+              <th class="text-nowrap cursor-pointer" (click)="setSort('createdAt')">
+                Created At<i class="ion text-muted ml-2" *ngIf="sortBy=='createdAt'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+              </th>
+              <th class="text-nowrap cursor-pointer" (click)="setSort('status')">
+                Status<i class="ion text-muted ml-2" *ngIf="sortBy=='status'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let article of articlesData">
+              <td class="align-middle">{{article.id}}</td>
+              <td class="align-middle"><a href="javascript:void(0)">{{article.title}}</a></td>
+              <td class="align-middle">{{article.likes}}</td>
+              <td class="align-middle">{{article.comments}}</td>
+              <td class="align-middle">{{article.createdAt}}</td>
+              <td class="align-middle">
+                <span class="badge badge-outline-success" *ngIf="article.status === 1">Published</span>
+                <span class="badge badge-outline-info" *ngIf="article.status === 2">Draft</span>
+                <span class="badge badge-outline-default" *ngIf="article.status === 3">Deleted</span>
+              </td>
+              <td class="text-center text-nowrap align-middle">
+                <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit"><i class="ion ion-md-create"></i></a>
+                <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Remove"><i class="ion ion-md-close"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>-->
+            </div>
+            <!-- / Table -->
+            <!-- Pagination -->
+            <div class="card-body py-0">
+              <div class="row">
+                <div class="col-sm text-sm-left text-center pt-3">
+                  <span class="text-muted" *ngIf="totalItems">Page {{ currentPage }} of {{ totalPages }}</span>
+                </div>
+                <div class="col-sm pt-3">
+                  <ngb-pagination [collectionSize]="totalItems"
+                                  [pageSize]="perPage"
+                                  [(page)]="currentPage"
+                                  (pageChange)="update()"
+                                  size="sm"
+                                  class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+                </div>
+              </div>
+            </div>
+            <!-- / Pagination -->
+          </div>
+
+        </div>
+
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>Grafico</a>
+      <ng-template ngbNavContent>
+
+        <div class="card-body pb-2">
+
+          <h6 class="mb-4">Visualizza Andamento Trend</h6>
+
+          <hr class="border-light m-0">
+
+          <ul *ngIf="trendsData && trendsData.length > 0" style="padding:0px!important;margin-top:10px;">
+            <li *ngFor="let gData of multiData" class="form-group row">
+              <div class="col-sm-2">
+                <div class="form-row">
+                  <div class="form-group col-6 mb-0">
+                    <button type="button" class="btn" [disabled]="isDisabled" style="width:90%" [ngClass]="gData.value ? 'btn-primary' : 'btn-default'" (click)="onClickSetValueGraph(gData.name)">VALORE</button>
+                  </div>
+                  <div class="form-group col-6 mb-0">
+                    <button type="button" class="btn" [disabled]="isDisabled" style="width:90%" [ngClass]="gData.value ? 'btn-default' : 'btn-primary'" (click)="onClickSetVariationGraph(gData.name)">VARIAZIONE</button>
+                  </div>
+                </div>
+              </div>
+              <!--<div class="col-sm-1">
+          <div class="form-row">
+            <div class="form-group col-4 mb-0 pull-right">
+              Min
+            </div>
+            <div class="form-group col-8 mb-0">
+              <input type="text" class="form-control" [(ngModel)]="gData.min">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1">
+          <div class="form-row">
+            <div class="form-group col-4 mb-0 pull-right">
+              Max
+            </div>
+            <div class="form-group col-8 mb-0">
+              <input type="text" class="form-control" [(ngModel)]="gData.max">
+            </div>
+          </div>
+        </div>-->
+              <label class="col-form-label col-form-label-lg col-sm-8">{{gData.name}}</label>
+            </li>
+          </ul>
+
+          <hr *ngIf="trendsData && trendsData.length > 0" class="border-light m-0">
+
+          <div class="demo-vertical-spacing-lg">
+            <div *ngIf="trendsData && trendsData.length > 0" style="height: 600px">
+              <ngx-charts-line-chart [results]="multiData"
+                                     [xAxis]="true"
+                                     [yAxis]="true"
+                                     [legend]="true"
+                                     [showXAxisLabel]="true"
+                                     [showYAxisLabel]="true"
+                                     [scheme]="'vivid'"
+                                     xAxisLabel="Asse Temporale"
+                                     yAxisLabel="Asse dei Valori"
+                                     [autoScale]="autoScale"
+                                     [yScaleMin]="yScaleMin"
+                                     [yScaleMax]="yScaleMax">
+              </ngx-charts-line-chart>
+            </div>
+
+            <div class="card-body">
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <label class="switcher">
+                    <input type="checkbox" class="switcher-input" [(ngModel)]="autoScale">
+                    <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                    <span class="switcher-label"></span>
+                  </label>
+                </div>
+                <label class="col-form-label col-form-label-lg col-sm-10">Attiva Scala Automatica</label>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" [(ngModel)]="yScaleMin">
+                </div>
+                <label class="col-form-label col-form-label-lg col-sm-10">Minimo Valore Ordinate</label>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" [(ngModel)]="yScaleMax">
+                </div>
+                <label class="col-form-label col-form-label-lg col-sm-10">Massimo Valore Ordinate</label>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="userTabs"></div>
+</div>
+
+<!--<ngb-tabset class="nav-tabs-top">
+  <ngb-tab title="Dati">
+    <ng-template ngbTabContent>
+
+
+
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Grafico">
+    <ng-template ngbTabContent>
+
+
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>-->
+
+

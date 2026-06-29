@@ -1,0 +1,326 @@
+<toaster-container [toasterconfig]="config"></toaster-container>
+
+
+<!--<ng-select [items]="selectFarms"
+           bindLabel="label"
+           bindValue="value"
+           [(ngModel)]="singleSelectValue"
+           placeholder="Seleziona Azienda"
+           [disabled]="disabled">
+</ng-select>-->
+<!--<ng-select [items]="selectFarms"
+           bindLabel="label"
+           bindValue="value"
+           [(ngModel)]="userData.portalFarmId"
+           placeholder="Select state"
+           [disabled]="disabled">
+</ng-select>
+<ng-select [items]="selectOptions"
+           bindLabel="label"
+           bindValue="value"
+           [(ngModel)]="singleSelectValue"
+           placeholder="Select state"
+           [disabled]="disabled">
+</ng-select>-->
+
+<h4 class="font-weight-bold py-3 mb-4">
+  Utenti / <span class="text-muted">{{myTitle}}</span>
+</h4>
+
+<form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" [mustMatch]="['password', 'confirmPassword']" appIdentityRevealed>
+  <div class="nav-tabs-top">
+    <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+      <li ngbNavItem>
+        <a ngbNavLink>Account</a>
+        <ng-template ngbNavContent>
+          <div class="card-body">
+            <div class="media align-items-center">
+              <img [src]="userData.picture" alt="" class="d-block ui-w-80">
+              <div class="media-body ml-3">
+                <label class="form-label d-block mb-2">Avatar</label>
+                <button type="button" class="btn btn-outline-primary btn-sm">Cambia</button>&nbsp;
+                <button type="button" class="btn btn-default btn-sm md-btn-flat">Rimuovi</button>
+              </div>
+            </div>
+          </div>
+          <hr class="border-light m-0">
+          <div class="card-body pb-2">
+            <div class="form-group" *ngIf="userData.userTypeId > 3">
+              <label class="form-label">Azienda</label>
+              <ng-select id="portalFarmId" name="portalFarmId"
+                         [items]="selectFarms"
+                         bindLabel="label"
+                         bindValue="value"
+                         [(ngModel)]="userData.portalFarmId"
+                         placeholder="Seleziona Azienda"
+                         [disabled]="disabled"
+                         #portalFarmId="ngModel">
+              </ng-select>
+              <!--<small *ngIf="portalFarmId && portalFarmId.invalid && (portalFarmId.dirty || portalFarmId.touched) && portalFarmId.errors.required" class="invalid-feedback">L'azienda è un campo obbligatorio.</small>-->
+            </div>
+            <div class="form-group">
+              <label class="form-label">Username</label>
+              <input id="username" name="username" username="username" class="form-control" [ngClass]="username.invalid && (username.dirty || username.touched) && username.errors ? 'is-invalid' : ''" [(ngModel)]="userData.username" #username="ngModel" required>
+              <small *ngIf="username && username.invalid && (username.dirty || username.touched) && username.errors.required" class="invalid-feedback">Il nome è un campo obbligatorio.</small>
+              <!--<a href="javascript:void(0)" class="small">Reset password</a>-->
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nome</label>
+              <input id="name" name="name" class="form-control" [ngClass]="name.invalid && (name.dirty || name.touched) && name.errors ? 'is-invalid' : ''" [(ngModel)]="userData.name" #name="ngModel" required>
+              <small *ngIf="name && name.invalid && (name.dirty || name.touched) && name.errors.required" class="invalid-feedback">Il nome è un campo obbligatorio.</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cognome</label>
+              <input id="surname" name="surname" surname="surname" class="form-control" [ngClass]="surname.invalid && (surname.dirty || surname.touched) && surname.errors ? 'is-invalid' : ''" [(ngModel)]="userData.surname" #surname="ngModel" required>
+              <small *ngIf="surname && surname.invalid && (surname.dirty || surname.touched) && surname.errors.required" class="invalid-feedback">Il cognome è un campo obbligatorio.</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label">E-mail</label>
+              <input id="email" name="email" type="email" class="form-control mb-1" [ngClass]="email.invalid && (email.dirty || email.touched) && email.errors ? 'is-invalid' : ''" [(ngModel)]="userData.email" #email="ngModel" required email /><!--[ngClass]="email.invalid ? 'is-invalid' : ''" /-->
+              <!--<a href="javascript:void(0)" class="small">Resend confirmation</a>-->
+              <small *ngIf="email && email.invalid && (email.dirty || email.touched) && email.errors.required" class="invalid-feedback">L'indirizzo email è un campo obbligatorio.</small>
+              <small *ngIf="email && email.invalid && (email.dirty || email.touched) && email.errors.email" class="invalid-feedback">L'indirizzo email inserito non è corretto.</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input id="password" name="password" class="form-control" [ngClass]="password.invalid && (password.dirty || password.touched) && password.errors ? 'is-invalid' : ''" [(ngModel)]="userData.password" #password="ngModel">
+              <small *ngIf="password != null && password.invalid && (password.dirty || password.touched) && password.errors.required" class="invalid-feedback">La password è un campo obbligatorio.</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Conferma password</label>
+              <input id="confirmPassword" name="confirmPassword" class="form-control" [ngClass]="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) && confirmPassword.errors ? 'is-invalid' : ''" [(ngModel)]="userData.confirmPassword" #confirmPassword="ngModel">
+              <!--<a href="javascript:void(0)" class="small">Resend confirmation</a>-->
+              <small *ngIf="confirmPassword != null && confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) && confirmPassword.errors.required" class="invalid-feedback">Conferma Password è un campo obbligatorio.</small>
+              <small *ngIf="confirmPassword != null && confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) && confirmPassword.errors.mustMatch" class="invalid-feedback">Le password devono coincidere.</small>
+            </div>
+            <!--<div class="form-group">
+              <label class="form-label">Company</label>
+              <input [(ngModel)]="userData.company" type="text" class="form-control">
+            </div>-->
+          </div>
+          <hr class="border-light m-0">
+          <div class="card-body pb-2">
+
+            <div class="form-group">
+              <label class="form-label">Ruolo</label>
+              <select id="userTypeId" name="userTypeId" class="custom-select" [ngClass]="userTypeId.invalid && (userTypeId.dirty || userTypeId.touched) && userTypeId.errors ? 'is-invalid' : ''" [(ngModel)]="userData.userTypeId" #userTypeId="ngModel" required>
+                <!--<option *ngFor="let i of [[1, 'Guest'], [2, 'Staff'], [3, 'Admin'], [4, 'Super User'], [5, 'Super Admin']]" [value]="i[0]">{{i[1]}}</option>-->
+                <option *ngFor="let i of this.userTypes" [value]="i.value">{{i.label}}</option>
+              </select>
+              <small *ngIf="userTypeId && userTypeId.invalid && (userTypeId.dirty || userTypeId.touched) && userTypeId.errors.required" class="invalid-feedback">Il ruolo è un campo obbligatorio.</small>
+            </div>
+            <!--<div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="custom-select" [(ngModel)]="userData.status">
+                <option *ngFor="let i of [[1, 'Active'], [2, 'Banned'], [3, 'Deleted']]" [value]="i[0]">{{i[1]}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="custom-control custom-checkbox m-0">
+                <input type="checkbox" class="custom-control-input" [(ngModel)]="userData.verified">
+                <span class="custom-control-label">Verified</span>
+              </label>
+            </div>-->
+          </div>
+          <hr class="border-light m-0">
+          <div class="table-responsive">
+            <table class="table card-table m-0">
+              <tbody>
+                <tr>
+                  <th>Moduli</th>
+                  <th>Abilitato</th>
+                  <!--<th>Write</th>
+                  <th>Create</th>
+                  <th>Delete</th>-->
+                </tr>
+                <tr *ngFor="let p of userData.roles">
+                  <td>{{p.name}}</td>
+                  <td>
+                    <label class="custom-control custom-checkbox px-2 m-0">
+                      <input name="check_{{p.id}}" type="checkbox" class="custom-control-input" [(ngModel)]="p.selected" />
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                </tr>
+                <!--<tr>
+                  <td>Dashboard</td>
+                  <td>
+                    <label class="custom-control custom-checkbox px-2 m-0">
+                      <input name="check1" type="checkbox" class="custom-control-input" [(ngModel)]="addDashboard" />
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Sala d'Attesa</td>
+                  <td>
+                    <label class="custom-control custom-checkbox px-2 m-0">
+                      <input name="check2" type="checkbox" class="custom-control-input" [(ngModel)]="addWaitingRoom" />
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Utenti</td>
+                  <td>
+                    <label class="custom-control custom-checkbox px-2 m-0">
+                      <input name="check3" type="checkbox" class="custom-control-input" [(ngModel)]="addUsers" />
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                </tr>-->
+                <!--<tr *ngFor="let p of userData.permissions">
+                  <td>{{p.module}}</td>
+                  <td>
+                    <label class="custom-control custom-checkbox px-2 m-0">
+                      <input type="checkbox" class="custom-control-input" [(ngModel)]="p.read">
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                  <td>
+                    <label class="custom-control custom-checkbox px-2 m-0">
+                      <input type="checkbox" class="custom-control-input"[(ngModel)]="p.write">
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                  <td>
+                    <label class="custom-control custom-checkbox px-2 m-0">
+                      <input type="checkbox" class="custom-control-input"[(ngModel)]="p.create">
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                  <td>
+                    <label class="custom-control custom-checkbox px-2 m-0">
+                      <input type="checkbox" class="custom-control-input"[(ngModel)]="p.delete">
+                      <span class="custom-control-label"></span>
+                    </label>
+                  </td>
+                </tr>-->
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
+      </li>
+      <li ngbNavItem>
+        <a ngbNavLink>Informazioni</a>
+        <ng-template ngbNavContent>
+
+          <!--<div class="card-body pb-2">
+
+            <h6 class="mb-4">Social links</h6>
+            <div class="form-group">
+              <label class="form-label">Twitter</label>
+              <input [(ngModel)]="userData.info.twitter" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Facebook</label>
+              <input [(ngModel)]="userData.info.facebook" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Google+</label>
+              <input [(ngModel)]="userData.info.google" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">LinkedIn</label>
+              <input [(ngModel)]="userData.info.linkedin" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Instagram</label>
+              <input [(ngModel)]="userData.info.instagram" type="text" class="form-control">
+            </div>
+
+          </div>
+          <hr class="border-light m-0">-->
+          <div class="card-body pb-2">
+
+            <h6 class="mb-4">Informazioni Personali</h6>
+            <div class="form-group">
+              <label class="form-label">Data di nascita</label>
+              <input id="bornDate" name="bornDate" class="form-control" type="date" [ngClass]="bornDate.invalid && (bornDate.dirty || bornDate.touched) && bornDate.errors ? 'is-invalid' : ''" [(ngModel)]="userData.bornDate" #bornDate="ngModel" date>
+              <small *ngIf="bornDate && bornDate.invalid && (bornDate.dirty || bornDate.touched) && bornDate.errors.date" class="invalid-feedback">Inserire una data valida.</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sesso</label>
+              <select name="gender" class="custom-select" [(ngModel)]="userData.gender">
+                <option *ngFor="let sex of ['Maschio', 'Femmina']" [value]="sex">{{sex}}</option>
+              </select>
+            </div>
+            <!--<div class="form-group">
+              <label class="form-label">Birthday</label>
+              <input [(ngModel)]="userData.bornDate" type="text" class="form-control">
+            </div>-->
+            <div class="form-group">
+              <label class="form-label">Indirizzo</label>
+              <input name="street" [(ngModel)]="userData.street" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Civico</label>
+              <input name="streetNumber" [(ngModel)]="userData.streetNumber" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">CAP</label>
+              <input name="addressCode" [(ngModel)]="userData.addressCode" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Comune</label>
+              <input name="city" [(ngModel)]="userData.city" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Località</label>
+              <input name="location" [(ngModel)]="userData.location" type="text" class="form-control">
+            </div>
+            <!--<div class="form-group">
+              <label class="form-label">Languages</label>
+              <ng-select [items]="languages" bindLabel="label" bindValue="value" [multiple]="true" [(ngModel)]="userData.info.languages"></ng-select>
+            </div>-->
+
+          </div>
+          <hr class="border-light m-0">
+          <div class="card-body pb-2">
+
+            <h6 class="mb-4">Contatti</h6>
+            <div class="form-group">
+              <label class="form-label">Telefono</label>
+              <input name="phone" [(ngModel)]="userData.phone" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cellulare</label>
+              <input name="mobile" [(ngModel)]="userData.mobile" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cellulare 2</label>
+              <input name="mobile2" [(ngModel)]="userData.mobile2" type="text" class="form-control">
+            </div>
+            <!--<div class="form-group">
+              <label class="form-label">Website</label>
+              <input [(ngModel)]="userData.info.website" type="text" class="form-control">
+            </div>-->
+
+          </div>
+          <!--<hr class="border-light m-0">
+          <div class="card-body pb-2">
+
+            <h6 class="mb-4">Interests</h6>
+            <div class="form-group">
+              <label class="form-label">Favorite music</label>
+              <tag-input [(ngModel)]="userData.info.music"></tag-input>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Favorite movies</label>
+              <tag-input [(ngModel)]="userData.info.movies"></tag-input>
+            </div>
+
+          </div>-->
+
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="userTabs"></div>
+  </div>
+  <div class="text-right mt-3">
+    <button type="submit" [disabled]="f.invalid || isDisabled" class="btn btn-primary">Salva</button>&nbsp;
+    <!--<button type="reset" class="btn btn-default">Pulisci</button>&nbsp;-->
+    <button type="button" class="btn btn-default" (click)="goToList()">Chiudi</button>
+  </div>
+
+</form>

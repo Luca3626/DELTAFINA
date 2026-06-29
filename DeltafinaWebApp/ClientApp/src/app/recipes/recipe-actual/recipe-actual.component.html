@@ -1,0 +1,1002 @@
+<toaster-container [toasterconfig]="config"></toaster-container>
+
+<h4 class="font-weight-bold py-3 mb-4">
+  Ricette / <span class="text-muted">{{myTitle}}</span>
+  <div class="pull-right">
+    <button class="btn btn-primary" (click)="this.router.navigate(['/dashboard']);"><i class="fas fa-home"></i></button>
+  </div>
+</h4>
+
+<form (keydown.enter)="$event.preventDefault()" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" appIdentityRevealed>
+  <div class="card mb-4">
+    <div class="card-body" style="font-weight:bold;">
+      <div *ngIf="!appService.isStandAlonePc" class="form-group row">
+        <label class="col-form-label col-sm-2 text-sm-right">Nome</label>
+        <div class="col-sm-10">
+          <input [disabled]="IsDisabled" id="name" name="name" type="text" [(ngModel)]="recipeData.name" class="form-control" style="font-weight:bold" #name="ngModel" required />
+          <small *ngIf="name && name.invalid && (name.dirty || name.touched) && name.errors.required" class="invalid-feedback">Campo obbligatorio.</small>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2 text-sm-right">Tempo di mescolazione</label>
+        <div class="col-sm-6">
+          <input [disabled]="IsDisabled" id="timeMixing" name="timeMixing" type="number" [(ngModel)]="recipeData.timeMixing" class="form-control" style="font-weight:bold" #timeMixing="ngModel" required />
+          <small *ngIf="timeMixing && timeMixing.invalid && (timeMixing.dirty || timeMixing.touched) && timeMixing.errors.required" class="invalid-feedback">Campo obbligatorio.</small>
+        </div>
+        <label class="col-form-label col-sm-2 text-sm-left">secondi</label>
+        <div class="col-sm-2">
+          <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(100)">Conferma</button>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2 text-sm-right">Tempo ingresso acqua</label>
+        <div class="col-sm-6">
+          <input [disabled]="IsDisabled" id="timeMixWater" name="timeMixWater" type="number" [(ngModel)]="recipeData.timeMixWater" class="form-control" style="font-weight:bold" #timeMixWater="ngModel" required />
+          <small *ngIf="timeMixWater && timeMixWater.invalid && (timeMixWater.dirty || timeMixWater.touched) && timeMixWater.errors.required" class="invalid-feedback">Campo obbligatorio.</small>
+        </div>
+        <label class="col-form-label col-sm-2 text-sm-left">secondi</label>
+        <div class="col-sm-2">
+          <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(101)">Conferma</button>
+        </div>
+      </div>
+
+      <hr class="border-light m-0">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered card-table">
+          <thead>
+            <tr>
+              <th width="100px" rowspan="3" class="text-nowrap cursor-pointer">
+                BILANCIA
+              </th>
+              <th width="50px" rowspan="3" class="text-nowrap cursor-pointer">
+                SILO
+              </th>
+              <th rowspan="3" class="text-nowrap cursor-pointer">
+                COMPONENTE
+              </th>
+              <th rowspan="3" class="text-nowrap cursor-pointer">
+                ULTIMO DOSAGGIO
+              </th>
+              <th width="80px" rowspan="3" class="text-nowrap cursor-pointer">
+                UNITA'
+              </th>
+              <th colspan="4" class="text-nowrap cursor-pointer text-center">
+                DOSAGGIO DA MESCOLARE
+              </th>
+              <th colspan="4" class="text-nowrap cursor-pointer text-center">
+                DOSAGGIO DA NON MESCOLARE
+              </th>
+              <th></th>
+            </tr>
+            <tr>
+              <th colspan="2" class="text-nowrap cursor-pointer text-center">
+                QUANTITA'
+              </th>
+              <th colspan="2" class="text-nowrap cursor-pointer text-center">
+                RIPETIZIONI
+              </th>
+              <th colspan="2" class="text-nowrap cursor-pointer text-center">
+                QUANTITA'
+              </th>
+              <th colspan="2" class="text-nowrap cursor-pointer text-center">
+                RIPETIZIONI
+              </th>
+              <th></th>
+            </tr>
+            <tr>
+              <th width="100px" class="text-nowrap cursor-pointer text-center">
+                ACT
+              </th>
+              <th width="120px" class="text-nowrap cursor-pointer text-center">
+                SET
+              </th>
+              <th width="80px" class="text-nowrap cursor-pointer text-center">
+                ACT
+              </th>
+              <th width="100px" class="text-nowrap cursor-pointer text-center">
+                SET
+              </th>
+              <th width="100px" class="text-nowrap cursor-pointer text-center">
+                ACT
+              </th>
+              <th width="120px" class="text-nowrap cursor-pointer text-center">
+                SET
+              </th>
+              <th width="80px" class="text-nowrap cursor-pointer text-center">
+                ACT
+              </th>
+              <th width="100px" class="text-nowrap cursor-pointer text-center">
+                SET
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- B1 -->
+            <tr [attr.class]="getClass('S1')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B1
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S1
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[0].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[0])}} / {{getRequestedQuantity(lastDosing[0])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[0].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S1.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix0" name="quantityMix0" [(ngModel)]="_S1_B1" min="0" max="{{WeightMax_S1}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S1.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition0" name="repetition0" [(ngModel)]="recipeData.components[0].repetition" />
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(0)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('S2')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B1
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S2
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[1].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[1])}} / {{getRequestedQuantity(lastDosing[1])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[1].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S2.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix1" name="quantityMix1" [(ngModel)]="_S2_B1" min="0" max="{{WeightMax_S2}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S2.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition1" name="repetition1" [(ngModel)]="recipeData.components[1].repetition" />
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(1)">Conferma</button>
+              </td>
+            </tr>
+            <!-- B2 -->
+            <tr [attr.class]="getClass('S3')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B2
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S3
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[2].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[2])}} / {{getRequestedQuantity(lastDosing[2])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[2].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S3.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix2" name="quantityMix2" [(ngModel)]="_S3_B2" min="0" max="{{WeightMax_S3}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S3.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition2" name="repetition2" [(ngModel)]="recipeData.components[2].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(2)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('S4')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B2
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S4
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[3].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[3])}} / {{getRequestedQuantity(lastDosing[3])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[3].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S4.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix3" name="quantityMix3" [(ngModel)]="_S4_B2" min="0" max="{{WeightMax_S4}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S4.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition3" name="repetition3" [(ngModel)]="recipeData.components[3].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(3)">Conferma</button>
+              </td>
+            </tr>
+            <!--B3-->
+            <tr [attr.class]="getClass('S5')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B3
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S5
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[4].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[4])}} / {{getRequestedQuantity(lastDosing[4])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[4].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S5.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix4" name="quantityMix4" [(ngModel)]="_S5_B3" min="0" max="{{WeightMax_S5}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S5.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition4" name="repetition4" [(ngModel)]="recipeData.components[4].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(4)">Conferma</button>
+              </td>
+            </tr>
+            <!--B3A-->
+            <tr [attr.class]="getClass('S6')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B3A
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S6
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[5].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[5])}} / {{getRequestedQuantity(lastDosing[5])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[5].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S6.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix5" name="quantityMix5" [(ngModel)]="_S6_B3A" min="0" max="{{WeightMax_S6}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S6.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition5" name="repetition5" [(ngModel)]="recipeData.components[5].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(5)">Conferma</button>
+              </td>
+            </tr>
+            <!--B4-->
+            <tr [attr.class]="getClass('S7')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B4
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S7
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[6].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[6])}} / {{getRequestedQuantity(lastDosing[6])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[6].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S7.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix6" name="quantityMix6" [(ngModel)]="_S7_B4" min="0" max="{{WeightMax_S7}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S7.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition6" name="repetition6" [(ngModel)]="recipeData.components[6].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(6)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('S8')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B4
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S8
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[7].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[7])}} / {{getRequestedQuantity(lastDosing[7])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[7].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S8.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix7" name="quantityMix7" [(ngModel)]="_S8_B4" min="0" max="{{WeightMax_S8}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S8.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition7" name="repetition7" [(ngModel)]="recipeData.components[7].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(7)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('S9')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B4
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S9
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[8].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[8])}} / {{getRequestedQuantity(lastDosing[8])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[8].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S9.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix8" name="quantityMix8" [(ngModel)]="_S9_B4" min="0" max="{{WeightMax_S9}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S9.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition8" name="repetition8" [(ngModel)]="recipeData.components[8].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(8)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('S10')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B4
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S10
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[9].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[9])}} / {{getRequestedQuantity(lastDosing[9])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[9].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S10.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix9" name="quantityMix9" [(ngModel)]="_S10_B4" min="0" max="{{WeightMax_S10}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S10.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition9" name="repetition9" [(ngModel)]="recipeData.components[9].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(9)">Conferma</button>
+              </td>
+            </tr>
+            <!--B5A-->
+            <tr [attr.class]="getClass('S11')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B5A
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S11
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[10].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[10])}} / {{getRequestedQuantity(lastDosing[10])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[10].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S11.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix10" name="quantityMix10" [(ngModel)]="_S11_B5A" min="0" max="{{WeightMax_S11}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S11.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition10" name="repetition10" [(ngModel)]="recipeData.components[10].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(10)">Conferma</button>
+              </td>
+            </tr>
+            <!--B5-->
+            <tr [attr.class]="getClass('S12')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B5
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S12
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[11].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[11])}} / {{getRequestedQuantity(lastDosing[11])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[11].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S12.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix11" name="quantityMix11" [(ngModel)]="_S12_B5" min="0" max="{{WeightMax_S12}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S12.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition11" name="repetition11" [(ngModel)]="recipeData.components[11].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(11)">Conferma</button>
+              </td>
+            </tr>
+            <!--B7-->
+            <tr [attr.class]="getClass('S13')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B7
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S13
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[12].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[12])}} / {{getRequestedQuantity(lastDosing[12])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[12].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S13.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix12" name="quantityMix12" [(ngModel)]="_S13_B7" min="0" max="{{WeightMax_S13}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S13.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition12" name="repetition12" [(ngModel)]="recipeData.components[12].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(12)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('S14')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B7
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S14
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[13].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[13])}} / {{getRequestedQuantity(lastDosing[13])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[13].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S14.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix13" name="quantityMix13" [(ngModel)]="_S14_B7" min="0" max="{{WeightMax_S14}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S14.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition13" name="repetition13" [(ngModel)]="recipeData.components[13].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(13)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('S15')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B7
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S15
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[14].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[14])}} / {{getRequestedQuantity(lastDosing[14])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[14].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S15.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix14" name="quantityMix14" [(ngModel)]="_S15_B7" min="0" max="{{WeightMax_S15}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S15.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition14" name="repetition14" [(ngModel)]="recipeData.components[14].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(14)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('S16')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B7
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                S16
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[15].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[15])}} / {{getRequestedQuantity(lastDosing[15])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[15].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_S16.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix15" name="quantityMix15" [(ngModel)]="_S16_B7" min="0" max="{{WeightMax_S16}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_S16.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition15" name="repetition15" [(ngModel)]="recipeData.components[15].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(15)">Conferma</button>
+              </td>
+            </tr>
+            <!--B6-->
+            <tr [attr.class]="getClass('TP6')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B6
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                TP6
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[16].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[16])}} / {{getRequestedQuantity(lastDosing[16])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[16].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_TP6.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix16" name="quantityMix16" [(ngModel)]="_TP6_B6" min="0" max="{{WeightMax_TP6}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_TP6.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition16" name="repetition16" [(ngModel)]="recipeData.components[16].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(16)">Conferma</button>
+              </td>
+            </tr>
+            <tr [attr.class]="getClass('TP6A')">
+              <td class="text-center" style="vertical-align:middle;padding:0.625rem!important;background-color:white;">
+                B6
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                TP6A
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[17].material}}
+              </td>
+              <td style="vertical-align:middle;">
+                <span *ngIf="lastDosing != null && lastDosing.length > 0">{{getDosedQuantity(lastDosing[17])}} / {{getRequestedQuantity(lastDosing[17])}}</span>
+              </td>
+              <td style="vertical-align:middle;">
+                {{recipeData.components[17].unityOfMeasure}}
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_Q_TP6A.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="quantityMix17" name="quantityMix17" [(ngModel)]="_TP6A_B6" min="0" max="{{WeightMax_TP6A}}" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                {{TagList.PC_RIC_N_RIP_TP6A.value}}
+              </td>
+              <td style="vertical-align:middle;">
+                <input (change)="onInputChange($event)" class="form-control" type="number" id="repetition17" name="repetition17" [(ngModel)]="recipeData.components[17].repetition" />
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td class="text-center" style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td style="vertical-align:middle;">
+                &nbsp;
+              </td>
+              <td>
+                <button [disabled]="IsDisabled" type="button" class="btn btn-success" (click)="onConfirmRow(17)">Conferma</button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- TOTALI -->
+      <h4 style="margin-top:36px;">Riepilogo Totali</h4>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered card-table">
+          <tbody>
+            <tr>
+              <td class="text-left" style="vertical-align:middle">
+                QUANTITA' TOTALE DA MESCOLARE
+              </td>
+              <td style="vertical-align:middle;">
+                KG
+              </td>
+              <td class="text-right" style="vertical-align:middle;">
+                {{totalMixedQuantity.toFixed(3)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left" style="vertical-align:middle">
+                QUANTITA' TOTALE DA MESCOLARE CON RIPETIZIONI
+              </td>
+              <td style="vertical-align:middle;">
+                KG
+              </td>
+              <td class="text-right" style="vertical-align:middle;">
+                {{totalMixedQuantityWithRipetition.toFixed(3)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left" style="vertical-align:middle">
+                QUANTITA' TOTALE NON MESCOLATA
+              </td>
+              <td style="vertical-align:middle;">
+                KG
+              </td>
+              <td class="text-right" style="vertical-align:middle;">
+                {{totalQuantity.toFixed(3)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left" style="vertical-align:middle">
+                QUANTITA' TOTALE NON MESCOLATA CON RIPETIZIONI
+              </td>
+              <td style="vertical-align:middle;">
+                KG
+              </td>
+              <td class="text-right" style="vertical-align:middle;">
+                {{totalQuantityWithRipetition.toFixed(3)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left" style="vertical-align:middle">
+                TOTALE
+              </td>
+              <td style="vertical-align:middle;">
+                KG
+              </td>
+              <td class="text-right" style="vertical-align:middle;">
+                {{(totalMixedQuantity + totalQuantity).toFixed(3)}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="text-right mt-3">
+    <!--<button type="submit" [disabled]="f.invalid" class="btn btn-primary">Salva</button>&nbsp;&nbsp;-->
+    <button *ngIf="!appService.isStandAlonePc" type="button" (click)="onSave()" [disabled]="f.invalid || IsDisabled" class="btn btn-success">Salva e Conferma</button>&nbsp;&nbsp;
+    <button *ngIf="!appService.isStandAlonePc" type="button" (click)="onSaveAsNew()" [disabled]="f.invalid || IsDisabled" class="btn btn-dark">Salva come nuova</button>&nbsp;&nbsp;
+    <!--<button type="button" *ngIf="this.recipeData.id" [disabled]="f.invalid" class="btn btn-success" (click)="onRun()">Avvia</button>&nbsp;&nbsp;
+  <button type="button" *ngIf="this.recipeData.id" [disabled]="false" [swal]="{title:'Eliminare?', text:'Confermando i dati andranno persi!', icon:'warning', showCancelButton:true, confirmButtonText:'Sì, eliminalo!', cancelButtonText:'Annulla', showCloseButton:true, customClass: {confirmButton:'btn btn-lg btn-warning',cancelButton: 'btn btn-lg btn-default'}}" (confirm)="onDelete()" (cancel)="declineDialog.fire()" class="btn btn-danger">
+    Elimina
+  </button>&nbsp;&nbsp;
+  <button type="button" class="btn btn-default" (click)="goToList()">Chiudi</button>
+
+  <swal #successDialog title="Eliminato!" message="Eliminazione completata." [swalOptions]="{icon: 'success', customClass: {confirmButton:'btn btn-lg btn-success'}}"></swal>
+  <swal #declineDialog title="Annullato" message="Eliminazione annullata" [swalOptions]="{icon: 'error', customClass: {confirmButton:'btn btn-lg btn-danger'}}"></swal>-->
+
+  </div>
+</form>
+

@@ -1,0 +1,303 @@
+<h4 class="font-weight-bold py-3 mb-4" style="line-height:38px;vertical-align:middle;padding: 0px!important;">
+  Storico dosaggi e totalizzatori
+</h4>
+
+<!-- Filtri di ricerca -->
+<div class="card mb-4">
+  <h6 class="card-header">
+    Filtri di ricerca
+  </h6>
+  <div class="card-body">
+    <div class="row" style="font-size:14px;margin-top:4px;">
+      <div class="col-4">
+        <button type="button" (click)="onYesterday()" [ngClass]="yesterday == true ? 'btn btn-primary' : 'btn btn-default'" style="font-weight:bold;width:100%">Ieri</button>
+      </div>
+      <div class="col-4">
+        <button type="button" (click)="onToday()" [ngClass]="today == true ? 'btn btn-primary' : 'btn btn-default'" style="font-weight:bold;width:100%">Oggi</button>
+      </div>
+      <div class="col-4">
+        <button type="button" (click)="onRange()" [ngClass]="dateRange == true ? 'btn btn-primary' : 'btn btn-default'" style="font-weight:bold;width:100%">Intervallo</button>
+      </div>
+    </div>
+    <div *ngIf="dateRange" class="form-group row" style="margin-top:16px;">
+      <label class="col-form-label col-sm-1 text-sm-left">Data inizio</label>
+      <div class="col-sm-2">
+        <input type="date" [ngModel]="dateFrom | date:'yyyy-MM-dd'" (ngModelChange)="dateFrom = $event" class="form-control" style="width:100%;" />
+      </div>
+      <label class="col-form-label col-sm-1 text-sm-left">Data fine</label>
+      <div class="col-sm-2">
+        <input type="date" [(ngModel)]="dateTo" class="form-control" style="width:100%;" />
+      </div>
+      <div class="col-sm-6">
+        <button type="button" class="btn btn-primary" (click)="onRangeSearch()" style="width:100px;">Cerca</button>
+      </div>
+    </div>
+    <div class="form-row" style="margin-top:16px">
+      <div class="form-group col-md-6">
+        <label class="form-label">Ricerca dosaggio per numero</label>
+        <input class="form-control" type="text" (keyup)="onKey($event)" id="fNumber" name="fNumber" [(ngModel)]="dosingQuery" placeholder="Inserisci il numero dosaggio">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="nav-tabs-top" style="padding:2px;">
+  <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink (click)="showCycle()"><h4>CICLI</h4></a>
+      <ng-template ngbNavContent>
+        <div *ngIf="!showChart" class="card">
+          <!--<div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="pull-right text-muted"><em class="icon-wallet mr-sm"></em><strong>{{totalPages}}</strong> dosaggi</div>
+            </div>
+          </div>
+        </div>-->
+          <hr class="border-light m-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <h4>
+                  Totale miscelato: {{(globalTotalDosedInMix / 1000).toFixed(1)}} ton
+                </h4>
+              </div>
+              <div class="col-5">
+                <h4>Totale con rottame: {{(globalTotalDosed / 1000).toFixed(1)}} ton</h4>
+              </div>
+              <div class="col-3">
+                <div class="d-flex justify-content-around align-items-center" style="gap: 15px;">
+                  <h4 class="mb-0">Dosaggi: {{totalPages}}</h4>
+                  <h4 class="mb-0">TF1: {{tf1Count}}</h4>
+                  <h4 class="mb-0">TF2: {{tf2Count}}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="border-light m-0">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered card-table">
+              <thead>
+                <tr>
+                  <th class="text-nowrap cursor-pointer">
+                    Ricetta<i class="ion text-muted ml-2" *ngIf="sortBy=='recipe'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                  </th>
+                  <th class="text-nowrap cursor-pointer">
+                    Fine Ciclo<i class="ion text-muted ml-2" *ngIf="sortBy=='endDate'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                  </th>
+                  <th class="text-nowrap cursor-pointer">
+                    Ciclo<i class="ion text-muted ml-2" *ngIf="sortBy=='number'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                  </th>
+                  <th class="text-nowrap cursor-pointer">
+                    Codice<i class="ion text-muted ml-2" *ngIf="sortBy=='materialCode'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                  </th>
+                  <th class="text-nowrap cursor-pointer">
+                    Materiale
+                  </th>
+                  <th class="text-nowrap cursor-pointer">
+                    Unità
+                  </th>
+                  <th class="text-nowrap cursor-pointer">
+                    Quantità Richiesta
+                  </th>
+                  <th class="text-nowrap cursor-pointer">
+                    Quantità Reale<i class="ion text-muted ml-2" *ngIf="sortBy=='dosedQuantity'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                  </th>
+                  <th class="text-nowrap cursor-pointer">
+                    Silo<i class="ion text-muted ml-2" *ngIf="sortBy=='silo'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let article of dosingsData_New; let i = index" [attr.style]="getRowCustomStyle(i)">
+                  <td class="align-middle">
+                    {{dosingsData_New[i].recipe}}
+                  </td>
+                  <td class="align-middle">{{dosingsData_New[i].endDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                  <td class="align-middle">{{dosingsData_New[i].number}}</td>
+                  <td class="align-middle">{{dosingsData_New[i].materialCode}}</td>
+                  <td class="align-middle">{{dosingsData_New[i].material}}</td>
+                  <td class="align-middle">{{dosingsData_New[i].unity}}</td>
+                  <td class="align-middle">{{getRequestedQuantity(dosingsData_New[i])}}</td>
+                  <td class="align-middle">{{dosingsData_New[i].dosedQuantity.toFixed(1)}}</td>
+                  <td class="align-middle">{{dosingsData_New[i].silo}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink (click)="showGraphic()"><h4>TOTALIZZATORI</h4></a>
+      <ng-template ngbNavContent>
+        <!--<div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="card-body pb-2">
+              <div class="demo-vertical-spacing-lg">
+                <div *ngIf="dosingsData && dosingsData.length > 0">
+                  <ngx-charts-bar-vertical [results]="singleData"
+                                           [xAxis]="true"
+                                           [yAxis]="true"
+                                           [legend]="true"
+                                           [showXAxisLabel]="true"
+                                           [showYAxisLabel]="true"
+                                           [scheme]="'vivid'"
+                                           xAxisLabel="Country"
+                                           yAxisLabel="Population">
+                  </ngx-charts-bar-vertical>
+                </div>
+                <div class="card-body">
+                  <div class="form-group row">
+                    <div class="col-sm-2">
+                      <label class="switcher">
+                        <input type="checkbox" class="switcher-input" [(ngModel)]="autoScale">
+                        <span class="switcher-indicator">
+                          <span class="switcher-yes"></span>
+                          <span class="switcher-no"></span>
+                        </span>
+                        <span class="switcher-label"></span>
+                      </label>
+                    </div>
+                    <label class="col-form-label col-form-label-lg col-sm-10">Attiva Scala Automatica</label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-2">
+                      <input type="text" class="form-control" [(ngModel)]="yScaleMin">
+                    </div>
+                    <label class="col-form-label col-form-label-lg col-sm-10">Minimo Valore Ordinate</label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-2">
+                      <input type="text" class="form-control" [(ngModel)]="yScaleMax">
+                    </div>
+                    <label class="col-form-label col-form-label-lg col-sm-10">Massimo Valore Ordinate</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+      </ng-template>
+    </li>
+    <!--<li ngbNavItem>
+      <a ngbNavLink (click)="showGraphicWorkshift()"><h4>TOTALIZZATORI DI TURNO</h4></a>
+      <ng-template ngbNavContent>
+      </ng-template>
+    </li>-->
+  </ul>
+  <div [ngbNavOutlet]="userTabs"></div>
+</div>
+
+<div *ngIf="showChart" class="demo-vertical-spacing-lg" style="background-color:white">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-4">
+        <h4>
+          Totale miscelato: {{(globalTotalDosedInMix / 1000).toFixed(1)}} ton
+        </h4>
+      </div>
+      <div class="col-5">
+        <h4>Totale con rottame: {{(globalTotalDosed / 1000).toFixed(1)}} ton</h4>
+      </div>
+      <div class="col-3">
+        <div class="d-flex justify-content-around align-items-center" style="gap: 15px;">
+          <h4 class="mb-0">Dosaggi: {{totalPages}}</h4>
+          <h4 class="mb-0">TF1: {{tf1Count}}</h4>
+          <h4 class="mb-0">TF2: {{tf2Count}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="border-light m-0">
+
+  <div *ngIf="dosingsData && dosingsData.length > 0" style="height:600px;margin-top:0px!important;">
+    <ngx-charts-bar-vertical [results]="singleData"
+                             [xAxis]="true"
+                             [yAxis]="true"
+                             [showXAxisLabel]="true"
+                             [showYAxisLabel]="true"
+                             [scheme]="'vivid'"
+                             xAxisLabel="MATERIALI"
+                             yAxisLabel="DOSATO">
+    </ngx-charts-bar-vertical>
+  </div>
+  <!--<div *ngIf="dosingsData && dosingsData.length > 0" style="height:400px">
+    <ngx-charts-bar-vertical-2d [results]="multiDataOrigin"
+                                [xAxis]="true"
+                                [yAxis]="true"
+                                [legend]="true"
+                                [showXAxisLabel]="true"
+                                [showYAxisLabel]="true"
+                                [scheme]="'vivid'"
+                                xAxisLabel="MATERIALI"
+                                yAxisLabel="DOSATO">
+    </ngx-charts-bar-vertical-2d>
+  </div>-->
+
+  <div class="card-body">
+    <div class="form-group row">
+      <div class="col">
+        &nbsp;
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="card-body">
+    <div class="form-group row">
+      <div class="col-sm-2">
+        <label class="switcher">
+          <input type="checkbox" class="switcher-input" [(ngModel)]="autoScale">
+          <span class="switcher-indicator">
+            <span class="switcher-yes"></span>
+            <span class="switcher-no"></span>
+          </span>
+          <span class="switcher-label"></span>
+        </label>
+      </div>
+      <label class="col-form-label col-form-label-lg col-sm-10">Attiva Scala Automatica</label>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-2">
+        <input type="text" class="form-control" [(ngModel)]="yScaleMin">
+      </div>
+      <label class="col-form-label col-form-label-lg col-sm-10">Minimo Valore Ordinate</label>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-2">
+        <input type="text" class="form-control" [(ngModel)]="yScaleMax">
+      </div>
+      <label class="col-form-label col-form-label-lg col-sm-10">Massimo Valore Ordinate</label>
+    </div>
+  </div>-->
+
+</div>
+
+<!--<div *ngIf="showChart_Workshift" class="demo-vertical-spacing-lg" style="background-color:white">
+  <div *ngIf="dosingsWorkshiftTotalizerData && dosingsWorkshiftTotalizerData.length > 0" style="height:400px">
+    <ngx-charts-bar-vertical-2d [results]="multiData"
+                                [xAxis]="true"
+                                [yAxis]="true"
+                                [legend]="true"
+                                [showXAxisLabel]="true"
+                                [showYAxisLabel]="true"
+                                [scheme]="'vivid'"
+                                xAxisLabel="MATERIALI"
+                                yAxisLabel="DOSATO">
+    </ngx-charts-bar-vertical-2d>
+  </div>
+
+  <div class="card-body">
+    <div class="form-group row">
+      <div class="col">
+        &nbsp;
+      </div>
+    </div>
+  </div>
+
+</div>-->

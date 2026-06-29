@@ -1,0 +1,266 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  Manutenzioni
+  <button type="button" class="btn btn-primary rounded-pill d-block" (click)="onBnNewClick()"><span class="ion ion-md-add"></span>&nbsp; Nuova Manutenzione</button>
+</h4>
+
+<div class="card mb-4">
+  <!-- Table controls -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        Per pagina: &nbsp;
+        <select [(ngModel)]="perPage"
+                (change)="update()"
+                class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [10, 20, 30, 40, 50]">{{limit}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <div class="pull-right text-muted"><em class="icon-wallet mr-sm"></em><strong>{{totalItems}}</strong> manutenzioni</div>
+        <!--<input type="text"
+           [(ngModel)]="filterVal"
+           (input)="currentPage = 1; update()"
+           class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+           placeholder="Search...">-->
+      </div>
+    </div>
+  </div>
+  <!-- / Table controls -->
+  <!-- Table -->
+  <hr class="border-light m-0">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('description')" style="min-width: 18rem">
+            Descrizione<i class="ion text-muted ml-2" *ngIf="sortBy=='description'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('state')" style="max-width: 10rem">
+            Stato<i class="ion text-muted ml-2" *ngIf="sortBy=='state'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('fromDate')" style="max-width: 12rem">
+            Inizio<i class="ion text-muted ml-2" *ngIf="sortBy=='fromDate'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('toDate')" style="max-width: 12rem">
+            Fine<i class="ion text-muted ml-2" *ngIf="sortBy=='toDate'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('repetitionType')" style="max-width: 10rem">
+            Ripetizione<i class="ion text-muted ml-2" *ngIf="sortBy=='repetitionType'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('adviseType')" style="max-width: 10rem">
+            Avvisami<i class="ion text-muted ml-2" *ngIf="sortBy=='adviseType'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('users')">
+            Utenti<i class="ion text-muted ml-2" *ngIf="sortBy=='users'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('contacts')">
+            Contatti<i class="ion text-muted ml-2" *ngIf="sortBy=='contacts'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fDescription" name="fDescription" placeholder="Filtra per descrizione">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fState" name="fState" placeholder="Filtra per stato">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fFromDate" name="fFromDate" placeholder="Filtra per data inizio">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fToDate" name="fToDate" placeholder="Filtra per data fine">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fRepetitionType" name="fRepetitionType" placeholder="Filtra per ripetizione">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fAdviseType" name="fAdviseType" placeholder="Filtra per tipo avviso">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fUsers" name="fUsers" placeholder="Filtra per utenti">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fContacts" name="fContacts" placeholder="Filtra per contatti">
+          </td>
+          <td class="text-center text-nowrap align-middle">
+            <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Rimuovi Filtri"><i class="ion ion-md-close"></i></a>
+          </td>
+        </tr>
+        <tr *ngFor="let activity of activitiesData">
+          <td class="align-middle"><a href="javascript:void(0)" (click)="open(activity)">{{activity.description}}</a></td>
+          <td class="align-middle">
+            <div *ngIf="activity.state == 'FATTA'" class="badge badge-success">{{activity.state}}</div>
+            <div *ngIf="activity.state == 'DA FARE'" class="badge badge-danger">{{activity.state}}</div>
+          </td>
+          <td class="align-middle">{{formatDate(activity.fromDate)}}</td>
+          <td class="align-middle">{{formatDate(activity.toDate)}}</td>
+          <td class="align-middle">{{activity.repetitionType}}</td>
+          <td class="align-middle">{{activity.adviseType}}</td>
+          <td class="align-middle">{{activity.users}}</td>
+          <td class="align-middle">{{activity.contacts}}</td>
+          <td class="text-center text-nowrap align-middle">
+            <a href="javascript:void(0)" (click)="open(activity)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
+              <i class="ion ion-md-create"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- / Table -->
+  <!-- Pagination -->
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">Page {{ currentPage }} of {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems"
+                        [pageSize]="perPage"
+                        [(page)]="currentPage"
+                        (pageChange)="update()"
+                        size="sm"
+                        class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- / Pagination -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  <div>Elenco Manutenzioni Programmate</div>
+  <button type="button" class="btn btn-primary rounded-pill d-block" (click)="onBnNewClick()"><span class="ion ion-md-add"></span>&nbsp; Nuova Manutenzione</button>
+</h4>
+
+<div class="card mb-4">
+   Table controls
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        Per pagina: &nbsp;
+        <select [(ngModel)]="perPage"
+                (change)="update()"
+                class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [10, 20, 30, 40, 50]">{{limit}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <hr class="border-light m-0">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('title')" style="min-width: 18rem">
+            Descrizione<i class="ion text-muted ml-2" *ngIf="sortBy=='title'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('cells')" style="min-width: 18rem">
+            Stato<i class="ion text-muted ml-2" *ngIf="sortBy=='cells'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('cells')" style="min-width: 18rem">
+            Inizio<i class="ion text-muted ml-2" *ngIf="sortBy=='cells'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('createdAt')">
+            Fine<i class="ion text-muted ml-2" *ngIf="sortBy=='createdAt'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('createdAt')">
+            Operatori<i class="ion text-muted ml-2" *ngIf="sortBy=='createdAt'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('createdAt')">
+            Ripetizione<i class="ion text-muted ml-2" *ngIf="sortBy=='createdAt'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('createdAt')">
+            Avvisami<i class="ion text-muted ml-2" *ngIf="sortBy=='createdAt'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('createdAt')">
+            Note<i class="ion text-muted ml-2" *ngIf="sortBy=='createdAt'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fDescription" name="fDescription" placeholder="Filtra per descrizione">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fState" name="fState" placeholder="Filtra per stato">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fStartDate" name="fStartDate" placeholder="Filtra per data inizio">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fEndDate" name="fEndDate" placeholder="Filtra per data fine">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fEmployees" name="fEmployees" placeholder="Filtra per utenti">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fRepetition" name="fRepetition" placeholder="Filtra per ripetizione">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fAdviseMe" name="fAdviseMe" placeholder="Filtra per tipo avviso">
+          </td>
+          <td>
+            <input class="form-control" type="text" (keyup)="onKey($event)" id="fNote" name="fNote" placeholder="Filtra per note">
+          </td>
+          <td class="text-center text-nowrap align-middle">
+            <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Rimuovi Filtri"><i class="ion ion-md-close"></i></a>
+          </td>
+        </tr>
+        <tr *ngFor="let article of articlesData">
+          <td class="align-middle"><a [routerLink]="['/planning/edit']">Manutenzione cabina</a></td>
+          <td class="align-middle">DA FARE</td>
+          <td class="align-middle">21/05/2020</td>
+          <td class="align-middle">21/05/2020</td>
+          <td class="align-middle">Paolo Rossi</td>
+          <td class="align-middle">Ogni Mese</td>
+          <td class="align-middle">1 giorno prima</td>
+          <td class="align-middle"></td>
+          <td class="text-center text-nowrap align-middle">
+            <a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Modifica"><i class="ion ion-md-create"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">Page {{ currentPage }} of {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems"
+                        [pageSize]="perPage"
+                        [(page)]="currentPage"
+                        (pageChange)="update()"
+                        size="sm"
+                        class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>-->

@@ -1,0 +1,2 @@
+per la creazione dell'email automatizzata seguire l'ordine dei files pdf tenendo presente gli spazi vuoti (invii) 
+nel file "email-invoice.html"
