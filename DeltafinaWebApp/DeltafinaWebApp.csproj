@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-DeltafinaWebApp-FD77C4E6-9C7C-4A2C-AFFD-63EEC7750613</UserSecretsId>
     <TypeScriptToolsVersion>4.0</TypeScriptToolsVersion>
+    <!-- Il TypeScript dell'app Angular e' compilato da Angular CLI (ng build), NON da MSBuild/VS.
+         Queste righe impediscono a Visual Studio di ricompilare il TS in build/salvataggio,
+         che causava MSB6006 / node.exe exit 134 (out-of-memory del node.exe a 32-bit di VS). -->
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptCompileOnSaveEnabled>false</TypeScriptCompileOnSaveEnabled>
     <AssemblyName>DeltafinaWebApp</AssemblyName>
     <RootNamespace>DeltafinaWebApp</RootNamespace>
   </PropertyGroup>
