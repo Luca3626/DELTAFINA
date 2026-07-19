@@ -1,0 +1,26 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve"><desc>Copyright Opto 22</desc> 
+  <!-- Generator: Adobe Illustrator 28.7.1, SVG Export Plug-In . SVG Version: 1.2.0 Build 142)  -->
+  <g>
+    <g id="Layer_1">
+      <g id="Layer_1-2" data-name="Layer_1">
+        <g>
+          <g id="frame">
+            <rect width="100" height="100" fill="none"></rect>
+          </g>
+          <g id="shape">
+            <rect x="42" width="16" height="100" fill="#999"></rect>
+          </g>
+          <g id="dark">
+            <rect x="43" width="14" height="100" fill="#808080"></rect>
+          </g>
+          <g id="light">
+            <rect x="45" width="10" height="100" fill="#b2b2b2"></rect>
+          </g>
+          <g id="hlight">
+            <rect x="46.5" width="7" height="100" fill="#ccc"></rect>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

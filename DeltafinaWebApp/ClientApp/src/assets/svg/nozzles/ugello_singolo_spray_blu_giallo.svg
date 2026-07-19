@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="304"
+   height="499"
+   viewBox="105 58 304 499"
+   fill="none"
+   version="1.1"
+   id="svg16"
+   sodipodi:docname="ugello_singolo_spray_blu_giallo.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="true"
+     inkscape:zoom="1.8301075"
+     inkscape:cx="-1.9124559"
+     inkscape:cy="320.47297"
+     inkscape:window-width="1920"
+     inkscape:window-height="1111"
+     inkscape:window-x="-9"
+     inkscape:window-y="61"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="ugello-singolo">
+    <inkscape:grid
+       id="grid16"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <title
+     id="title1">Ugello singolo con spruzzo blu e giallo</title>
+  <desc
+     id="desc1">Icona SVG vettoriale di un ugello singolo industriale con spruzzo colorato blu e giallo.</desc>
+  <defs
+     id="defs2">
+    <linearGradient
+       id="bodyGrad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1">
+      <stop
+         offset="0"
+         stop-color="#2398C9"
+         id="stop1" />
+      <stop
+         offset="1"
+         stop-color="#2398C9"
+         id="stop2" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#bodyGrad"
+       id="linearGradient16"
+       x1="161.94885"
+       y1="374.88492"
+       x2="161.94885"
+       y2="448.67432"
+       gradientTransform="scale(1.2874442,0.77673268)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#bodyGrad"
+       id="linearGradient17"
+       x1="39.941296"
+       y1="165.52417"
+       x2="39.941296"
+       y2="275.8736"
+       gradientTransform="scale(2.6914499,0.37154695)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#bodyGrad"
+       id="linearGradient18"
+       x1="166.11137"
+       y1="170.0591"
+       x2="166.11137"
+       y2="257.83151"
+       gradientTransform="scale(1.2190616,0.82030311)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#bodyGrad"
+       id="linearGradient19"
+       x1="198.08945"
+       y1="213.4055"
+       x2="198.08945"
+       y2="303.66208"
+       gradientTransform="scale(1.0525549,0.95006925)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     id="ugello-singolo"
+     stroke="#171c20"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <g
+       id="barra-superiore">
+      <rect
+         x="110"
+         y="64"
+         width="292"
+         height="36"
+         rx="4"
+         fill="url(#bodyGrad)"
+         stroke-width="5"
+         id="rect2"
+         style="fill:url(#linearGradient17)" />
+    </g>
+    <g
+       id="attacco">
+      <path
+         d="m 218,100 h 76 l -9,32 h -58 z"
+         fill="#58595b"
+         stroke-width="5"
+         id="path2" />
+      <rect
+         x="230"
+         y="132"
+         width="52"
+         height="10"
+         fill="#58595b"
+         stroke-width="5"
+         id="rect3" />
+    </g>
+    <g
+       id="dado-esagonale">
+      <path
+         d="m 205,154 17,-12 h 68 l 17,12 v 45 l -17,10 h -68 l -17,-10 z"
+         fill="url(#bodyGrad)"
+         stroke-width="5"
+         id="path3"
+         style="fill:url(#linearGradient18)" />
+      <path
+         d="m 222,142 v 67"
+         stroke-width="4"
+         id="path4" />
+      <path
+         d="m 290,142 v 67"
+         stroke-width="4"
+         id="path5" />
+    </g>
+    <g
+       id="corpo-ugello">
+      <path
+         d="m 211,209 c 18,-5 72,-5 90,0 v 77 h -90 z"
+         fill="url(#bodyGrad)"
+         stroke-width="5"
+         id="path6"
+         style="fill:url(#linearGradient19)" />
+      <path
+         d="m 211,286 c 25,-7 65,-7 90,0"
+         stroke-width="4"
+         id="path7" />
+      <path
+         d="m 211,299 c 25,-7 65,-7 90,0"
+         stroke-width="4"
+         id="path8" />
+    </g>
+    <g
+       id="punta-ugello"
+       transform="translate(0,-8)">
+      <path
+         d="m 211,299 28,47 h 34 l 28,-47 c -24,-7 -66,-7 -90,0 z"
+         fill="url(#bodyGrad)"
+         stroke-width="5"
+         id="path9"
+         style="fill:url(#linearGradient16)" />
+      <path
+         d="m 238,346 c 2,11 12,10 18,6 6,4 16,5 18,-6"
+         fill="none"
+         stroke-width="5"
+         id="path10" />
+      <path
+         d="m 242,346 c 5,-4 23,-4 28,0"
+         stroke-width="4"
+         id="path11" />
+    </g>
+    <g
+       id="spruzzo"
+       inkscape:label="spruzzo"
+       style="display:inline;fill:none;stroke:#d9b310;stroke-width:14;stroke-linecap:round;stroke-dasharray:40, 24;stroke-dashoffset:0">
+      <path d="M 256,348 371.7,481" id="path28" sodipodi:nodetypes="cc" />
+      <path d="M 256,348 256,548" id="path28-2" sodipodi:nodetypes="cc" />
+      <path d="M 256,348 140.3,481" id="path28-5" sodipodi:nodetypes="cc" />
+      <path d="M 256,348 189.3,526" id="path28-6" sodipodi:nodetypes="cc" />
+      <path d="M 256,348 322.7,526" id="path28-7" sodipodi:nodetypes="cc" />
+    </g>
+  </g>
+  <metadata
+     id="metadata16">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Ugello singolo con spruzzo blu e giallo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
