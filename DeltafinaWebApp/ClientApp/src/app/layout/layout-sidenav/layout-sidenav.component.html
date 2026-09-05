@@ -5,53 +5,82 @@
     <!--<span class="app-brand-logo demo bg-primary">
       <svg viewBox="0 0 148 80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient id="a" x1="46.49" x2="62.46" y1="53.39" y2="48.2" gradientUnits="userSpaceOnUse"><stop stop-opacity=".25" offset="0"></stop><stop stop-opacity=".1" offset=".3"></stop><stop stop-opacity="0" offset=".9"></stop></linearGradient><linearGradient id="e" x1="76.9" x2="92.64" y1="26.38" y2="31.49" xlink:href="#a"></linearGradient><linearGradient id="d" x1="107.12" x2="122.74" y1="53.41" y2="48.33" xlink:href="#a"></linearGradient></defs><path style="fill: #fff;" transform="translate(-.1)" d="M121.36,0,104.42,45.08,88.71,3.28A5.09,5.09,0,0,0,83.93,0H64.27A5.09,5.09,0,0,0,59.5,3.28L43.79,45.08,26.85,0H.1L29.43,76.74A5.09,5.09,0,0,0,34.19,80H53.39a5.09,5.09,0,0,0,4.77-3.26L74.1,35l16,41.74A5.09,5.09,0,0,0,94.82,80h18.95a5.09,5.09,0,0,0,4.76-3.24L148.1,0Z"></path><path transform="translate(-.1)" d="M52.19,22.73l-8.4,22.35L56.51,78.94a5,5,0,0,0,1.64-2.19l7.34-19.2Z" fill="url(#a)"></path><path transform="translate(-.1)" d="M95.73,22l-7-18.69a5,5,0,0,0-1.64-2.21L74.1,35l8.33,21.79Z" fill="url(#e)"></path><path transform="translate(-.1)" d="M112.73,23l-8.31,22.12,12.66,33.7a5,5,0,0,0,1.45-2l7.3-18.93Z" fill="url(#d)"></path></svg>
     </span>-->
-    <a routerLink="/" class="app-brand-text demo sidenav-text font-weight-normal ml-2">DELTAFINA</a>
+    <!-- Nome intero e sigla sono due span distinti: a barra collassata .app-brand
+         ha larghezza fissa e overflow:hidden, quindi "DELTAFINA" verrebbe tagliato.
+         Lo scambio dei due span lo fa layout-sidenav.component.css. -->
+    <a routerLink="/" class="app-brand-text demo sidenav-text font-weight-normal ml-2 app-brand-title">
+      <span class="brand-full">DELTAFINA BSO</span>
+      <span class="brand-short">DF</span>
+    </a>
     <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto" (click)="toggleSidenav()">
       <i class="ion ion-md-menu align-middle"></i>
     </a>
   </div>
+
+  <!-- Cornice con il logo aziendale (stesso pattern del Portale Manutenzioni):
+       a barra aperta mostra logo + nome, a barra collassata si riduce alla sola
+       icona e il nome scompare. Il logo e' un asset statico, non arriva dal DB. -->
+  <div class="brand-card" *ngIf="orientation !== 'horizontal'" title="DELTAFINA">
+    <div class="brand-picture-wrapper">
+      <img src="assets/img/Logo-Deltafina.png" alt="DELTAFINA" class="brand-picture">
+    </div>
+
+    <!-- Nome azienda: visibile solo quando la sidenav e' espansa o in hover -->
+    <div class="brand-name sidenav-text">DELTAFINA</div>
+  </div>
+
   <div class="sidenav-divider mt-0" *ngIf="orientation !== 'horizontal'"></div>
 
   <!-- Links -->
   <div class="sidenav-inner" [ngClass]="{ 'py-1': orientation !== 'horizontal' }">
-
     <sidenav-router-link *ngIf="ShowAziendeDelPortale" icon="fas fa-wallet" route="/portal-farms/portal-farms-list" [active]="isActive('/portal-farms')">Aziende del Portale</sidenav-router-link>
     <sidenav-divider *ngIf="ShowAziendeDelPortale" class="mb-1"></sidenav-divider>
-    <sidenav-router-link icon="fas fa-home" route="/dashboard" [active]="isActive('/dashboard')">Dosaggio e Trasporto</sidenav-router-link>
-    <sidenav-router-link icon="fab fa-stripe-s" route="/carico-sabbia" [active]="isActive('/carico-sabbia')">Carico Sabbia</sidenav-router-link>
-    <sidenav-router-link icon="fas fa-registered" route="/carico-rottame" [active]="isActive('/carico-rottame')">Carico Rottame</sidenav-router-link>
-    <sidenav-router-link icon="fas fa-italic" route="/rottame-interno" [active]="isActive('/rottame-interno')">Rottame Interno</sidenav-router-link>
-    <sidenav-router-link icon="fas fa-box" route="/carico-silos" [active]="isActive('/carico-silos')">Carico Silos</sidenav-router-link>
-    <sidenav-router-link icon="ion-md-checkbox-outline" route="/recipes/recipe-actual" [active]="isActive('/recipes/recipe-actual')">Ricetta Attuale</sidenav-router-link>
-
+    <sidenav-router-link icon="fas fa-home" route="/dashboard" [active]="isActive('/dashboard')">Panoramica impianto</sidenav-router-link>
+    <sidenav-menu icon="ion ion-md-checkbox-outline" text="Slicer" [active]="isMenuActive('/slicer-virginia') || isMenuActive('/slicer-burley')" [open]="isMenuOpen('/slicer-virginia') || isMenuOpen('/slicer-burley')">
+      <sidenav-router-link route="/slicer-virginia" [active]="isActive('/slicer-virginia')">Slicer Virginia</sidenav-router-link>
+      <sidenav-router-link route="/slicer-burley" [active]="isActive('/slicer-burley')">Slicer Burley</sidenav-router-link>
+    </sidenav-menu>
+    <sidenav-menu icon="fas fa-microchip" text="DCC" [active]="isMenuActive('/dcc-virginia') || isMenuActive('/dcc-burley')" [open]="isMenuOpen('/dcc-virginia') || isMenuOpen('/dcc-burley')">
+      <sidenav-router-link route="/dcc-virginia" [active]="isActive('/dcc-virginia')">DCC Virginia</sidenav-router-link>
+      <sidenav-router-link route="/dcc-burley" [active]="isActive('/dcc-burley')">DCC Burley</sidenav-router-link>
+    </sidenav-menu>
+    <sidenav-menu icon="fas fa-microchip" text="Silos" [active]="isMenuActive('/silo-fill') || isMenuActive('/silo-discharge')" [open]="isMenuOpen('/silo-fill') || isMenuOpen('/silo-discharge')">
+      <sidenav-router-link route="/silo-fill" [active]="isActive('/silo-fill')">Silo Fill</sidenav-router-link>
+      <sidenav-router-link route="/silo-discharge" [active]="isActive('/silo-discharge')">Silo Discharge</sidenav-router-link>
+    </sidenav-menu>
+    <sidenav-menu icon="fas fa-project-diagram" text="Plant zones" [active]="isMenuActive('/zona-1-0') || isMenuActive('/zona-2-1') || isMenuActive('/zona-2-3') || isMenuActive('/zona-3-4')" [open]="isMenuOpen('/zona-1-0') || isMenuOpen('/zona-2-1') || isMenuOpen('/zona-2-3') || isMenuOpen('/zona-3-4')">
+      <sidenav-router-link route="/zona-1-0" [active]="isActive('/zona-1-0')">Zona 1.0 - Virginia Infeed</sidenav-router-link>
+      <sidenav-router-link route="/zona-2-1" [active]="isActive('/zona-2-1')">Zona 2.1 - Burley Line</sidenav-router-link>
+      <sidenav-router-link route="/zona-2-3" [active]="isActive('/zona-2-3')">Zona 2.3 - Burley Infeed</sidenav-router-link>
+      <sidenav-router-link route="/zona-3-4" [active]="isActive('/zona-3-4')">Zona 3.4 - Final Metal Detector</sidenav-router-link>
+    </sidenav-menu>
+    <sidenav-menu icon="fas fa-flask" text="Casing application" [active]="isMenuActive('/casing-tanks') || isMenuActive('/casing-spray')" [open]="isMenuOpen('/casing-tanks') || isMenuOpen('/casing-spray')">
+      <sidenav-router-link route="/casing-tanks" [active]="isActive('/casing-tanks')">Casing Tanks</sidenav-router-link>
+      <sidenav-router-link route="/casing-spray" [active]="isActive('/casing-spray')">Casing Spray</sidenav-router-link>
+    </sidenav-menu>
+    <sidenav-menu icon="fas fa-wind" text="Dryer control loops" [active]="isMenuActive('/burley-dryer') || isMenuActive('/final-dryer')" [open]="isMenuOpen('/burley-dryer') || isMenuOpen('/final-dryer')">
+      <sidenav-router-link route="/burley-dryer" [active]="isActive('/burley-dryer')">Burley Dryer</sidenav-router-link>
+      <sidenav-router-link route="/final-dryer" [active]="isActive('/final-dryer')">Final Dryer</sidenav-router-link>
+    </sidenav-menu>
+    <sidenav-router-link icon="fas fa-tachometer-alt" route="/inverter" [active]="isActive('/inverter')">Inverter</sidenav-router-link>
+    <sidenav-router-link icon="fas fa-server" route="/cabinet" [active]="isActive('/cabinet')" [linkClass]="cabinetAlarm ? 'sidenav-cabinet-alarm' : ''">Cabinets</sidenav-router-link>
     <sidenav-router-link icon="fas fa-volume-up" route="/alarms" [active]="isActive('/alarms')">Allarmi</sidenav-router-link>
-
     <sidenav-divider *ngIf="!appService.isStandAlonePc" class="mb-1"></sidenav-divider>
-
-  <sidenav-header *ngIf="!appService.isStandAlonePc" class="small font-weight-semibold">GESTIONI</sidenav-header>
-
-  <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas fa-star" route="/recipes/recipes-list" [active]="isActive('/recipes')">Ricette</sidenav-router-link>
-  <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fab fa-medium-m" route="/materials/materials-list" [active]="isActive('/materials')">Materiali</sidenav-router-link>
-  <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas fa-box" route="/silos/silos-list" [active]="isActive('/silos')">Silos</sidenav-router-link>
-  <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas fa-volume-off" route="/alarms-settings/list" [active]="isActive('/alarms-settings/list')">Notifiche Allarmi</sidenav-router-link>
-  <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas d-block fa-calendar-alt" route="/planning/list" [active]="isActive('/planning/list')">Manutenzioni</sidenav-router-link>
-  <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas fa-user-shield" route="/users/users-list" [active]="isActive('/users')">Utenti</sidenav-router-link>
-
-  <sidenav-divider *ngIf="!appService.isStandAlonePc" class="mb-1"></sidenav-divider>
-
-  <sidenav-header *ngIf="!appService.isStandAlonePc" class="small font-weight-semibold">DATA LOG</sidenav-header>
-
-  <sidenav-router-link *ngIf="!appService.isStandAlonePc" icon="ion d-block ion-ios-list" route="/dosings" [active]="isActive('/dosings')">Dosaggi</sidenav-router-link>
-  <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="ion d-block ion-ios-list" route="/trend/trend-list" [active]="isActive('/trend/trend-list')">Elenco Trend</sidenav-router-link>
-  <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="far fa-chart-bar" route="/trend/trend-view" [active]="isActive('/trend/trend-view')">Visualizza</sidenav-router-link>
-
+    <sidenav-header *ngIf="!appService.isStandAlonePc" class="small font-weight-semibold">GESTIONI</sidenav-header>
+    <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fab fa-medium-m" route="/materials/materials-list" [active]="isActive('/materials')">Materiali</sidenav-router-link>
+    <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas fa-box" route="/silos/silos-list" [active]="isActive('/silos')">Silos</sidenav-router-link>
+    <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas fa-volume-off" route="/alarms-settings/list" [active]="isActive('/alarms-settings/list')">Notifiche Allarmi</sidenav-router-link>
+    <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas d-block fa-calendar-alt" route="/planning/list" [active]="isActive('/planning/list')">Manutenzioni</sidenav-router-link>
+    <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="fas fa-user-shield" route="/users/users-list" [active]="isActive('/users')">Utenti</sidenav-router-link>
+    <sidenav-divider *ngIf="!appService.isStandAlonePc" class="mb-1"></sidenav-divider>
+    <sidenav-header *ngIf="!appService.isStandAlonePc" class="small font-weight-semibold">DATA LOG</sidenav-header>
+    <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="ion d-block ion-ios-list" route="/trend/trend-list" [active]="isActive('/trend/trend-list')">Elenco Trend</sidenav-router-link>
+    <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="far fa-chart-bar" route="/trend/trend-view" [active]="isActive('/trend/trend-view')">Visualizza</sidenav-router-link>
+    <sidenav-router-link *ngIf="ShowUtenti && !appService.isStandAlonePc" icon="far fa-chart-bar" route="/trend/trend-paste-list" [active]="isActive('/trend/trend-paste-list')">Crea con excel</sidenav-router-link>
     <sidenav-divider class="mb-1"></sidenav-divider>
-
     <sidenav-header class="small font-weight-semibold">IMPOSTAZIONI</sidenav-header>
-
     <sidenav-router-link icon="ion d-block ion-md-settings" route="/settings/general" [active]="isActive('/settings/general')">Parametri</sidenav-router-link>
     <sidenav-router-link *ngIf="ShowUtenti" icon="ion d-block ion-ios-list" route="/settings/tag-list" [active]="isActive('/settings/tag-list')">Tag List</sidenav-router-link>
-
 
     <!-- Dashboards -->
     <!--<sidenav-menu icon="ion ion-md-speedometer" text="Dashboards" [active]="isMenuActive('/dashboards')" [open]="isMenuOpen('/dashboards')">

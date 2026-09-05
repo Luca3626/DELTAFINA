@@ -1,5 +1,7 @@
 import { Component, Input, HostBinding } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { GlobalCmdPlateComponent } from '../../device-plate/global-cmd-plate/global-cmd-plate.component';
 import { SoundService } from 'src/app/services/sound.service';
 import { SignalRService } from 'src/app/signalr-client/signalr.service';
 import { AppService } from '../../app.service';
@@ -8,6 +10,7 @@ import { LayoutService } from '../../layout/layout.service';
 import { timer } from 'rxjs';
 import { AlarmService } from '../../services/alarm.service';
 import { PlcService } from 'src/app/services/plc.service';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -24,17 +27,21 @@ export class LayoutNavbarComponent {
 
   @HostBinding('class.layout-navbar') hostClassMain = true;
 
-  plcStateOk: boolean = true;
+  isSilent: boolean = false;
+
+  // Watchdog PLC: VAR_V3999 (DB190.dbw7998) e' il contatore che il PLC incrementa di continuo.
+  // La navbar ne campiona 12 letture consecutive: se il valore non cambia mai il PLC e' fermo
+  // anche con la connessione ancora aperta, e il badge PLC si mette a lampeggiare.
+  // Il blocco VIPA resta commentato perche' il secondo PLC (S7_300) non esiste in DELTAFINA.
+
   indexAlive: number = 0;
   arrayFilled: boolean = false;
   aliveArray: Array<number> = new Array<number>(12);
 
-  plcVipaStateOk: boolean = true;
-  indexAliveVipa: number = 0;
-  arrayFilledVipa: boolean = false;
-  aliveArrayVipa: Array<number> = new Array<number>(12);
-
-  isSilent: boolean = false;
+  //plcVipaStateOk: boolean = true;
+  //indexAliveVipa: number = 0;
+  //arrayFilledVipa: boolean = false;
+  //aliveArrayVipa: Array<number> = new Array<number>(12);
 
   getIsAlive(): boolean {
     if (!this.firstTime) {
@@ -61,35 +68,35 @@ export class LayoutNavbarComponent {
       return true;
   }
 
-  getIsAliveVipa(): boolean {
-    if (!this.firstTimeVipa) {
-      if (this.arrayFilledVipa) {
-        let previousValue: number = this.aliveArrayVipa[0];
-        let valueChange: boolean = false;
-        if (this.alarmService.plcVipaStateOk && this.requestToPLC_Running) {
-          this.aliveArrayVipa.forEach(item => {
-            if (item != previousValue)
-              valueChange = true;
-          });
-          if (valueChange)
-            return true;
-          else
-            return false;
-        }
-        else
-          return false;
-      }
-      else
-        return false;
-    }
-    else
-      return true;
-  }
+  //getIsAliveVipa(): boolean {
+  //  if (!this.firstTimeVipa) {
+  //    if (this.arrayFilledVipa) {
+  //      let previousValue: number = this.aliveArrayVipa[0];
+  //      let valueChange: boolean = false;
+  //      if (this.alarmService.plcVipaStateOk && this.requestToPLC_Running) {
+  //        this.aliveArrayVipa.forEach(item => {
+  //          if (item != previousValue)
+  //            valueChange = true;
+  //        });
+  //        if (valueChange)
+  //          return true;
+  //        else
+  //          return false;
+  //      }
+  //      else
+  //        return false;
+  //    }
+  //    else
+  //      return false;
+  //  }
+  //  else
+  //    return true;
+  //}
 
   requestToPLC_Running: boolean = true;
 
   firstTime: boolean = true;
-  firstTimeVipa: boolean = true;
+  //firstTimeVipa: boolean = true;
 
   get IsOpened(): boolean {
     if (this.signalrService.isOpened)
@@ -108,7 +115,7 @@ export class LayoutNavbarComponent {
 
   constructor(private appService: AppService, private layoutService: LayoutService, public routerService: Router,
     private soundService: SoundService, private alarmService: AlarmService, private signalrService: SignalRService,
-    private plcService: PlcService) {
+    private plcService: PlcService, private userService: UserService, public dialog: MatDialog) {
     this.isRTL = appService.isRTL;
 
     let mytimer = timer(1000, 5000);//300000 (5 minuti), 60000(1 minuto), 1000 (1 secondo)
@@ -124,18 +131,19 @@ export class LayoutNavbarComponent {
       return false;
   }
 
-  get IsStatePlcVipa_Ok(): boolean {
-    if (this.alarmService.plcVipaStateOk && this.requestToPLC_Running)
-      return true;
-    else
-      return false;
-  }
+  //get IsStatePlcVipa_Ok(): boolean {
+  //  if (this.alarmService.plcVipaStateOk && this.requestToPLC_Running)
+  //    return true;
+  //  else
+  //    return false;
+  //}
 
   async oberserableTimer(t) {
     try {
-      //OMRON
-      this.alarmService.plcStateOk = await this.alarmService.getPlcState("OMRON");
-      this.aliveArray[this.indexAlive] = +SignalRService.tagList.FDB_PLC_HEART.value;
+      //S7_1500
+      this.alarmService.plcStateOk = await this.alarmService.getPlcState("S7_1500");
+
+      this.aliveArray[this.indexAlive] = +SignalRService.tagList.VAR_V3999.value;
       if (this.indexAlive == 11) {
         this.indexAlive = 0;
         this.arrayFilled = true;
@@ -144,16 +152,18 @@ export class LayoutNavbarComponent {
       else
         this.indexAlive++;
 
-      //S7_300
-      this.alarmService.plcVipaStateOk = await this.alarmService.getPlcState("S7_300");
-      this.aliveArrayVipa[this.indexAliveVipa] = +SignalRService.tagList.FDB_PLC_HEART_VIPA.value;
-      if (this.indexAliveVipa == 11) {
-        this.indexAliveVipa = 0;
-        this.arrayFilledVipa = true;
-        this.firstTimeVipa = false;
-      }
-      else
-        this.indexAliveVipa++;
+      //Secondo PLC VIPA (S7_300), non presente in DELTAFINA:
+
+      ////S7_300
+      //this.alarmService.plcVipaStateOk = await this.alarmService.getPlcState("S7_300");
+      //this.aliveArrayVipa[this.indexAliveVipa] = +SignalRService.tagList.FDB_PLC_HEART_VIPA.value;
+      //if (this.indexAliveVipa == 11) {
+      //  this.indexAliveVipa = 0;
+      //  this.arrayFilledVipa = true;
+      //  this.firstTimeVipa = false;
+      //}
+      //else
+      //  this.indexAliveVipa++;
 
       this.requestToPLC_Running = true;
 
@@ -161,7 +171,7 @@ export class LayoutNavbarComponent {
 
     } catch (e) {
       //this.requestToPLC_Running = false;
-    }    
+    }
   }
 
   getHours(date: Date) {
@@ -178,13 +188,20 @@ export class LayoutNavbarComponent {
       return date.getMinutes().toString();
   }
 
-  getHasNewAlarm(value): boolean {
-    if (value) {
-      this.soundService.playAlarm();
-      return true;
-    }
-    else if (!this.firstTime && (!this.IsStatePLC_Ok || !this.getIsAlive()
-      || !this.IsStatePlcVipa_Ok || !this.getIsAliveVipa()
+  // TODO: il parametro era il tag PC_NEW_ALARM del PLC, non presente nello scambio dati
+  // S7_1500. Resta attivo l'allarme acustico sui guasti di sistema (PLC, server, database).
+  // Versione originale conservata:
+  //getHasNewAlarm(value): boolean {
+  //  if (value) {
+  //    this.soundService.playAlarm();
+  //    return true;
+  //  }
+  //  else if (!this.firstTime && (!this.IsStatePLC_Ok || !this.getIsAlive()
+  //    || !this.IsStatePlcVipa_Ok || !this.getIsAliveVipa()
+  //    || !this.IsOpened || !this.IsDatabaseOk)) {
+  //    ...
+  getHasNewAlarm(): boolean {
+    if (!this.firstTime && (!this.IsStatePLC_Ok || !this.getIsAlive()
       || !this.IsOpened || !this.IsDatabaseOk)) {
       if (!this.isSilent)
         this.soundService.playAlarm();//Attivo allarme acustico
@@ -255,31 +272,31 @@ export class LayoutNavbarComponent {
     }
   }
 
-  onAutoMode() {
-    //SignalRService.tagList.BOOL_PC_GLOB_AUTREM.value = true;
+  // #region Comandi globali di zona (DB120 - FROM_HMI)
+  // I quattro comandi MAN/AUTO/STOP/START, con i loro tag di zona e le conferme, vivono
+  // ora in GlobalCmdPlateComponent: qui resta solo l'apertura del popup.
+  openGlobalCommandsDialog(): void {
+    if (this.dialog.getDialogById('GLOBAL_CMD') != null) return;
+    this.dialog.open(GlobalCmdPlateComponent, {
+      id: 'GLOBAL_CMD',
+      width: '420px',
+      data: {},
+      hasBackdrop: true,
+      disableClose: false
+    });
   }
+  // #endregion
 
-  //onManualMode() {
-  //  SignalRService.tagList.BOOL_PC_GLOB_MANREM.value = true;
-  //}
-
-  onStart() {
-    //SignalRService.tagList.BOOL_PC_GLOB_START.value = true;
-  }
-
-  //onStop() {
-  //  SignalRService.tagList.BOOL_PC_GLOBAL_STOP.value = true;
-  //}
-
+  // Reset allarmi: DB120.dbx0.2 dello scambio dati S7_1500.
+  // I vecchi tag PC_RESET_ALLARMI (OMRON) / PC_ResetAllarmi (VIPA) / PC_NEW_ALARM non esistono piu'.
   onReset() {
-    SignalRService.tagList.PC_RESET_ALLARMI.value = true;//OMRON
-    SignalRService.tagList.PC_ResetAllarmi.value = true;//VIPA
-    SignalRService.tagList.PC_NEW_ALARM.value = false;
+    SignalRService.tagList.FROM_HMI_RESET.value = true;
   }
 
+  // Tacita l'allarme acustico locale: il tag PLC non e' piu' disponibile.
   onSilent() {
-    SignalRService.tagList.PC_TACITA_ALLARMI.value = true;
-    SignalRService.tagList.PC_NEW_ALARM.value = false;
+    //SignalRService.tagList.PC_TACITA_ALLARMI.value = true;
+    //SignalRService.tagList.PC_NEW_ALARM.value = false;
     this.isSilent = true;
   }
 

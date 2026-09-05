@@ -42,6 +42,15 @@
       </label>
     </div>
 
+    <!-- Comandi globali di zona (DB120 - FROM_HMI): i quattro pulsanti MAN/AUTO/STOP/START
+         rubavano troppo spazio alla navbar, ora stanno nel popup GlobalCmdPlateComponent
+         insieme alle loro conferme. Qui resta il solo pulsante che lo apre. -->
+    <div class="navbar-nav align-items-lg-center ml-lg-4">
+
+      <button (click)="openGlobalCommandsDialog()" class="btn btn-dark" type="button" style="font-weight:bold;margin-right:4px;"><i class="fas fa-sliders-h"></i> &nbsp;COMANDI GLOBALI</button>
+
+    </div>
+
     <div class="navbar-nav align-items-lg-center ml-auto">
 
       <span style="font-weight:bold;margin-left:16px;margin-right:4px;">Comunicazione:</span>
@@ -52,14 +61,52 @@
       <span *ngIf="!IsDatabaseOk" class="badge badge-danger blink-alarm-button" style="font-size:14pt;height:38.2px;vertical-align: middle;line-height: 32.2px;margin-right:8px">DB</span>
       <span *ngIf="IsDatabaseOk" class="badge badge-success" style="font-size:14pt;height:38.2px;vertical-align: middle;line-height: 32.2px;margin-right:8px">DB</span>
 
-      <!-- PLC OMRON -->
+      <!-- PLC S7 1500 - stato di connessione (PLC_WatchDog lato server) piu' watchdog di
+           programma: il contatore VAR_V3999 deve cambiare, altrimenti il PLC e' fermo anche
+           con la connessione ancora aperta. -->
+      <span *ngIf="!IsStatePLC_Ok || !IsOpened || !getIsAlive()" class="badge badge-danger blink-alarm-button" style="font-size:14pt;height:38.2px;vertical-align: middle;line-height: 32.2px;margin-right:8px;">PLC</span>
+      <span *ngIf="IsStatePLC_Ok && IsOpened && getIsAlive()" class="badge badge-success" style="font-size:14pt;height:38.2px;vertical-align: middle;line-height: 32.2px;margin-right:8px;">PLC</span>
+
+      <span *ngIf="!getIsAlive()" class="badge badge-danger blink-alarm-button" style="padding: 0px 5px;height:38.2px;vertical-align: middle;margin-right:8px;">
+        <span style="font-size:8pt;">PLC ALIVE</span><br />
+        <span style="font-size:12pt;">{{TagList.VAR_V3999.value}}</span>
+      </span>
+
+      <!-- PLC ALIVE -->
+      <svg *ngIf="getIsAlive()" id="svg_circle" width="80px" height="38.2px" viewBox='0 0 600 400'>
+
+        <defs>
+          <linearGradient id="left-to-right">
+            <stop offset="0" stop-color="#02BC77">
+              <animate dur="1s" attributeName="offset" fill="freeze" repeatCount="indefinite" from="0" to="1" />
+            </stop>
+            <stop offset="0" stop-color="#fff">
+              <animate dur="1s" attributeName="offset" fill="freeze" repeatCount="indefinite" from="0" to="1" />
+            </stop>
+
+          </linearGradient>
+        </defs>
+        <rect width="800" height="100%" x="0" y="0" stroke="#F0F0F0" fill="url(#left-to-right)" stroke-width="1" opacity="1" />
+        <text xml:space="preserve"
+              style="font-weight:bold;font-size:100px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.264583;fill:gray"
+              x="0"
+              y="100">PLC ALIVE</text>
+        <text xml:space="preserve"
+              style="font-weight:bold;font-size:200px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.264583;fill:gray"
+              x="0"
+              y="300">{{TagList.VAR_V3999.value}}</text>
+      </svg>
+
+      <!-- ORIGINALE conservato: badge OMRON con heartbeat FDB_PLC_HEART e badge VIPA (PLC S7_300).
+           Riattivare quando il PLC esporra' un tag di battito.
+
       <span *ngIf="!IsStatePLC_Ok || !IsOpened || !getIsAlive()" class="badge badge-danger blink-alarm-button" style="font-size:14pt;height:38.2px;vertical-align: middle;line-height: 32.2px;margin-right:8px;">OMRON</span>
       <span *ngIf="IsStatePLC_Ok && IsOpened && getIsAlive()" class="badge badge-success" style="font-size:14pt;height:38.2px;vertical-align: middle;line-height: 32.2px;margin-right:8px;">OMRON</span>
       <span *ngIf="!getIsAlive()" class="badge badge-danger blink-alarm-button" style="padding: 0px 5px;height:38.2px;vertical-align: middle;margin-right:8px;">
         <span style="font-size:8pt;">OMRON ALIVE</span><br />
         <span style="font-size:12pt;">{{TagList.FDB_PLC_HEART.value}}</span>
       </span>
-      <!-- PLC ALIVE OMRON -->
+      PLC ALIVE OMRON
       <svg *ngIf="getIsAlive()" id="svg_circle" width="90px" height="38.2px" viewBox='0 0 600 400'>
         <defs>
           <linearGradient id="left-to-right">
@@ -82,14 +129,14 @@
               y="300">{{TagList.FDB_PLC_HEART.value}}</text>
       </svg>
 
-      <!-- PLC VIPA -->
+      PLC VIPA
       <span *ngIf="!IsStatePlcVipa_Ok || !IsOpened || !getIsAliveVipa()" class="badge badge-danger blink-alarm-button ml-2" style="font-size:14pt;height:38.2px;vertical-align: middle;line-height: 32.2px;margin-right:8px;">VIPA</span>
       <span *ngIf="IsStatePlcVipa_Ok && IsOpened && getIsAliveVipa()" class="badge badge-success ml-2" style="font-size:14pt;height:38.2px;vertical-align: middle;line-height: 32.2px;margin-right:8px;">VIPA</span>
       <span *ngIf="!getIsAliveVipa()" class="badge badge-danger blink-alarm-button" style="padding: 0px 5px;height:38.2px;vertical-align: middle;margin-right:8px;">
         <span style="font-size:8pt;">VIPA ALIVE</span><br />
         <span style="font-size:12pt;">{{TagList.FDB_PLC_HEART_VIPA.value}}</span>
       </span>
-      <!-- PLC ALIVE VIPA -->
+      PLC ALIVE VIPA
       <svg *ngIf="getIsAliveVipa()" id="svg_circle" width="80px" height="38.2px" viewBox='0 0 600 400'>
 
         <defs>
@@ -113,6 +160,7 @@
               x="0"
               y="300">{{TagList.FDB_PLC_HEART_VIPA.value}}</text>
       </svg>
+      -->
       <!-- PLC NOT ALIVE versione 2
   <svg id="svg_circle" width="80px" height="38.2px" viewBox='0 0 450 400'>
     <rect width="200" height="100%" y="0" stroke="#F0F0F0" fill="#02BC77" stroke-width="1" opacity="1" />
@@ -125,15 +173,12 @@
           x="100"
           y="300">{{TagList.INT_PLC_HEART.value}}</text>
   </svg> -->
-      <!--<span style="font-weight:bold;margin-left:16px;margin-right:4px;">Comandi Globali:</span>
-  <button class="btn btn-primary" type="button" style="margin-right:4px;" (click)="onAutoMode()">AUTO</button>
-  <button [swal]="{title:'Passare in manuale?', text:'Tutte le utenze avviate in automatico saranno fermate!', icon:'warning', showCancelButton:true, confirmButtonText:'Sì, passa in manuale!', cancelButtonText:'Annulla', showCloseButton:true, customClass: {confirmButton:'btn btn-lg btn-warning',cancelButton: 'btn btn-lg btn-default'}}" (confirm)="onManualMode()" (cancel)="declineDialog.fire()" class="btn btn-warning" type="button" style="margin-right:4px;">MAN</button>
-  <button class="btn btn-success" type="button" style="margin-right:4px;" (click)="onStart()">START</button>
-  <button [swal]="{title:'Fermare tutte le utenze?', text:'Tutte le utenze avviate in automatico saranno fermate!', icon:'warning', showCancelButton:true, confirmButtonText:'Sì, ferma tutto!', cancelButtonText:'Annulla', showCloseButton:true, customClass: {confirmButton:'btn btn-lg btn-warning',cancelButton: 'btn btn-lg btn-default'}}" (confirm)="onStop()" (cancel)="declineDialog.fire()" class="btn btn-danger" type="button" style="margin-right:4px;">STOP</button>-->
+      <!-- I comandi globali (AUTO/MAN/START/STOP) stanno nel popup aperto dal pulsante
+           "COMANDI GLOBALI" piu' in alto nella navbar, cablati sui toggle di zona del DB120. -->
 
       <span style="font-weight:bold;margin-left:16px;margin-right:4px;">Allarmi:</span>
 
-      <button [ngClass]="getHasNewAlarm(TagList.PC_NEW_ALARM.value) ? 'btn blink-alarm-button' : 'btn btn-dark'" type="button" style="margin-right:4px;" (click)="routerService.navigate(['/alarms']);">LISTA</button>
+      <button [ngClass]="getHasNewAlarm() ? 'btn blink-alarm-button' : 'btn btn-dark'" type="button" style="margin-right:4px;" (click)="routerService.navigate(['/alarms']);">LISTA</button>
       <button class="btn btn-dark" type="button" style="margin-right:4px;" (click)="onSilent()"><u>T</u>ACITA</button>
       <button class="btn btn-dark" type="button" style="margin-right:4px;" (click)="onReset()"><u>R</u>ESET</button>
 

@@ -26,23 +26,33 @@ const routes: Routes = [
   { path: 'portal-farms', component: Layout2Component, loadChildren: () => import('./portal-farms/portal-farms.module').then(m => m.PortalFarmsModule) },
 
   //{ path: 'customers', component: Layout2Component, loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) },
-  { path: 'recipes', component: Layout2Component, loadChildren: () => import('./recipes/recipes.module').then(m => m.RecipesModule) },
   { path: 'silos', component: Layout2Component, loadChildren: () => import('./silos/silos.module').then(m => m.SilosModule) },
   { path: 'materials', component: Layout2Component, loadChildren: () => import('./materials/materials.module').then(m => m.MaterialsModule) },
   { path: 'users', component: Layout2Component, loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
   { path: 'planning', component: Layout2Component, loadChildren: () => import('./planning/planning.module').then(m => m.PlanningModule) },
 
-  { path: 'dosings', component: Layout2Component, loadChildren: () => import('./dosings/dosings.module').then(m => m.DosingsModule) },
   { path: 'trend', component: Layout2Component, loadChildren: () => import('./trend/trend.module').then(m => m.TrendModule) },
 
   { path: 'settings', component: Layout2Component, loadChildren: './settings/settings.module#SettingsModule' },
 
 
   { path: 'dashboard', component: Layout2Component, loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },
-  { path: 'carico-sabbia', component: Layout2Component, loadChildren: () => import('./carico-sabbia/carico-sabbia.module').then(m => m.CaricoSabbiaModule) },
-  { path: 'carico-rottame', component: Layout2Component, loadChildren: () => import('./carico-rottame/carico-rottame.module').then(m => m.CaricoRottameModule) },
-  { path: 'rottame-interno', component: Layout2Component, loadChildren: () => import('./rottame-interno/rottame-interno.module').then(m => m.RottameInternoModule) },
-  { path: 'carico-silos', component: Layout2Component, loadChildren: () => import('./carico-silos/carico-silos.module').then(m => m.CaricoSilosModule) },
+  { path: 'slicer-virginia', component: Layout2Component, loadChildren: () => import('./slicer/slicer-virginia/slicer-virginia.module').then(m => m.SlicerVirginiaModule) },
+  { path: 'slicer-burley', component: Layout2Component, loadChildren: () => import('./slicer/slicer-burley/slicer-burley.module').then(m => m.SlicerBurleyModule) },
+  { path: 'dcc-virginia', component: Layout2Component, loadChildren: () => import('./dcc/dcc-virginia/dcc-virginia.module').then(m => m.DccVirginiaModule) },
+  { path: 'dcc-burley', component: Layout2Component, loadChildren: () => import('./dcc/dcc-burley/dcc-burley.module').then(m => m.DccBurleyModule) },
+  { path: 'casing-tanks', component: Layout2Component, loadChildren: () => import('./casing/casing-tanks/casing-tanks.module').then(m => m.CasingTanksModule) },
+  { path: 'casing-spray', component: Layout2Component, loadChildren: () => import('./casing/casing-spray/casing-spray.module').then(m => m.CasingSprayModule) },
+  { path: 'burley-dryer', component: Layout2Component, loadChildren: () => import('./redryer/burley-dryer/burley-dryer.module').then(m => m.BurleyDryerModule) },
+  { path: 'final-dryer', component: Layout2Component, loadChildren: () => import('./redryer/final-dryer/final-dryer.module').then(m => m.FinalDryerModule) },
+  { path: 'zona-1-0', component: Layout2Component, loadChildren: () => import('./zone/zona-1-0/zona-1-0.module').then(m => m.Zona10Module) },
+  { path: 'zona-2-1', component: Layout2Component, loadChildren: () => import('./zone/zona-2-1/zona-2-1.module').then(m => m.Zona21Module) },
+  { path: 'zona-2-3', component: Layout2Component, loadChildren: () => import('./zone/zona-2-3/zona-2-3.module').then(m => m.Zona23Module) },
+  { path: 'zona-3-4', component: Layout2Component, loadChildren: () => import('./zone/zona-3-4/zona-3-4.module').then(m => m.Zona34Module) },
+  { path: 'silo-fill', component: Layout2Component, loadChildren: () => import('./silos/silo-fill/silo-fill.module').then(m => m.SiloFillModule) },
+  { path: 'silo-discharge', component: Layout2Component, loadChildren: () => import('./silos/silo-discharge/silo-discharge.module').then(m => m.SiloDischargeModule) },
+  { path: 'inverter', component: Layout2Component, loadChildren: () => import('./inverter/inverter.module').then(m => m.InverterModule) },
+  { path: 'cabinet', component: Layout2Component, loadChildren: () => import('./cabinet/cabinet.module').then(m => m.CabinetModule) },
   //{ path: 'layouts', loadChildren: () => import('./+layouts/layouts.module').then(m => m.LayoutsModule) },
 
   // Pages

@@ -15,15 +15,13 @@ import { AlarmService } from './services/alarm.service';
 })
 export class AppComponent {
 
+  // Scorciatoia "R" = reset allarmi, come il pulsante RESET della navbar (DB120.dbx0.2).
+  // TODO: la "T" (tacita) scriveva PC_TACITA_ALLARMI, che nello scambio dati S7_1500 non
+  // ha equivalente: la tacitazione e' solo locale (isSilent in layout-navbar).
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key.toLowerCase() == "r") {
-      SignalRService.tagList.PC_RESET_ALLARMI.value = true;
-      SignalRService.tagList.PC_NEW_ALARM.value = false;
-    }
-    else if (event.key.toLowerCase() == "t") {
-      SignalRService.tagList.PC_TACITA_ALLARMI.value = true;
-      SignalRService.tagList.PC_NEW_ALARM.value = false;
+      SignalRService.tagList.FROM_HMI_RESET.value = true;
     }
   }
 

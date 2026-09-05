@@ -7,7 +7,6 @@ import { AlarmModel, AlarmSettingModel, AlarmSettingGroupActionModel, AlarmQuery
 export class AlarmService {
 
   public plcStateOk: boolean = true;
-  public plcVipaStateOk: boolean = true;
   public databaseStateOk: boolean = true;
 
   constructor(private http: HttpClient) { }

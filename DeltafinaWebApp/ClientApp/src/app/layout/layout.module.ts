@@ -31,6 +31,12 @@ import { LayoutFooterComponent } from './layout-footer/layout-footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidenavModule } from '../../vendor/libs/sidenav/sidenav.module';
 
+// Popup "Comandi Globali" aperto dalla navbar: e' un plate come tutti gli altri, quindi
+// sta in DevicePlateModule. Il modulo va importato qui perche' e' lui a dichiarare il
+// componente; MatDialogModule perche' la navbar inietta MatDialog.
+import { MatDialogModule } from '@angular/material/dialog';
+import { DevicePlateModule } from '../device-plate/device-plate.module';
+
 
 // *******************************************************************************
 // Services
@@ -51,6 +57,8 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
     RouterModule,
     NgbModule,
     SidenavModule,
+    MatDialogModule,
+    DevicePlateModule,
 
     SweetAlert2Module,
     ConfirmationPopoverModule,

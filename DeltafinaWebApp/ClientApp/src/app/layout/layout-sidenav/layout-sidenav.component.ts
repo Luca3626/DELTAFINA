@@ -2,10 +2,12 @@ import { Component, Input, AfterViewInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../../app.service';
 import { LayoutService } from '../layout.service';
+import { CabinetAlarmService } from '../../services/cabinet-alarm.service';
 
 @Component({
   selector: 'app-layout-sidenav',
   templateUrl: './layout-sidenav.component.html',
+  styleUrls: ['./layout-sidenav.component.css'],
   styles: [':host { display: block; }']
 })
 export class LayoutSidenavComponent implements AfterViewInit {
@@ -75,5 +77,12 @@ export class LayoutSidenavComponent implements AfterViewInit {
 
   get ShowUtenti() {
     return this.appService.user.userTypeId >= 2;
+  }
+
+  // Allarme quadri elettrici (alm010..015, alm033, alm034 del DB121): basta un quadro
+  // in allarme e la voce "Cabinets" del menu lampeggia, cosi' si vede anche stando su
+  // un'altra pagina. Il lampeggio e' in layout-sidenav.component.css.
+  get cabinetAlarm(): boolean {
+    return CabinetAlarmService.anyAlarm();
   }
 }

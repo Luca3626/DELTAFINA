@@ -1,3 +1,71 @@
+/* Icona accanto al titolo: niente cornice e niente sfondo, si vede solo l'SVG.
+   Le dimensioni sono in "em" così scalano col carattere del titolo <h4>
+   (1.313rem -> circa 32x40 px) e il rapporto larghezza/altezza è quello del file
+   (378x299, praticamente identico alle altre icone), quindi l'icona riempie lo
+   spazio senza bordi vuoti ai lati. Misure identiche alle altre pagine. */
+.title-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 1.5em;
+  width: 1.9em;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.title-icon-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  /* su schermi stretti il blocco di destra va a capo invece di finire sopra al titolo */
+  flex-wrap: wrap;
+}
+
+/* Sulle pagine con i comandi di zona le due colonne laterali hanno la stessa
+   larghezza (flex:1 1 0) per tenere centrata quella di mezzo. Qui la colonna di
+   mezzo non esiste, quindi il titolo si prende tutto lo spazio che avanza e il
+   blocco di destra resta appoggiato al bordo destro. */
+.dashboard-title-left {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* Nome della pagina piu' grande del resto della riga. Il font-size sta sul solo
+   testo e non sull'h4: sull'h4 farebbe crescere anche l'icona, che e' dimensionata
+   in em, e con lei l'altezza di tutta la testata. 1.313rem e' la misura degli h4
+   del tema, lo stesso valore usato da tutte le altre pagine. */
+.dashboard-title-text {
+  font-size: 1.313rem;
+  line-height: 1;
+}
+
+/* Contatore allarmi e switcher "Mostra nomi", in fondo a destra. Il font-weight
+   normale serve a non ereditare il grassetto dell'h4 sulla label dello switcher;
+   il contatore ha il proprio grassetto inline. */
+.dashboard-title-right {
+  flex: 0 0 auto;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+  /* Stacco fra contatore e switcher; il margine destro dello switcher lo azzero,
+     altrimenti resterebbe staccato dal bordo. */
+  .dashboard-title-right .switcher {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
 
 .mat-dialog-container {
   min-width: 400px !important;
@@ -86,4 +154,203 @@
   50% {
     fill: white;
   }
+}
+
+
+/* ------------------------------------------------
+   PANNELLO "CONFIGURAZIONE PERCORSI E LINEE"
+   Contenuto del <foreignObject> dentro la cornice rect1 del layer SETTINGS.
+   Il pannello e' impaginato a 390 x 406 px ed e' l'SVG a scalarlo (scale
+   0.2976): le misure qui sotto sono quelle "grandi", a video vanno moltiplicate
+   per la scala e per quanto e' larga la dashboard sullo schermo.
+   Le 12 voci piu' intestazione e titolo occupano 375 px dei 406 disponibili (misurati
+   sul render, non a occhio): restano 31 px, cioe' due righe di testo andate a capo.
+   Se se ne aggiungono altre o si alza il font, o si alza la cornice in Inkscape o il
+   testo in fondo viene tagliato (il pannello ha overflow:hidden).
+------------------------------------------------ */
+.setup-settings-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 5px 7px;
+  background: #ffffff;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #4E5155;
+}
+
+  .setup-settings-panel * {
+    box-sizing: border-box;
+  }
+
+  /* Titolo di sezione: stessa resa del pannello di Silos Fill, piu' compatto */
+  .setup-settings-panel .section-title {
+    margin: 0 0 4px 0;
+    padding: 0;
+  }
+
+    .setup-settings-panel .section-title h5 {
+      margin: 0;
+      padding: 2px 8px;
+      color: #4a4c53;
+      font-size: 14px;
+      font-weight: 500;
+      background: #d0ba7680;
+      border-left: 4px solid #a99761;
+      border-radius: 4px 0 0 4px;
+    }
+
+  /* Si prende l'altezza che avanza sotto al titolo: cosi' la tabella arriva in
+     fondo alla cornice invece di lasciare un vuoto. */
+  .setup-settings-panel .table-responsive {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  /* height:100% distribuisce sulle righe lo spazio che avanza, invece di lasciare
+     un buco in fondo alla cornice. */
+  .setup-settings-panel .card-table {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+    .setup-settings-panel .card-table th,
+    .setup-settings-panel .card-table td {
+      padding: 1px 5px;
+      vertical-align: middle;
+      font-size: 13px;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    /* Intestazione piu' piccola del corpo: "DESCRIZIONE" e "COMANDO" devono stare
+       su una riga sola senza rubare larghezza alle colonne. */
+    .setup-settings-panel .card-table th {
+      background-color: #f8f9fa;
+      font-size: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* La descrizione si prende quasi tutto: e' la colonna che manda a capo e ogni riga
+       in piu' costa altezza. ATTUALE deve reggere "DISABILITATO" su una riga sola,
+       COMANDO solo lo switcher. */
+    .setup-settings-panel .card-table th:nth-child(1),
+    .setup-settings-panel .card-table td:nth-child(1) { width: 62%; }
+
+    .setup-settings-panel .card-table th:nth-child(2),
+    .setup-settings-panel .card-table td:nth-child(2) { width: 22%; }
+
+    /* 16% e non meno: sotto, la parola COMANDO dell'intestazione va a capo. */
+    .setup-settings-panel .card-table th:nth-child(3),
+    .setup-settings-panel .card-table td:nth-child(3) { width: 16%; }
+
+  /* Badge della sigla (C71, C142, ...) e badge di stato ATTUALE */
+  /* 10px e non 11: "DISABILITATO" e' il testo piu' lungo e a 11px sfora la
+     colonna ATTUALE, che ha white-space:nowrap e quindi lo farebbe uscire dalla cella. */
+  .setup-settings-panel .badge {
+    padding: 2px 5px;
+    font-size: 10px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  /* Lo switcher del tema e' dimensionato in rem: dentro il pannello scalato
+     resterebbe sproporzionato rispetto al testo, quindi lo riporto a misura. */
+  .setup-settings-panel .switcher {
+    padding-left: 34px;
+    min-height: 20px;
+    margin: 0;
+  }
+
+    .setup-settings-panel .switcher .switcher-indicator {
+      width: 34px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+  /* Link alla pagina Parametri, sotto la tabella: sul sinottico ci sono solo le voci
+     che si cambiano in produzione, le altre si aprono di la'. E' un <a> senza href
+     (naviga il componente), quindi cursore e colore vanno messi a mano. */
+  .setup-settings-panel .setup-settings-more {
+    flex: 0 0 auto;
+    margin-top: 4px;
+    text-align: right;
+  }
+
+    .setup-settings-panel .setup-settings-more a {
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: #026e9e;
+      text-decoration: underline;
+    }
+
+      .setup-settings-panel .setup-settings-more a:hover {
+        color: #014e70;
+      }
+
+
+/* ------------------------------------------------
+   ZONA IN ALLARME
+   Il riquadro colorato della zona (layer Label_Link) lampeggia di rosso quando il
+   PLC segnala scatto termico cumulativo o un sezionatore aperto.
+   Il colore sta dentro le @keyframes e non nella classe: i rettangoli hanno il
+   fill nello style inline del disegno, e le animazioni sono l'unica cosa che lo
+   scavalca senza !important.
+   Il nome dell'animazione e' globale (su Angular 11 le @keyframes dei componenti
+   non sono isolate): se lo cambi qui, cambialo anche nelle pagine di zona.
+------------------------------------------------ */
+@keyframes zona-allarme-fill {
+  0%, 49% {
+    fill: #ff0000;
+    fill-opacity: 0.55;
+  }
+
+  50%, 100% {
+    fill: #ff0000;
+    fill-opacity: 0.08;
+  }
+}
+
+.zona-allarme {
+  animation: zona-allarme-fill 1s steps(1, end) infinite;
+}
+
+/* ------------------------------------------------
+   PULSANTE "COMANDI ZONE" SOVRAPPOSTO AL SINOTTICO
+   Posizione e misura (left/top/width/height in percentuale sul viewBox) stanno nello
+   style inline del pulsante, qui c'e' solo la resa comune: e' un normale .btn, quindi
+   colori, hover e focus arrivano dal tema. Il padding e' azzerato e il testo centrato
+   con flex perche' la misura la detta il disegno - il pulsante deve coprire esattamente
+   il rettangolo BUTTON_ZONES. left/top sono il CENTRO, per via del translate.
+------------------------------------------------ */
+.zone-button {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: opacity 0.15s ease-in-out;
+}
+
+/* Passaggio del mouse: semitrasparente, cosi' si vede che e' cliccabile anche sopra
+   il disegno. Il cambio di colore lo fa Bootstrap da solo con .btn-info:hover. */
+.zone-button:hover {
+  opacity: 0.65;
 }

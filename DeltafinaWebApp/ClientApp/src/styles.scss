@@ -212,7 +212,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /*----------------------------------------------------------------------------------
  * .mat-dialog-container si applica a tutti i dialog di Material Design, non solo a
- * settingR-plate.component.html. Problema: impone una larghezza fissa di 400px a
+ * settingCasing.component.html. Problema: impone una larghezza fissa di 400px a
  * tutte le finestre di dialogo, rendendole troppo strette. Per risolverlo, viene usata
  * la classe .custom-wide-dialog per alcune finestre più grandi. Vedi sotto.
  *---------------------------------------------------------------------------------*/
@@ -222,6 +222,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 
+
+/*----------------------------------------------------------------------------------
+ * .plate-dialog - popup di device che ospitano il grafico storico (PID e analogiche).
+ * Serve solo a togliere il tetto di 400px qui sopra: la larghezza vera la decide la
+ * config di dialog.open (width + maxWidth).
+ * Non si usa .wide-dialog perche' quella si porta dietro padding 0, overflow hidden e
+ * contenuto a flex-column, tarati su SettingCasingComponent.
+ *---------------------------------------------------------------------------------*/
+.plate-dialog .mat-dialog-container {
+  min-width: auto !important;
+  max-width: none !important;
+}
 
 .wide-dialog .mat-dialog-container {
   min-width: auto !important;
@@ -350,7 +362,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /*-----------------------------------------------------------------------------------
  * Override per finestre di dialogo grandi
- * Aggiunto per supportare il componente SettingRComponent
+ * Aggiunto per supportare il componente SettingCasingComponent
  * senza modificare il comportamento delle finestre esistenti
  *----------------------------------------------------------------------------------*/
 
@@ -488,6 +500,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   -moz-animation: glowing 1500ms infinite;
   -o-animation: glowing 1500ms infinite;
 }
+
+
+h4.font-weight-bold.py-3.mb-4 {
+  padding-top: 0 !important;
+  padding-bottom: .25rem !important;
+  margin-bottom: .5rem !important;
+}
+
 
 .normal-status {
   background-color: #4CAF50 !important;

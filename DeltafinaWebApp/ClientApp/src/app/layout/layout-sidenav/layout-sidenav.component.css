@@ -1,0 +1,187 @@
+/* ========== TITOLO ========== */
+
+.brand-full {
+  display: inline;
+}
+
+.brand-short {
+  display: none;
+}
+
+.app-brand-title .brand-full,
+.app-brand-title .brand-short {
+  white-space: nowrap;
+}
+
+/* --- STATO COLLASSATO (senza mouse sopra): solo la sigla, centrata --- */
+:host-context(html.layout-collapsed) .sidenav-vertical:not(:hover) .brand-full {
+  display: none !important;
+}
+
+:host-context(html.layout-collapsed) .sidenav-vertical:not(:hover) .brand-short {
+  display: inline !important;
+}
+
+:host-context(html.layout-collapsed) .sidenav-vertical:not(:hover) .app-brand.demo {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  justify-content: center !important;
+}
+
+:host-context(html.layout-collapsed) .sidenav-vertical:not(:hover) .app-brand-title {
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+/* --- STATO APERTO O HOVER: nome intero --- */
+:host-context(html.layout-collapsed) .sidenav-vertical:hover .brand-full,
+:host-context(html.layout-expanded) .brand-full {
+  display: inline !important;
+}
+
+:host-context(html.layout-collapsed) .sidenav-vertical:hover .brand-short,
+:host-context(html.layout-expanded) .brand-short {
+  display: none !important;
+}
+
+/* ========== CORNICE LOGO AZIENDA ========== */
+
+.brand-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 12px 10px;
+  /* margin auto: la card resta centrata anche quando si restringe */
+  margin: 8px auto;
+  width: 88%;
+  max-width: 215px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+  .brand-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+/* Il riquadro bianco che contiene il logo: proporzioni del PNG (684x448),
+   il logo e' in "contain" quindi non viene mai deformato. */
+.brand-picture-wrapper {
+  width: 120px;
+  height: 79px;
+  max-width: 100%;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+}
+
+.brand-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+
+.brand-name {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  transition: all 0.25s ease;
+}
+
+/* ========== COMPORTAMENTO DINAMICO DELLA CARD ========== */
+
+/* 1. COLLASSATA (senza hover): card piccola, solo il logo */
+:host-context(html.layout-collapsed) .sidenav-vertical:not(:hover) .brand-card {
+  width: 46px !important;
+  height: 46px !important;
+  padding: 4px !important;
+}
+
+:host-context(html.layout-collapsed) .sidenav-vertical:not(:hover) .brand-picture-wrapper {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 8px !important;
+}
+
+:host-context(html.layout-collapsed) .sidenav-vertical:not(:hover) .brand-name {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  visibility: hidden;
+}
+
+/* 2. APERTA O HOVER: card grande.
+   Serve sia a barra aperta che col mouse sopra la barra collassata, altrimenti
+   in hover la card resterebbe piccola mentre il resto del menu si allarga. */
+:host-context(html.layout-expanded) .brand-card,
+:host-context(html.layout-collapsed) .sidenav-vertical:hover .brand-card {
+  width: 88% !important;
+  height: auto !important;
+  padding: 12px 10px !important;
+}
+
+:host-context(html.layout-expanded) .brand-picture-wrapper,
+:host-context(html.layout-collapsed) .sidenav-vertical:hover .brand-picture-wrapper {
+  width: 120px !important;
+  height: 79px !important;
+  border-radius: 8px !important;
+}
+
+:host-context(html.layout-expanded) .brand-name,
+:host-context(html.layout-collapsed) .sidenav-vertical:hover .brand-name {
+  opacity: 1 !important;
+  max-height: 50px !important;
+  visibility: visible !important;
+  margin-top: 10px !important;
+}
+
+/* ========== VOCE "CABINETS" IN ALLARME ==========
+   Basta uno degli allarmi quadro (alm010..015, alm033, alm034) e la riga del menu
+   lampeggia in rosso: lo stesso rosso del fronte quadro in allarme del sinottico.
+
+   La classe arriva dall'input linkClass di <sidenav-router-link>, che la mette
+   sull'<a class="sidenav-link">: quell'<a> sta nel template del componente della
+   libreria, non in questo, quindi serve ::ng-deep per raggiungerlo (:host lo tiene
+   comunque dentro la sidenav, non diventa una regola globale).
+
+   Lampeggia il background-IMAGE, non il background-color: l'immagine si disegna sopra
+   al colore di sfondo, quindi nella fase accesa il rosso copre il tema e in quella
+   spenta (none) lo sfondo del tema resta intatto, evidenziato della voce attiva compreso.
+
+   Il nome dell'animazione e' globale (su Angular 11 le @keyframes dei componenti non
+   sono isolate) e va tenuto distinto dagli altri (cabinet-alarm-blink, zona-allarme-badge). */
+@keyframes sidenav-cabinet-alarm-blink {
+  0%, 49% {
+    background-image: none;
+  }
+
+  50%, 100% {
+    background-image: linear-gradient(#e3453e, #e3453e);
+    color: #fff;
+  }
+}
+
+:host ::ng-deep .sidenav-link.sidenav-cabinet-alarm {
+  animation: sidenav-cabinet-alarm-blink 1s steps(1, end) infinite;
+}
