@@ -91,64 +91,64 @@ namespace Tasks
                                 RecipeGlasswareServices recipeService = new RecipeGlasswareServices(ArchivesDbContext.Create(DeltafinaWebApp.ConStr.ConnectionString));
                                 RecipeGlasswareModel recipe = recipeService.GetRecipeById(Recipe_ID);
 
-                                Core.Communication.tagsList.PC_T_TEMPO_MISCELAZIONE.VALUE = recipe.TimeMixing;
-                                Core.Communication.tagsList.PC_T_SCARICO_H2O.VALUE = recipe.TimeMixWater;
+                                //Core.Communication.tagsList.PC_T_TEMPO_MISCELAZIONE.VALUE = recipe.TimeMixing;
+                                //Core.Communication.tagsList.PC_T_SCARICO_H2O.VALUE = recipe.TimeMixWater;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S1.VALUE = recipe.Components[0].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S1.VALUE = recipe.Components[0].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S1.VALUE = recipe.Components[0].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S1.VALUE = recipe.Components[0].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S2.VALUE = recipe.Components[1].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S2.VALUE = recipe.Components[1].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S2.VALUE = recipe.Components[1].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S2.VALUE = recipe.Components[1].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S3.VALUE = recipe.Components[2].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S3.VALUE = recipe.Components[2].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S3.VALUE = recipe.Components[2].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S3.VALUE = recipe.Components[2].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S4.VALUE = recipe.Components[3].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S4.VALUE = recipe.Components[3].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S4.VALUE = recipe.Components[3].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S4.VALUE = recipe.Components[3].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S5.VALUE = recipe.Components[4].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S5.VALUE = recipe.Components[4].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S5.VALUE = recipe.Components[4].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S5.VALUE = recipe.Components[4].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S6.VALUE = recipe.Components[5].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S6.VALUE = recipe.Components[5].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S6.VALUE = recipe.Components[5].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S6.VALUE = recipe.Components[5].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S7.VALUE = recipe.Components[6].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S7.VALUE = recipe.Components[6].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S7.VALUE = recipe.Components[6].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S7.VALUE = recipe.Components[6].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S8.VALUE = recipe.Components[7].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S8.VALUE = recipe.Components[7].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S8.VALUE = recipe.Components[7].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S8.VALUE = recipe.Components[7].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S9.VALUE = recipe.Components[8].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S9.VALUE = recipe.Components[8].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S9.VALUE = recipe.Components[8].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S9.VALUE = recipe.Components[8].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S10.VALUE = recipe.Components[9].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S10.VALUE = recipe.Components[9].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S10.VALUE = recipe.Components[9].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S10.VALUE = recipe.Components[9].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S11.VALUE = recipe.Components[10].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S11.VALUE = recipe.Components[10].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S11.VALUE = recipe.Components[10].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S11.VALUE = recipe.Components[10].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S12.VALUE = recipe.Components[11].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S12.VALUE = recipe.Components[11].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S12.VALUE = recipe.Components[11].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S12.VALUE = recipe.Components[11].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S13.VALUE = recipe.Components[12].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S13.VALUE = recipe.Components[12].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S13.VALUE = recipe.Components[12].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S13.VALUE = recipe.Components[12].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S14.VALUE = recipe.Components[13].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S14.VALUE = recipe.Components[13].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S14.VALUE = recipe.Components[13].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S14.VALUE = recipe.Components[13].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S15.VALUE = recipe.Components[14].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S15.VALUE = recipe.Components[14].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S15.VALUE = recipe.Components[14].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S15.VALUE = recipe.Components[14].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_S16.VALUE = recipe.Components[15].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_S16.VALUE = recipe.Components[15].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_S16.VALUE = recipe.Components[15].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_S16.VALUE = recipe.Components[15].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_TP6.VALUE = recipe.Components[16].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_TP6.VALUE = recipe.Components[16].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_TP6.VALUE = recipe.Components[16].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_TP6.VALUE = recipe.Components[16].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_N_RIP_TP6A.VALUE = recipe.Components[17].Repetition;
-                                Core.Communication.tagsList.PC_RIC_Q_TP6A.VALUE = recipe.Components[17].QuantityMix;
+                                //Core.Communication.tagsList.PC_RIC_N_RIP_TP6A.VALUE = recipe.Components[17].Repetition;
+                                //Core.Communication.tagsList.PC_RIC_Q_TP6A.VALUE = recipe.Components[17].QuantityMix;
 
-                                Core.Communication.tagsList.PC_RIC_ID.VALUE = recipe.ProgressiveId;
+                                //Core.Communication.tagsList.PC_RIC_ID.VALUE = recipe.ProgressiveId;
 
                                 NewRecipe = false;
 

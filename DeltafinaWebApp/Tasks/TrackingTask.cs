@@ -91,21 +91,21 @@ namespace Tasks
                                 {
                                     try
                                     {
-                                        if ((bool)Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.VALUE)
-                                        {
-                                            Core.Communication.tagsList.PC_RESET_CONTADOSAGGI.VALUE = false;
+                                        //if ((bool)Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.VALUE)
+                                        //{
+                                        //    Core.Communication.tagsList.PC_RESET_CONTADOSAGGI.VALUE = false;
 
-                                            if (!_dosingService.CheckExistAckDosingCounter(Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.NAME, DateTime.Now))
-                                                _dosingService.InsertAckDosingCounter(Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.NAME, DateTime.Now);
+                                        //    if (!_dosingService.CheckExistAckDosingCounter(Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.NAME, DateTime.Now))
+                                        //        _dosingService.InsertAckDosingCounter(Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.NAME, DateTime.Now);
 
-                                            Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.VALUE = false;
-                                        }
+                                        //    Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.VALUE = false;
+                                        //}
 
-                                        if (!_dosingService.CheckExistAckDosingCounter(Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.NAME, DateTime.Now))
-                                        {
-                                            Core.Communication.tagsList.PC_RESET_CONTADOSAGGI.VALUE = true;
-                                            _resetCounterDone = true;
-                                        }
+                                        //if (!_dosingService.CheckExistAckDosingCounter(Core.Communication.tagsList.ACK_PC_RESET_CONTADOSAGGI.NAME, DateTime.Now))
+                                        //{
+                                        //    Core.Communication.tagsList.PC_RESET_CONTADOSAGGI.VALUE = true;
+                                        //    _resetCounterDone = true;
+                                        //}
 
                                         //if (!_dosingService.CheckExistAckDosingCounter(Core.Communication.tagsList.PC_RESET_CONTADOSAGGI.NAME, DateTime.Now))
                                         //{
@@ -124,112 +124,112 @@ namespace Tasks
                                 }
 
 
-                                //TRACKING DOSAGGI in TF1
-                                if ((bool)Core.Communication.tagsList.PLC_NUOVA_REGISTRAZIONE_IN_TF1.VALUE
-                                    && !(bool)Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF1.VALUE
-                                    //&& !System.Diagnostics.Debugger.IsAttached
-                                    && !_resetCounterDone)
-                                {
-                                    try
-                                    {
-                                        int ricettaId = int.Parse(Core.Communication.tagsList.PC_RIC_ID.VALUE.ToString());
-                                        int progressiveId = int.Parse(Core.Communication.tagsList.FDB_N_DOS_GIORNALIERI_TOTALI_TF1TF2.VALUE.ToString());
+                                ////TRACKING DOSAGGI in TF1
+                                //if ((bool)Core.Communication.tagsList.PLC_NUOVA_REGISTRAZIONE_IN_TF1.VALUE
+                                //    && !(bool)Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF1.VALUE
+                                //    //&& !System.Diagnostics.Debugger.IsAttached
+                                //    && !_resetCounterDone)
+                                //{
+                                //    try
+                                //    {
+                                //        int ricettaId = int.Parse(Core.Communication.tagsList.PC_RIC_ID.VALUE.ToString());
+                                //        int progressiveId = int.Parse(Core.Communication.tagsList.FDB_N_DOS_GIORNALIERI_TOTALI_TF1TF2.VALUE.ToString());
 
-                                        if (progressiveId == 0)
-                                        {
-                                            progressiveId = 1;
-                                            Core.Communication.tagsList.FDB_N_DOS_GIORNALIERI_TOTALI_TF1TF2.VALUE = progressiveId;
-                                        }
+                                //        if (progressiveId == 0)
+                                //        {
+                                //            progressiveId = 1;
+                                //            Core.Communication.tagsList.FDB_N_DOS_GIORNALIERI_TOTALI_TF1TF2.VALUE = progressiveId;
+                                //        }
 
-                                        RecipeGlasswareModel recipe = _recipeService.GetRecipeByProgressiveId(ricettaId);
+                                //        RecipeGlasswareModel recipe = _recipeService.GetRecipeByProgressiveId(ricettaId);
 
-                                        DosingServices dosingServices = new DosingServices(ArchivesDbContext.Create(DeltafinaWebApp.ConStr.ConnectionString));
-                                        bool result = dosingServices.AddDosings_TF1(recipe, progressiveId);
+                                //        DosingServices dosingServices = new DosingServices(ArchivesDbContext.Create(DeltafinaWebApp.ConStr.ConnectionString));
+                                //        bool result = dosingServices.AddDosings_TF1(recipe, progressiveId);
 
-                                        if (result)
-                                        {
-                                            Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF1.VALUE = true;
+                                //        if (result)
+                                //        {
+                                //            Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF1.VALUE = true;
 
-                                            try
-                                            {
-                                                _dosingService.InsertAckDosingCounter(Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF1.NAME, DateTime.Now);
-                                            }
-                                            catch (Exception ex)
-                                            {
+                                //            try
+                                //            {
+                                //                _dosingService.InsertAckDosingCounter(Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF1.NAME, DateTime.Now);
+                                //            }
+                                //            catch (Exception ex)
+                                //            {
 
-                                                _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", ex, ex.Message, new object[0]);
-                                            }
-                                        }
+                                //                _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", ex, ex.Message, new object[0]);
+                                //            }
+                                //        }
 
-                                        if (recipe == null)
-                                            _logger.LogWarning(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".PLC_NUOVA_REGISTRAZIONE_IN_TF1", "RECIPE ID: " + ricettaId.ToString() + " NOT FOUND");
+                                //        if (recipe == null)
+                                //            _logger.LogWarning(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".PLC_NUOVA_REGISTRAZIONE_IN_TF1", "RECIPE ID: " + ricettaId.ToString() + " NOT FOUND");
 
-                                    }
-                                    catch (Microsoft.EntityFrameworkCore.DbUpdateException dbEx)
-                                    {
+                                //    }
+                                //    catch (Microsoft.EntityFrameworkCore.DbUpdateException dbEx)
+                                //    {
 
-                                        _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", dbEx, dbEx.InnerException.Message, new object[0]);
-                                    }
-                                    catch (Exception ex)
-                                    {
+                                //        _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", dbEx, dbEx.InnerException.Message, new object[0]);
+                                //    }
+                                //    catch (Exception ex)
+                                //    {
 
-                                        _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", ex, ex.Message, new object[0]);
-                                    }
-                                }
+                                //        _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", ex, ex.Message, new object[0]);
+                                //    }
+                                //}
 
                                 //TRACKING DOSAGGI in TF2
-                                if ((bool)Core.Communication.tagsList.PLC_NUOVA_REGISTRAZIONE_IN_TF2.VALUE
-                                    && !(bool)Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF2.VALUE
-                                    //&& !System.Diagnostics.Debugger.IsAttached
-                                    &&
-                                    !_resetCounterDone)
-                                {
-                                    try
-                                    {
-                                        int ricettaId = int.Parse(Core.Communication.tagsList.PC_RIC_ID.VALUE.ToString());
-                                        int progressiveId = int.Parse(Core.Communication.tagsList.FDB_N_DOS_GIORNALIERI_TOTALI_TF1TF2.VALUE.ToString());
+                                //if ((bool)Core.Communication.tagsList.PLC_NUOVA_REGISTRAZIONE_IN_TF2.VALUE
+                                //    && !(bool)Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF2.VALUE
+                                //    //&& !System.Diagnostics.Debugger.IsAttached
+                                //    &&
+                                //    !_resetCounterDone)
+                                //{
+                                //    try
+                                //    {
+                                //        int ricettaId = int.Parse(Core.Communication.tagsList.PC_RIC_ID.VALUE.ToString());
+                                //        int progressiveId = int.Parse(Core.Communication.tagsList.FDB_N_DOS_GIORNALIERI_TOTALI_TF1TF2.VALUE.ToString());
 
-                                        if (progressiveId == 0)
-                                        {
-                                            progressiveId = 1;
-                                            Core.Communication.tagsList.FDB_N_DOS_GIORNALIERI_TOTALI_TF1TF2.VALUE = progressiveId;
-                                        }
+                                //        if (progressiveId == 0)
+                                //        {
+                                //            progressiveId = 1;
+                                //            Core.Communication.tagsList.FDB_N_DOS_GIORNALIERI_TOTALI_TF1TF2.VALUE = progressiveId;
+                                //        }
 
-                                        RecipeGlasswareModel recipe = _recipeService.GetRecipeByProgressiveId(ricettaId);
+                                //        RecipeGlasswareModel recipe = _recipeService.GetRecipeByProgressiveId(ricettaId);
 
-                                        DosingServices dosingServices = new DosingServices(ArchivesDbContext.Create(DeltafinaWebApp.ConStr.ConnectionString));
-                                        bool result = dosingServices.AddDosings_TF2(recipe, progressiveId);
+                                //        DosingServices dosingServices = new DosingServices(ArchivesDbContext.Create(DeltafinaWebApp.ConStr.ConnectionString));
+                                //        bool result = dosingServices.AddDosings_TF2(recipe, progressiveId);
 
-                                        if (result)
-                                        {
-                                            Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF2.VALUE = true;
+                                //        if (result)
+                                //        {
+                                //            Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF2.VALUE = true;
 
-                                            try
-                                            {
-                                                _dosingService.InsertAckDosingCounter(Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF2.NAME, DateTime.Now);
-                                            }
-                                            catch (Exception ex)
-                                            {
+                                //            try
+                                //            {
+                                //                _dosingService.InsertAckDosingCounter(Core.Communication.tagsList.ACK_NUOVA_REGISTRAZIONE_IN_TF2.NAME, DateTime.Now);
+                                //            }
+                                //            catch (Exception ex)
+                                //            {
 
-                                                _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", ex, ex.Message, new object[0]);
-                                            }
-                                        }
+                                //                _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", ex, ex.Message, new object[0]);
+                                //            }
+                                //        }
 
-                                        if (recipe == null)
-                                            _logger.LogWarning(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".PLC_NUOVA_REGISTRAZIONE_IN_TF2", "RECIPE ID: " + ricettaId.ToString() + " NOT FOUND");
+                                //        if (recipe == null)
+                                //            _logger.LogWarning(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".PLC_NUOVA_REGISTRAZIONE_IN_TF2", "RECIPE ID: " + ricettaId.ToString() + " NOT FOUND");
 
-                                    }
-                                    catch (Microsoft.EntityFrameworkCore.DbUpdateException dbEx)
-                                    {
+                                //    }
+                                //    catch (Microsoft.EntityFrameworkCore.DbUpdateException dbEx)
+                                //    {
 
-                                        _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", dbEx, dbEx.InnerException.Message, new object[0]);
-                                    }
-                                    catch (Exception ex)
-                                    {
+                                //        _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", dbEx, dbEx.InnerException.Message, new object[0]);
+                                //    }
+                                //    catch (Exception ex)
+                                //    {
 
-                                        _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", ex, ex.Message, new object[0]);
-                                    }
-                                }
+                                //        _logger.LogError(MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name + ".Part_2", ex, ex.Message, new object[0]);
+                                //    }
+                                //}
 
 
                                 try

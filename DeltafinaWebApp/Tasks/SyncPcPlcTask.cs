@@ -48,10 +48,10 @@ namespace Tasks
             {
                 while (!canctokenSource.IsCancellationRequested)
                 {
-                    if ((Core.Communication.WatchDog.PLC_STATE[0].CommState && Core.Communication.WatchDog.PLC_STATE[2].CommState) || System.Diagnostics.Debugger.IsAttached)
+                    if (Core.Communication.WatchDog.PLC_STATE[0].CommState || System.Diagnostics.Debugger.IsAttached)
                     {
-                        Core.Communication.tagsList.MOXA_To_APC.VALUE = Core.Communication.tagsList.FDB_To_APC.VALUE;
-                        Core.Communication.tagsList.PC_From_APC.VALUE = Core.Communication.tagsList.MOXA_From_APC.VALUE;
+                        //Core.Communication.tagsList.MOXA_To_APC.VALUE = Core.Communication.tagsList.FDB_To_APC.VALUE;
+                        //Core.Communication.tagsList.PC_From_APC.VALUE = Core.Communication.tagsList.MOXA_From_APC.VALUE;
                     }
 
                     ////Verifico se il minuto 5 o multipli
