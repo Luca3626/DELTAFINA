@@ -20,16 +20,17 @@ import { PortalFarmService } from './portal-farm.service';
 import { KeywordService } from './tag.service';
 import { HelpService } from './help.service';
 import { AlarmService } from './alarm.service';
-import { RecipeService } from './recipe.service';
 import { TrendService } from './trend.service';
 import { ProcessService } from './process.service';
 import { ZoneService } from './zone.service';
+import { ZoneAlarmService } from './zone-alarm.service';
+import { CabinetAlarmService } from './cabinet-alarm.service';
 import { PlcService } from './plc.service';
 import { MaintenanceService } from './maintenance.service';
 import { SiloService } from './silo.service';
 import { MaterialService } from './material.service';
 import { SoundService } from './sound.service';
-import { DosingService } from './dosing.service';
+import { SlicerWeighingService } from './slicer-weighing.service';
 
 //import { NgbDateCustomAdapter, NgbDateCustomDateParserFormatter } from './date-formatter.service';
 import { NgbDateCustomDateParserFormatter } from './date-formatter.service';
@@ -61,16 +62,17 @@ import { NgbDateParserFormatter, NgbDateAdapter } from "@ng-bootstrap/ng-bootstr
     KeywordService,
     HelpService,
     AlarmService,
-    RecipeService,
     TrendService,
     ProcessService,
     ZoneService,
+    ZoneAlarmService,
+    CabinetAlarmService,
     PlcService,
     MaintenanceService,
     SiloService,
     MaterialService,
     SoundService,
-    DosingService,
+    SlicerWeighingService,
 
     //{ provide: NgbDateAdapter, useClass: NgbDateCustomAdapter },
     { provide: NgbDateParserFormatter, useClass: NgbDateCustomDateParserFormatter }

@@ -34,4 +34,17 @@ export class HelpService {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  // Ricompone un REAL del PLC scritto su due word consecutive di un DB di Int
+  // (i totalizzatori dei misuratori di portata sul DB190: V336+V337, V338+V339,
+  // V343+V344). La prima word e' la parte alta, come dice lo scambio dati, e le
+  // word arrivano dal server come INT16 con segno: vanno riportate a 16 bit senza
+  // segno prima di rileggere i quattro byte come float IEEE754 big endian.
+  public static realFromWords(high: any, low: any): number {
+    if (high == null || low == null) return null;
+    var view = new DataView(new ArrayBuffer(4));
+    view.setUint16(0, Number(high) & 0xFFFF);
+    view.setUint16(2, Number(low) & 0xFFFF);
+    return view.getFloat32(0);
+  }
+
 }
