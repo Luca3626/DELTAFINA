@@ -1,0 +1,134 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>REGISTRO PESATE CASSE - {{line}}</h1>
+<div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
+  <div class="weighing-plate">
+
+    <!-- ================= FILTRO =================
+         Stessi datepicker della pagina Allarmi. "Dal"/"Al" sono giornate produttive
+         (la giornata comincia alle 06:00): le casse del turno di notte restano nella
+         giornata a cui appartengono. -->
+    <div class="card">
+      <div class="card-body weighing-card-body">
+        <div class="weighing-filter">
+
+          <div class="weighing-filter__field">
+            <label class="form-label">Dal</label>
+            <div class="input-group">
+              <input class="form-control" placeholder="gg-mm-aaaa" id="weighingDateFrom" name="weighingDateFrom"
+                     ngbDatepicker
+                     [(ngModel)]="dateFrom"
+                     [displayMonths]="displayMonths"
+                     #pickerFrom="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="input-group-text" (click)="pickerFrom.toggle()" type="button">
+                  <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="weighing-filter__field">
+            <label class="form-label">Al</label>
+            <div class="input-group">
+              <input class="form-control" placeholder="gg-mm-aaaa" id="weighingDateTo" name="weighingDateTo"
+                     ngbDatepicker
+                     [(ngModel)]="dateTo"
+                     [displayMonths]="displayMonths"
+                     #pickerTo="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="input-group-text" (click)="pickerTo.toggle()" type="button">
+                  <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="weighing-filter__actions">
+            <button type="button" class="btn btn-primary" (click)="onSearch()" [disabled]="loading">Cerca</button>
+          </div>
+
+          <!-- Riepilogo dell'intervallo filtrato -->
+          <div class="weighing-summary">
+            <div class="weighing-summary__item">
+              <div class="text-muted small">Casse</div>
+              <div class="weighing-summary__value">{{count}}</div>
+            </div>
+            <div class="weighing-summary__item">
+              <div class="text-muted small">Peso totale</div>
+              <div class="weighing-summary__value">{{totalWeight}} kg</div>
+            </div>
+            <div class="weighing-summary__item">
+              <div class="text-muted small">Peso medio</div>
+              <div class="weighing-summary__value">{{averageWeight.toFixed(1)}} kg</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= ELENCO =================
+         I valori di produzione sono quelli congelati dal task all'istante della pesata,
+         non le letture di adesso: la riga e' autoconsistente. -->
+    <div class="card">
+      <div class="card-body weighing-card-body">
+
+        <div *ngIf="loadError" class="weighing-message text-danger">{{loadError}}</div>
+        <div *ngIf="loading && !loadError" class="weighing-message text-muted">Lettura in corso...</div>
+        <div *ngIf="!loading && !loadError && count == 0" class="weighing-message text-muted">
+          Nessuna pesata registrata nell'intervallo selezionato.
+        </div>
+
+        <div class="table-responsive weighing-table" *ngIf="!loading && count > 0">
+          <table class="table table-striped table-bordered card-table">
+            <thead>
+              <tr>
+                <th>N.</th>
+                <th>DATA E ORA</th>
+                <th>GIORNATA</th>
+                <th>TURNO</th>
+                <th class="text-right">PESO</th>
+                <th class="text-right">PESO NASTRO</th>
+                <th class="text-right">PESO MEDIO</th>
+                <th class="text-right">TOTALIZZATORE</th>
+                <th class="text-right">N. CASSE</th>
+                <th class="text-right">N. TAGLI</th>
+                <th class="text-right">FLUSSO</th>
+                <th class="text-right">SP FLUSSO</th>
+                <th class="text-right">SILO</th>
+                <th class="text-right">TOT. SILO</th>
+                <th>TAGLIO</th>
+                <th>STATO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of weighings">
+                <td>{{item.progressiveNumber}}</td>
+                <td>{{item.registrationDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{item.productionDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{item.workshift}}</td>
+                <td class="text-right">{{item.weight}} {{item.unity}}</td>
+                <td class="text-right">{{item.beltWeight}}</td>
+                <td class="text-right">{{item.averageWeight}}</td>
+                <td class="text-right">{{item.totalizer}}</td>
+                <td class="text-right">{{item.caseCount}}</td>
+                <td class="text-right">{{item.cutCount}}</td>
+                <td class="text-right">{{item.flowRate}}</td>
+                <td class="text-right">{{item.flowRateSetpoint}}</td>
+                <td class="text-right">{{item.destinationSilo}}</td>
+                <td class="text-right">{{item.destinationSiloTotalizer}}</td>
+                <td>{{cutModeTxt(item.singleCutMode)}}</td>
+                <td>
+                  <span [ngClass]="item.lineConsent ? 'badge badge-success' : 'badge badge-secondary'">CX</span>
+                  <span [ngClass]="item.lineInAlarm ? 'badge badge-danger' : 'badge badge-secondary'">ALM</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

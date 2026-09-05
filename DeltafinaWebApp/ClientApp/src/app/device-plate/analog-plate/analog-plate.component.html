@@ -1,0 +1,5 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{analog.name.toUpperCase()}}</h1>
+<div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
+  <analog-plate-body [analog]="analog"></analog-plate-body>
+</div>

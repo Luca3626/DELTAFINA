@@ -1,0 +1,164 @@
+/* Grafico storico dei popup di device. Stile ricalcato dal grafico di riferimento
+   in ClientApp/src/app/chart, riscritto in CSS semplice come il resto dei plate. */
+
+.plate-chart {
+  display: flex;
+  flex-direction: column;
+  /* Se il contenitore ha un'altezza definita (popup PID: la card si allunga quanto
+     la colonna dei dati) il grafico la riempie, altrimenti resta il min-height sotto. */
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.plate-chart__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 34px;
+  margin-bottom: 6px;
+}
+
+/* Toolbar disabilitata: niente click, grigia, come segnale di inattivita' */
+.plate-chart__toolbar.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  filter: grayscale(0.4);
+}
+
+.plate-chart__range {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.plate-chart__range .btn,
+.plate-chart__range .btn-default {
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 5px 14px;
+  height: 32px;
+  line-height: 1;
+  border: 1px solid rgba(127, 140, 241, 0.3);
+  background: rgba(127, 140, 241, 0.06);
+  color: #7f8cf1;
+  transition: all 0.2s ease;
+}
+
+.plate-chart__range .btn:hover {
+  background: rgba(127, 140, 241, 0.12);
+}
+
+.plate-chart__range .btn:first-child { border-radius: 20px 0 0 20px; }
+.plate-chart__range .btn:last-child  { border-radius: 0 20px 20px 0; }
+
+.plate-chart__range .btn.active,
+.plate-chart__range .btn-default.active {
+  background: #7f8cf1;
+  border-color: #7f8cf1;
+  color: #fff;
+  font-weight: 600;
+}
+
+.plate-chart__date {
+  width: 130px;
+  height: 32px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1.5px solid #7f8cf1;
+  background: #fff;
+  color: #2d3748;
+  padding: 3px 8px;
+  outline: none;
+}
+
+.plate-chart__date:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.plate-chart__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(127, 140, 241, 0.4);
+  border-radius: 8px;
+  background: transparent;
+  color: #7f8cf1;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.plate-chart__icon-btn:hover:not(:disabled) {
+  background: #7f8cf1;
+  color: #fff;
+}
+
+.plate-chart__icon-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.plate-chart__warning {
+  margin: 4px 0;
+  font-size: 0.72rem;
+  color: #e53e3e;
+  font-weight: 500;
+}
+
+.plate-chart__warning i {
+  margin-right: 4px;
+}
+
+.plate-chart__canvas {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Il grafico si prende l'altezza disponibile nel contenitore. Il min-height fa da
+   rete: se il contenitore non ha un'altezza definita, il canvas non collassa.
+   Tenuto a 220px perche' e' il valore che decide l'altezza dell'intero popup: sopra i
+   240px la colonna del grafico diventa piu' alta di quella dei dati e fa comparire la
+   scrollbar verticale sugli schermi bassi. Sui monitor grandi il grafico resta
+   comunque piu' alto, perche' si allunga fino a pareggiare la colonna dei dati. */
+.plate-chart__wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 220px;
+}
+
+.plate-chart__wrap canvas {
+  max-width: 100% !important;
+  height: 100% !important;
+}
+
+/* Messaggio "nessun dato" sovrapposto al grafico vuoto: non tocca il canvas */
+.plate-chart__empty-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #8a94a6;
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+
+.plate-chart__empty-overlay i,
+.plate-chart__empty i {
+  margin-right: 4px;
+  color: #7f8cf1;
+}
+
+.plate-chart__empty {
+  text-align: center;
+  padding: 40px 8px;
+  color: #8a94a6;
+  font-size: 0.78rem;
+}

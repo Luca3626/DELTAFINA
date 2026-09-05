@@ -1,4 +1,4 @@
-<button class="close" mat-button (click)="onNoClick()">X</button>
+<!--<button class="close" mat-button (click)="onNoClick()">X</button>
 <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{data.scale.name.toUpperCase()}} | {{data.scale.description.toUpperCase()}}</h1>
 <div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
   <div class="nav-tabs-top" style="padding:2px;">
@@ -68,17 +68,17 @@
             <div *ngIf="this.data.scale.SET_MOD_SP" style="font-size:14px;margin-top:16px;"><h5>Scuoti parete</h5></div>
             <div *ngIf="this.data.scale.SET_MOD_SP" class="row" style="margin-top:16px;">
               <div class="col-sm-4">
-                <button style="height:60px;vertical-align:middle" [ngClass]="this.data.scale.SET_MOD_SP.value == 0 ? 'btn btn-primary' : 'btn btn-default'" type="button" (click)="onScuotiParete(0)">ESCLUSO</button>
+                <button style="height:60px;vertical-align:middle" [ngClass]="this.data.scale.SET_MOD_SP.value == 0 ? 'btn btn-primary' : 'btn btn-default'" type="button" (click)="onScuotiParete(0)">ESCLUSO</button>-->
                 <!--<button style="height:60px;vertical-align:middle;margin-top:16px" [ngClass]="this.data.scale.SET_MOD_SP.value == 4 ? 'btn btn-primary' : 'btn btn-default'" type="button" (click)="onScuotiParete(4)">PORTATA</button>-->
-              </div>
+              <!--</div>
               <div class="col-sm-4">
                 <button style="height:60px;vertical-align:middle;width:100%" [ngClass]="this.data.scale.SET_MOD_SP.value == 1 ? 'btn btn-primary' : 'btn btn-default'" type="button" (click)="onScuotiParete(1)">SEMPRE ON</button>
                 <button style="height:60px;vertical-align:middle;margin-top:16px;font-size:10px;width:100%;" [ngClass]="this.data.scale.SET_MOD_SP.value == 3 ? 'btn btn-primary' : 'btn btn-default'" type="button" (click)="onScuotiParete(3)">DURANTE LO SGOCCIOLAM.</button>
               </div>
               <div class="col-sm-4">
-                <button style="height:60px;vertical-align:middle;font-size:10px" [ngClass]="this.data.scale.SET_MOD_SP.value == 2 ? 'btn btn-primary' : 'btn btn-default'" type="button" (click)="onScuotiParete(2)">CON ALLARME DI SCARICAMENTO</button>
+                <button style="height:60px;vertical-align:middle;font-size:10px" [ngClass]="this.data.scale.SET_MOD_SP.value == 2 ? 'btn btn-primary' : 'btn btn-default'" type="button" (click)="onScuotiParete(2)">CON ALLARME DI SCARICAMENTO</button>-->
                 <!--<button style="height:60px;vertical-align:middle;margin-top:16px; white-space:normal; padding:5px; text-align:center; font-size:12px" [ngClass]="this.data.scale.SET_MOD_SP.value == 5 ? 'btn btn-primary' : 'btn btn-default'" type="button" (click)="onScuotiParete(5)">PAUSA LAVORO + PORTATA</button>-->
-              </div>
+              <!--</div>
             </div>
 
           </div>
@@ -141,10 +141,10 @@
             </div>
           </div>
         </ng-template>
-      </li>
+      </li>-->
 
       <!-- TEMPI -->
-      <li *ngIf="this.data.scale.SET_T_MAX_CARICO || this.data.scale.SET_T_MAX_SCARICO || this.data.scale.SET_T_SGOCCIOLAMENTO || this.data.scale.SET_T_ATTESA_SCARICO" ngbNavItem>
+      <!--<li *ngIf="this.data.scale.SET_T_MAX_CARICO || this.data.scale.SET_T_MAX_SCARICO || this.data.scale.SET_T_SGOCCIOLAMENTO || this.data.scale.SET_T_ATTESA_SCARICO" ngbNavItem>
         <a ngbNavLink>Tempi</a>
         <ng-template ngbNavContent>
           <div style="padding:8px;">
@@ -255,10 +255,10 @@
 
           </div>
         </ng-template>
-      </li>
+      </li>-->
 
       <!-- ALTRO -->
-      <li ngbNavItem>
+      <!--<li ngbNavItem>
         <a ngbNavLink>Altro</a>
         <ng-template ngbNavContent>
           <div style="padding:8px;">
@@ -332,7 +332,7 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div>-->
 
             <!--<div *ngIf="this.data.scale.SET_HL" style="font-size:14px;margin-top:16px;"><h5>Impostazione livello HL</h5></div>
   <div *ngIf="this.data.scale.SET_HL" class="table-responsive">
@@ -360,7 +360,7 @@
     </table>
   </div>-->
 
-            <div *ngIf="this.data.scale.SET_VOLO" style="font-size:14px;margin-top:16px;"><h5>Impostazione volo</h5></div>
+            <!--<div *ngIf="this.data.scale.SET_VOLO" style="font-size:14px;margin-top:16px;"><h5>Impostazione volo</h5></div>
             <div *ngIf="this.data.scale.SET_VOLO" class="table-responsive">
               <table class="table table-striped table-bordered card-table">
                 <thead>
@@ -460,15 +460,15 @@
                         <option value="1">CARICO</option>
                         <option value="2">CARICO COMPLETATO, ATTESA SCARICO</option>
                         <option value="3">SCARICO</option>
-                        <option value="4">SCARICO COMPLETATO, VERIFICA RIPETIZIONI</option>
+                        <option value="4">SCARICO COMPLETATO, VERIFICA RIPETIZIONI</option>-->
                         <!--option value="5">PESATA DA NON MISCELARE: CARICO</option>
               <option value="6">PESATA DA NON MISCELARE: CARICO COMPLETATO, ATTESA SCARICO</option>
               <option value="7">PESATA DA NON MISCELARE: SCARICO</option>
               <option value="8">PESATA DA NON MISCELARE: SCARICO COMPLETATO, VERIFICA RIPETIZIONI</option>-->
-                        <option value="10">FINE PESATE E SCARICHI</option>
-                      </select>
+                        <!--<option value="10">FINE PESATE E SCARICHI</option>
+                      </select>-->
                       <!--<input class="form-control" type="number" [(ngModel)]="newState" />-->
-                    </td>
+                    <!--</td>
                   </tr>
                 </tbody>
               </table>
@@ -480,4 +480,4 @@
     </ul>
     <div [ngbNavOutlet]="userTabs"></div>
   </div>
-</div>
+</div>-->

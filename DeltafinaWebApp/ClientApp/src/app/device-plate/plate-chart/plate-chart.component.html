@@ -1,0 +1,46 @@
+<div class="plate-chart">
+
+  <div class="plate-chart__toolbar" [class.is-disabled]="!hasSeries">
+    <div class="btn-group btn-group-toggle plate-chart__range" ngbRadioGroup name="plateChartRange" [(ngModel)]="displayRangeModel">
+      <label ngbButtonLabel class="btn btn-default">
+        <input ngbButton type="radio" [value]="0" (change)="changeRange(0)" [disabled]="!hasSeries"> Oggi
+      </label>
+      <label ngbButtonLabel class="btn btn-default">
+        <input ngbButton type="radio" [value]="1" (change)="changeRange(1)" [disabled]="!hasSeries"> Ieri
+      </label>
+      <label ngbButtonLabel class="btn btn-default">
+        <input ngbButton type="radio" [value]="48" (change)="changeRange(48)" [disabled]="!hasSeries"> Giorno
+      </label>
+    </div>
+
+    <input type="date" class="plate-chart__date"
+           [disabled]="!hasSeries || displayRangeModel !== 48"
+           [value]="diagDateForInput" (change)="onDateInputChange($event)" />
+
+    <button type="button" class="plate-chart__icon-btn" title="Esporta i dati storici in CSV"
+            (click)="exportCSV()" [disabled]="!hasSeries || !hasAnyData">
+      <i class="fas fa-file-export"></i>
+    </button>
+  </div>
+
+  <div class="plate-chart__warning" *ngIf="errorMessage">
+    <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+  </div>
+
+  <div class="plate-chart__canvas">
+    <div class="plate-chart__wrap" *ngIf="hasSeries">
+      <canvas baseChart
+              [datasets]="chartData.datasets"
+              [labels]="chartData.labels"
+              [options]="chartOptions"
+              [chartType]="lineChartType"></canvas>
+      <div class="plate-chart__empty-overlay" *ngIf="!hasAnyData && !isLoading">
+        <i class="fas fa-info-circle"></i> Nessun dato storico per il periodo selezionato
+      </div>
+    </div>
+    <div class="plate-chart__empty" *ngIf="!hasSeries">
+      <i class="fas fa-chart-line"></i> Nessun segnale storicizzato per questo device
+    </div>
+  </div>
+
+</div>

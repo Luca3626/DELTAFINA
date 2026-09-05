@@ -1,0 +1,108 @@
+.close.mat-button {
+  top: 0;
+  right: 0;
+  line-height: 14px;
+  min-width: auto;
+  color: white;
+  font-size: x-large;
+}
+
+/* Popup del registro pesate casse: in alto la fascia dei filtri con il riepilogo,
+   sotto l'elenco. Stessa impostazione di analog-plate (card su fondo grigio) e stessa
+   ragione per usare CSS Grid invece della griglia di Bootstrap: le .row del tema hanno
+   margini negativi di 12px che dentro un dialog fanno comparire la barra orizzontale, e
+   i breakpoint col-md/col-lg guardano la viewport, non la larghezza del popup. */
+.weighing-plate {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Niente scrollbar sul dialog: il contenuto sta nella finestra e a scorrere e' solo
+   la tabella. Il default di Material e' 65vh, che taglierebbe il popup a meta'. */
+.mat-dialog-content {
+  max-height: calc(100vh - 110px);
+}
+
+.weighing-card-body {
+  padding: 9px 12px;
+}
+
+/* Filtro su una riga sola quando c'e' spazio; il riepilogo si stacca a destra.
+   min-width sui campi cosi' il datepicker non si comprime sotto la data. */
+.weighing-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.weighing-filter__field {
+  min-width: 190px;
+}
+
+  .weighing-filter__field .form-label {
+    margin-bottom: 2px;
+  }
+
+.weighing-filter__actions {
+  padding-bottom: 1px;
+}
+
+/* Riepilogo dell'intervallo filtrato: spinto a destra, stessa resa dei readout
+   di analog-plate. */
+.weighing-summary {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+  text-align: right;
+}
+
+.weighing-summary__value {
+  font-size: 18px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;   /* le cifre non ballano fra una ricerca e l'altra */
+}
+
+.weighing-message {
+  padding: 8px 2px;
+  font-size: 14px;
+}
+
+/* L'elenco ha molte colonne: scorre dentro il suo riquadro invece di allargare il
+   popup, in verticale e in orizzontale. */
+.weighing-table {
+  max-height: calc(100vh - 320px);
+  overflow: auto;
+}
+
+  .weighing-table .card-table {
+    margin-bottom: 0;
+  }
+
+  .weighing-table .card-table th,
+  .weighing-table .card-table td {
+    padding: 4px 8px;
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .weighing-table .card-table th {
+    position: sticky;    /* l'intestazione resta visibile mentre si scorre l'elenco */
+    top: 0;
+    z-index: 1;
+    background-color: #f8f9fa;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* Le colonne numeriche vanno confrontate a colpo d'occhio fra una riga e l'altra. */
+  .weighing-table .card-table td.text-right {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .weighing-table .badge + .badge {
+    margin-left: 4px;
+  }

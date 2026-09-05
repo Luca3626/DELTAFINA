@@ -50,6 +50,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MotorPlateComponent } from './motor-plate/motor-plate.component';
 import { MotorRevPlateComponent } from './motor-rev-plate/motor-rev-plate.component';
 import { ValvePlateComponent } from './valve-plate/valve-plate.component';
+import { PidPlateComponent } from './pid-plate/pid-plate.component';
 //import { LightGroupPlateComponent } from './light-group-plate/light-group-plate.component';
 //import { CurtainPlateComponent } from './curtain-plate/curtain-plate.component';
 //import { CustomItemPlateComponent } from './custom-item-plate/custom-item-plate.component';
@@ -57,11 +58,13 @@ import { ValvePlateComponent } from './valve-plate/valve-plate.component';
 //import { DecanterRecipePlateComponent } from './decanter-recipe-plate/decanter-recipe-plate.component';
 import { SiloPlateComponent } from './silo-plate/silo-plate.component';
 import { ScalePlateComponent } from './scale-plate/scale-plate.component';
-import { HopperPlateComponent } from './hopper-plate/hopper-plate.component';
-import { HopperSPlateComponent } from './hoppers-plate/hoppers-plate.component';
-import { HopperRPlateComponent } from './hopperr-plate/hopperr-plate.component';
-import { SettingRComponent } from './settingR-plate/settingR-plate.component';
-import { MixerPlateComponent } from './mixer-plate/mixer-plate.component';
+import { SettingCasingComponent } from './settingCasing/settingCasing.component';
+import { GlobalCmdPlateComponent } from './global-cmd-plate/global-cmd-plate.component';
+import { AnalogPlateComponent } from './analog-plate/analog-plate.component';
+import { AnalogPlateBodyComponent } from './analog-plate/analog-plate-body.component';
+import { PlateChartComponent } from './plate-chart/plate-chart.component';
+import { SlicerWeighingPlateComponent } from './slicer-weighing-plate/slicer-weighing-plate.component';
+import { ZoneCmdPlateComponent } from './zone-cmd-plate/zone-cmd-plate.component';
 
 
 // *******************************************************************************
@@ -69,6 +72,9 @@ import { MixerPlateComponent } from './mixer-plate/mixer-plate.component';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ChartsModule as Ng2ChartsModule } from 'ng2-charts';
+// I comandi globali di MAN e STOP fermano l'impianto: la conferma usa le stesse swal
+// della navbar, quindi qui serve SweetAlert2Module (il forRoot sta in app.module.ts).
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 // *******************************************************************************
@@ -82,6 +88,7 @@ import { ChartsModule as Ng2ChartsModule } from 'ng2-charts';
 
     Ng2ChartsModule,
     PerfectScrollbarModule,
+    SweetAlert2Module,
     //ModalModule,
     //DialogModule.forRoot(),
 
@@ -135,6 +142,7 @@ import { ChartsModule as Ng2ChartsModule } from 'ng2-charts';
   declarations: [
     MotorPlateComponent,
     ValvePlateComponent,
+    PidPlateComponent,
     //LightGroupPlateComponent,
     //CurtainPlateComponent,
     //CustomItemPlateComponent,
@@ -143,11 +151,13 @@ import { ChartsModule as Ng2ChartsModule } from 'ng2-charts';
     MotorRevPlateComponent,
     SiloPlateComponent,
     ScalePlateComponent,
-    HopperPlateComponent,
-    HopperSPlateComponent,
-    HopperRPlateComponent,
-    SettingRComponent,
-    MixerPlateComponent
+    SettingCasingComponent,
+    GlobalCmdPlateComponent,
+    AnalogPlateComponent,
+    AnalogPlateBodyComponent,
+    PlateChartComponent,
+    SlicerWeighingPlateComponent,
+    ZoneCmdPlateComponent
   ]
 })
 export class DevicePlateModule { }

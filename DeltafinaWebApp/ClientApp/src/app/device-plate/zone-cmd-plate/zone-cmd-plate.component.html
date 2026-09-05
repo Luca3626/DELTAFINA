@@ -1,0 +1,86 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>COMANDI DI ZONA</h1>
+<div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
+  <div class="zone-cmd-plate">
+
+    <div class="text-muted zone-cmd-plate__intro">
+      Modo operativo e stato di marcia di tutte le zone dell'impianto. Sono gli stessi
+      comandi del menu "Comandi" di ogni pagina di zona: agiscono su una zona sola.
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered card-table">
+        <thead>
+          <tr>
+            <th>ZONA</th>
+            <th>DESCRIZIONE</th>
+            <th class="text-center">FEEDBACK</th>
+            <th class="text-center">MODALITA' OPERATIVA</th>
+            <th class="text-center">STATO DI ZONA</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let row of rows">
+
+            <td class="zone-cmd-plate__zone">
+              <span class="badge badge-secondary">{{row.label}}</span>
+            </td>
+
+            <td>{{row.text}}</td>
+
+            <!-- Feedback cumulativi del DB121, gli stessi badge della testata delle
+                 pagine di zona: marcia completa (per la 3.1 un badge per silo), scatto
+                 termico, sezionatore aperto, quadro MCC senza tensione.
+                 Compaiono solo quando il PLC li segnala. -->
+            <td class="text-center">
+              <span *ngIf="allOn(row)" class="badge badge-success zone-cmd-plate__fb">TUTTE LE UTENZE IN MARCIA</span>
+              <ng-container *ngIf="isSiloFill(row)">
+                <ng-container *ngFor="let s of SILOS">
+                  <span *ngIf="siloAllOn(s)" class="badge badge-success zone-cmd-plate__fb">SILO {{s}} IN MARCIA</span>
+                </ng-container>
+              </ng-container>
+              <span *ngIf="molAlarm(row)" class="badge badge-danger zone-cmd-plate__fb">SCATTO TERMICO</span>
+              <span *ngIf="dacAlarm(row)" class="badge badge-danger zone-cmd-plate__fb">SEZIONATORE APERTO</span>
+              <span *ngIf="mccAlarm(row)" class="badge badge-danger zone-cmd-plate__fb">MCC SENZA TENSIONE</span>
+              <span *ngIf="!hasFeedback(row)" class="text-muted">&ndash;</span>
+            </td>
+
+            <!-- Modo: il pulsante che corrisponde allo stato attuale resta pieno,
+                 l'altro passa a "default". Il badge ripete lo stato a destra. -->
+            <td class="text-center">
+              <div class="zone-cmd-plate__cmd" *ngIf="hasMode(row)">
+                <button type="button"
+                        [ngClass]="!isAuto(row) ? 'btn btn-primary' : 'btn btn-default'"
+                        (click)="onZoneMode(row, false)">MAN</button>
+                <button type="button"
+                        [ngClass]="isAuto(row) ? 'btn btn-primary' : 'btn btn-default'"
+                        (click)="onZoneMode(row, true)">AUTO</button>
+                <span [ngClass]="isAuto(row) ? 'badge badge-primary' : 'badge badge-warning'">
+                  {{isAuto(row) ? 'AUTOMATICO' : 'MANUALE'}}
+                </span>
+              </div>
+              <span *ngIf="!hasMode(row)" class="text-muted">&ndash;</span>
+            </td>
+
+            <!-- Stato: STOP e START sono sempre attivi, come nella testata delle pagine. -->
+            <td class="text-center">
+              <div class="zone-cmd-plate__cmd">
+                <button type="button" class="btn btn-danger"
+                        (click)="onZoneState(row, false)"><i class="fas fa-square"></i> STOP</button>
+                <button type="button" class="btn btn-success"
+                        (click)="onZoneState(row, true)"><i class="fas fa-play"></i> START</button>
+                <span [ngClass]="isStarted(row) ? 'badge badge-success' : 'badge badge-secondary'">
+                  {{isStarted(row) ? 'IN MARCIA' : 'FERMA'}}
+                </span>
+              </div>
+            </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

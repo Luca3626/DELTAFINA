@@ -12,90 +12,79 @@ import { AppService } from 'src/app/app.service';
 })
 export class MotorRevPlateComponent {
 
+  // Riferimenti dell'inverter digitati dall'operatore (tab Inverter).
+  newManRef: number;
+  newAutRef: number;
+
   constructor(private appService: AppService, private userService: UserService,
     public dialogRef: MatDialogRef<MotorRevPlateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  get RevText(): string {
-    if (this.data.motor.name == "BT54")
-      return this.data.motor.FWD_TEXT.toUpperCase();
-    else
-      return this.data.motor.REV_TEXT.toUpperCase();
-  }
-
+  // #region Etichette dei due versi
+  // Di default sono FWD e REV; la pagina che apre il popup puo' valorizzare
+  // FWD_TEXT/REV_TEXT sul modello (p.es. i nomi delle due destinazioni di uno shuttle)
+  // e INVERT_REV_FWD quando il verso "avanti" del PLC e' invertito rispetto al disegno.
   get FwdText(): string {
-    if (this.data.motor.name == "BT54")
-      return this.data.motor.REV_TEXT.toUpperCase();
-    else
-      return this.data.motor.FWD_TEXT.toUpperCase();
+    const motor: MotorModel = this.data.motor;
+    if (motor == null) return "FWD";
+    return (motor.INVERT_REV_FWD ? motor.REV_TEXT : motor.FWD_TEXT) || "FWD";
   }
 
+  get RevText(): string {
+    const motor: MotorModel = this.data.motor;
+    if (motor == null) return "REV";
+    return (motor.INVERT_REV_FWD ? motor.FWD_TEXT : motor.REV_TEXT) || "REV";
+  }
+  // #endregion
+
+  // ManAut: man=0, AUT=1 (toggle unico)
   onMANClick(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Utenza in manuale", this.data.motor.CMD_MAN, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_MAN.value = true;
-  }
-
-  onLOC_OFF_Click(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": utenza in remoto", this.data.motor.CMD_REM, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_REM.value = true;
-  }
-
-  onLOC_ON_Click(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": utenza in locale", this.data.motor.CMD_LOC, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_LOC.value = true;
-  }
-
-  onSEMIClick(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Utenza in semi automatico", this.data.motor.CMD_SEMI, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_SEMI.value = true;
+    if (this.data.motor.CMD_MAN_AUT == null) return;
+    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Utenza in manuale", this.data.motor.CMD_MAN_AUT, false, "", this.appService.user); } catch (e) { }
+    this.data.motor.CMD_MAN_AUT.value = false;
   }
 
   onAUTClick(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Utenza in automatico", this.data.motor.CMD_AUT, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_AUT.value = true;
+    if (this.data.motor.CMD_MAN_AUT == null) return;
+    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Utenza in automatico", this.data.motor.CMD_MAN_AUT, true, "", this.appService.user); } catch (e) { }
+    this.data.motor.CMD_MAN_AUT.value = true;
   }
 
+  // Marcia manuale: ManCmdFwd/ManCmdRev toggle (true = marcia, false = stop).
+  // CMD_START_FORWARD/REVERSE azzerano il verso opposto prima di attivare quello richiesto.
   onSTART_FWD_Click(): void {
-    console.log('this.data:', this.data);
-    console.log("premuto forward");
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Start FWD", this.data.motor.CMD_STARTFWD , true, "", this.appService.user); } catch (e) { }
+    if (this.data.motor.CMD_MAN_FWD == null) return;
+    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Start FWD", this.data.motor.CMD_MAN_FWD, true, "", this.appService.user); } catch (e) { }
     this.data.motor.CMD_START_FORWARD = true;
   }
 
   onSTART_REV_Click(): void {
-    console.log('this.data:', this.data);
-    console.log("premuto reverse");
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Start REV", this.data.motor.CMD_STARTREV, true, "", this.appService.user); } catch (e) { }
+    if (this.data.motor.CMD_MAN_REV == null) return;
+    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Start REV", this.data.motor.CMD_MAN_REV, true, "", this.appService.user); } catch (e) { }
     this.data.motor.CMD_START_REVERSE = true;
   }
 
   onSTOPClick(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Stop", this.data.motor.CMD_STOP, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_STOP.value = true;
+    if (this.data.motor.CMD_MAN_FWD == null && this.data.motor.CMD_MAN_REV == null) return;
+    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Stop", this.data.motor.CMD_MAN_FWD, false, "", this.appService.user); } catch (e) { }
+    this.data.motor.STOP_MANUAL();
+  }
+
+  // Inverter (DB122 - VFD): i due riferimenti sono i soli dati scrivibili del blocco.
+  onManRefConfirm(): void {
+    if (this.data.motor.VFD_manRef == null) return;
+    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": riferimento manuale inverter", this.data.motor.VFD_manRef, this.newManRef, "%", this.appService.user); } catch (e) { }
+    this.data.motor.VFD_MANUAL_REF = this.newManRef;
+  }
+
+  onAutRefConfirm(): void {
+    if (this.data.motor.VFD_autRef == null) return;
+    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": riferimento automatico inverter", this.data.motor.VFD_autRef, this.newAutRef, "%", this.appService.user); } catch (e) { }
+    this.data.motor.VFD_AUTO_REF = this.newAutRef;
   }
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  onResetStarts1(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Reset partenza 1 ", this.data.motor.CMD_RESET_STARTS_1, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_RESET_STARTS_1.value = true;
-  }
-
-  onResetStarts2(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Reset partenza 2 ", this.data.motor.CMD_RESET_STARTS_2, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_RESET_STARTS_2.value = true;
-  }
-
-  onResetTrip1(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Reset contatore 1 ", this.data.motor.CMD_RESET_TRIP_1, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_RESET_TRIP_1.value = true;
-  }
-
-  onResetTrip2(): void {
-    try { this.userService.logParameterTagValues(this.data.motor.name.toUpperCase() + ": Reset contatore 2 ", this.data.motor.CMD_RESET_TRIP_2, true, "", this.appService.user); } catch (e) { }
-    this.data.motor.CMD_RESET_TRIP_2.value = true;
   }
 
 }

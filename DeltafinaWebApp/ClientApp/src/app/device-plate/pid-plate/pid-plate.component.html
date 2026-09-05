@@ -1,0 +1,249 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{titolo}}</h1>
+<div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
+
+  <!-- Due schede, come nel popup dei motori: il loop e l'ingresso analogico che gli fa
+       da process value (colonna C del foglio Docs/Scambio Dati/PIDs.xlsx). La scheda
+       Analog compare solo se quell'analogica e' in AnalogList, e mostra lo stesso
+       contenuto del popup dell'analogica (AnalogPlateBodyComponent). Il ngbNavContent
+       e' un ng-template: il grafico storico della AI parte solo quando si apre la
+       scheda, non all'apertura del popup. -->
+  <div class="nav-tabs-top" style="padding:2px;">
+    <ul ngbNav #pidTabs="ngbNav" class="nav-tabs" (navChange)="schedaAttiva = $event.nextId">
+
+      <!-- PID -->
+      <li ngbNavItem="PID">
+        <a ngbNavLink>PID</a>
+        <ng-template ngbNavContent>
+          <div class="pid-plate">
+
+            <div class="pid-grid">
+
+              <!-- ================= COLONNA 1 - ANDAMENTO STORICO =================
+                   La card si allunga fino ad affiancare le due card di destra (stato e comandi).
+                   I dati sono quelli storicizzati da TagLoggingTask; finche' i tag del loop non
+                   sono configurati in TagsToSave il riquadro resta vuoto. -->
+              <div class="pid-col">
+                <div class="card pid-card--chart">
+                  <div class="card-body pid-card-body">
+                    <plate-chart [series]="chartSeries" [exportAlias]="pid.name"></plate-chart>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ================= COLONNA 2 - DATI IN LETTURA E SCRITTURA ================= -->
+              <div class="pid-col">
+
+                <!-- Stato e valori di processo: PV e OUT sono di sola lettura -->
+                <div class="card">
+                  <div class="card-body pid-card-body">
+
+                    <div class="pid-description">{{pid.description.toUpperCase()}}</div>
+                    <div class="pid-state">{{pid.STATE_STR}}</div>
+
+                    <div class="pid-readouts">
+                      <div class="pid-readout">
+                        <div class="text-muted small">Process value</div>
+                        <div class="pid-readout__value">{{pid.PROCESS_VALUE.toFixed(1)}} {{pid.unit}}</div>
+                      </div>
+                      <div class="pid-readout">
+                        <div class="text-muted small">Uscita</div>
+                        <div class="pid-readout__value">{{pid.OUTPUT.toFixed(1)}} %</div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Comandi: setpoint, abilitazione del manuale e valore manuale -->
+                <div class="card">
+                  <div class="card-body pid-card-body">
+
+                    <h5 class="pid-section-title">Comandi</h5>
+
+                    <!-- Setpoint -->
+                    <div class="pid-field" *ngIf="pid.SP">
+                      <div class="pid-field__label">Setpoint</div>
+                      <table class="table table-striped table-bordered card-table">
+                        <thead>
+                          <tr>
+                            <th>ATTUALE</th>
+                            <th>NUOVO</th>
+                            <th>&nbsp;</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style="vertical-align:middle;">
+                              {{pid.SETPOINT.toFixed(1)}} {{pid.unit}}
+                            </td>
+                            <td class="text-right" style="vertical-align:middle;">
+                              <input class="form-control" type="number" [(ngModel)]="newSetpoint" />
+                            </td>
+                            <td class="text-right" style="vertical-align:middle;">
+                              <button class="btn btn-success" type="button" (click)="onSetpointConfirm()">OK</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <!-- Prima il toggle che abilita il manuale, poi il valore -->
+                    <div class="pid-toggle" *ngIf="pid.enMan">
+                      <label class="switcher">
+                        <input type="checkbox" [(ngModel)]="CmdManuale" class="switcher-input" />
+                        <span class="switcher-indicator">
+                          <span class="switcher-yes"></span>
+                          <span class="switcher-no"></span>
+                        </span>
+                        <span class="switcher-label"></span>
+                      </label>
+                      <span class="pid-toggle__text">Abilita comando manuale</span>
+                    </div>
+
+                    <!-- Valore manuale -->
+                    <div class="pid-field pid-field--last" *ngIf="pid.ManValue">
+                      <div class="pid-field__label">Valore manuale</div>
+                      <table class="table table-striped table-bordered card-table">
+                        <thead>
+                          <tr>
+                            <th>ATTUALE</th>
+                            <th>NUOVO</th>
+                            <th>&nbsp;</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style="vertical-align:middle;">
+                              {{pid.MANUAL_VALUE.toFixed(1)}} %
+                            </td>
+                            <td class="text-right" style="vertical-align:middle;">
+                              <input class="form-control" type="number" [(ngModel)]="newManValue" />
+                            </td>
+                            <td class="text-right" style="vertical-align:middle;">
+                              <button class="btn btn-success" type="button" (click)="onManValueConfirm()">OK</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ================= PARAMETRI DI REGOLAZIONE =================
+                 Fascia sotto le due colonne, a tutta larghezza e con i tre parametri
+                 affiancati: si toccano di rado e cosi' non allungano la finestra. -->
+            <div class="card pid-card--params">
+              <div class="card-body pid-card-body">
+
+                <h5 class="pid-section-title">Parametri di regolazione</h5>
+
+                <div class="pid-params-grid">
+
+                  <!-- Guadagno proporzionale -->
+                  <div class="pid-field" *ngIf="pid.kP">
+                    <div class="pid-field__label">Proporzionale (kP)</div>
+                    <table class="table table-striped table-bordered card-table">
+                      <thead>
+                        <tr>
+                          <th>ATTUALE</th>
+                          <th>NUOVO</th>
+                          <th>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align:middle;">
+                            {{pid.KP.toFixed(3)}}
+                          </td>
+                          <td class="text-right" style="vertical-align:middle;">
+                            <input class="form-control" type="number" [(ngModel)]="newKp" />
+                          </td>
+                          <td class="text-right" style="vertical-align:middle;">
+                            <button class="btn btn-success" type="button" (click)="onKpConfirm()">OK</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Guadagno derivativo -->
+                  <div class="pid-field" *ngIf="pid.kD">
+                    <div class="pid-field__label">Derivativo (kD)</div>
+                    <table class="table table-striped table-bordered card-table">
+                      <thead>
+                        <tr>
+                          <th>ATTUALE</th>
+                          <th>NUOVO</th>
+                          <th>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align:middle;">
+                            {{pid.KD.toFixed(3)}}
+                          </td>
+                          <td class="text-right" style="vertical-align:middle;">
+                            <input class="form-control" type="number" [(ngModel)]="newKd" />
+                          </td>
+                          <td class="text-right" style="vertical-align:middle;">
+                            <button class="btn btn-success" type="button" (click)="onKdConfirm()">OK</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Tempo di ciclo -->
+                  <div class="pid-field" *ngIf="pid.CycleT">
+                    <div class="pid-field__label">Tempo di ciclo</div>
+                    <table class="table table-striped table-bordered card-table">
+                      <thead>
+                        <tr>
+                          <th>ATTUALE</th>
+                          <th>NUOVO</th>
+                          <th>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align:middle;">
+                            {{pid.CYCLE_TIME.toFixed(1)}} s
+                          </td>
+                          <td class="text-right" style="vertical-align:middle;">
+                            <input class="form-control" type="number" [(ngModel)]="newCycleTime" />
+                          </td>
+                          <td class="text-right" style="vertical-align:middle;">
+                            <button class="btn btn-success" type="button" (click)="onCycleTimeConfirm()">OK</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </ng-template>
+      </li>
+
+      <!-- ANALOG: l'ingresso analogico che fa da process value al loop -->
+      <li ngbNavItem="ANALOG" *ngIf="analog">
+        <a ngbNavLink>Analog</a>
+        <ng-template ngbNavContent>
+          <analog-plate-body [analog]="analog"></analog-plate-body>
+        </ng-template>
+      </li>
+
+    </ul>
+    <div [ngbNavOutlet]="pidTabs"></div>
+  </div>
+</div>

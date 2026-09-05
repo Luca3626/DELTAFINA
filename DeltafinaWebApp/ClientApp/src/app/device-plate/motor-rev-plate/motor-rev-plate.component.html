@@ -3,6 +3,8 @@
 <div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
   <div class="nav-tabs-top" style="padding:2px;">
     <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+
+      <!-- GENERALE -->
       <li ngbNavItem>
         <a ngbNavLink>Generale</a>
         <ng-template ngbNavContent>
@@ -10,178 +12,229 @@
             <div style="font-size:14px;margin-top:16px;">{{data.motor.description.toUpperCase()}}</div>
             <div style="border:1px solid lightgray;padding:5px;text-align:center;vertical-align:central;font-size:14px;font-weight:bold;margin:16px 0px;">{{data.motor.STATE_STR.toUpperCase()}}</div>
 
+            <!-- MAN / AUT: unico toggle ManAut (man=0, AUT=1) -->
             <div class="row" style="width:100%;">
-              <div class="col-sm-4">
-                <button (click)="onMANClick()" style="width:100%;font-weight:bold" [ngClass]="this.data.motor.CMD_MAN.value ? 'btn btn-primary' : 'btn btn-default'">MAN</button>
+              <div class="col-sm-6">
+                <button (click)="onMANClick()" [disabled]="!this.data.motor.CMD_MAN_AUT" style="width:120px;font-weight:bold" [ngClass]="(this.data.motor.CMD_MAN_AUT && !this.data.motor.CMD_MAN_AUT.value) ? 'btn btn-primary' : 'btn btn-default'">MAN</button>
               </div>
-              <div class="col-sm-4 text-center">
-                <button *ngIf="this.data.motor.FDB_REM.value || (!this.data.motor.FDB_REM.value && !this.data.motor.FDB_LOC.value)" (click)="onLOC_ON_Click()" style="width:100%;font-weight:bold;margin-left:10px;" class="btn btn-default">LOC</button>
-                <button *ngIf="this.data.motor.FDB_LOC.value" (click)="onLOC_OFF_Click()" style="width:100%;font-weight:bold;margin-left:10px;" class="btn btn-primary">LOC</button>
-              </div>
-              <div class="col-sm-4">
-                <button (click)="onAUTClick()" [ngClass]="this.data.motor.CMD_AUT.value ? 'btn btn-primary pull-right' : 'btn btn-default pull-right'" style="font-weight:bold;margin-right:-23px;width:100%">AUTO</button>
+              <div class="col-sm-6">
+                <button (click)="onAUTClick()" [disabled]="!this.data.motor.CMD_MAN_AUT" [ngClass]="(this.data.motor.CMD_MAN_AUT && this.data.motor.CMD_MAN_AUT.value) ? 'btn btn-primary pull-right' : 'btn btn-default pull-right'" style="font-weight:bold;margin-right:-23px;width:120px">AUTO</button>
               </div>
             </div>
-            <!--<div *ngIf="!data.motor.INVERT_REV_FWD" class="row" style="width:100%;margin-top:24px;">
-              <div class="col-sm-4">
-                <button (click)="onSTART_REV_Click()" class="btn btn-success pull-left" style="width:100%;font-weight:bold"><i class="fas fa-play icon-flipped"></i> {{RevText.toUpperCase()}}</button>
-              </div>
-              <div class="col-sm-4 text-center">
-                <button (click)="onSTOPClick()" class="btn btn-danger" style="width:100%;font-weight:bold;margin-left:10px"><i class="fas fa-square"></i> STOP</button>
-              </div>
-              <div class="col-sm-4">
-                <button (click)="onSTART_FWD_Click()" class="btn btn-success pull-right" style="font-weight:bold;margin-right:-23px;width:100%"><i class="fas fa-play"></i> {{FwdText.toUpperCase()}}</button>
-              </div>
-            </div>-->
+
+            <!-- Marcia manuale: ManCmdFwd/ManCmdRev toggle (true = marcia, false = stop) -->
             <div class="row" style="width:100%;margin-top:24px;">
               <div class="col-sm-4">
-                <button (click)="onSTART_FWD_Click()" class="btn btn-success pull-left" style="font-weight:bold;width:100%"><i class="fas fa-play icon-flipped"></i> {{FwdText.toUpperCase()}}</button>
+                <button (click)="onSTART_FWD_Click()" [disabled]="!this.data.motor.CMD_MAN_FWD || (this.data.motor.CMD_MAN_AUT && this.data.motor.CMD_MAN_AUT.value)" class="btn btn-success pull-left" style="font-weight:bold;width:100%"><i class="fas fa-play icon-flipped"></i> {{FwdText.toUpperCase()}}</button>
               </div>
               <div class="col-sm-4 text-center">
-                <button (click)="onSTOPClick()" class="btn btn-danger" style="width:100%;font-weight:bold;margin-left:10px"><i class="fas fa-square"></i> STOP</button>
+                <button (click)="onSTOPClick()" [disabled]="(!this.data.motor.CMD_MAN_FWD && !this.data.motor.CMD_MAN_REV) || (this.data.motor.CMD_MAN_AUT && this.data.motor.CMD_MAN_AUT.value)" class="btn btn-danger" style="width:100%;font-weight:bold;margin-left:10px"><i class="fas fa-square"></i> STOP</button>
               </div>
               <div class="col-sm-4">
-                <button (click)="onSTART_REV_Click()" class="btn btn-success pull-right" style="width:100%;font-weight:bold;margin-right:-23px;"><i class="fas fa-play"></i> {{RevText.toUpperCase()}}</button>
+                <button (click)="onSTART_REV_Click()" [disabled]="!this.data.motor.CMD_MAN_REV || (this.data.motor.CMD_MAN_AUT && this.data.motor.CMD_MAN_AUT.value)" class="btn btn-success pull-right" style="width:100%;font-weight:bold;margin-right:-23px;"><i class="fas fa-play"></i> {{RevText.toUpperCase()}}</button>
+              </div>
+            </div>
+
+            <!-- Stati digitali (DB STS) -->
+            <div class="row" style="width:100%;margin-top:24px;font-size:13px;">
+              <div class="col-6" *ngIf="this.data.motor.STS_OUT_FWD">
+                <span [style.color]="this.data.motor.STS_OUT_FWD.value ? 'green' : 'lightgray'"><i class="fas fa-circle"></i></span> Comando {{FwdText.toUpperCase()}}
+              </div>
+              <div class="col-6" *ngIf="this.data.motor.STS_OUT_REV">
+                <span [style.color]="this.data.motor.STS_OUT_REV.value ? 'green' : 'lightgray'"><i class="fas fa-circle"></i></span> Comando {{RevText.toUpperCase()}}
+              </div>
+              <div class="col-6" *ngIf="this.data.motor.STS_FWD">
+                <span [style.color]="this.data.motor.STS_FWD.value ? 'green' : 'lightgray'"><i class="fas fa-circle"></i></span> In marcia {{FwdText.toUpperCase()}}
+              </div>
+              <div class="col-6" *ngIf="this.data.motor.STS_REV">
+                <span [style.color]="this.data.motor.STS_REV.value ? 'green' : 'lightgray'"><i class="fas fa-circle"></i></span> In marcia {{RevText.toUpperCase()}}
+              </div>
+              <div class="col-6" *ngIf="this.data.motor.STS_LIM_FWD">
+                <span [style.color]="this.data.motor.STS_LIM_FWD.value ? 'green' : 'lightgray'"><i class="fas fa-circle"></i></span> In posizione {{FwdText.toUpperCase()}}
+              </div>
+              <div class="col-6" *ngIf="this.data.motor.STS_LIM_REV">
+                <span [style.color]="this.data.motor.STS_LIM_REV.value ? 'green' : 'lightgray'"><i class="fas fa-circle"></i></span> In posizione {{RevText.toUpperCase()}}
               </div>
             </div>
           </div>
         </ng-template>
       </li>
-      <li ngbNavItem>
+
+      <!-- INVERTER (DB122 - VFD): solo per i motori sotto inverter -->
+      <li ngbNavItem *ngIf="this.data.motor.HAS_VFD">
+        <a ngbNavLink>Inverter</a>
+        <ng-template ngbNavContent>
+          <div style="padding:8px;">
+            <div style="border:1px solid lightgray;padding:5px;text-align:center;vertical-align:central;font-size:14px;font-weight:bold;margin:16px 0px;" [style.color]="this.data.motor.VFD_StateColor">{{this.data.motor.VFD_STATE_STR}}</div>
+
+            <!-- Misure dell'inverter: tutte di sola lettura -->
+            <div class="row">
+              <div class="col-sm-6 col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div class="text-muted small">Velocita' attuale</div>
+                    <div class="text-large">{{this.data.motor.VFD_ACTUAL_SPEED.toFixed(1)}} %</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div class="text-muted small">Riferimento attuale</div>
+                    <div class="text-large">{{this.data.motor.VFD_ACTUAL_REF.toFixed(1)}} %</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div class="text-muted small">Corrente</div>
+                    <div class="text-large">{{this.data.motor.VFD_ACTUAL_CURRENT.toFixed(1)}} A</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div class="text-muted small">Potenza</div>
+                    <div class="text-large">{{this.data.motor.VFD_ACTUAL_POWER.toFixed(1)}} kW</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Riferimenti manuale e automatico: i due valori scrivibili del blocco -->
+            <div *ngIf="this.data.motor.VFD_manRef" style="font-size:14px;margin-top:16px;"><h5>Riferimento manuale</h5></div>
+            <div *ngIf="this.data.motor.VFD_manRef" class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{this.data.motor.VFD_MANUAL_REF.toFixed(1)}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newManRef" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onManRefConfirm()">OK</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div *ngIf="this.data.motor.VFD_autRef" style="font-size:14px;margin-top:16px;"><h5>Riferimento automatico</h5></div>
+            <div *ngIf="this.data.motor.VFD_autRef" class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>ATTUALE</th>
+                    <th>NUOVO</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      {{this.data.motor.VFD_AUTO_REF.toFixed(1)}} %
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <input class="form-control" type="number" [(ngModel)]="newAutRef" />
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">
+                      <button class="btn btn-success" type="button" (click)="onAutRefConfirm()">OK</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Energia e codici di diagnostica: scritti dal PLC, sola lettura -->
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered card-table">
+                <thead>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th class="text-right">ATTUALE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="this.data.motor.VFD_energy">
+                    <td style="vertical-align:middle;">Energia</td>
+                    <td class="text-right" style="vertical-align:middle;">{{this.data.motor.VFD_ENERGY.toFixed(1)}} kWh</td>
+                  </tr>
+                  <tr *ngIf="this.data.motor.VFD_actFault">
+                    <td style="vertical-align:middle;">
+                      <span [style.color]="this.data.motor.VFD_HAS_FAULT ? 'red' : 'lightgray'"><i class="fas fa-circle"></i></span> Codice fault
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">{{this.data.motor.VFD_FAULT_CODE}}</td>
+                  </tr>
+                  <tr *ngIf="this.data.motor.VFD_actWarning">
+                    <td style="vertical-align:middle;">
+                      <span [style.color]="this.data.motor.VFD_HAS_WARNING ? 'orange' : 'lightgray'"><i class="fas fa-circle"></i></span> Codice warning
+                    </td>
+                    <td class="text-right" style="vertical-align:middle;">{{this.data.motor.VFD_WARNING_CODE}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </ng-template>
+      </li>
+
+      <!-- ALLARMI -->
+      <li ngbNavItem *ngIf="this.data.motor.ALM_MOL">
+        <a ngbNavLink>Allarmi</a>
+        <ng-template ngbNavContent>
+          <div style="padding:8px;font-size:14px;">
+            <div class="row" style="margin-top:8px;" *ngIf="this.data.motor.ALM_MOL">
+              <div class="col-1"><span [style.color]="this.data.motor.ALM_MOL.value ? 'red' : 'lightgray'"><i class="fas fa-circle"></i></span></div>
+              <div class="col-10">Allarme scatto termico</div>
+            </div>
+            <div class="row" style="margin-top:8px;" *ngIf="this.data.motor.ALM_MAC">
+              <div class="col-1"><span [style.color]="this.data.motor.ALM_MAC.value ? 'red' : 'lightgray'"><i class="fas fa-circle"></i></span></div>
+              <div class="col-10">Allarme mancata risposta</div>
+            </div>
+            <div class="row" style="margin-top:8px;" *ngIf="this.data.motor.ALM_DAC">
+              <div class="col-1"><span [style.color]="this.data.motor.ALM_DAC.value ? 'red' : 'lightgray'"><i class="fas fa-circle"></i></span></div>
+              <div class="col-10">Allarme sezionatore aperto</div>
+            </div>
+            <div class="row" style="margin-top:8px;" *ngIf="this.data.motor.ALM_DRV">
+              <div class="col-1"><span [style.color]="this.data.motor.ALM_DRV.value ? 'red' : 'lightgray'"><i class="fas fa-circle"></i></span></div>
+              <div class="col-10">Allarme drive</div>
+            </div>
+            <div class="row" style="margin-top:16px;border-top:1px solid lightgray;padding-top:8px;" *ngIf="this.data.motor.STS_ALM_CUM">
+              <div class="col-1"><span [style.color]="this.data.motor.STS_ALM_CUM.value ? 'red' : 'lightgray'"><i class="fas fa-circle"></i></span></div>
+              <div class="col-10"><b>Cumulativo allarmi</b></div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+
+      <!-- BYPASS -->
+      <li ngbNavItem *ngIf="this.data.motor.FILTER_BYPASS_DAC">
         <a ngbNavLink>Bypass</a>
         <ng-template ngbNavContent>
           <div style="padding:8px;">
             <div class="row">
               <div class="col-sm-12">
-                Disabilita
-              </div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_THERMAL_BLOCK" class="row" style="font-size:14px;margin-top:4px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_THERMAL_BLOCK.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita blocco termico</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_CONTACTOR" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_CONTACTOR.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita contattore</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_BREAKER" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_BREAKER.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita sezionatore</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_CONTROL_ROTATION" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_CONTROL_ROTATION.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita controllo rotazione</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_SAFETY" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_SAFETY.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita sicurezze</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_SKID" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_SKID.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita antisbandamento</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_OVERFLOW_FORWARD" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_OVERFLOW_FORWARD.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita troppo pieno FWD</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_OVERFLOW_REVERSE" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_OVERFLOW_REVERSE.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita troppo pieno REV</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_DISABLE_PTC" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_DISABLE_PTC.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita pasticca termica</div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
                 Bypass
               </div>
             </div>
-            <div *ngIf="this.data.motor.CMD_FILTER_THERMAL_BLOCK" class="row" style="font-size:14px;margin-top:4px;">
+            <div class="row" style="font-size:14px;margin-top:4px;">
               <div class="col-3">
                 <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_FILTER_THERMAL_BLOCK.value" class="switcher-input" />
+                  <input id="bypassDac" type="checkbox" [(ngModel)]="this.data.motor.FILTER_BYPASS_DAC.value" class="switcher-input" />
                   <span class="switcher-indicator">
                     <span class="switcher-yes"></span>
                     <span class="switcher-no"></span>
@@ -189,158 +242,17 @@
                   <span class="switcher-label"></span>
                 </label>
               </div>
-              <div class="col-7" style="vertical-align:middle">Bypass blocco termico</div>
+              <div class="col-7" style="vertical-align:middle">Bypass stato sezionatore (interruttore locale)</div>
             </div>
-            <div *ngIf="this.data.motor.CMD_FILTER_BREAKER" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_FILTER_BREAKER.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Bypass sezionatore</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_FILTER_CONTROL_ROTATION" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_FILTER_CONTROL_ROTATION.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Bypass controllo rotazione</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_FILTER_SKID" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_FILTER_SKID.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Bypass antisbandamento</div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_FILTER_SAFETY" class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_FILTER_SAFETY.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Bypass sicurezze</div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                Simulazione
-              </div>
-            </div>
-            <div *ngIf="this.data.motor.CMD_SIMULATION" class="row" style="font-size:14px;margin-top:4px;">
-              <div class="col-3">
-                <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.motor.CMD_SIMULATION.value" class="switcher-input" />
-                  <span class="switcher-indicator">
-                    <span class="switcher-yes"></span>
-                    <span class="switcher-no"></span>
-                  </span>
-                  <span class="switcher-label"></span>
-                </label>
-              </div>
-              <div class="col-7" style="vertical-align:middle">Attiva</div>
+            <div class="row" style="font-size:14px;margin-top:16px;border-top:1px solid lightgray;padding-top:8px;" *ngIf="this.data.motor.FILTER_CUM">
+              <div class="col-1"><span [style.color]="this.data.motor.FILTER_CUM.value ? 'orange' : 'lightgray'"><i class="fas fa-circle"></i></span></div>
+              <div class="col-10">Almeno un filtro selezionato</div>
             </div>
           </div>
         </ng-template>
       </li>
-      <li ngbNavItem>
-        <a ngbNavLink>Altro</a>
-        <ng-template ngbNavContent>
-          <div style="padding:8px;">
-            <div class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-sm-12">
-                Contatori partenze
-              </div>
-            </div>
-            <div class="row" style="font-size:14px;margin-top:8px;line-height: 26px;">
-              <div class="col-sm-1">
-                T1
-              </div>
-              <div class="col-sm-1" style="vertical-align:middle">
-                {{this.data.motor.FDB_STARTS_TRIP_1.value}}
-              </div>
-              <div class="col-sm-2">
-                <button class="btn btn-danger btn-sm" (click)="onResetStarts1()">R</button>
-              </div>
-              <div class="col-sm-1">
-                T2
-              </div>
-              <div class="col-sm-1" style="vertical-align:middle">
-                {{this.data.motor.FDB_STARTS_TRIP_2.value}}
-              </div>
-              <div class="col-sm-2">
-                <button class="btn btn-danger btn-sm" (click)="onResetStarts2()">R</button>
-              </div>
-              <div class="col-sm-1">
-                TOT
-              </div>
-              <div class="col-sm-2" style="vertical-align:middle">
-                {{this.data.motor.FDB_STARTS_TOT.value}}
-              </div>
-            </div>
-            <div class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-sm-12">
-                Contatori ore
-              </div>
-            </div>
-            <div class="row" style="font-size:14px;margin-top:8px;line-height: 26px;">
-              <div class="col-sm-1">
-                T1
-              </div>
-              <div class="col-sm-2" style="vertical-align:middle">
-                {{(this.data.motor.FDB_TIME_TRIP_1.value / 3600).toFixed(0)}}
-              </div>
-              <div class="col-sm-1 text-left">
-                <button class="btn btn-danger btn-sm" (click)="onResetTrip1()">R</button>
-              </div>
-              <div class="col-sm-1 text-right">
-                T2
-              </div>
-              <div class="col-sm-2" style="vertical-align:middle">
-                {{(this.data.motor.FDB_TIME_TRIP_2.value / 3600).toFixed(0)}}
-              </div>
-              <div class="col-sm-1 text-left">
-                <button class="btn btn-danger btn-sm" (click)="onResetTrip2()">R</button>
-              </div>
-              <div class="col-sm-1 text-right">
-                TOT
-              </div>
-              <div class="col-sm-2" style="vertical-align:middle">
-                {{(this.data.motor.FDB_TIME_TOT.value / 3600).toFixed(0)}}
-              </div>
-            </div>
-            <div class="row" style="font-size:14px;margin-top:8px;line-height: 38px;">
-              <div class="col-sm-8">
-                Soglia ore per manutenzione
-              </div>
-              <div class="col-sm-4">
-                <input class="form-control input-sm" [(ngModel)]="this.data.motor.SET_HOURLY_MAINTENANCE_THRESHOLD" />
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </li>
+
+
     </ul>
     <div [ngbNavOutlet]="userTabs"></div>
   </div>

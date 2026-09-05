@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MotorModel } from 'src/app/models/device/motor.models';
 import { UserService } from 'src/app/services/user.service';
 import { AppService } from 'src/app/app.service';
+
 @Component({
   selector: 'valve-plate',
   templateUrl: './valve-plate.component.html',
@@ -14,63 +14,76 @@ export class ValvePlateComponent {
     public dialogRef: MatDialogRef<ValvePlateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  onMANClick(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": utenza in manuale", this.data.valve.CMD_MAN, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_MAN.value = true;
+  // #region Lettura dei toggle
+  // I comandi sono toggle e non impulsi: il popup deve far vedere quale lato e' quello
+  // attivo adesso, quindi il valore va letto oltre che scritto. Il tag puo' arrivare
+  // come booleano o come stringa, come in tutte le altre letture di bit.
+
+  isOn(tag): boolean {
+    if (tag == null) return false;
+    const value: any = tag.value;
+    if (typeof value === "string") return value.toLowerCase() == "true" || value == "1";
+    return value ? true : false;
   }
 
-  onSEMIClick(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": utenza in semi automatico", this.data.valve.CMD_SEMI, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_SEMI.value = true;
+  // Cmd1: true = aperta, false = chiusa. Vale per tutte le valvole.
+  get isOpen(): boolean {
+    return this.isOn(this.data.valve.CMD_1);
   }
 
-  onLOC_OFF_Click(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": utenza in remoto", this.data.valve.CMD_REM, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_REM.value = true;
+  // Cmd2: true = su, false = giu'. Solo sui martinetti idraulici.
+  get isUp(): boolean {
+    return this.isOn(this.data.valve.CMD_2);
   }
 
-  onLOC_ON_Click(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": utenza in locale", this.data.valve.CMD_LOC, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_LOC.value = true;
+  // VDCC_V14_SV e BDCC_B16_SV: il flag lo mette ValveList. Solo questi due mostrano il
+  // secondo toggle e il pulsante di stop; sulle altre valvole il Cmd2 non si tocca.
+  get isJack(): boolean {
+    return this.data.valve.IS_JACK == true;
+  }
+  // #endregion
+
+  // #region Scrittura dei comandi
+  // Log del parametro e poi scrittura, come in tutti gli altri popup.
+
+  private setCmd(tag, value: boolean, label: string): void {
+    if (tag == null) return;
+    try {
+      this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": " + label,
+        tag, value ? "true" : "false", "", this.appService.user);
+    } catch (e) { }
+    tag.value = value;
   }
 
-  onAUTClick(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": utenza in automatico", this.data.valve.CMD_AUT, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_AUT.value = true;
+  // Apri/Chiudi sono i due lati dello stesso toggle Cmd1, non due comandi diversi.
+  onOpenClick(): void {
+    this.setCmd(this.data.valve.CMD_1, true, "comando 1: APRI");
   }
 
-  onAPRIClick(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": Valvola aperta", this.data.valve.CMD_OPEN, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_OPEN.value = true;
+  onCloseClick(): void {
+    this.setCmd(this.data.valve.CMD_1, false, "comando 1: CHIUDI");
   }
 
-  onCHIUDIClick(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": Valvola chiusa", this.data.valve.CMD_CLOSE, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_CLOSE.value = true;
+  // Su/Giu' sono i due lati del toggle Cmd2 del martinetto.
+  onUpClick(): void {
+    if (!this.isJack) return;
+    this.setCmd(this.data.valve.CMD_2, true, "comando 2: SU");
   }
+
+  onDownClick(): void {
+    if (!this.isJack) return;
+    this.setCmd(this.data.valve.CMD_2, false, "comando 2: GIU'");
+  }
+
+  // Stop del martinetto: spegne tutti e due i toggle.
+  onStopClick(): void {
+    if (!this.isJack) return;
+    this.setCmd(this.data.valve.CMD_1, false, "comando 1: STOP");
+    this.setCmd(this.data.valve.CMD_2, false, "comando 2: STOP");
+  }
+  // #endregion
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  onResetStarts1(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": Reset partenza 1 ", this.data.valve.CMD_RESET_STARTS_1, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_RESET_STARTS_1.value = true;
-  }
-
-  onResetStarts2(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": Reset partenza 2 ", this.data.valve.CMD_RESET_STARTS_2, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_RESET_STARTS_2.value = true;
-  }
-
-  onResetTrip1(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": Reset contatore 1 ", this.data.valve.CMD_RESET_TRIP_1, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_RESET_TRIP_1.value = true;
-  }
-
-  onResetTrip2(): void {
-    try { this.userService.logParameterTagValues(this.data.valve.name.toUpperCase() + ": Reset contatore 2 ", this.data.valve.CMD_RESET_TRIP_2, true, "", this.appService.user); } catch (e) { }
-    this.data.valve.CMD_RESET_TRIP_2.value = true;
-  }
-
 }

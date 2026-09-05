@@ -1,0 +1,64 @@
+.close.mat-button {
+  top: 0;
+  right: 0;
+  line-height: 14px;
+  min-width: auto;
+  color: white;
+  font-size: x-large;
+}
+
+/* Niente scrollbar verticale se ci sta: il default di Material e' 65vh, che con nove
+   zone taglia la tabella a meta'. Stessa impostazione di pid-plate e analog-plate. */
+.mat-dialog-content {
+  max-height: calc(100vh - 110px);
+}
+
+.zone-cmd-plate {
+  padding: 8px;
+}
+
+.zone-cmd-plate__intro {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.zone-cmd-plate .card-table th,
+.zone-cmd-plate .card-table td {
+  vertical-align: middle;
+}
+
+/* La colonna della zona non deve andare a capo fra "Zona" e il numero. */
+.zone-cmd-plate__zone {
+  white-space: nowrap;
+}
+
+/* I due pulsanti e il badge di una cella stanno in fila, e vanno a capo tutti insieme
+   se il popup si stringe. I pulsanti hanno la stessa larghezza dei comandi di zona
+   nella testata delle pagine (96px), cosi' le colonne restano incolonnate. */
+.zone-cmd-plate__cmd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+  .zone-cmd-plate__cmd .btn {
+    width: 96px;
+    font-weight: bold;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .zone-cmd-plate__cmd .badge {
+    font-size: 12px;
+    min-width: 96px;
+  }
+
+/* I feedback stanno uno sotto l'altro: una zona puo' averne piu' di uno acceso. */
+.zone-cmd-plate__fb {
+  display: block;
+  font-size: 12px;
+  margin: 1px auto;
+  white-space: nowrap;
+}

@@ -3,49 +3,91 @@
 <div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
   <div class="nav-tabs-top" style="padding:2px;">
     <ul ngbNav #userTabs="ngbNav" class="nav-tabs">
+
       <li ngbNavItem>
         <a ngbNavLink>Generale</a>
+
         <ng-template ngbNavContent>
           <div style="padding:8px;">
             <div style="font-size:14px;margin-top:16px;">{{data.valve.description.toUpperCase()}}</div>
             <div style="border:1px solid lightgray;padding:5px;text-align:center;vertical-align:central;font-size:14px;font-weight:bold;margin:16px 0px;">{{data.valve.STATE_STR.toUpperCase()}}</div>
 
-            <div class="row" style="width:100%;">
-              <div class="col-sm-4">
-                <button (click)="onMANClick()" style="width:100%;font-weight:bold" [ngClass]="this.data.valve.CMD_MAN.value ? 'btn btn-primary' : 'btn btn-default'">MAN</button>
-              </div>
-              <div class="col-sm-4 text-center">
-                <button *ngIf="this.data.valve.FDB_REM.value || (!this.data.valve.FDB_REM.value && !this.data.valve.FDB_LOC.value)" (click)="onLOC_ON_Click()" style="width:100%;font-weight:bold;margin-left:10px;" class="btn btn-default">LOC</button>
-                <button *ngIf="this.data.valve.FDB_LOC.value" (click)="onLOC_OFF_Click()" style="width:100%;font-weight:bold;margin-left:10px;" class="btn btn-primary">LOC</button>
-              </div>
-              <div class="col-sm-4">
-                <button (click)="onAUTClick()" [ngClass]="this.data.valve.CMD_AUT.value ? 'btn btn-primary pull-right' : 'btn btn-default pull-right'" style="font-weight:bold;margin-right:-23px;width:100%">AUTO</button>
+            <!-- Allarmi attivi -->
+            <div class="row" style="width:100%;" *ngIf="data.valve.OUT_ALARM">
+              <div class="col-sm-12" style="margin-bottom:8px;">
+                <span *ngIf="data.valve.ALM_OPENING && data.valve.ALM_OPENING.value" class="badge badge-danger" style="margin-right:4px;">ALLARME APERTURA</span>
+                <span *ngIf="data.valve.ALM_CLOSING && data.valve.ALM_CLOSING.value" class="badge badge-danger" style="margin-right:4px;">ALLARME CHIUSURA</span>
+                <span *ngIf="data.valve.ALM_INCONGRUENCE && data.valve.ALM_INCONGRUENCE.value" class="badge badge-danger" style="margin-right:4px;">INCONGRUENZA</span>
               </div>
             </div>
-            <div class="row" style="width:100%;margin-top:24px;">
+
+            <!-- COMANDI
+
+                 Cmd1 e' un toggle e non un impulso: APRI lo mette a true, CHIUDI a
+                 false. Sono i due lati dello stesso bit, non due comandi diversi, e il
+                 pulsante pieno e' il lato attivo adesso. Sulle valvole normali questo
+                 e' l'unico bit che il popup scrive.
+            -->
+            <div class="row" style="width:100%;margin-top:8px;">
               <div class="col-sm-6">
-                <button (click)="onCHIUDIClick()" class="btn btn-danger" style="width:120px"><i class="fas fa-square"></i> CHIUDI</button>
+                <button (click)="onCloseClick()" [disabled]="!data.valve.CMD_1"
+                        [ngClass]="isOpen ? 'btn btn-outline-danger' : 'btn btn-danger'"
+                        style="width:120px"><i class="fas fa-square"></i> CHIUDI</button>
               </div>
               <div class="col-sm-6">
-                <button (click)="onAPRIClick()" class="btn btn-success pull-right" style="margin-right:-23px;width:120px"><i class="fas fa-play"></i> APRI</button>
+                <button (click)="onOpenClick()" [disabled]="!data.valve.CMD_1"
+                        [ngClass]="isOpen ? 'btn btn-success pull-right' : 'btn btn-outline-success pull-right'"
+                        style="margin-right:-23px;width:120px"><i class="fas fa-play"></i> APRI</button>
               </div>
             </div>
+
+            <!-- Martinetti idraulici (VDCC_V14_SV e BDCC_B16_SV): secondo toggle sul
+                 Cmd2 per il verso di corsa, SU = true e GIU' = false, piu' lo stop che
+                 spegne tutti e due i toggle. Il Cmd2 esiste su tutte le valvole ma si
+                 comanda solo da qui: il flag IS_JACK lo mette ValveList. -->
+            <ng-container *ngIf="isJack">
+
+              <div class="row" style="width:100%;margin-top:8px;">
+                <div class="col-sm-6">
+                  <button (click)="onDownClick()" [disabled]="!data.valve.CMD_2"
+                          [ngClass]="isUp ? 'btn btn-outline-info' : 'btn btn-info'"
+                          style="width:120px"><i class="fas fa-arrow-down"></i> GIU'</button>
+                </div>
+                <div class="col-sm-6">
+                  <button (click)="onUpClick()" [disabled]="!data.valve.CMD_2"
+                          [ngClass]="isUp ? 'btn btn-info pull-right' : 'btn btn-outline-info pull-right'"
+                          style="margin-right:-23px;width:120px"><i class="fas fa-arrow-up"></i> SU</button>
+                </div>
+              </div>
+
+              <div class="row" style="width:100%;margin-top:8px;">
+                <div class="col-sm-12">
+                  <button (click)="onStopClick()" [disabled]="!data.valve.CMD_1 && !data.valve.CMD_2"
+                          class="btn btn-dark" style="width:100%"><i class="fas fa-stop"></i> STOP</button>
+                </div>
+              </div>
+
+            </ng-container>
+
           </div>
         </ng-template>
+
       </li>
+
       <li ngbNavItem>
         <a ngbNavLink>Bypass</a>
         <ng-template ngbNavContent>
           <div style="padding:8px;">
             <div class="row">
               <div class="col-sm-12">
-                Disabilita
+                Bypass allarmi
               </div>
             </div>
-            <div *ngIf="this.data.valve.CMD_DISABLE_LIMIT_SWITCH_OPEN" class="row" style="font-size:14px;margin-top:4px;">
+
+            <div *ngIf="data.valve.FILTER_OPENING_BYPASS" class="row" style="font-size:14px;margin-top:8px;">
               <div class="col-3">
                 <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.valve.CMD_DISABLE_LIMIT_SWITCH_OPEN.value" class="switcher-input" />
+                  <input type="checkbox" [(ngModel)]="data.valve.FILTER_OPENING_BYPASS.value" class="switcher-input" />
                   <span class="switcher-indicator">
                     <span class="switcher-yes"></span>
                     <span class="switcher-no"></span>
@@ -53,12 +95,13 @@
                   <span class="switcher-label"></span>
                 </label>
               </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita fine corsa apertura</div>
+              <div class="col-7" style="vertical-align:middle">Bypass allarme apertura</div>
             </div>
-            <div *ngIf="this.data.valve.CMD_DISABLE_LIMIT_SWITCH_CLOSE" class="row" style="font-size:14px;margin-top:8px;">
+
+            <div *ngIf="data.valve.FILTER_CLOSING_BYPASS" class="row" style="font-size:14px;margin-top:8px;">
               <div class="col-3">
                 <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.valve.CMD_DISABLE_LIMIT_SWITCH_CLOSE.value" class="switcher-input" />
+                  <input type="checkbox" [(ngModel)]="data.valve.FILTER_CLOSING_BYPASS.value" class="switcher-input" />
                   <span class="switcher-indicator">
                     <span class="switcher-yes"></span>
                     <span class="switcher-no"></span>
@@ -66,17 +109,13 @@
                   <span class="switcher-label"></span>
                 </label>
               </div>
-              <div class="col-7" style="vertical-align:middle">Disabilita fine corsa chiusura</div>
+              <div class="col-7" style="vertical-align:middle">Bypass allarme chiusura</div>
             </div>
-            <div class="row">
-              <div class="col-sm-12">
-                Simulazione
-              </div>
-            </div>
-            <div *ngIf="this.data.valve.CMD_SIMULATION" class="row" style="font-size:14px;margin-top:4px;">
+
+            <div *ngIf="data.valve.FILTER_INCONGRUENCE_BYPASS" class="row" style="font-size:14px;margin-top:8px;">
               <div class="col-3">
                 <label class="switcher">
-                  <input id="oilReady" type="checkbox" [(ngModel)]="this.data.valve.CMD_SIMULATION.value" class="switcher-input" />
+                  <input type="checkbox" [(ngModel)]="data.valve.FILTER_INCONGRUENCE_BYPASS.value" class="switcher-input" />
                   <span class="switcher-indicator">
                     <span class="switcher-yes"></span>
                     <span class="switcher-no"></span>
@@ -84,109 +123,14 @@
                   <span class="switcher-label"></span>
                 </label>
               </div>
-              <div class="col-7" style="vertical-align:middle">Attiva</div>
+              <div class="col-7" style="vertical-align:middle">Bypass allarme incongruenza</div>
             </div>
+
           </div>
         </ng-template>
       </li>
-      <!--<li ngbNavItem>
-        <a ngbNavLink>Altro</a>
-        <ng-template ngbNavContent>
-          <div style="padding:8px;">
-            <div class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-sm-12">
-                Contatori partenze
-              </div>
-            </div>
-            <div class="row" style="font-size:14px;margin-top:8px;line-height: 26px;">
-              <div class="col-sm-1">
-                T1
-              </div>
-              <div class="col-sm-1" style="vertical-align:middle">
-                {{this.data.valve.FDB_STARTS_TRIP_1.value}}
-              </div>
-              <div class="col-sm-2">
-                <button class="btn btn-danger btn-sm" (click)="onResetStarts1()">R</button>
-              </div>
-              <div class="col-sm-1">
-                T2
-              </div>
-              <div class="col-sm-1" style="vertical-align:middle">
-                {{this.data.valve.FDB_STARTS_TRIP_2.value}}
-              </div>
-              <div class="col-sm-2">
-                <button class="btn btn-danger btn-sm" (click)="onResetStarts2()">R</button>
-              </div>
-              <div class="col-sm-1">
-                TOT
-              </div>
-              <div class="col-sm-2" style="vertical-align:middle">
-                {{this.data.valve.FDB_STARTS_TOT.value}}
-              </div>
-            </div>
-            <div class="row" style="font-size:14px;margin-top:8px;">
-              <div class="col-sm-12">
-                Contatori ore
-              </div>
-            </div>
-            <div class="row" style="font-size:14px;margin-top:8px;line-height: 26px;">
-              <div class="col-sm-1">
-                T1
-              </div>
-              <div class="col-sm-2" style="vertical-align:middle">
-                {{(this.data.valve.FDB_TIME_TRIP_1.value / 3600).toFixed(0)}}
-              </div>
-              <div class="col-sm-1 text-left">
-                <button class="btn btn-danger btn-sm" (click)="onResetTrip1()">R</button>
-              </div>
-              <div class="col-sm-1 text-right">
-                T2
-              </div>
-              <div class="col-sm-2" style="vertical-align:middle">
-                {{(this.data.valve.FDB_TIME_TRIP_2.value / 3600).toFixed(0)}}
-              </div>
-              <div class="col-sm-1 text-left">
-                <button class="btn btn-danger btn-sm" (click)="onResetTrip2()">R</button>
-              </div>
-              <div class="col-sm-1 text-right">
-                TOT
-              </div>
-              <div class="col-sm-2" style="vertical-align:middle">
-                {{(this.data.valve.FDB_TIME_TOT.value / 3600).toFixed(0)}}
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </li>-->
+
     </ul>
     <div [ngbNavOutlet]="userTabs"></div>
   </div>
 </div>
-
-
-
-
-<!--<button class="close" mat-button (click)="onNoClick()">X</button>
-<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{data.valve.name.toUpperCase()}}</h1>
-<div mat-dialog-content style="margin:0px!important;padding:0px!important">
-  <div style="font-size:14px;margin-top:16px;">{{data.valve.description.toUpperCase()}}</div>
-  <div style="border:1px solid gray;padding:5px;text-align:center;vertical-align:central;font-size:14px;font-weight:bold;margin:16px 0px;">{{data.valve.STATE_STR.toUpperCase()}}</div>
-</div>
-<div mat-dialog-actions style="margin:0px!important;padding:0px!important">
-  <div class="row" style="width:100%;">
-    <div class="col-sm-6">
-      <button (click)="onMANClick()" style="width:125px;font-weight:bold" [ngClass]="this.data.valve.CMD_MAN.value ? 'btn btn-primary' : 'btn btn-default'">MANUALE</button>
-    </div>
-    <div class="col-sm-6">
-      <button (click)="onAUTClick()" [ngClass]="this.data.valve.CMD_AUT.value ? 'btn btn-primary pull-right' : 'btn btn-default pull-right'" style="font-weight:bold;margin-right:-23px;width:125px">AUTOMATICO</button>
-    </div>
-  </div>
-  <div class="row" style="width:100%;margin-top:24px;">
-    <div class="col-sm-6">
-      <button (click)="onCHIUDIClick()" class="btn btn-danger" style="width:120px"><i class="fas fa-square"></i> CHIUDI</button>
-    </div>
-    <div class="col-sm-6">
-      <button (click)="onAPRIClick()" class="btn btn-success pull-right" style="margin-right:-23px;width:120px"><i class="fas fa-play"></i> APRI</button>
-    </div>
-  </div>
-</div>-->

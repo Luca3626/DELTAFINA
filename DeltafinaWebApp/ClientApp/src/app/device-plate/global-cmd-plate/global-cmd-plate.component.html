@@ -1,0 +1,45 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>COMANDI GLOBALI</h1>
+<div mat-dialog-content style="margin: 0px -24px -24px -24px!important;padding:4px!important;background: #f5f5f5;">
+  <div style="padding:16px;">
+
+    <div class="text-muted" style="font-size:13px;">
+      I comandi agiscono in un colpo solo su tutte e nove le zone dell'impianto.
+    </div>
+
+    <!-- MODO: Mode_mn_AUT di tutte le zone (0=man, 1=AUT).
+         MAN, fermando l'automatismo, chiede conferma. -->
+    <div style="border:1px solid lightgray;padding:5px;text-align:center;font-size:14px;font-weight:bold;margin:16px 0px 12px 0px;">{{modeText}}</div>
+    <div class="row" style="width:100%;">
+      <div class="col-sm-6">
+        <button [swal]="{title:'Passare tutte le zone in manuale?', text:'Tutte le zone attualmente in automatico passeranno in manuale!', icon:'warning', showCancelButton:true, confirmButtonText:'Sì, passa in manuale!', cancelButtonText:'Annulla', showCloseButton:true, customClass: {confirmButton:'btn btn-lg btn-warning',cancelButton: 'btn btn-lg btn-default'}}"
+                (confirm)="onGlobalMan()"
+                [ngClass]="isGlobalMan ? 'btn btn-warning' : 'btn btn-outline-warning'"
+                type="button" style="width:100%;font-weight:bold;padding-left:0px;padding-right:0px;">MAN</button>
+      </div>
+      <div class="col-sm-6">
+        <button (click)="onGlobalAut()"
+                [ngClass]="isGlobalAut ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                type="button" style="width:100%;font-weight:bold;padding-left:0px;padding-right:0px;">AUTO</button>
+      </div>
+    </div>
+
+    <!-- STATO: State_off_ON di tutte le zone (0=stop, 1=start).
+         STOP, fermando l'impianto, chiede conferma. -->
+    <div style="border:1px solid lightgray;padding:5px;text-align:center;font-size:14px;font-weight:bold;margin:24px 0px 12px 0px;">{{stateText}}</div>
+    <div class="row" style="width:100%;">
+      <div class="col-sm-6">
+        <button [swal]="{title:'Fermare tutte le zone?', text:'Tutte le zone attualmente in marcia saranno fermate!', icon:'warning', showCancelButton:true, confirmButtonText:'Sì, ferma tutto!', cancelButtonText:'Annulla', showCloseButton:true, customClass: {confirmButton:'btn btn-lg btn-danger',cancelButton: 'btn btn-lg btn-default'}}"
+                (confirm)="onGlobalStop()"
+                [ngClass]="isGlobalStop ? 'btn btn-danger' : 'btn btn-outline-danger'"
+                type="button" style="width:100%;font-weight:bold;padding-left:0px;padding-right:0px;"><i class="fas fa-square"></i> STOP</button>
+      </div>
+      <div class="col-sm-6">
+        <button (click)="onGlobalStart()"
+                [ngClass]="isGlobalStart ? 'btn btn-success' : 'btn btn-outline-success'"
+                type="button" style="width:100%;font-weight:bold;padding-left:0px;padding-right:0px;"><i class="fas fa-play"></i> START</button>
+      </div>
+    </div>
+
+  </div>
+</div>
