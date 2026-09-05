@@ -13,8 +13,6 @@ export class SignalRService {
   
   refreshTags: Boolean = false;
   packetsCount: number = 0;
-  packetsCount_RI: number = 0;
-  packetsCount_EF: number = 0;
 
   private message$: Subject<Array<TagsClient>>;
 
@@ -73,9 +71,7 @@ export class SignalRService {
 
     else if (this.refreshTags) {
 
-      this.refreshAllTags("OMRON");
-      this.refreshAllTags_RI("S7_300");
-      this.refreshAllTags_EF("MOXA");
+      this.refreshAllTags("S7_1500");
 
       this.refreshTags = false;
     }
@@ -103,20 +99,6 @@ export class SignalRService {
   public refreshAllTags(plcName: string) {
 
     for (let i = 0; i < this.packetsCount; i++) {
-      this.RefreshTagsByPacketId(plcName, i);
-    }
-  }
-
-  public refreshAllTags_RI(plcName: string) {
-
-    for (let i = 0; i < this.packetsCount_RI; i++) {
-      this.RefreshTagsByPacketId(plcName, i);
-    }
-  }
-
-  public refreshAllTags_EF(plcName: string) {
-
-    for (let i = 0; i < this.packetsCount_EF; i++) {
       this.RefreshTagsByPacketId(plcName, i);
     }
   }
@@ -153,8 +135,8 @@ export class SignalRService {
 
       this.isOpened = true;
 
-      //Recupero il numero di pacchetti per le OMRON
-      this.connection.invoke('GetPacketsCount', "OMRON").then(res => {
+      //Recupero il numero di pacchetti per il PLC S7_1500
+      this.connection.invoke('GetPacketsCount', "S7_1500").then(res => {
 
         this.packetsCount = res;
         this.refreshTags = true;
@@ -165,30 +147,6 @@ export class SignalRService {
         console.log(err);
 
         this.isOpened = false;
-      });
-
-      //Recupero il numero di pacchetti per le S7_300
-      this.connection.invoke('GetPacketsCount', "S7_300").then(res => {
-
-        this.packetsCount_RI = res;
-        this.refreshTags = true;
-
-        console.log("invoke ok");
-
-      }).catch(err => {
-        console.log(err);
-      });
-
-      //Recupero il numero di pacchetti per le MOXA
-      this.connection.invoke('GetPacketsCount', "MOXA").then(res => {
-
-        this.packetsCount_EF = res;
-        this.refreshTags = true;
-
-        console.log("invoke ok");
-
-      }).catch(err => {
-        console.log(err);
       });
 
     }).catch(err => {
