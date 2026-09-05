@@ -21,6 +21,7 @@ namespace Core
         public const string PLC_NAME_OMRON = "OMRON";
         public const string PLC_NAME_S7 = "S7_300";
         public const string PLC_NAME_MOXA = "MOXA";
+        public const string PLC_NAME_S7_1500 = "S7_1500";
 
 
         public static string ConnectionString { get; set; }

@@ -215,7 +215,7 @@ namespace CommunicationLib
                                     go = false;
                                     break;
                                 }
-                                Thread.Sleep(10);
+                                Thread.Sleep(5);
                             }
                             firstTm = false;
 

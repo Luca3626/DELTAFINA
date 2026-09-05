@@ -124,7 +124,7 @@ namespace Services
 
             switch (plcName.ToUpper())
             {
-                case "OMRON":
+                case "S7_1500":
                     rValue = Core.Communication.tagsList.list.Select(x => new ResultValueLabelDisabledModel
                     {
                         Label = x.NAME,

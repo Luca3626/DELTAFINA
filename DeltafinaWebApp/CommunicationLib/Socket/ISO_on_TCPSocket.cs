@@ -170,7 +170,7 @@ namespace CommunicationLib
             {
                 //SHARP 7 (SNAP 7)
                 if (ai.ISO_on_TCP_DB_Num > 0)
-                    errorCode = client.DBRead(ai.ISO_on_TCP_DB_Num, 0, ai.ISO_on_TCP_DB_Len, fData);
+                    errorCode = client.DBRead(ai.ISO_on_TCP_DB_Num, ai.ISO_on_TCP_DB_Addr, ai.ISO_on_TCP_DB_Len, fData);
 
 
                 ////LIBNODAVE
