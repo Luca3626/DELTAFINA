@@ -117,8 +117,14 @@ namespace Services
         public TrendDetailModel GetByTagLogName(string tagLogName)
         {
             TagsToSave tag = _ctx.TagsToSave.Where(x => x.TagLogName.Equals(tagLogName)).FirstOrDefault();
+
+            // Un tag non ancora salvato non e' un errore: la pagina "Crea con excel" chiama
+            // questo metodo proprio per sapere se il trend esiste gia', e si aspetta null.
+            // Prima qui partiva un'eccezione, il controller non la catturava e la richiesta
+            // rispondeva 500: la promise del client andava in rejection e l'importazione si
+            // fermava su ogni riga nuova, prima di scrivere il trend.
             if (tag == null)
-                throw new Exception("Tag not found");
+                return null;
             else
             {
                 return new TrendDetailModel
