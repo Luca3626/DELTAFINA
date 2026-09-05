@@ -20,501 +20,501 @@ export class ScaleList {
 
     let almTags, fdbTags, cmdTags, varieTags: TagsClient[];
 
-    // #region B1
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B1;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B1;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B1;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B1;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B1;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B1;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B1;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B1;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B1;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B1;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B1;                 // cumulativo allarme derivato dalla comunicazione
+    //// #region B1
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B1;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B1;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B1;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B1;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B1;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B1;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B1;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B1;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B1;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B1;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B1;                 // cumulativo allarme derivato dalla comunicazione
     
 
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B1;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B1;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B1;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B1_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B1;           // fuori zero in kg
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B1;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B1;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B1;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B1_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B1;           // fuori zero in kg
     
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B1   // Da pulsante. Comanda l'invia di un nuovo stato
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B1   // Da pulsante. Comanda l'invia di un nuovo stato
 
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B1;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B1;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B1;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B1;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B1;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B1;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = SignalRService.tagList.B1_V_HIGH;                // Alta velocità estrazione
-    varieTags[7] = SignalRService.tagList.B1_V_LOW;                 // Bassa velocità estrazione
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B1; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B1;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B1         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                     // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                     // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                     // 10:fine pesate e scarichi
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B1;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B1;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B1;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B1;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B1;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B1;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = SignalRService.tagList.B1_V_HIGH;                // Alta velocità estrazione
+    //varieTags[7] = SignalRService.tagList.B1_V_LOW;                 // Bassa velocità estrazione
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B1; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B1;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B1         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                 // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                 // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                 // 10:fine pesate e scarichi
 
-    this.B1 = new ScaleModel("B1", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B1); this.scales.push(this.B1);
-    // #endregion
+    //this.B1 = new ScaleModel("B1", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B1); this.scales.push(this.B1);
+    //// #endregion
 
-    // #region B2
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B2;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B2;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B2;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B2;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B2;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B2;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B2;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B2;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B2;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B2;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B2;                 // cumulativo allarme derivato dalla comunicazione
-
-
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B2;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B2;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B2;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B2_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B2;                  // fuori zero in kg
+    //// #region B2
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B2;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B2;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B2;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B2;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B2;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B2;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B2;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B2;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B2;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B2;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B2;                 // cumulativo allarme derivato dalla comunicazione
 
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B2   // Da pulsante. Comanda l'invia di un nuovo stato
-
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B2;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B2;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B2;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B2;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B2;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B2;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = null; // SET_RIF_INV_LENTO
-    varieTags[7] = null; // SET_RIF_INV_VELOCE
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B2; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B2;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B2         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                     // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                     // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                     // 10:fine pesate e scarichi
-
-    this.B2 = new ScaleModel("B2", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B2); this.scales.push(this.B2);
-    // #endregion
-
-    // #region B3
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B3;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B3;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B3;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B3;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B3;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B3;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B3;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B3;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B3;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B3;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B3;                 // cumulativo allarme derivato dalla comunicazione
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B2;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B2;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B2;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B2_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B2;                  // fuori zero in kg
 
 
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B3;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B3;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B3;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B3_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B3;                  // fuori zero in kg
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B2   // Da pulsante. Comanda l'invia di un nuovo stato
+
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B2;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B2;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B2;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B2;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B2;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B2;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = null; // SET_RIF_INV_LENTO
+    //varieTags[7] = null; // SET_RIF_INV_VELOCE
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B2; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B2;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B2         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                 // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                 // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                 // 10:fine pesate e scarichi
+
+    //this.B2 = new ScaleModel("B2", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B2); this.scales.push(this.B2);
+    //// #endregion
+
+    //// #region B3
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B3;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B3;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B3;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B3;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B3;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B3;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B3;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B3;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B3;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B3;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B3;                 // cumulativo allarme derivato dalla comunicazione
 
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B3   // Da pulsante. Comanda l'invia di un nuovo stato
-
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B3;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B3;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B3;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B3;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B3;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B3;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = null; // SET_RIF_INV_LENTO
-    varieTags[7] = null; // SET_RIF_INV_VELOCE
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B3; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B3;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B3         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                     // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                     // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                     // 10:fine pesate e scarichi
-
-    this.B3 = new ScaleModel("B3", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B3); this.scales.push(this.B3);
-    // #endregion
-
-    // #region B3A
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B3A;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B3A;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B3A;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B3A;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B3A;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B3A;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B3A;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B3A;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B3A;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B3A;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B3A;                 // cumulativo allarme derivato dalla comunicazione
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B3;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B3;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B3;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B3_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B3;                  // fuori zero in kg
 
 
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B3A;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B3A;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B3A;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B3A_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B3A;                  // fuori zero in kg
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B3   // Da pulsante. Comanda l'invia di un nuovo stato
+
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B3;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B3;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B3;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B3;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B3;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B3;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = null; // SET_RIF_INV_LENTO
+    //varieTags[7] = null; // SET_RIF_INV_VELOCE
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B3; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B3;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B3         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                 // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                 // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                 // 10:fine pesate e scarichi
+
+    //this.B3 = new ScaleModel("B3", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B3); this.scales.push(this.B3);
+    //// #endregion
+
+    //// #region B3A
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B3A;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B3A;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B3A;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B3A;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B3A;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B3A;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B3A;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B3A;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B3A;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B3A;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B3A;                 // cumulativo allarme derivato dalla comunicazione
 
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B3A   // Da pulsante. Comanda l'invia di un nuovo stato
-
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B3A;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B3A;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B3A;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B3A;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B3A;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B3A;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = null; // SET_RIF_INV_LENTO
-    varieTags[7] = null; // SET_RIF_INV_VELOCE
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B3A; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B3A;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B3A         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = null;                                             // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                      // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                      // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                      // 10:fine pesate e scarichi
-
-    this.B3A = new ScaleModel("B3A", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B3A); this.scales.push(this.B3A);
-    // #endregion
-
-    // #region B4
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B4;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B4;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B4;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B4;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B4;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B4;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B4;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B4;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B4;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B4;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B4;                 // cumulativo allarme derivato dalla comunicazione
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B3A;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B3A;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B3A;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B3A_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B3A;                  // fuori zero in kg
 
 
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B4;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B4;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B4;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B4_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B4;                  // fuori zero in kg
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B3A   // Da pulsante. Comanda l'invia di un nuovo stato
+
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B3A;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B3A;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B3A;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B3A;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B3A;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B3A;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = null; // SET_RIF_INV_LENTO
+    //varieTags[7] = null; // SET_RIF_INV_VELOCE
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B3A; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B3A;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B3A         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = null;                                             // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                  // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                  // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                  // 10:fine pesate e scarichi
+
+    //this.B3A = new ScaleModel("B3A", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B3A); this.scales.push(this.B3A);
+    //// #endregion
+
+    //// #region B4
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B4;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B4;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B4;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B4;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B4;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B4;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B4;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B4;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B4;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B4;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B4;                 // cumulativo allarme derivato dalla comunicazione
 
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B4   // Da pulsante. Comanda l'invia di un nuovo stato
-
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B4;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B4;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B4;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B4;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B4;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B4;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = SignalRService.tagList.B4_V_HIGH;                // Alta velocità estrazione
-    varieTags[7] = SignalRService.tagList.B4_V_LOW;                 // Bassa velocità estrazione
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B4; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B1;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B4         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                     // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                     // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                     // 10:fine pesate e scarichi
-
-    this.B4 = new ScaleModel("B4", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B4); this.scales.push(this.B4);
-    // #endregion
-
-    // #region B5
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B5;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B5;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B5;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B5;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B5;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B5;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B5;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B5;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B5;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B5;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B5;                 // cumulativo allarme derivato dalla comunicazione
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B4;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B4;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B4;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B4_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B4;                  // fuori zero in kg
 
 
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B5;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B5;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B5;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B5_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B5;                  // fuori zero in kg
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B4   // Da pulsante. Comanda l'invia di un nuovo stato
+
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B4;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B4;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B4;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B4;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B4;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B4;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = SignalRService.tagList.B4_V_HIGH;                // Alta velocità estrazione
+    //varieTags[7] = SignalRService.tagList.B4_V_LOW;                 // Bassa velocità estrazione
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B4; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B1;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B4         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                 // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                 // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                 // 10:fine pesate e scarichi
+
+    //this.B4 = new ScaleModel("B4", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B4); this.scales.push(this.B4);
+    //// #endregion
+
+    //// #region B5
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B5;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B5;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B5;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B5;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B5;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B5;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B5;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B5;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B5;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B5;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B5;                 // cumulativo allarme derivato dalla comunicazione
 
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B5   // Da pulsante. Comanda l'invia di un nuovo stato
-
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B5;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B5;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B5;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B5;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B5;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B5;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = null; // SET_RIF_INV_LENTO
-    varieTags[7] = null; // SET_RIF_INV_VELOCE
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B5; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B5;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B5         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                     // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                     // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                     // 10:fine pesate e scarichi
-
-    this.B5 = new ScaleModel("B5", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B5); this.scales.push(this.B5);
-    // #endregion
-
-    // #region B5A
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B5A;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B5A;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B5A;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B5A;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B5A;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B5A;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B5A;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B5A;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B5A;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B5A;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B5A;                 // cumulativo allarme derivato dalla comunicazione
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B5;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B5;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B5;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B5_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B5;                  // fuori zero in kg
 
 
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B5A;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B5A;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B5A;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B5A_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B5A;                  // fuori zero in kg
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B5   // Da pulsante. Comanda l'invia di un nuovo stato
+
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B5;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B5;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B5;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B5;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B5;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B5;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = null; // SET_RIF_INV_LENTO
+    //varieTags[7] = null; // SET_RIF_INV_VELOCE
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B5; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B5;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B5         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                 // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                 // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                 // 10:fine pesate e scarichi
+
+    //this.B5 = new ScaleModel("B5", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B5); this.scales.push(this.B5);
+    //// #endregion
+
+    //// #region B5A
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B5A;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B5A;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B5A;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B5A;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B5A;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B5A;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B5A;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B5A;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B5A;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B5A;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B5A;                 // cumulativo allarme derivato dalla comunicazione
 
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B5A   // Da pulsante. Comanda l'invia di un nuovo stato
-
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B5A;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B5A;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B5A;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B5A;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B5A;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B5A;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = null; // SET_RIF_INV_LENTO
-    varieTags[7] = null; // SET_RIF_INV_VELOCE
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B5A; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B5A;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B5A         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = null;                                             // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                      // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                      // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                      // 10:fine pesate e scarichi
-
-    this.B5A = new ScaleModel("B5A", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B5A); this.scales.push(this.B5A);
-    // #endregion
-
-    // #region B6
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B6;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B6;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B6;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B6;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B6;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B6;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B6;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B6;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B6;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B6;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B6;                 // cumulativo allarme derivato dalla comunicazione
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B5A;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B5A;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B5A;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B5A_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B5A;                  // fuori zero in kg
 
 
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B6;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B6;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B6;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B6_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B6;                  // fuori zero in kg
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B5A   // Da pulsante. Comanda l'invia di un nuovo stato
+
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B5A;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B5A;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B5A;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B5A;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B5A;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B5A;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = null; // SET_RIF_INV_LENTO
+    //varieTags[7] = null; // SET_RIF_INV_VELOCE
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B5A; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B5A;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B5A         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = null;                                             // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                  // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                  // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                  // 10:fine pesate e scarichi
+
+    //this.B5A = new ScaleModel("B5A", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B5A); this.scales.push(this.B5A);
+    //// #endregion
+
+    //// #region B6
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B6;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B6;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B6;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B6;     // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B6;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B6;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B6;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B6;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B6;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B6;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B6;                 // cumulativo allarme derivato dalla comunicazione
 
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B6   // Da pulsante. Comanda l'invia di un nuovo stato
-
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B6;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B6;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B6;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B6;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B6;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B6;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = null; // SET_RIF_INV_LENTO
-    varieTags[7] = null; // SET_RIF_INV_VELOCE
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B6; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B6;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B6         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                     // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                     // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                     // 10:fine pesate e scarichi
-
-    this.B6 = new ScaleModel("B6", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B6); this.scales.push(this.B6);
-    // #endregion
-
-    // #region B7
-    almTags = new Array(17)
-    almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B7;    // per hmi, allarme tempo massimo carico bilancia
-    almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B7;   // per hmi, allarme tempo massimo scarico bilancia
-    almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B7;            // allarme comunicazione
-    almTags[3] = null; //ALM_UNDER_LOAD
-    almTags[4] = null; //ALM_OVER_LOAD
-    almTags[5] = null; //ALM_ERRORE_PESO
-    almTags[6] = null; //ALM_NON_TARATO
-    almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
-    almTags[8] = null; //ALM_SETUP_IN_CORSO
-    almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B7;       // per hmi, allarme bilancia non a zero per nuovo dosaggio
-    almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B7;            // bit 0 - errore cella
-    almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B7;            // bit 1 - avaria del convertitore AD
-    almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B7;            // bit 2 - peso massimo superato di 9 divisioni
-    almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B7;            // bit 3 - peso lordo superiore al 110 % del fondoscala
-    almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B7;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
-    almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B7;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
-    almTags[16] = SignalRService.tagList.FDB_ALM_B7;                 // cumulativo allarme derivato dalla comunicazione
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B6;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B6;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B6;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B6_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B6;                  // fuori zero in kg
 
 
-    fdbTags = new Array(5);
-    fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B7;               // peso attuale in kg
-    fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B7;            // riempimento percentuale rispetto peso massimo
-    fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B7;   // Countdown attesa scarico
-    fdbTags[3] = SignalRService.tagList.FDB_B7_PesoLordo;           // a pc, peso lordo bilancia
-    fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B7;                  // fuori zero in kg
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B6   // Da pulsante. Comanda l'invia di un nuovo stato
+
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B6;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B6;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B6;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B6;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B6;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B6;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = null; // SET_RIF_INV_LENTO
+    //varieTags[7] = null; // SET_RIF_INV_VELOCE
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B6; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B6;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B6         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = null;                                            // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                 // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                 // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                 // 10:fine pesate e scarichi
+
+    //this.B6 = new ScaleModel("B6", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B6); this.scales.push(this.B6);
+    //// #endregion
+
+    //// #region B7
+    //almTags = new Array(17)
+    //almTags[0] = SignalRService.tagList.FDB_ALM_TEMPO_CARICO_B7;    // per hmi, allarme tempo massimo carico bilancia
+    //almTags[1] = SignalRService.tagList.FDB_ALM_TEMPO_SCARICO_B7;   // per hmi, allarme tempo massimo scarico bilancia
+    //almTags[2] = SignalRService.tagList.FDB_ALM_COMM_B7;            // allarme comunicazione
+    //almTags[3] = null; //ALM_UNDER_LOAD
+    //almTags[4] = null; //ALM_OVER_LOAD
+    //almTags[5] = null; //ALM_ERRORE_PESO
+    //almTags[6] = null; //ALM_NON_TARATO
+    //almTags[7] = null; //ALM_FUNZIONE_DI_HOLD_ATTIVA
+    //almTags[8] = null; //ALM_SETUP_IN_CORSO
+    //almTags[9] = SignalRService.tagList.FDB_ALM_NON_A_ZERO_B7;       // per hmi, allarme bilancia non a zero per nuovo dosaggio
+    //almTags[10] = SignalRService.tagList.FDB_ALM_BIT0_B7;            // bit 0 - errore cella
+    //almTags[11] = SignalRService.tagList.FDB_ALM_BIT1_B7;            // bit 1 - avaria del convertitore AD
+    //almTags[12] = SignalRService.tagList.FDB_ALM_BIT2_B7;            // bit 2 - peso massimo superato di 9 divisioni
+    //almTags[13] = SignalRService.tagList.FDB_ALM_BIT3_B7;            // bit 3 - peso lordo superiore al 110 % del fondoscala
+    //almTags[14] = SignalRService.tagList.FDB_ALM_BIT4_B7;            // bit 4 - peso lordo oltre 999999 o inferiore a - 999999
+    //almTags[15] = SignalRService.tagList.FDB_ALM_BIT5_B7;            // bit 5 - peso netto oltre 999999 o inferiore a - 999999  
+    //almTags[16] = SignalRService.tagList.FDB_ALM_B7;                 // cumulativo allarme derivato dalla comunicazione
 
 
-    cmdTags = new Array(1);
-    cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B7   // Da pulsante. Comanda l'invia di un nuovo stato
-
-    varieTags = new Array(15);
-    varieTags[0] = SignalRService.tagList.PC_ODC_B7;                // ordine di carico 
-    varieTags[1] = SignalRService.tagList.PC_MOD_SP_B7;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
-    varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B7;       // in s, tempo massimo carico tutti i componenti
-    varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B7;      // in s, tempo massimo scarico tutti i componenti
-    varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B7;   // in s, tempo di sgocciolamento   
-    varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B7;   // Tempo da attendere per poter liberare la bilancia
-    varieTags[6] = SignalRService.tagList.B7_V_HIGH;                // Alta velocità estrazione
-    varieTags[7] = SignalRService.tagList.B7_V_LOW;                 // Bassa velocità estrazione
-    varieTags[8] = null; // SET_PESO_MASSIMO
-    varieTags[9] = SignalRService.tagList.FZ_B7; // SET_FUORI_ZERO
-    varieTags[10] = null; // SET_VOLO
-    varieTags[11] = null; // SET_P_RALLENTAMENTO
-    varieTags[12] = SignalRService.tagList.CAP_MAX_B7;
-    varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B7         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
-    varieTags[14] = SignalRService.tagList.PC_ACQUA_IN_B7;           // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
-                                                                     // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
-                                                                     // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
-                                                                     // 10:fine pesate e scarichi
+    //fdbTags = new Array(5);
+    //fdbTags[0] = SignalRService.tagList.FDB_Q_ACT_B7;               // peso attuale in kg
+    //fdbTags[1] = SignalRService.tagList.FDB_PERC_ACT_B7;            // riempimento percentuale rispetto peso massimo
+    //fdbTags[2] = SignalRService.tagList.FDB_CD_ATTESA_SCARICO_B7;   // Countdown attesa scarico
+    //fdbTags[3] = SignalRService.tagList.FDB_B7_PesoLordo;           // a pc, peso lordo bilancia
+    //fdbTags[4] = null;//SignalRService.tagList.FDB_FZ_B7;                  // fuori zero in kg
 
 
-    this.B7 = new ScaleModel("B7", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B7); this.scales.push(this.B7);
-    // #endregion
+    //cmdTags = new Array(1);
+    //cmdTags[0] = SignalRService.tagList.PC_COMANDA_NUOVO_STATO_B7   // Da pulsante. Comanda l'invia di un nuovo stato
+
+    //varieTags = new Array(15);
+    //varieTags[0] = SignalRService.tagList.PC_ODC_B7;                // ordine di carico 
+    //varieTags[1] = SignalRService.tagList.PC_MOD_SP_B7;             // modalita scuoti parete: 0=Escluso,1=SempreOn,2=Con allarme di scaricamento,3=durante lo sgocciolamento
+    //varieTags[2] = SignalRService.tagList.PC_T_MAX_CARICO_B7;       // in s, tempo massimo carico tutti i componenti
+    //varieTags[3] = SignalRService.tagList.PC_T_MAX_SCARICO_B7;      // in s, tempo massimo scarico tutti i componenti
+    //varieTags[4] = SignalRService.tagList.PC_T_SGOCCIOLAMENTO_B7;   // in s, tempo di sgocciolamento   
+    //varieTags[5] = SignalRService.tagList.PC_T_ATTESA_SCARICO_B7;   // Tempo da attendere per poter liberare la bilancia
+    //varieTags[6] = SignalRService.tagList.B7_V_HIGH;                // Alta velocità estrazione
+    //varieTags[7] = SignalRService.tagList.B7_V_LOW;                 // Bassa velocità estrazione
+    //varieTags[8] = null; // SET_PESO_MASSIMO
+    //varieTags[9] = SignalRService.tagList.FZ_B7; // SET_FUORI_ZERO
+    //varieTags[10] = null; // SET_VOLO
+    //varieTags[11] = null; // SET_P_RALLENTAMENTO
+    //varieTags[12] = SignalRService.tagList.CAP_MAX_B7;
+    //varieTags[13] = SignalRService.tagList.PC_NUOVO_STATO_B7         // 0)nop; 1)pesata da miscelare: carico; 2)pesata da miscelare: carico completato, attesa scarico; 3)pesata
+    //varieTags[14] = SignalRService.tagList.PC_ACQUA_IN_B7;           // da miscelare: scarico; 4:pesata da miscelare: scarico completato, verifiche numero ripetizioni; 5)pesata
+    //                                                                 // da non miscelare: carico; 6)pesata da non miscelare: carico completato, attesa scarico;  7)pesata da non
+    //                                                                 // miscelare: scarico; 8)pesata da non miscelare: scarico completato, verifiche numero ripetizioni; 9)riserva
+    //                                                                 // 10:fine pesate e scarichi
+
+
+    //this.B7 = new ScaleModel("B7", "BILANCIA", almTags, fdbTags, cmdTags, varieTags, SignalRService.tagList.FDB_STATO_B7); this.scales.push(this.B7);
+    //// #endregion
 
 
 

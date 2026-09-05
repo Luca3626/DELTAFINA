@@ -1,120 +1,210 @@
 import { TagsClient } from 'src/app/tags/tags-client';
-//import * as delay from 'delay';
 
+// I sili sono quattro (S1..S4) e condividono questo modello: i motori e le valvole
+// della zona stanno in MotorList/ValveList, qui ci sono i tag del silo come impianto.
+//   DB121 - TO_HMI : posizione della navetta di carico (NCS) e delle due X-Shuttle
+//                    di linea che alimentano il silo
+//   DB190 - VAR    : totalizzatore del tabacco entrato dagli slicer (INT16)
+// Le X-Shuttle servono due sili per volta (S1,2 oppure S3,4), quindi lo stesso tag
+// arriva a due modelli: sono riferimenti allo stesso TagsClient, non copie.
+// I tag comuni ai quattro sili (hopper feeder pieni, totalizzatore del nastro
+// pesatore) non appartengono a un singolo silo e stanno in SiloList.
 export class SiloModel {
-  public animal: string;
+
   public name: string;
   public description: string;
 
-  public ALM_RD: TagsClient;
+  // #region NAVETTA DI CARICO SILO (DB121 - TO_HMI, gruppo PE)
+  public LS_NCS_FWD: TagsClient;              // NCS1_F12_FWD_PE / NCS2_F18_FWD_PE / NCS3_F23_FWD_PE / NCS4_F24_FED_PE
+  public LS_NCS_MID: TagsClient;              // NCS1_F12_MID_PE / NCS2_F18_MID_PE / NCS3_F23_MID_PE / NCS4_F24_MID_PE
+  public LS_NCS_REV: TagsClient;              // NCS1_F12_REV_PE / NCS2_F18_REV_PE / NCS3_F23_REV_PE / NCS4_F24_REV_PE
+  // #endregion
 
-  public FDB_RD_VAL_ACT: TagsClient;
-  public FDB_RD_VOLUME_ACT: TagsClient;
-  public FDB_RD_PESO_ACT: TagsClient;
-  public FDB_PERCENTAGE_ACT: TagsClient;
-  public FDB_COUNT_DOWN_TIME_NUOVO_CARICO: TagsClient;
-  public FDB_FC: TagsClient;
-  public FDB_HL: TagsClient;
-  public FDB_SOVRAPRESSIONE_OK: TagsClient;
-  public FDB_BOCCHETTONE_IMPEGNATO: TagsClient;
-  public FDB_PRESSIONE_FILTRO_CARICO_ACT: TagsClient;
-  public FDB_STATO_CARICO: TagsClient;
+  // #region X-SHUTTLE DI LINEA (DB121 - TO_HMI, gruppo PE) - condivise fra due sili
+  public LS_XS_VIRGINIA_FWD: TagsClient;      // V12c_F05_FWD_PE (S1,2) / V11c_F03_FWD_PE (S3,4)
+  public LS_XS_VIRGINIA_REV: TagsClient;      // V12c_F05_REV_PE (S1,2) / V11c_F03_REV_PE (S3,4)
+  public LS_XS_BURLEY_FWD: TagsClient;        // B19c_F08_FWD_PE (S1,2) / B20c_F10_FWD_PE (S3,4)
+  public LS_XS_BURLEY_REV: TagsClient;        // B19c_F08_REV_PE (S1,2) / B20c_F10_REV_PE (S3,4)
+  // #endregion
 
-  public CMD_ABILITA_SILO: TagsClient;
-  public CMD_ABILITA_RIEMPIMENTO: TagsClient;
+  // #region VALORI DI PRODUZIONE (DB190 - VAR, INT16)
+  public FDB_INFEED_TOTALIZER: TagsClient;    // V301 / V302 / V303 / V304   kg entrati dagli slicer
+  // #endregion
 
-  public SET_RD_VAL_A_VUOTO: TagsClient;
-  public SET_RD_VAL_CONO_ALTO: TagsClient;
-  public SET_RD_VAL_FILO_HHL: TagsClient;
-  public SET_RD_VOLUME_CONO_ALTO: TagsClient;
-  public SET_RD_VOLUME_FILO_HHL: TagsClient;
-  public SET_DENSITA_PRODOTTO: TagsClient;
-  public SET_RIF_INV_LENTO: TagsClient;
-  public SET_RIF_INV_VELOCE: TagsClient;
-  public SET_VOLO: TagsClient;
-  public SET_P_RALLENTAMENTO: TagsClient;
-  public SET_HL: TagsClient;
-  public SET_SOGLIA_ALLARME_FILTRO_CARICO: TagsClient;
-  public SET_MOD_SP: TagsClient;
-  public SET_T_PAUSA: TagsClient;
-  public SET_T_LAVORO: TagsClient;
+  // #region SETPOINT DI RIEMPIMENTO (DB190 - VAR, INT16)
+  public SET_FILL_TYPE: TagsClient;           // V1111 / V1112 / V1113 / V1114   tipo di riempimento del singolo silo
+  public SET_FILL_TYPE_GLOBAL: TagsClient;    // V310   tipo di riempimento comune ai quattro sili.
+                                              //        Lo assegna SiloList dopo aver costruito i sili: e' un
+                                              //        riferimento allo stesso TagsClient, non una copia, e serve
+                                              //        al silo per sapere se il proprio setpoint e' quello che
+                                              //        comanda davvero (vedi FILL_TYPE_ACTIVE).
+  // #endregion
 
-  constructor(name: string, description: string, almTags: TagsClient[], fdbTags: TagsClient[], cmdTags: TagsClient[], varieTags: TagsClient[]) {
+  // I datablock arrivano come array dei soli tag usati, nell'ordine indicato sotto.
+  constructor(name: string, description: string,
+    ncsTags: TagsClient[] = [], xsTags: TagsClient[] = [],
+    varTags: TagsClient[] = []) {
 
     this.name = name;
     this.description = description;
 
-    this.ALM_RD = almTags[0];
+    this.LS_NCS_FWD = ncsTags[0];             // navetta in posizione forward
+    this.LS_NCS_MID = ncsTags[1];             // navetta in posizione intermedia
+    this.LS_NCS_REV = ncsTags[2];             // navetta in posizione reverse
 
-    this.FDB_RD_VAL_ACT = fdbTags[0];
-    this.FDB_RD_VOLUME_ACT = fdbTags[1];
-    this.FDB_RD_PESO_ACT = fdbTags[2];
-    this.FDB_PERCENTAGE_ACT = fdbTags[3];
-    this.FDB_COUNT_DOWN_TIME_NUOVO_CARICO = fdbTags[4];
-    this.FDB_FC = fdbTags[5];
-    this.FDB_HL = fdbTags[6];
-    this.FDB_SOVRAPRESSIONE_OK = fdbTags[7];
-    this.FDB_BOCCHETTONE_IMPEGNATO = fdbTags[8];
-    this.FDB_PRESSIONE_FILTRO_CARICO_ACT = fdbTags[9];
-    this.FDB_STATO_CARICO = fdbTags[10];
+    this.LS_XS_VIRGINIA_FWD = xsTags[0];      // X-Shuttle linea Virginia, forward
+    this.LS_XS_VIRGINIA_REV = xsTags[1];      // X-Shuttle linea Virginia, reverse
+    this.LS_XS_BURLEY_FWD = xsTags[2];        // X-Shuttle linea Burley, forward
+    this.LS_XS_BURLEY_REV = xsTags[3];        // X-Shuttle linea Burley, reverse
 
-    this.CMD_ABILITA_SILO = cmdTags[0];
-    this.CMD_ABILITA_RIEMPIMENTO = cmdTags[1];
+    this.FDB_INFEED_TOTALIZER = varTags[0];   // totalizzatore infeed dagli slicer
+    this.SET_FILL_TYPE = varTags[1];          // tipo di riempimento del singolo silo
+  }
 
-    this.SET_RD_VAL_A_VUOTO = varieTags[0];
-    this.SET_RD_VAL_CONO_ALTO = varieTags[1];
-    this.SET_RD_VAL_FILO_HHL = varieTags[2];
-    this.SET_RD_VOLUME_CONO_ALTO = varieTags[3];
-    this.SET_RD_VOLUME_FILO_HHL = varieTags[4];
-    this.SET_DENSITA_PRODOTTO = varieTags[5];
-    this.SET_RIF_INV_LENTO = varieTags[6];
-    this.SET_RIF_INV_VELOCE = varieTags[7];
-    this.SET_VOLO = varieTags[8];
-    this.SET_P_RALLENTAMENTO = varieTags[9];
-    this.SET_HL = varieTags[10];
-    this.SET_SOGLIA_ALLARME_FILTRO_CARICO = varieTags[11];
-    this.SET_MOD_SP = varieTags[12];
-    this.SET_T_PAUSA = varieTags[13];
-    this.SET_T_LAVORO = varieTags[14];
+  // #region Stato della navetta di carico
+
+  get SHUTTLE_FWD(): boolean {
+    if (this.LS_NCS_FWD != null && this.LS_NCS_FWD.value)
+      return true;
+    return false;
+  }
+
+  get SHUTTLE_MID(): boolean {
+    if (this.LS_NCS_MID != null && this.LS_NCS_MID.value)
+      return true;
+    return false;
+  }
+
+  get SHUTTLE_REV(): boolean {
+    if (this.LS_NCS_REV != null && this.LS_NCS_REV.value)
+      return true;
+    return false;
+  }
+
+  // La navetta e' in una posizione nota quando uno dei tre finecorsa risponde:
+  // in transito non ne risponde nessuno.
+  get SHUTTLE_IN_POSITION(): boolean {
+    if (this.SHUTTLE_FWD)
+      return true;
+    if (this.SHUTTLE_MID)
+      return true;
+    if (this.SHUTTLE_REV)
+      return true;
+    return false;
+  }
+
+  get SHUTTLE_POSITION_STR(): string {
+    if (this.SHUTTLE_FWD)
+      return "AVANTI";
+    if (this.SHUTTLE_MID)
+      return "INTERMEDIA";
+    if (this.SHUTTLE_REV)
+      return "INDIETRO";
+    return "IN TRANSITO";
+  }
+
+  // #endregion
+
+  // #region Stato delle X-Shuttle di linea
+
+  get XS_VIRGINIA_FWD(): boolean {
+    if (this.LS_XS_VIRGINIA_FWD != null && this.LS_XS_VIRGINIA_FWD.value)
+      return true;
+    return false;
+  }
+
+  get XS_VIRGINIA_REV(): boolean {
+    if (this.LS_XS_VIRGINIA_REV != null && this.LS_XS_VIRGINIA_REV.value)
+      return true;
+    return false;
+  }
+
+  get XS_BURLEY_FWD(): boolean {
+    if (this.LS_XS_BURLEY_FWD != null && this.LS_XS_BURLEY_FWD.value)
+      return true;
+    return false;
+  }
+
+  get XS_BURLEY_REV(): boolean {
+    if (this.LS_XS_BURLEY_REV != null && this.LS_XS_BURLEY_REV.value)
+      return true;
+    return false;
+  }
+
+  // #endregion
+
+  // #region Valori di produzione (letture)
+
+  get INFEED_TOTALIZER() {
+    if (this.FDB_INFEED_TOTALIZER == null)
+      return null;
+    return this.FDB_INFEED_TOTALIZER.value;
+  }
+
+  // #endregion
+
+  // #region Tipo di riempimento del singolo silo (V1111..V1114)
+  // Il setpoint del singolo silo vale solo quando il setpoint globale dei quattro
+  // sili (SiloList.SET_FILL_TYPE_GLOBAL, V310) e' a zero: altrimenti comanda quello.
+
+  get FILL_TYPE(): number {
+    if (this.SET_FILL_TYPE == null)
+      return null;
+    const value = Number(this.SET_FILL_TYPE.value);
+    return isFinite(value) ? value : null;
+  }
+
+  set FILL_TYPE(value: number) {
+    if (this.SET_FILL_TYPE != null)
+      this.SET_FILL_TYPE.value = value;
+  }
+
+  get FILL_TYPE_STR(): string {
+    return SiloModel.fillTypeStr(this.FILL_TYPE);
+  }
+
+  // Tipo di riempimento che il PLC sta davvero applicando a questo silo: con il
+  // setpoint globale (V310) a zero comanda il setpoint del singolo silo, altrimenti
+  // comanda il globale e i V1111..V1114 restano quelli che sono, ignorati.
+  get FILL_TYPE_ACTIVE(): number {
+    const global = this.GLOBAL_FILL_TYPE;
+    if (global != null && global > 0)
+      return global;
+    return this.FILL_TYPE;
+  }
+
+  get FILL_TYPE_ACTIVE_STR(): string {
+    return SiloModel.fillTypeStr(this.FILL_TYPE_ACTIVE);
+  }
+
+  // Lettura del setpoint globale, null-safe come il resto: se SiloList non ha
+  // ancora passato il riferimento a V310 vale il setpoint del singolo silo.
+  private get GLOBAL_FILL_TYPE(): number {
+    if (this.SET_FILL_TYPE_GLOBAL == null)
+      return null;
+    const value = Number(this.SET_FILL_TYPE_GLOBAL.value);
+    return isFinite(value) ? value : null;
+  }
+
+  // Decodifica dei codici di riempimento, condivisa con il setpoint globale che usa
+  // la stessa codifica. Il PLC tratta come 4/4 qualunque valore da 3 in su.
+  static fillTypeStr(value: number): string {
+    if (value == null)
+      return "";
+    if (value >= 3)
+      return "4/4";
+    switch (value) {
+      case 1: return "1/4";
+      case 2: return "2/4";
+      default: return "";
     }
+  }
 
-    /*
-     * "1 - PRONTO PER ABILITAZIONE
-        2 - CARICO ABILITATO, ATTESA IMPEGNO BOCCHETTONE
-        3 - AVVIAMENTO, ATTESA ASPIRATORE
-        4 - CARICO IN CORSO
-        5 - PULIZIA
-        10 - CARICO NON EFFETTUABILE PER TROPPO PIENO DIGITALE
-        11 - CARICO NON EFFETTUABILE PER TROPPO PIENO ANALOGICO
-        12 - CARICO NON EFFETTUABILE PER ALTA PRESSIONE SILO
-        13 - CARICO NON EFFETTUABILE PER ASPIRATORE IN ALLARME"
+  // #endregion
 
-        */
 
-    get StatoCaricoStr(): string {
-        switch (+this.FDB_STATO_CARICO.value) {
-            case 1:
-                return "PRONTO PER ABILITAZIONE";
-            case 2:
-                return "CARICO ABILITATO, ATTESA IMPEGNO BOCCHETTONE";
-            case 3:
-                return "AVVIAMENTO, ATTESA ASPIRATORE";
-            case 4:
-                return "CARICO IN CORSO";
-            case 5:
-                return "PULIZIA";
-            case 10:
-                return "CARICO NON EFFETTUABILE PER TROPPO PIENO DIGITALE";
-            case 11:
-                return "CARICO NON EFFETTUABILE PER TROPPO PIENO ANALOGICO";
-            case 12:
-                return "CARICO NON EFFETTUABILE PER ALTA PRESSIONE SILO";
-            case 13:
-                return "CARICO NON EFFETTUABILE PER ASPIRATORE IN ALLARME";
-
-            default:
-                return "ERRORE PLC";
-        }
-    }
+  get STATE_STR(): string {
+    return this.SHUTTLE_POSITION_STR;
+  }
 
 }

@@ -1,152 +1,140 @@
 import { TagsClient } from 'src/app/tags/tags-client';
 
+
+//   DB CMD    : comandi HMI -> PLC (Cmd1, Cmd2 se bistabile + riserve)
+//   DB FILTER : bypass allarmi (openingAlmBypass, closingAlmBypass, incongruenceAlmBypass + riserve + filCUM)
+//   DB STS    : stati digitali PLC -> HMI (opening, closing, opened, closed + riserve + almCUM)
+//   DB ALM    : allarmi (openingAlarm, closingAlarm, Incongruence + riserve)
+//   DB STATE  : stato macchina della valvola (INT16, codifica testuale)
 export class ValveModel {
   public animal: string;
   public name: string;
   public nameTag: string;
   public description: string;
 
-  public ALM_OPEN: TagsClient;
-  public ALM_CLOSE: TagsClient;
-  public ALM_STUCK_OPEN_CLOSE: TagsClient;
-  public ALM_NO_AUT: TagsClient;
+  // #region DATABLOCK ALLARMI (ALM)
+  public ALM_OPENING: TagsClient;             // openingAlarm
+  public ALM_CLOSING: TagsClient;             // closingAlarm
+  public ALM_INCONGRUENCE: TagsClient;        // Incongruence
+  // #endregion
 
-  public FDB_OPEN: TagsClient;
-  public FDB_CLOSE: TagsClient;
-  public FDB_LIMIT_SWITCH_OPEN: TagsClient;
-  public FDB_LIMIT_SWITCH_CLOSE: TagsClient;
+  // #region DATABLOCK COMANDI (CMD)
+  // Cmd1 e' un toggle, non un impulso: true = apri, false = chiudi. E' l'unico comando
+  // che il popup scrive sulle valvole normali.
+  public CMD_1: TagsClient;                   // command 1 (toggle apri/chiudi)
+  // Cmd2 e' mappato su tutte le valvole ma si comanda solo sui martinetti idraulici,
+  // dove sceglie il verso di corsa: true = su, false = giu'. Vedi IS_JACK.
+  public CMD_2: TagsClient;                   // command 2 (toggle su/giu', solo martinetti)
+  // #endregion
 
-  public FDB_LOC: TagsClient;
-  public FDB_REM: TagsClient;
-  public FDB_MAN_REM: TagsClient;
-  public FDB_AUT_REM: TagsClient;
-  public FDB_READY_AUT_REM: TagsClient;
-  public FDB_PRES_AVVISO: TagsClient;
-  public FDB_PRES_ALLARME: TagsClient;
+  // Martinetto idraulico: sono solo VDCC_V14_SV e BDCC_B16_SV. Il flag lo mette
+  // ValveList, che e' il posto dove si sa quale valvola e' quale; il popup lo usa per
+  // decidere se mostrare il secondo toggle (su/giu') e il pulsante di stop. Sulle
+  // altre valvole il Cmd2 resta nel datablock ma dall'HMI non si tocca.
+  public IS_JACK: boolean = false;
 
+  // #region DATABLOCK FILTERS (bypass allarmi)
+  public FILTER_OPENING_BYPASS: TagsClient;       // openingAlmBypass
+  public FILTER_CLOSING_BYPASS: TagsClient;       // closingAlmBypass
+  public FILTER_INCONGRUENCE_BYPASS: TagsClient;  // incongruenceAlmBypass
+  public FILTER_CUM: TagsClient;                  // filCUM: almeno un filtro selezionato
+  // #endregion
+
+  // #region DATABLOCK STS (stati digitali)
+  public STS_OPENING: TagsClient;             // opening (da command 1)
+  public STS_CLOSING: TagsClient;             // closing (da command 2 se bistabile)
+  public STS_OPENED: TagsClient;              // opened (da command 1)
+  public STS_CLOSED: TagsClient;              // closed (da command 2 se bistabile)
+  public STS_ALM_CUM: TagsClient;             // almCUM: cumulativo allarmi
+  // #endregion
+
+  // #region STATO (INT16)
   public STATE: TagsClient;
+  // #endregion
 
-  public CMD_MAN: TagsClient;
-  public CMD_SEMI: TagsClient;
-  public CMD_AUT: TagsClient;
-  public CMD_OPEN: TagsClient;
-  public CMD_CLOSE: TagsClient;
-  public CMD_SIMULATION: TagsClient;
-
-  public CMD_JOG_OPEN: TagsClient;
-  public CMD_JOG_CLOSE: TagsClient;
-  public CMD_RESET_ALARM: TagsClient;
-  public CMD_RESET_STARTS_1: TagsClient;
-  public CMD_RESET_STARTS_2: TagsClient;
-  public CMD_RESET_TRIP_1: TagsClient;
-  public CMD_RESET_TRIP_2: TagsClient;
-  public CMD_DISABLE_LIMIT_SWITCH_OPEN: TagsClient;
-  public CMD_DISABLE_LIMIT_SWITCH_CLOSE: TagsClient;
-
-  public CMD_LOC: TagsClient;
-  public CMD_REM: TagsClient;
-
-
-  constructor(name: string, description: string, almTags: TagsClient[], fdbTags: TagsClient[], cmdTags: TagsClient[], varieTags: TagsClient[], nameTag: string = null) {
+  // I 4 datablock arrivano come array dei soli tag usati, nell'ordine dei bit PLC;
+  // stateTag e' il tag INT16 di stato.
+  constructor(name: string, description: string,
+    almTags: TagsClient[] = [], cmdTags: TagsClient[] = [],
+    filterTags: TagsClient[] = [], stsTags: TagsClient[] = [],
+    stateTag: TagsClient = null, nameTag: string = null) {
 
     this.name = name;
-    this.nameTag = nameTag;
+    this.nameTag = nameTag == null ? name : nameTag;
     this.description = description;
 
-    if (nameTag == null)
-      this.nameTag = name;
+    this.ALM_OPENING = almTags[0];            // bit .0 allarme apertura
+    this.ALM_CLOSING = almTags[1];            // bit .1 allarme chiusura
+    this.ALM_INCONGRUENCE = almTags[2];       // bit .2 allarme incongruenza
 
-    this.ALM_OPEN = almTags[0]; //OK
-    this.ALM_CLOSE = almTags[1]; //OK
-    this.ALM_STUCK_OPEN_CLOSE = almTags[2]; //OK
-    this.ALM_NO_AUT = almTags[3]; //OK, NOREADYAUT
+    this.CMD_1 = cmdTags[0];                  // bit .0 comando 1 (toggle)
+    this.CMD_2 = cmdTags[1];                  // bit .1 comando 2 se bistabile (toggle)
 
-    this.FDB_OPEN = fdbTags[0]; //OK
-    this.FDB_CLOSE = fdbTags[1]; //OK
-    this.FDB_LIMIT_SWITCH_OPEN = fdbTags[2]; //OK
-    this.FDB_LIMIT_SWITCH_CLOSE = fdbTags[3]; //OK
+    this.FILTER_OPENING_BYPASS = filterTags[0];       // bit .0 bypass allarme apertura
+    this.FILTER_CLOSING_BYPASS = filterTags[1];       // bit .1 bypass allarme chiusura
+    this.FILTER_INCONGRUENCE_BYPASS = filterTags[2];  // bit .2 bypass allarme incongruenza
+    this.FILTER_CUM = filterTags[3];                  // bit .15 filCUM
 
-    this.FDB_LOC = fdbTags[4]; //NEW
-    this.FDB_REM = fdbTags[5]; //NEW
-    this.FDB_MAN_REM = fdbTags[6]; //NEW
-    this.FDB_AUT_REM = fdbTags[7]; //NEW
-    this.FDB_READY_AUT_REM = fdbTags[8]; //NEW
-    this.FDB_PRES_AVVISO = fdbTags[9]; //NEW
-    this.FDB_PRES_ALLARME = fdbTags[10]; //NEW
+    this.STS_OPENING = stsTags[0];            // bit .0 in apertura
+    this.STS_CLOSING = stsTags[1];            // bit .1 in chiusura
+    this.STS_OPENED = stsTags[2];             // bit .2 aperta
+    this.STS_CLOSED = stsTags[3];             // bit .3 chiusa
+    this.STS_ALM_CUM = stsTags[4];            // bit .15 cumulativo allarmi
 
-    this.CMD_MAN = cmdTags[0]; //OK, MANREM
-    this.CMD_SEMI = cmdTags[1]; //MANCA
-    this.CMD_AUT = cmdTags[2]; //OK, AUTREM
-    this.CMD_OPEN = cmdTags[3]; //OK
-    this.CMD_CLOSE = cmdTags[4]; //OK
-    this.CMD_SIMULATION = cmdTags[5]; //OK
-
-    this.CMD_JOG_OPEN = cmdTags[6]; //OK
-    this.CMD_JOG_CLOSE = cmdTags[7]; //OK
-    this.CMD_RESET_ALARM = cmdTags[8]; //OK
-    this.CMD_RESET_STARTS_1 = cmdTags[9]; //OK
-    this.CMD_RESET_STARTS_2 = cmdTags[10]; //OK
-    this.CMD_RESET_TRIP_1 = cmdTags[11]; //OK
-    this.CMD_RESET_TRIP_2 = cmdTags[12]; //OK
-    this.CMD_DISABLE_LIMIT_SWITCH_OPEN = cmdTags[13]; //OK
-    this.CMD_DISABLE_LIMIT_SWITCH_CLOSE = cmdTags[14]; //OK
-
-    this.CMD_LOC = cmdTags[15]; //NEW
-    this.CMD_REM = cmdTags[16]; //NEW
-
-    this.STATE = varieTags[0]; //OK
+    this.STATE = stateTag;
   }
 
+  // #region Stato logico (null-safe, derivato dagli stati digitali STS)
+  // Aperta: finecorsa/stato "opened" dal PLC.
   get IsOpen(): boolean {
-    return this.FDB_LIMIT_SWITCH_OPEN.value;
+    return this.STS_OPENED != null && !!this.STS_OPENED.value;
   }
+  get IsClosed(): boolean {
+    return this.STS_CLOSED != null && !!this.STS_CLOSED.value;
+  }
+  get IsOpening(): boolean {
+    return this.STS_OPENING != null && !!this.STS_OPENING.value;
+  }
+  get IsClosing(): boolean {
+    return this.STS_CLOSING != null && !!this.STS_CLOSING.value;
+  }
+  // In allarme: cumulativo allarmi dal datablock STS.
+  get OUT_ALARM(): boolean {
+    return this.STS_ALM_CUM != null && !!this.STS_ALM_CUM.value;
+  }
+  // Un bypass/filtro attivo: cumulativo filCUM o i singoli bypass.
+  get HasBypass(): boolean {
+    if (this.FILTER_CUM != null && this.FILTER_CUM.value) return true;
+    if (this.FILTER_OPENING_BYPASS != null && this.FILTER_OPENING_BYPASS.value) return true;
+    if (this.FILTER_CLOSING_BYPASS != null && this.FILTER_CLOSING_BYPASS.value) return true;
+    if (this.FILTER_INCONGRUENCE_BYPASS != null && this.FILTER_INCONGRUENCE_BYPASS.value) return true;
+    return false;
+  }
+  // #endregion
+
+  // #region Alias comandi
+  // Un toggle per funzione: Cmd1 apri/chiudi su tutte, Cmd2 su/giu' sui soli martinetti.
+  get CMD_OPEN_CLOSE(): TagsClient { return this.CMD_1; }
+  get CMD_UP_DOWN(): TagsClient { return this.IS_JACK ? this.CMD_2 : null; }
+  // #endregion
+
 
   get STATE_STR(): string {
+    if (this.STATE == null)
+      return "";
     switch (this.STATE.value) {
-      case 102:
-        return "MODALITA' NON SELEZIONATA ";
-      case 104:
-        return "NON ABILITATA";
-
-      case 128:
-        return "CHIUSA IN LOCALE";
-      case 129:
-        return "APERTA IN LOCALE";
-      case 130:
-        return "TENTATIVO APERTURA IN LOCALE";
-      case 131:
-        return "TENTATIVO CHIUSURA IN LOCALE";
-      case 132:
-        return "CHIUSA IN MANUALE DA REMOTO";
-      case 133:
-        return "APERTA IN MANUALE DA REMOTO";
-      case 134:
-        return "TENTATIVO APERTURA IN MANUALE DA REMOTO";
-      case 135:
-        return "TENTATIVO CHIUSURA IN MANUALE DA REMOTO";
-      case 136:
-        return "CHIUSA IN AUTOMATICO DA REMOTO";
-      case 137:
-        return "ATTESA START IN AUTOMATICO DA REMOTO";
-      case 138:
-        return "APERTA IN AUTOMATICO DA REMOTO";
-      case 139:
-        return "TENTATIVO APERTURA IN AUTOMATICO DA REMOTO";
-      case 140:
-        return "TENTATIVO CHIUSURA IN AUTOMATICO DA REMOTO";
-
       case 20:
-        return "CHIUSA IN MANUALE";
+        return "APERTA IN MANUALE POSIZIONE 1";
       case 21:
-        return "CHIUSA IN AUTOMATICO";
+        return "APERTA IN AUTOMATICO POSIZIONE 1";
       case 22:
-        return "CHIUSA IN SEMIAUTOMATICO";
-      case 23:
-        return "APERTA IN MANUALE";
-      case 24:
-        return "APERTA IN AUTOMATICO";
-      case 25:
         return "APERTA IN SEMIAUTOMATICO";
+      case 23:
+        return "CHIUSA IN MANUALE";
+      case 24:
+        return "CHIUSA IN AUTOMATICO";
+      case 25:
+        return "CHIUSA IN SEMIAUTOMATICO";
       case 26:
         return "APERTURA JOG RIUSCITA";
       case 27:
@@ -156,103 +144,103 @@ export class ValveModel {
       case 29:
         return "TENTATA CHIUSURA JOG";
       case 30:
-        return "ATTESA START IN MANUALE";
+        return "ATTESA APERTURA IN MANUALE";
       case 31:
-        return "ATTESA START IN AUTOMATICO";
+        return "ATTESA APERTURA IN AUTOMATICO";
       case 32:
-        return "ATTESA START IN SEMIAUTOMATICO";
+        return "ATTESA APERTURA IN SEMIAUTOMATICO";
       case 33:
-        return "APRENDO IN MANUALE";
+        return "APRENDO IN MANUALE POSIZIONE 1";
       case 34:
-        return "APRENDO IN AUTOMATICO";
+        return "APRENDO IN MANUALE POSIZIONE 2";
       case 35:
-        return "APRENDO IN SEMIAUTOMATICO";
+        return "APRENDO IN AUTOMATICO POSIZIONE 1";
       case 36:
-        return "CHIUDENDO IN MANUALE";
+        return "APRENDO IN AUTOMATICO POSIZIONE 2";
       case 37:
-        return "CHIUDENDO IN AUTOMATICO";
+        return "APERTA IN MANUALE POSIZIONE 2";
       case 38:
-        return "CHIUDENDO IN SEMIAUTOMATICO";
-
-      case 45:
-        return "POSIZIONE NON DEFINITA IN MANUALE";
-      case 46:
-        return "POSIZIONE NON DEFINITA IN SEMIAUTOMATICO";
-      case 47:
-        return "POSIZIONE NON DEFINITA IN AUTOMATICO";
-
-      case 70:
-        return "NON IN AUTOMATICO";
-
+        return "APERTA IN AUTOMATICO POSIZIONE 2";
+      case 50:
+        return "DISPOSITIVO DI SICUREZZA";
+      case 57:
+        return "EXTRACORSA AVANTI";
+      case 58:
+        return "EXTRACORSA INDIETRO";
+      case 66:
+        return "DISPOSITIVO DI SICUREZZA LOCALE";
       case 80:
         return "ANOMALIA APERTURA";
       case 81:
         return "ANOMALIA CHIUSURA";
       case 82:
-        return "ANOMALIA APERTURA CHIUSURA";
+        return "ANOMALIA APERTURA CHIUSURA ON";
       case 83:
-        return "ANOMALIA APERTURA CHIUSURA (HOME)";
-
+        return "ANOMALIA APERTURA CHIUSURA OFF";
+      case 104:
+        return "MODALITA' NON SELEZIONATA";
+      case 105:
+        return "NON ABILITATA";
       default:
-        return "ERRORE";
+        return "STATO VALVOLA " + this.STATE.value;
     }
   }
 
-  get LabelStyle(): string {
-    switch (this.STATE.value) {
-      //manuale e semiautomatico
-      case 20:
-      case 22:
-      case 23:
-      case 25:
-      case 30:
-      case 32:
-      case 33:
-      case 35:
-      case 36:
-      case 38:
-      case 45:
-      case 46:
+  // #region SVG (colore icona in base allo stato)
+  // 0 = chiusa/riposo (blu), 1 = aperta (verde), 2 = in movimento (giallo), 3 = allarme (rosso)
+  private get GfxState(): number {
+    if (this.OUT_ALARM) return 3;
+    if (this.IsOpen) return 1;
+    if (this.IsOpening || this.IsClosing) return 2;
+    return 0;
+  }
 
-      case 128:
-      case 129:
-      case 130:
-      case 131:
-      case 132:
-      case 133:
-      case 134:
-      case 135:
+  // Colore dell'etichetta in base alla modalita' descritta da STATE_STR:
+  // arancio = manuale/semiautomatico/jog, blu = automatico,
+  // nero = modalita' non selezionata o non abilitata, rosso = allarme.
+  get LabelStyle(): string {
+    if (this.STATE == null)
+      return "fill:black;font-weight:normal;cursor:pointer";
+    switch (+this.STATE.value) {
+      //manuale, semiautomatico e jog
+      case 20:  // APERTA IN MANUALE POSIZIONE 1
+      case 22:  // APERTA IN SEMIAUTOMATICO
+      case 23:  // CHIUSA IN MANUALE
+      case 25:  // CHIUSA IN SEMIAUTOMATICO
+      case 26:  // APERTURA JOG RIUSCITA
+      case 27:  // CHIUSURA JOG RIUSCITA
+      case 28:  // TENTATA APERTURA JOG
+      case 29:  // TENTATA CHIUSURA JOG
+      case 30:  // ATTESA APERTURA IN MANUALE
+      case 32:  // ATTESA APERTURA IN SEMIAUTOMATICO
+      case 33:  // APRENDO IN MANUALE POSIZIONE 1
+      case 34:  // APRENDO IN MANUALE POSIZIONE 2
+      case 37:  // APERTA IN MANUALE POSIZIONE 2
         return "fill:darkorange;font-weight:bold;cursor:pointer";
 
       //altro
-      case 102:
-      case 104:
+      case 104: // MODALITA' NON SELEZIONATA
+      case 105: // NON ABILITATA
         return "fill:black;font-weight:normal;cursor:pointer";
 
       //Automatico
-      case 21:
-      case 24:
-      case 26:
-      case 27:
-      case 28:
-      case 29:
-      case 31:
-      case 34:
-      case 37:
-      case 47:
-
-      case 136:
-      case 137:
-      case 138:
-      case 139:
-      case 140:
+      case 21:  // APERTA IN AUTOMATICO POSIZIONE 1
+      case 24:  // CHIUSA IN AUTOMATICO
+      case 31:  // ATTESA APERTURA IN AUTOMATICO
+      case 35:  // APRENDO IN AUTOMATICO POSIZIONE 1
+      case 36:  // APRENDO IN AUTOMATICO POSIZIONE 2
+      case 38:  // APERTA IN AUTOMATICO POSIZIONE 2
         return "fill:blue;font-weight:normal;cursor:pointer";
 
-      case 70:
-      case 80:
-      case 81:
-      case 82:
-      case 83:
+      //allarmi e anomalie
+      case 50:  // DISPOSITIVO DI SICUREZZA
+      case 57:  // EXTRACORSA AVANTI
+      case 58:  // EXTRACORSA INDIETRO
+      case 66:  // DISPOSITIVO DI SICUREZZA LOCALE
+      case 80:  // ANOMALIA APERTURA
+      case 81:  // ANOMALIA CHIUSURA
+      case 82:  // ANOMALIA APERTURA CHIUSURA ON
+      case 83:  // ANOMALIA APERTURA CHIUSURA OFF
         return "fill:red;font-weight:bold;cursor:pointer";
 
       default:
@@ -260,233 +248,40 @@ export class ValveModel {
     }
   }
 
-  get HasBypass(): boolean {
-    var rValue = false;
-
-    if (this.CMD_SIMULATION != null && this.CMD_SIMULATION.value)
-      rValue = true;
-    if (this.CMD_DISABLE_LIMIT_SWITCH_OPEN != null && this.CMD_DISABLE_LIMIT_SWITCH_OPEN.value)
-      rValue = true;
-    if (this.CMD_DISABLE_LIMIT_SWITCH_CLOSE != null && this.CMD_DISABLE_LIMIT_SWITCH_CLOSE.value)
-      rValue = true;
-
-    return rValue;
-  }
-
-  get SVG_2W_SIMPLE(): string {
-    switch (+this.STATE.value) {
-
-      case 102:
-      case 104:
-      case 20:
-      case 21:
-      case 22:
-      case 27:
-      case 29:
-      case 30:
-      case 31:
-      case 32:
-      case 36:
-      case 37:
-      case 38:
-      case 45:
-      case 46:
-      case 47:
-
-      case 128:
-      case 132:
-      case 136:
-      case 137:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_blue.svg";
-
-      case 23:
-      case 25:
-      case 33:
-      case 35:
-
-      case 129:
-      case 130:
-      case 131:
-      case 133:
-      case 134:
-      case 135:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_yellow.svg";
-
-      case 24:
-      case 26:
-      case 28:
-      case 34:
-
-      case 138:
-      case 139:
-      case 140:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_green.svg";
-
-      default:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_blue.svg";
+  private svg2w(withAlarm: boolean): string {
+    const base = "../../assets/svg/groov/valve_3d_common2_nopipe_";
+    switch (withAlarm ? this.GfxState : (this.GfxState === 3 ? 0 : this.GfxState)) {
+      case 1: return base + "green.svg";
+      case 2: return base + "yellow.svg";
+      case 3: return base + "red.svg";
+      default: return base + "blue.svg";
     }
   }
+  get SVG_2W_SIMPLE(): string { return this.svg2w(false); }
+  get SVG_2W_SIMPLE_ALM(): string { return this.svg2w(true); }
 
-  get SVG_2W_SIMPLE_ALM(): string {
-    switch (+this.STATE.value) {
-
-      case 102:
-      case 104:
-      case 20:
-      case 21:
-      case 22:
-      case 27:
-      case 29:
-      case 30:
-      case 31:
-      case 32:
-      case 36:
-      case 37:
-      case 38:
-      case 45:
-      case 46:
-      case 47:
-
-      case 128:
-      case 132:
-      case 136:
-      case 137:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_blue.svg";
-
-      case 23:
-      case 25:
-      case 33:
-      case 35:
-
-      case 129:
-      case 130:
-      case 131:
-      case 133:
-      case 134:
-      case 135:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_yellow.svg";
-
-      case 24:
-      case 26:
-      case 28:
-      case 34:
-
-      case 138:
-      case 139:
-      case 140:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_green.svg";
-
-      case 80:
-      case 81:
-      case 82:
-      case 83:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_red.svg";
-
-      default:
-        return "../../assets/svg/groov/valve_3d_common2_nopipe_red.svg";
+  private svg3w(withAlarm: boolean): string {
+    const base = "../../assets/svg/groov/valve_3d_3way1_nopipe_";
+    switch (withAlarm ? this.GfxState : (this.GfxState === 3 ? 0 : this.GfxState)) {
+      case 1:
+      case 2: return base + "green.svg";
+      case 3: return base + "red.svg";
+      default: return base + "blue.svg";
     }
   }
+  get SVG_3W_SIMPLE(): string { return this.svg3w(false); }
+  get SVG_3W_SIMPLE_ALM(): string { return this.svg3w(true); }
 
-  get SVG_3W_SIMPLE(): string {
-    switch (+this.STATE.value) {
-
-      case 102:
-      case 104:
-      case 20:
-      case 21:
-      case 22:
-      case 27:
-      case 29:
-      case 30:
-      case 31:
-      case 32:
-      case 36:
-      case 37:
-      case 38:
-      case 45:
-      case 46:
-      case 47:
-
-      case 128:
-      case 132:
-      case 136:
-      case 137:
-        return "../../assets/svg/groov/valve_3d_3way1_nopipe_blue.svg";
-
-      case 23:
-      case 24:
-      case 25:
-      case 26:
-      case 28:
-      case 33:
-      case 34:
-      case 35:
-
-      case 129:
-      case 130:
-      case 131:
-      case 133:
-      case 134:
-      case 135:
-        return "../../assets/svg/groov/valve_3d_3way1_nopipe_green.svg";
-
-      default:
-        return "../../assets/svg/groov/valve_3d_3way1_nopipe_blue.svg";
+  // Valvola solenoide (stile redryer): chiusa/movimento = base (blu), aperta = verde, allarme = rosso.
+  private svgSolenoid(withAlarm: boolean): string {
+    const base = "../../assets/svg/groov/solenoidvalve";
+    switch (withAlarm ? this.GfxState : (this.GfxState === 3 ? 0 : this.GfxState)) {
+      case 1: return base + "_green.svg";
+      case 3: return base + "_red.svg";
+      default: return base + ".svg";
     }
   }
-
-  get SVG_3W_SIMPLE_ALM(): string {
-    switch (+this.STATE.value) {
-
-      case 102:
-      case 104:
-      case 20:
-      case 21:
-      case 22:
-      case 27:
-      case 29:
-      case 30:
-      case 31:
-      case 32:
-      case 36:
-      case 37:
-      case 38:
-      case 45:
-      case 46:
-      case 47:
-
-      case 128:
-      case 132:
-      case 136:
-      case 137:
-        return "../../assets/svg/groov/valve_3d_3way1_nopipe_blue.svg";
-
-      case 23:
-      case 24:
-      case 25:
-      case 26:
-      case 28:
-      case 33:
-      case 34:
-      case 35:
-
-      case 129:
-      case 130:
-      case 131:
-      case 133:
-      case 134:
-      case 135:
-        return "../../assets/svg/groov/valve_3d_3way1_nopipe_green.svg";
-
-      case 80:
-      case 81:
-      case 82:
-      case 83:
-        return "../../assets/svg/groov/valve_3d_3way1_nopipe_red.svg";
-
-      default:
-        return "../../assets/svg/groov/valve_3d_3way1_nopipe_red.svg";
-    }
-  }
-
+  get SVG_SOLENOID(): string { return this.svgSolenoid(false); }
+  get SVG_SOLENOID_ALM(): string { return this.svgSolenoid(true); }
+  // #endregion
 }
