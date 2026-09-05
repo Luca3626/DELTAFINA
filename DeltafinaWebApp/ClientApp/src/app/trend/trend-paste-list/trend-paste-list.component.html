@@ -1,0 +1,81 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  <div>Crea Trends Da Excel</div>
+</h4>
+<!--<p>
+  Start editing to see some magic happen :)
+</p>
+<p>
+  Step:
+</p>
+<ul>
+  Copy data from excel which you want to create a table and paste it at paste area.
+</ul>
+<div style="border:solid;height:100px" (paste)="data($event)">
+  paste area
+</div>
+<div>{{val}}</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>-->
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <p style="font-weight:bold;">Come procedere:</p>
+        <ul>
+          Copia i dati da excel e incollali nel riquadro qui di seguito per generare una tabella che potrà essere usata per inserire tag da storicizzare.
+        </ul>
+        <p style="font-weight:bold;">I dati in excel dovranno avere il seguente formato:</p>
+        <ul>
+          TagNamePlc, PlcName, ZoneName, TagLogName, Descriptions, TimeCycleDetection, CountCycleDetection, TimeCycleForSave, CountCycleForSave, HysteresisValue, HysteresisType, MinValue, MaxValue, RoundDigit, Enabled, ValueType, Unit
+        </ul>
+        <div style="border:solid;border-color:lightgray; height:100px;padding:8px; border-radius:5px;" (paste)="data($event)">
+          <span style="font-weight:bold;">paste area</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="border-light m-0">
+  <div class="card-body row">
+    <small class="text-muted col-12">{{dataSource.length}} totale righe elaborate</small>
+  </div>
+  <div class="table-responsive">
+    <div>{{val}}</div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-striped table-bordered card-table">
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <small class="col-12 text-muted">{{backgroundColorList.length}} totale righe elaborate</small>
+    </div>
+    <div class="row" *ngFor="let item of backgroundColorList" style="margin-bottom:1px;">
+      <div class="col-3 {{item.bgColor}} {{item.textColor}}">
+        {{item.tagLogName}}
+      </div>
+      <div class="col-9 {{item.bgColor}} {{item.textColor}}">
+        {{item.value}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-right mt-3">
+  <button [swal]="{title:'Continuare?', text:'Confermando si procede con la generazione dei trend sopra elencati!', icon:'warning', showCancelButton:true, confirmButtonText:'Sì, confermo!', cancelButtonText:'Annulla generazione', showCloseButton:true, customClass: {confirmButton:'btn btn-lg btn-warning',cancelButton: 'btn btn-lg btn-default'}}" (confirm)="onGenerateClick()" (cancel)="declineDialog.fire()" class="btn btn-primary">
+    Genera Trends
+  </button>&nbsp;&nbsp;
+  <!--<button type="reset" class="btn btn-default">Pulisci</button>&nbsp;-->
+  <button type="button" class="btn btn-default" (click)="cleanList()">Ripulisci</button>
+  <swal #successDialog title="Generazione confermata!" message="La richiesta di generazione dei trend è stata inviata correttamente." [swalOptions]="{icon: 'success', customClass: {confirmButton:'btn btn-lg btn-success'}}"></swal>
+  <swal #declineDialog title="Generazione annullata" message="La richiesta di generazione dei trend è stata interrotta" [swalOptions]="{icon: 'error', customClass: {confirmButton:'btn btn-lg btn-danger'}}"></swal>
+</div>

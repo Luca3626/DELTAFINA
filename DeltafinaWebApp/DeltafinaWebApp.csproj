@@ -37,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\device-plate\mixer-plate\mixer-plate.component.ts" />
     <None Remove="ClientApp\src\app\device-plate\settingR-plate\settingR-plate.component.ts" />
   </ItemGroup>
 
@@ -54,10 +53,11 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\dist\" />
+    <Folder Include="ClientApp\src\app\chart\" />
+    <Folder Include="ClientApp\src\app\redryer\" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\device-plate\mixer-plate\mixer-plate.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\device-plate\settingR-plate\settingR-plate.component.ts" />
   </ItemGroup>
 

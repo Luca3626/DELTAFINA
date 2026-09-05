@@ -1,0 +1,164 @@
+$md-accent: #7f8cf1;
+$md-text-dark: #2d3748;
+$md-text-secondary: #8a94a6;
+
+// Chart panel grid — struttura identica per storici e live
+.chart-panel {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  height: 100%;
+}
+.chart-panel__signals { min-height: 0; }
+.chart-panel__toolbar {
+  min-height: 42px; display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px; flex-wrap: wrap;
+  justify-content: flex-end;
+
+  // Toolbar disabilitata: opacità ridotta + niente click (icone "grigie" come segnale di inattività)
+  &.is-disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    filter: grayscale(0.4);
+  }
+}
+.chart-panel__canvas { min-height: 0; }
+
+// Lista segnali con dropdown
+.io-signal-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+
+.io-signal-row {
+  display: flex; align-items: center; gap: 6px; padding: 3px 0;
+}
+
+.io-sig-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.io-sig-select {
+  flex: 1 1 auto; min-width: 0; border: 1px solid #e2e8f0; border-radius: 6px;
+  background: #fff; color: $md-text-dark; font-size: 0.72rem; font-weight: 600;
+  padding: 3px 6px; outline: none; cursor: pointer;
+  &:focus { border-color: $md-accent; }
+  option { font-weight: 500; }
+  option:disabled { color: #ccc; }
+}
+
+.io-sig-unit {
+  font-size: 0.6rem; color: $md-text-secondary; font-weight: 500;
+  min-width: 30px; text-align: center; flex-shrink: 0;
+}
+
+.io-sig-remove {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border: none; border-radius: 50%;
+  background: rgba(#e53e3e, 0.08); color: #e53e3e; font-size: 0.5rem;
+  cursor: pointer; flex-shrink: 0;
+  &:hover { background: #e53e3e; color: #fff; }
+}
+
+.io-sig-add {
+  display: inline-flex; align-items: center; gap: 4px; align-self: flex-start;
+  padding: 3px 10px; border: 1px dashed rgba($md-accent, 0.4); border-radius: 6px;
+  background: transparent; color: $md-accent; font-size: 0.65rem; font-weight: 600;
+  cursor: pointer;
+  &:hover { background: rgba($md-accent, 0.06); border-style: solid; }
+  i { font-size: 0.55rem; }
+}
+
+// Segmented control — stile pill viola/grigio identico ai multimetri
+.ec-filters {
+  .btn-group-toggle {
+    border-radius: 20px;
+    overflow: hidden;
+
+    .btn {
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      height: 36px;
+      line-height: 1;
+      border: 1px solid rgba($md-accent, 0.3);
+      background: rgba($md-accent, 0.06);
+      color: $md-accent;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba($md-accent, 0.12);
+      }
+
+      &:first-child { border-radius: 20px 0 0 20px; }
+      &:last-child  { border-radius: 0 20px 20px 0; }
+    }
+  }
+}
+
+:host ::ng-deep .ec-filters .btn.active,
+:host ::ng-deep .ec-filters .btn-default.active {
+  background: $md-accent !important;
+  border-color: $md-accent !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+:host ::ng-deep .ec-filters .btn-default {
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 6px 16px;
+  height: 36px;
+  line-height: 1;
+  border: 1px solid rgba($md-accent, 0.3);
+  background: rgba($md-accent, 0.06);
+  color: $md-accent;
+  transition: all 0.2s ease;
+  &:hover {
+    background: rgba($md-accent, 0.12);
+  }
+}
+
+.io-date-input {
+  width: 140px; height: 36px; font-size: 0.82rem; font-weight: 500;
+  border-radius: 10px; border: 1.5px solid $md-accent;
+  background: #fff; color: $md-text-dark; padding: 4px 10px; outline: none;
+  &:disabled { opacity: 0.35; cursor: not-allowed; }
+  &:focus { border-color: $md-accent; }
+}
+
+.io-btn-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border: 1.5px solid rgba($md-accent, 0.4); border-radius: 8px;
+  background: transparent; color: $md-accent; font-size: 0.95rem; cursor: pointer;
+  transition: all 0.15s;
+  &:hover:not(:disabled) { background: $md-accent; color: #fff; box-shadow: 0 2px 6px rgba($md-accent, 0.25); }
+  &:disabled { opacity: 0.3; cursor: not-allowed; }
+}
+
+.io-warning { margin: 4px 0; font-size: 0.72rem; color: #e53e3e; font-weight: 500; i { margin-right: 4px; } }
+
+// Grafico
+.io-chart-wrap {
+  position: relative; height: 300px; min-height: 300px;
+  canvas { max-width: 100% !important; height: 100% !important; }
+}
+
+.io-empty {
+  text-align: center; padding: 40px 8px; color: $md-text-secondary; font-size: 0.75rem;
+  i { margin-right: 4px; color: $md-accent; }
+}
+
+// Messaggio "nessun dato storico" sovrapposto al grafico vuoto (non tocca il canvas)
+.io-no-history {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: $md-text-secondary;
+  font-size: 0.8rem;
+  pointer-events: none;
+  i { margin-right: 4px; color: $md-accent; }
+}
+
+::ng-deep .io-chart-wrap {
+  .chartjs-legend, .chart-legend { padding: 4px 0 !important; }
+}
+
+@media (max-width: 768px) {
+  .io-chart-wrap { height: 240px; min-height: 240px; }
+}

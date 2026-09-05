@@ -6,7 +6,6 @@ import { DragulaService } from 'ng2-dragula';
 //import { UUID } from 'uuid';
 import { ARIA_LIVE_DELAY } from '@ng-bootstrap/ng-bootstrap/util/accessibility/live';
 
-import { RecipeService } from 'src/app/services/recipe.service';
 import { ZoneService } from 'src/app/services/zone.service';
 import { DaysSelectedModel, ValueLabelDisableModel } from 'src/app/models/help.models';
 import { ActivatedRoute, Router } from '@angular/router';

@@ -13,6 +13,11 @@
   ],
   "exclude": [
     "src/test.ts",
-    "src/**/*.spec.ts"
+    "src/**/*.spec.ts",
+    // Componenti grafico copiati da un'altra applicazione e non ancora portati:
+    // dipendono da servizi inesistenti qui (IoScaleRegistry, DevicesService,
+    // BlockService, IoSignalsService) e da uno stylesheet fuori da src.
+    // Tenuti come riferimento ma esclusi dalla compilazione.
+    "src/app/chart/**"
   ]
 }
