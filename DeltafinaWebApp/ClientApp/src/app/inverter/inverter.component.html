@@ -1,0 +1,89 @@
+<h4 class="font-weight-bold py-3 mb-4">
+  <span class="text-muted font-weight-light">IMPIANTO /</span> Inverter
+</h4>
+
+<div class="card">
+
+  <!-- Filtro e riepilogo segnalazioni -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <input type="text"
+               [(ngModel)]="filterVal"
+               class="form-control form-control-sm d-inline-block w-auto"
+               placeholder="Filtra per motore o descrizione">
+      </div>
+      <div class="col-sm-6 text-sm-right pt-1">
+        <span [style.color]="faultCount > 0 ? 'red' : 'lightgray'"><i class="fas fa-circle"></i></span>
+        <span class="mr-3">&nbsp;{{faultCount}} in fault</span>
+        <span [style.color]="warningCount > 0 ? 'orange' : 'lightgray'"><i class="fas fa-circle"></i></span>
+        <span>&nbsp;{{warningCount}} in warning</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="border-light m-0">
+
+  <!-- Motori sotto inverter (DB122 - VFD): i soli dati scrivibili sono i due riferimenti -->
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th class="text-nowrap">Motore</th>
+          <th class="text-nowrap" style="min-width: 10rem">Descrizione</th>
+          <th class="text-nowrap" style="min-width: 12rem">Stato</th>
+          <th class="text-nowrap text-right">Rif. manuale</th>
+          <th class="text-nowrap" style="min-width: 12rem">Nuovo rif. manuale</th>
+          <th class="text-nowrap text-right">Rif. auto</th>
+          <th class="text-nowrap" style="min-width: 12rem">Nuovo rif. auto</th>
+          <th class="text-nowrap text-right">Rif. attuale</th>
+          <th class="text-nowrap text-right">Velocita'</th>
+          <th class="text-nowrap text-right">Corrente</th>
+          <th class="text-nowrap text-right">Potenza</th>
+          <th class="text-nowrap text-right">Energia</th>
+          <th class="text-nowrap text-center">Fault</th>
+          <th class="text-nowrap text-center">Warning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let motor of motors">
+          <td class="align-middle font-weight-bold">{{motor.name}}</td>
+          <td class="align-middle">{{motor.description}}</td>
+          <td class="align-middle text-nowrap">{{motor.STATE_STR}}</td>
+          <td class="align-middle text-right text-nowrap">{{motor.VFD_MANUAL_REF.toFixed(1)}} %</td>
+          <td class="align-middle">
+            <div class="input-group input-group-sm">
+              <input class="form-control" type="number" [(ngModel)]="newManRef[motor.name]" />
+              <div class="input-group-append">
+                <button class="btn btn-success" type="button" (click)="onManRefConfirm(motor)">OK</button>
+              </div>
+            </div>
+          </td>
+          <td class="align-middle text-right text-nowrap">{{motor.VFD_AUTO_REF.toFixed(1)}} %</td>
+          <td class="align-middle">
+            <div class="input-group input-group-sm">
+              <input class="form-control" type="number" [(ngModel)]="newAutRef[motor.name]" />
+              <div class="input-group-append">
+                <button class="btn btn-success" type="button" (click)="onAutRefConfirm(motor)">OK</button>
+              </div>
+            </div>
+          </td>
+          <td class="align-middle text-right text-nowrap">{{motor.VFD_ACTUAL_REF.toFixed(1)}} %</td>
+          <td class="align-middle text-right text-nowrap">{{motor.VFD_ACTUAL_SPEED.toFixed(1)}} %</td>
+          <td class="align-middle text-right text-nowrap">{{motor.VFD_ACTUAL_CURRENT.toFixed(1)}} A</td>
+          <td class="align-middle text-right text-nowrap">{{motor.VFD_ACTUAL_POWER.toFixed(1)}} kW</td>
+          <td class="align-middle text-right text-nowrap">{{motor.VFD_ENERGY.toFixed(1)}} kWh</td>
+          <td class="align-middle text-center text-nowrap">
+            <span [style.color]="motor.VFD_HAS_FAULT ? 'red' : 'lightgray'"><i class="fas fa-circle"></i></span>
+            <span *ngIf="motor.VFD_HAS_FAULT">&nbsp;{{motor.VFD_FAULT_CODE}}</span>
+          </td>
+          <td class="align-middle text-center text-nowrap">
+            <span [style.color]="motor.VFD_HAS_WARNING ? 'orange' : 'lightgray'"><i class="fas fa-circle"></i></span>
+            <span *ngIf="motor.VFD_HAS_WARNING">&nbsp;{{motor.VFD_WARNING_CODE}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

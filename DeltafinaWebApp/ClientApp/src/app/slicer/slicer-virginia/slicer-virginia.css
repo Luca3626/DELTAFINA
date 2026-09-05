@@ -1,0 +1,383 @@
+/* ------------------------------------------------
+   INGRANAGGI E OMBRE - Configurazione comune
+   Imposta l'origine della trasformazione al centro
+   di ogni elemento e applica una rotazione antioraria
+   di 3 secondi, lineare e infinita.
+------------------------------------------------ */
+#ShadowGearWrapper_Sx, #ShadowGearWrapper_Dx,
+#OuterGear_Dx, #InnerGear_Dx,
+#OuterGear_Sx, #InnerGear_Sx {
+  transform-box: fill-box;
+  transform-origin: center center;
+  animation: rot-ccw 3s linear infinite;
+}
+
+/* ------------------------------------------------
+   ANIMAZIONI CHIAVE
+------------------------------------------------ */
+
+/* Rotazione Oraria */
+@keyframes rot-cw {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Rotazione Antioraria */
+@keyframes rot-ccw {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+/* ------------------------------------------------
+   LINEE NASTRO - Loop di scorrimento continuo
+------------------------------------------------ */
+#linee-scroll {
+  animation: nastro-scorri 3s linear infinite;
+}
+
+@keyframes nastro-scorri {
+  0% {
+    transform: translateX(0px);
+  }
+
+  100% {
+    transform: translateX(-41.731px);
+  }
+}
+
+/* ------------------------------------------------
+   TITOLO PAGINA - Icona, comandi e badge di stato
+------------------------------------------------ */
+
+/* Le dimensioni restano in "em" così scalano col carattere del titolo <h4>
+   (1.313rem -> circa 32x40 px) e il rapporto larghezza/altezza è quello del file
+   (375x298), quindi l'icona riempie lo spazio senza bordi vuoti ai lati. */
+.title-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 1.5em;
+  width: 1.9em;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.title-icon-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Riga del titolo su tre colonne. Le due colonne laterali hanno la stessa
+   larghezza (flex:1), quindi la colonna centrale con le label e i pulsanti
+   resta centrata rispetto a tutta la riga; con un semplice margin-left il
+   blocco sarebbe invece centrato solo nello spazio che avanza dopo il titolo. */
+.slicer-title {
+  display: flex;
+  align-items: center;
+  /* su schermi stretti i comandi vanno a capo invece di finire sopra al titolo */
+  flex-wrap: wrap;
+}
+
+.slicer-title-left,
+.slicer-title-right {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* Nome della pagina piu' grande del resto della riga. Il font-size sta sul solo
+   testo e non sull'h4: sull'h4 farebbe crescere anche l'icona, che e' dimensionata
+   in em, e con lei l'altezza di tutta la testata. 1.313rem e' la misura degli h4
+   del tema, la stessa gia' usata dalle pagine Dryer e Zona. */
+.slicer-title-text {
+  font-size: 1.313rem;
+  line-height: 1;
+}
+
+.slicer-title-commands {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+/* Coppia label + due pulsanti (modalità e stato) */
+.slicer-cmd-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+  .slicer-cmd-group + .slicer-cmd-group {
+    margin-left: 32px;
+  }
+
+.slicer-cmd-label {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #4E5155;
+}
+
+/* Colonna di destra: il badge resta appoggiato ai pulsanti come prima, mentre lo
+   switcher "Mostra Nomi" viene spinto al bordo destro del titolo dal margin-left
+   automatico (il margine destro dello switcher lo azzero, altrimenti resterebbe
+   staccato dal bordo). */
+.slicer-title-right {
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+  .slicer-title-right .switcher {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+/* ------------------------------------------------
+   MENU "COMANDI" DELLA TESTATA
+   I comandi di zona non stanno piu' sparsi nel titolo: sono dentro un pannello
+   che si apre dal pulsante accanto al nome della pagina. Il pannello e' in
+   posizione assoluta rispetto a .zone-cmd, quindi non allarga la testata.
+------------------------------------------------ */
+.zone-cmd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 16px;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.zone-cmd-toggle {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+  .zone-cmd-toggle .fa-caret-down,
+  .zone-cmd-toggle .fa-caret-up {
+    margin-left: 6px;
+  }
+
+.zone-cmd-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1030;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #d9dee3;
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  text-align: left;
+}
+
+  /* Dentro il pannello i gruppi vanno uno sotto l'altro invece che in fila, e le
+     etichette hanno una larghezza minima comune cosi' i pulsanti restano allineati. */
+  .zone-cmd-panel .slicer-cmd-group {
+    display: flex;
+    align-items: center;
+  }
+
+    .zone-cmd-panel .slicer-cmd-group + .slicer-cmd-group {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+
+  .zone-cmd-panel .slicer-cmd-label {
+    min-width: 160px;
+  }
+
+/* ------------------------------------------------
+   FINESTRA PRODUZIONE (pannello HTML dentro il sinottico)
+
+   Rifa' in HTML i riquadri che prima erano disegnati in Inkscape, con la stessa
+   tabella PARAMETRO / ATTUALE / NUOVO / OK dei pannelli di silo-fill e del popup
+   SettingCasingComponent: le regole qui sotto ricalcano .silo-settings-panel.
+
+   Il pannello e' impaginato a 460 px e poi riscalato dall'SVG (scale 0,29), quindi
+   le misure NON sono i pixel che si vedono: con il sinottico largo 1600 px il
+   fattore complessivo e' circa 0,97, cioe' un font di 13 px si legge a circa 12,6 px.
+
+   Il carattere e' piu' piccolo che in silo-fill (13 px contro 15) perche' li' la
+   cornice e' alta 127 unita' e qui 86,7, e ci devono stare titolo, intestazione e
+   sei righe. La cornice e' stata allungata (era 75) proprio per la riga in piu' del
+   modo di taglio, quindi il rapporto fra righe e altezza e' rimasto quello tarato
+   prima e il font resta 13 px.
+------------------------------------------------ */
+.slicer-settings-panel {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 6px 10px;
+  background: #ffffff;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #4E5155;
+}
+
+  .slicer-settings-panel * {
+    box-sizing: border-box;
+  }
+
+  /* Titolo di sezione: stessa resa dei pannelli di silo-fill, misure ridotte */
+  .slicer-settings-panel .section-title {
+    margin: 0 0 6px 0;
+    padding: 0;
+  }
+
+    .slicer-settings-panel .section-title h5 {
+      margin: 0;
+      padding: 4px 10px;
+      color: #4a4c53;
+      font-size: 15px;
+      font-weight: 500;
+      background: #d0ba7680;
+      border-left: 4px solid #a99761;
+      border-radius: 4px 0 0 4px;
+    }
+
+  .slicer-settings-panel .table-responsive {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .slicer-settings-panel .card-table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+    table-layout: fixed;   /* le quattro colonne stanno nei 460 px anche col testo lungo */
+  }
+
+    .slicer-settings-panel .card-table th,
+    .slicer-settings-panel .card-table td {
+      padding: 5px 6px;
+      vertical-align: middle;
+      font-size: 13px;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .slicer-settings-panel .card-table th {
+      padding: 4px 6px;
+      background-color: #f8f9fa;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* PARAMETRO / ATTUALE / NUOVO / OK - ATTUALE deve reggere "1234 Kg/h" su una riga */
+    .slicer-settings-panel .card-table th:nth-child(1) { width: 38%; }
+    .slicer-settings-panel .card-table th:nth-child(2) { width: 24%; }
+    .slicer-settings-panel .card-table th:nth-child(3) { width: 23%; }
+    .slicer-settings-panel .card-table th:nth-child(4) { width: 15%; }
+
+    /* Le letture dal PLC cambiano di continuo: cifre a larghezza fissa, altrimenti
+       il valore balla da un aggiornamento all'altro. */
+    .slicer-settings-panel .card-table td:nth-child(2) {
+      font-variant-numeric: tabular-nums;
+    }
+
+  .slicer-settings-panel .form-control {
+    width: 100%;
+    min-width: 0;      /* il min-width del popup (120px) sfonderebbe la colonna */
+    height: auto;
+    padding: 4px 6px;
+    font-size: 13px;
+    line-height: 1.3;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+
+  .slicer-settings-panel .btn {
+    width: 100%;
+    padding: 4px 6px;
+    font-size: 13px;
+    line-height: 1.3;
+    border-radius: 4px;
+  }
+
+  /* Switcher del modo di taglio: quello del tema e' dimensionato in rem, che non
+     segue il font del pannello, quindi dentro al foreignObject scalato resterebbe
+     sproporzionato rispetto al testo. Stesse misure del pannello della dashboard,
+     che gira a una scala quasi uguale (0,290 contro 0,298). */
+  .slicer-settings-panel .switcher {
+    padding-left: 34px;
+    min-height: 20px;
+    margin: 0;
+  }
+
+    .slicer-settings-panel .switcher .switcher-indicator {
+      width: 34px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+
+/* ------------------------------------------------
+   TESTATA STANDARD (uguale su tutte le pagine)
+   Colonna di sinistra: titolo, pulsante "Comandi" e subito dopo i due badge di
+   feedback (modo operativo e stato). Colonna di destra: il solo switcher.
+------------------------------------------------ */
+
+/* I due badge di feedback stanno subito dopo il pulsante "Comandi" e restano
+   sempre in testata, fuori dal menu. */
+.zone-cmd-badge {
+  margin-left: 16px;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+  /* Stacco fra il badge del modo operativo e quello di stato. */
+  .zone-cmd-badge .badge + .badge {
+    margin-left: 6px;
+  }
+
+/* ------------------------------------------------
+   PROPORZIONI DELLE DUE COLONNE
+   La colonna di sinistra (titolo + comandi + badge) prende lo spazio che le serve
+   e non si stringe; quella di destra si prende tutto il resto, cosi' lo switcher
+   resta appoggiato al bordo destro senza finire sopra ai comandi. Se la testata
+   non ci sta in larghezza, il flex-wrap manda a capo la colonna di destra.
+------------------------------------------------ */
+.slicer-title-left {
+  flex: 0 0 auto;
+}
+
+.slicer-title-right {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+
+/* ------------------------------------------------
+   BADGE DENTRO IL PANNELLO DEI COMANDI
+   Il feedback non sta piu' in testata ma accanto ai pulsanti che lo comandano:
+   modo operativo a destra di MAN/AUTO, stato a destra di STOP/START. Le due coppie
+   di pulsanti sono larghe uguale (96 px), quindi i badge restano incolonnati.
+------------------------------------------------ */
+.zone-cmd-panel .zone-cmd-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 12px;
+  font-weight: normal;
+}

@@ -1,0 +1,228 @@
+/* Stili specifici per la pagina Zona 2.3 - Burley Infeed. */
+
+.title-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 1.5em;
+  width: 2em;
+  padding: 0.1em;
+  margin-right: 0.45rem;
+  border: 1px solid #d9dee3;
+  border-radius: 0.25rem;
+  background: #fff;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.title-icon-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Sinottico SVG responsivo: si adatta alla larghezza del contenitore mantenendo
+   le proporzioni tramite il viewBox, ignorando le dimensioni fisse enormi
+   esportate da Inkscape. */
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------
+   TESTATA: titolo e menu "COMANDI"
+   Stessa impostazione delle altre pagine: i comandi di zona stanno in un pannello
+   che si apre dal pulsante accanto al nome della pagina, in posizione assoluta
+   rispetto a .zone-cmd cosi' non allarga la testata.
+------------------------------------------------ */
+.zona-title-text {
+  vertical-align: middle;
+}
+
+.zone-cmd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 16px;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.zone-cmd-toggle {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+  .zone-cmd-toggle .fa-caret-down,
+  .zone-cmd-toggle .fa-caret-up {
+    margin-left: 6px;
+  }
+
+.zone-cmd-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1030;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #d9dee3;
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  text-align: left;
+}
+
+  /* Dentro il pannello i due gruppi vanno uno sotto l'altro, con le etichette a
+     larghezza comune cosi' i pulsanti restano allineati. */
+  .zone-cmd-panel .zona-cmd-group {
+    display: flex;
+    align-items: center;
+  }
+
+    .zone-cmd-panel .zona-cmd-group + .zona-cmd-group {
+      margin-top: 10px;
+    }
+
+  .zone-cmd-panel .zona-cmd-label {
+    min-width: 160px;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #4E5155;
+  }
+
+/* Il badge di stato resta in testata, fuori dal menu. */
+.zone-cmd-badge {
+  margin-left: 16px;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+
+/* ------------------------------------------------
+   TESTATA STANDARD (uguale su tutte le pagine)
+   Colonna di sinistra: titolo, pulsante "Comandi" e subito dopo i due badge di
+   feedback (modo operativo e stato). Colonna di destra: il solo switcher.
+------------------------------------------------ */
+
+.zona-title {
+  display: flex;
+  align-items: center;
+  /* su schermi stretti i comandi vanno a capo invece di finire sopra al titolo */
+  flex-wrap: wrap;
+}
+
+/* Nome della pagina piu' grande del resto della riga: 1.313rem e' la misura degli
+   h4 del tema, la stessa usata da tutte le altre pagine. */
+.zona-title-text {
+  font-size: 1.313rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.zona-title-left,
+.zona-title-right {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* Lo switcher e' solo nella colonna di destra: il margin-left automatico lo spinge
+   al bordo destro della testata (il margine destro lo azzero, altrimenti resterebbe
+   staccato dal bordo). */
+.zona-title-right {
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+  .zona-title-right .switcher {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  /* Stacco fra il badge del modo operativo e quello di stato. */
+  .zone-cmd-badge .badge + .badge {
+    margin-left: 6px;
+  }
+
+/* ------------------------------------------------
+   PROPORZIONI DELLE DUE COLONNE
+   La colonna di sinistra (titolo + comandi + badge) prende lo spazio che le serve
+   e non si stringe; quella di destra si prende tutto il resto, cosi' lo switcher
+   resta appoggiato al bordo destro senza finire sopra ai comandi. Se la testata
+   non ci sta in larghezza, il flex-wrap manda a capo la colonna di destra.
+------------------------------------------------ */
+.zona-title-left {
+  flex: 0 0 auto;
+}
+
+.zona-title-right {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+
+/* ------------------------------------------------
+   TESTATA: colonna centrale e allarmi di zona
+   Le colonne diventano tre: a sinistra titolo, comandi e stato; al centro il
+   feedback "tutte le utenze in marcia"; a destra gli allarmi e lo switcher.
+   Il nome dell'animazione e' globale (su Angular 11 le @keyframes dei componenti
+   non sono isolate): e' lo stesso identico blocco su tutte le pagine.
+------------------------------------------------ */
+.zona-title-left {
+  flex: 0 0 auto;
+}
+
+.zona-title-center {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  font-weight: normal;
+}
+
+.zona-title-right {
+  flex: 0 0 auto;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+  .zona-title-right .switcher {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+
+@keyframes zona-allarme-badge {
+  0%, 49% {
+    opacity: 1;
+  }
+
+  50%, 100% {
+    opacity: 0.3;
+  }
+}
+
+.zona-allarme-badge {
+  animation: zona-allarme-badge 1s steps(1, end) infinite;
+}
+
+
+/* ------------------------------------------------
+   BADGE DENTRO IL PANNELLO DEI COMANDI
+   Il feedback non sta piu' in testata ma accanto ai pulsanti che lo comandano:
+   modo operativo a destra di MAN/AUTO, stato a destra di STOP/START. Le due coppie
+   di pulsanti sono larghe uguale (96 px), quindi i badge restano incolonnati.
+------------------------------------------------ */
+.zone-cmd-panel .zone-cmd-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 12px;
+  font-weight: normal;
+}

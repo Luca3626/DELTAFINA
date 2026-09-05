@@ -1,0 +1,510 @@
+/* Stili specifici per la pagina Silos Fill. */
+
+/* Icona accanto al titolo: niente cornice e niente sfondo, si vede solo l'SVG,
+   come nelle pagine Slicer. Le dimensioni sono in "em" così scalano col carattere
+   del titolo <h4> (1.313rem -> circa 32x40 px) e il rapporto larghezza/altezza è
+   quello del file (379x302), quindi l'icona riempie lo spazio senza bordi vuoti. */
+.title-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 1.5em;
+  width: 1.9em;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.title-icon-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Sinottico SVG responsivo: si adatta alla larghezza del contenitore mantenendo
+   le proporzioni tramite il viewBox, ignorando le dimensioni fisse enormi
+   esportate da Inkscape. */
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Carrelli di carico sili: quando getCarrelloX cambia la x (fotocellula
+   FWD/MID/REV che risponde), la transizione fa planare il carrello invece di
+   farlo scattare. Vale per entrambe le immagini _ON/_OFF del layer Carrelli. */
+#Carrelli image {
+  transition: x 1.5s linear;
+}
+
+/* Frecce di marcia appoggiate sui carrelli di carico. Come quelle dei nastri di
+   alimentazione si muove tutto il gruppo e non la singola freccia: il componente
+   calcola solo la traslazione orizzontale (getArrowCarrelloTransform). Stessa durata
+   del carrello, cosi' freccia e carrello partono e arrivano insieme; se fosse diversa
+   si vedrebbe lo sfasamento proprio durante la corsa. Il layer ARROW_FWD_REV_CARRELLI
+   contiene solo i quattro gruppi ARROW_FWD_REV_SILOn, uno per carrello. */
+#ARROW_FWD_REV_CARRELLI > g {
+  transition: transform 1.5s linear;
+}
+
+/* Nastri di alimentazione dei sili (layer Carrello_Feed): stessa idea dei carrelli,
+   ma qui il movimento è verticale. Le immagini hanno transform="rotate(90)", quindi
+   la coordinata che a video si muove in verticale è comunque l'attributo x — la
+   conversione dalla y letta in Inkscape sta in getFeedBurleyX / getFeedVirginiaX.
+   La corsa è comandata dalle fotocellule di X-Shuttle (FWD/REV) e la transizione è
+   volutamente più lenta di quella dei carrelli. */
+#Carrello_Feed image {
+  transition: x 3s linear;
+}
+
+/* Frecce di marcia appoggiate sui nastri di alimentazione. Non si muovono una per
+   una: scorre tutto il gruppo ARROW_FWD_REV_*, di cui il componente ricalcola solo
+   la traslazione verticale della matrice (getArrowBurleyTransform /
+   getArrowVirginiaTransform). Stessa durata dei nastri, così freccia e nastro
+   partono e arrivano insieme: se fosse diversa si vedrebbe lo sfasamento proprio
+   durante la corsa. */
+#Arrows_FWD-REV_Carrello_Feed g {
+  transition: transform 3s linear;
+}
+
+/* Bottoni PID sovrapposti al sinottico. Posizione E dimensione (left/top/width/height
+   in percentuale) stanno nello style inline di ogni pulsante, calcolate sul rettangolo
+   dei gruppi BTN_PID_B46 / BTN_PID_F34 del disegno: cosi' il pulsante HTML copre
+   esattamente quello disegnato e resta agganciato anche quando il sinottico si
+   ridimensiona. left/top sono il centro, per via del translate(-50%,-50%).
+   Qui c'e' solo la resa comune: sono normali .btn.btn-dark, quindi colori, hover,
+   focus e stato attivo arrivano dal tema. Niente padding e testo centrato con flex,
+   altrimenti con altezza fissa la scritta resterebbe appoggiata in alto. */
+.pid-button {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: opacity 0.15s ease-in-out;
+}
+
+/* Passaggio del mouse: il pulsante diventa semitrasparente, cosi' si vede che e'
+   cliccabile anche sopra il disegno. Il cambio di colore lo fa Bootstrap da solo
+   con .btn-dark:hover, questa e' solo la trasparenza. */
+.pid-button:hover {
+  opacity: 0.65;
+}
+
+/* ------------------------------------------------
+   PANNELLO IMPOSTAZIONI DENTRO IL SINOTTICO
+
+   Le due cornici del layer Produzione: sopra i setpoint di riempimento (ex popup
+   "IMPOSTAZIONI SILOS FILL"), sotto il silo di destinazione delle due linee.
+   Entrambi i pannelli sono impaginati su 460 px e poi riscalati dall'SVG
+   (scale 0.2875), quindi le misure qui sotto NON sono i pixel che si vedono: con il
+   sinottico largo 1600 px il fattore complessivo e' 0,2875 x 3,36 = circa 0,97,
+   cioe' un font di 15 px si legge a circa 14,5 px.
+   Tarate cosi' la tabella dei setpoint occupa il 92% dell'altezza della sua cornice
+   e quella delle linee il 76%, senza mai sfondare in larghezza; le regole ricalcano
+   settingCasing.css.
+------------------------------------------------ */
+.silo-settings-panel {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 9px 12px;
+  background: #ffffff;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 15px;
+  color: #4E5155;
+}
+
+  .silo-settings-panel * {
+    box-sizing: border-box;
+  }
+
+  /* Titolo di sezione: stessa resa del popup, margini ridotti */
+  .silo-settings-panel .section-title {
+    margin: 0 0 8px 0;
+    padding: 0;
+  }
+
+    .silo-settings-panel .section-title h5 {
+      margin: 0;
+      padding: 7px 12px;
+      color: #4a4c53;
+      font-size: 18px;
+      font-weight: 500;
+      background: #d0ba7680;
+      border-left: 4px solid #a99761;
+      border-radius: 4px 0 0 4px;
+    }
+
+  .silo-settings-panel .table-responsive {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .silo-settings-panel .card-table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+    table-layout: fixed;   /* le quattro colonne stanno nei 460 px anche col testo lungo */
+  }
+
+    .silo-settings-panel .card-table th,
+    .silo-settings-panel .card-table td {
+      padding: 8px 10px;
+      vertical-align: middle;
+      font-size: 15px;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .silo-settings-panel .card-table th {
+      background-color: #f8f9fa;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* PARAMETRO / ATTUALE / NUOVO / OK - la colonna ATTUALE deve reggere
+       "Ogni silo il suo" senza spezzarlo su troppe righe */
+    .silo-settings-panel .card-table th:nth-child(1) { width: 36%; }
+    .silo-settings-panel .card-table th:nth-child(2) { width: 21%; }
+    .silo-settings-panel .card-table th:nth-child(3) { width: 28%; }
+    .silo-settings-panel .card-table th:nth-child(4) { width: 15%; }
+
+  .silo-settings-panel .form-control {
+    width: 100%;
+    min-width: 0;      /* il min-width del popup (120px) sfonderebbe la colonna */
+    height: auto;
+    padding: 5px 8px;
+    font-size: 15px;
+    line-height: 1.3;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+
+  .silo-settings-panel .btn {
+    width: 100%;
+    padding: 5px 8px;
+    font-size: 15px;
+    line-height: 1.3;
+    border-radius: 4px;
+  }
+
+/* Pannello delle linee (cornice in basso). Stessa struttura di quello sopra. La
+   cornice rect1-5 è stata portata da 36 a 55 unità e al pannello è stato aggiunto il
+   titolo "SILOS DA RIEMPIRE": con lo spazio in più il testo non deve più stare a
+   12 px, sale a 14 px (circa 13,5 px a video, contro i 14,5 del pannello sopra).
+   Così titolo + intestazione + due righe riempiono il 92% dell'altezza della cornice,
+   la stessa proporzione della tabella dei setpoint, e la tabella resta a 444 px sui
+   444 disponibili, quindi senza sbordare in larghezza.
+   Se un domani la cornice cambia di nuovo: a 36 unità servivano 12 px, a 55 ne
+   servono 14, a ~72 si può usare la misura piena del pannello sopra (15 px).
+   Queste regole devono stare DOPO quelle di .silo-settings-panel: hanno la stessa
+   specificità e vince l'ultima. */
+.silo-lines-panel {
+  font-size: 14px;
+  padding: 5px 8px;
+}
+
+  /* Il titolo di sezione arriva da .silo-settings-panel a 18 px: qui sarebbe
+     sproporzionato rispetto a un testo di 14, e da solo mangerebbe un quinto
+     della cornice. */
+  .silo-lines-panel .section-title {
+    margin-bottom: 6px;
+  }
+
+    .silo-lines-panel .section-title h5 {
+      font-size: 16px;
+      padding: 4px 10px;
+    }
+
+  .silo-lines-panel .card-table th {
+    font-size: 13px;
+    padding: 4px 6px;
+  }
+
+  .silo-lines-panel .card-table td {
+    font-size: 14px;
+    padding: 5px 6px;
+  }
+
+  .silo-lines-panel .form-control,
+  .silo-lines-panel .btn {
+    font-size: 14px;
+    padding: 4px 6px;
+  }
+
+  /* Le larghezze vanno ripetute sulle td: con table-layout:fixed comanda la prima
+     riga, ma tenerle su entrambe evita sorprese se un domani sparisce l'intestazione. */
+  .silo-lines-panel .card-table th:nth-child(1),
+  .silo-lines-panel .card-table td:nth-child(1) { width: 40%; }
+
+  .silo-lines-panel .card-table th:nth-child(2),
+  .silo-lines-panel .card-table td:nth-child(2) { width: 16%; }
+
+  .silo-lines-panel .card-table th:nth-child(3),
+  .silo-lines-panel .card-table td:nth-child(3) { width: 28%; }
+
+  .silo-lines-panel .card-table th:nth-child(4),
+  .silo-lines-panel .card-table td:nth-child(4) { width: 16%; }
+
+/* ------------------------------------------------
+   TITOLO PAGINA - Icona, comandi di zona e badge
+   Stessa impostazione delle pagine Slicer.
+------------------------------------------------ */
+
+/* Riga del titolo su tre colonne. Le due colonne laterali hanno la stessa
+   larghezza (flex:1), quindi la colonna centrale con le label e i pulsanti
+   resta centrata rispetto a tutta la riga; con un semplice margin-left il
+   blocco sarebbe invece centrato solo nello spazio che avanza dopo il titolo. */
+.silo-title {
+  display: flex;
+  align-items: center;
+  /* su schermi stretti i comandi vanno a capo invece di finire sopra al titolo */
+  flex-wrap: wrap;
+}
+
+.silo-title-left,
+.silo-title-right {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* Nome della pagina piu' grande del resto della riga. Il font-size sta sul solo
+   testo e non sull'h4: sull'h4 farebbe crescere anche l'icona, che e' dimensionata
+   in em, e con lei l'altezza di tutta la testata. 1.313rem e' la misura degli h4
+   del tema, la stessa gia' usata dalle pagine Dryer e Zona. */
+.silo-title-text {
+  font-size: 1.313rem;
+  line-height: 1;
+}
+
+.silo-title-commands {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+/* Coppia label + due pulsanti (modalita' operativa e stato di zona) */
+.silo-cmd-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+  .silo-cmd-group + .silo-cmd-group {
+    margin-left: 32px;
+  }
+
+.silo-cmd-label {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #4E5155;
+}
+
+/* Colonna di destra: il badge resta appoggiato ai pulsanti come prima, mentre lo
+   switcher "Mostra Nomi" viene spinto al bordo destro del titolo dal margin-left
+   automatico (il margine destro dello switcher lo azzero, altrimenti resterebbe
+   staccato dal bordo). */
+.silo-title-right {
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+  .silo-title-right .switcher {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+/* ------------------------------------------------
+   MENU "COMANDI" DELLA TESTATA
+   I comandi di zona non stanno piu' sparsi nel titolo: sono dentro un pannello
+   che si apre dal pulsante accanto al nome della pagina. Il pannello e' in
+   posizione assoluta rispetto a .zone-cmd, quindi non allarga la testata.
+------------------------------------------------ */
+.zone-cmd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 16px;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.zone-cmd-toggle {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+  .zone-cmd-toggle .fa-caret-down,
+  .zone-cmd-toggle .fa-caret-up {
+    margin-left: 6px;
+  }
+
+.zone-cmd-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1030;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #d9dee3;
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  text-align: left;
+}
+
+  /* Dentro il pannello i gruppi vanno uno sotto l'altro invece che in fila, e le
+     etichette hanno una larghezza minima comune cosi' i pulsanti restano allineati. */
+  .zone-cmd-panel .silo-cmd-group {
+    display: flex;
+    align-items: center;
+  }
+
+    .zone-cmd-panel .silo-cmd-group + .silo-cmd-group {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+
+  .zone-cmd-panel .silo-cmd-label {
+    min-width: 160px;
+  }
+
+
+/* ------------------------------------------------
+   TESTATA STANDARD (uguale su tutte le pagine)
+   Colonna di sinistra: titolo, pulsante "Comandi" e subito dopo i due badge di
+   feedback (modo operativo e stato). Colonna di destra: il solo switcher.
+------------------------------------------------ */
+
+/* I due badge di feedback stanno subito dopo il pulsante "Comandi" e restano
+   sempre in testata, fuori dal menu. */
+.zone-cmd-badge {
+  margin-left: 16px;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+  /* Stacco fra il badge del modo operativo e quello di stato. */
+  .zone-cmd-badge .badge + .badge {
+    margin-left: 6px;
+  }
+
+/* ------------------------------------------------
+   PROPORZIONI DELLE DUE COLONNE
+   La colonna di sinistra (titolo + comandi + badge) prende lo spazio che le serve
+   e non si stringe; quella di destra si prende tutto il resto, cosi' lo switcher
+   resta appoggiato al bordo destro senza finire sopra ai comandi. Se la testata
+   non ci sta in larghezza, il flex-wrap manda a capo la colonna di destra.
+------------------------------------------------ */
+.silo-title-left {
+  flex: 0 0 auto;
+}
+
+.silo-title-right {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+
+/* ------------------------------------------------
+   TESTATA: colonna centrale e allarmi di zona
+   Le colonne diventano tre: a sinistra titolo, comandi e stato; al centro il
+   feedback "tutte le utenze in marcia"; a destra gli allarmi e lo switcher.
+   Il nome dell'animazione e' globale (su Angular 11 le @keyframes dei componenti
+   non sono isolate): e' lo stesso identico blocco su tutte le pagine.
+------------------------------------------------ */
+.silo-title-left {
+  flex: 0 0 auto;
+}
+
+.silo-title-center {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  font-weight: normal;
+}
+
+.silo-title-right {
+  flex: 0 0 auto;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+  .silo-title-right .switcher {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+
+@keyframes zona-allarme-badge {
+  0%, 49% {
+    opacity: 1;
+  }
+
+  50%, 100% {
+    opacity: 0.3;
+  }
+}
+
+.zona-allarme-badge {
+  animation: zona-allarme-badge 1s steps(1, end) infinite;
+}
+
+
+/* ------------------------------------------------
+   BADGE DENTRO IL PANNELLO DEI COMANDI
+   Il feedback non sta piu' in testata ma accanto ai pulsanti che lo comandano:
+   modo operativo a destra di MAN/AUTO, stato a destra di STOP/START. Le due coppie
+   di pulsanti sono larghe uguale (96 px), quindi i badge restano incolonnati.
+------------------------------------------------ */
+.zone-cmd-panel .zone-cmd-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 12px;
+  font-weight: normal;
+}
+
+
+/* ------------------------------------------------
+   FOTOCELLULE: pulsazione sfumata della spia verde
+   Un <animate> su href e' per forza discreto - un URL non si interpola - quindi
+   l'icona lampeggiava a scatti. Qui le due immagini, verde e verde brillante, sono
+   sovrapposte nello stesso punto e a variare e' solo l'opacita' di quella brillante:
+   il passaggio fra i due stati diventa una dissolvenza. Sotto resta sempre il verde
+   normale, cosi' a opacita' zero si vede esattamente lo stato di partenza.
+   Il nome dell'animazione e' prefissato perche' su Angular 11 le @keyframes dei
+   componenti non sono isolate (stesso motivo di zona-allarme-badge qui sopra).
+   Per estenderla a un'altra fotocellula basta affiancare all'immagine _GREEN la
+   gemella _BRIGHT con lo stesso *ngIf e class="pe-pulse".
+------------------------------------------------ */
+@keyframes silo-fill-pe-pulse {
+  0%, 100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.pe-pulse {
+  animation: silo-fill-pe-pulse 1.6s ease-in-out infinite;
+}

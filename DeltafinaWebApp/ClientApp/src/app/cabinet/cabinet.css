@@ -1,0 +1,87 @@
+/* Stili specifici per la pagina Cabinets (quadri elettrici). */
+
+/* Sinottico SVG responsivo: si adatta alla larghezza del contenitore mantenendo
+   le proporzioni tramite il viewBox, ignorando le dimensioni fisse enormi
+   esportate da Inkscape. */
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* ------------------------------------------------
+   TESTATA STANDARD (uguale su tutte le pagine sinottiche)
+   Tre colonne: a sinistra il titolo (e, quando ci saranno, il pulsante "Comandi" e
+   lo stato), al centro il feedback cumulativo, a destra lo switcher "Mostra Nomi".
+   Le classi sono le stesse delle altre pagine col prefisso della pagina: qui
+   cabinet-, altrove zona-/dcc-/casing-.
+------------------------------------------------ */
+
+.cabinet-title {
+  display: flex;
+  align-items: center;
+  /* su schermi stretti la colonna di destra va a capo invece di finire sopra al titolo */
+  flex-wrap: wrap;
+}
+
+/* Nome della pagina piu' grande del resto della riga: 1.313rem e' la misura degli
+   h4 del tema, la stessa usata da tutte le altre pagine. */
+.cabinet-title-text {
+  font-size: 1.313rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* La colonna di sinistra prende lo spazio che le serve e non si stringe. */
+.cabinet-title-left {
+  flex: 0 0 auto;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.cabinet-title-center {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  font-weight: normal;
+}
+
+.cabinet-title-right {
+  flex: 0 0 auto;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+  /* Lo switcher resta appoggiato al bordo destro della testata. */
+  .cabinet-title-right .switcher {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+
+
+/* ------------------------------------------------
+   QUADRO IN ALLARME NELLA PIANTA
+   Il fronte del quadro lampeggia da solo con l'<animate> del template (rosso <->
+   normale, come i motori delle altre pagine); qui c'e' il lampeggio del rettangolo
+   corrispondente nella vista dall'alto.
+   Il grigio #d8dddd arriva dallo style inline dell'export Inkscape, ma nella cascata
+   CSS le animazioni battono le dichiarazioni inline: non serve toccare il disegno.
+   Il rosso e' quello del fronte quadro in allarme (quadro-automazione-fronte_rosso.svg).
+   ATTENZIONE: su Angular 11 le @keyframes dei componenti non sono isolate, il nome
+   e' globale e va tenuto distinto da quelli delle altre pagine (zona-allarme-badge).
+------------------------------------------------ */
+@keyframes cabinet-alarm-blink {
+  0%, 49% {
+    fill: #d8dddd;
+  }
+
+  50%, 100% {
+    fill: #e3453e;
+  }
+}
+
+.cabinet-alarm {
+  animation: cabinet-alarm-blink 1s steps(1, end) infinite;
+}

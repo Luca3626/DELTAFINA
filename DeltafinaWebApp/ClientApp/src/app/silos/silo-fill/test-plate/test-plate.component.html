@@ -1,0 +1,274 @@
+<!--
+  TEST TEMPORANEO - popup di forzatura tag della pagina Silos Fill.
+  Vedi l'intestazione di test-plate.component.ts per come rimuoverlo.
+-->
+<button type="button" class="close test-close" (click)="onNoClick()">X</button>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+  <i class="fas fa-flask"></i> TEST SILOS FILL - forzatura tag
+</h1>
+
+<div mat-dialog-content class="test-plate-content">
+
+  <div class="test-warning">
+    Finestra di prova: scrive direttamente sui tag come la pagina Lista Tag, senza
+    log del parametro. Con il PLC collegato i valori forzati vengono risovrascritti
+    dalla prima lettura utile del datablock.
+  </div>
+
+  <div class="nav-tabs-top">
+    <ul ngbNav #testTabs="ngbNav" class="nav-tabs">
+
+      <!-- ============================================================ -->
+      <!-- 1) PAROLE DI STATO (DB107 - STATE)                           -->
+      <!-- ============================================================ -->
+      <li ngbNavItem>
+        <a ngbNavLink>Parole di stato</a>
+        <ng-template ngbNavContent>
+
+          <div class="test-toolbar">
+            <input type="text" class="form-control form-control-sm test-filter"
+                   [(ngModel)]="filter" placeholder="Filtra per nome o descrizione" />
+
+            <span class="test-toolbar-sep"></span>
+
+            <button type="button" class="btn btn-secondary btn-sm" (click)="applyStateToAll(0)">Tutti FERMI</button>
+            <button type="button" class="btn btn-success btn-sm" (click)="applyStateToAll(11)">Tutti in MARCIA</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="applyStateToAll(51)">Tutti in ALLARME</button>
+
+            <span class="test-toolbar-sep"></span>
+
+            <!-- Le frecce di direzione del sinottico guardano stsRev, non lo stato:
+                 con questo acceso i bit di marcia seguono la parola di stato. -->
+            <label class="switcher test-switcher"
+                   title="Scrivendo la parola di stato allinea anche outFwd/outRev e stsFwd/stsRev del DB105: senza, stato e feedback restano indipendenti.">
+              <input type="checkbox" class="switcher-input" [(ngModel)]="alignSts" />
+              <span class="switcher-indicator">
+                <span class="switcher-yes"></span>
+                <span class="switcher-no"></span>
+              </span>
+              <span class="switcher-label">Allinea i feedback di marcia</span>
+            </label>
+          </div>
+
+          <div class="test-scroll">
+            <table class="table table-sm table-striped table-bordered test-table">
+              <thead>
+                <tr>
+                  <th style="width:90px;">Motore</th>
+                  <th style="width:230px;">Stato attuale</th>
+                  <th style="width:250px;">Forza stato</th>
+                  <th style="width:80px;">Codice</th>
+                  <th style="width:230px;">Rapidi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let m of filteredMotors">
+                  <td class="align-middle">
+                    <div class="test-motor-name">{{m.name}}</div>
+                    <div class="test-motor-desc">{{m.description}}</div>
+                  </td>
+
+                  <td class="align-middle">
+                    <span [ngClass]="stateBadgeClass(m)">{{stateOf(m)}}</span>
+                    <span class="test-state-str">{{m.STATE_STR}}</span>
+                  </td>
+
+                  <td class="align-middle">
+                    <select class="form-control form-control-sm"
+                            [ngModel]="stateOf(m)"
+                            (ngModelChange)="applyState(m, $event)">
+                      <option *ngFor="let s of states" [ngValue]="s.code">{{s.code}} - {{s.label}}</option>
+                    </select>
+                  </td>
+
+                  <!-- Campo libero: per provare anche i codici che la decodifica non
+                       conosce (il modello li mostra come "STATO n"). -->
+                  <td class="align-middle">
+                    <input #codeInput type="number" class="form-control form-control-sm"
+                           [value]="stateOf(m)"
+                           (change)="applyState(m, codeInput.value)" />
+                  </td>
+
+                  <td class="align-middle text-nowrap">
+                    <button type="button" class="btn btn-secondary btn-xs" (click)="applyState(m, 0)" ngbTooltip="FERMO IN MANUALE (0)">FERMO</button>
+                    <button type="button" class="btn btn-success btn-xs" (click)="applyState(m, 11)" ngbTooltip="AVVIATO IN AUTOMATICO (11)">MARCIA</button>
+                    <button type="button" class="btn btn-primary btn-xs" (click)="applyState(m, 14)" ngbTooltip="AVVIATO IN AUTOMATICO REV (14)">REV</button>
+                    <button type="button" class="btn btn-danger btn-xs" (click)="applyState(m, 51)" ngbTooltip="BLOCCO TERMICO (51)">ALM</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </ng-template>
+      </li>
+
+      <!-- ============================================================ -->
+      <!-- 2) FEEDBACK DEI MOTORI (DB105 - STS)                         -->
+      <!-- ============================================================ -->
+      <li ngbNavItem>
+        <a ngbNavLink>Feedback (DB105 STS)</a>
+        <ng-template ngbNavContent>
+
+          <div class="test-toolbar">
+            <input type="text" class="form-control form-control-sm test-filter"
+                   [(ngModel)]="filter" placeholder="Filtra per nome o descrizione" />
+
+            <span class="test-toolbar-sep"></span>
+
+            <button type="button" class="btn btn-secondary btn-sm" (click)="resetAllSts()">Azzera tutti i feedback</button>
+          </div>
+
+          <div class="test-scroll">
+            <table class="table table-sm table-striped table-bordered test-table test-sts-table">
+              <thead>
+                <tr>
+                  <th style="width:90px;">Motore</th>
+                  <th>outFwd</th>
+                  <th>outRev</th>
+                  <th>stsFwd</th>
+                  <th>stsRev</th>
+                  <th>limFwd</th>
+                  <th>limRev</th>
+                  <th>almCUM</th>
+                  <th style="width:70px;">&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let m of filteredMotors">
+                  <td class="align-middle">
+                    <div class="test-motor-name">{{m.name}}</div>
+                    <div class="test-motor-desc">{{m.description}}</div>
+                  </td>
+
+                  <td class="align-middle text-center" *ngFor="let t of stsTags(m)">
+                    <input #stsChk type="checkbox"
+                           [checked]="isOn(t)"
+                           (change)="setOn(t, stsChk.checked)"
+                           [title]="tagName(t)" />
+                  </td>
+
+                  <td class="align-middle text-center">
+                    <button type="button" class="btn btn-secondary btn-xs" (click)="resetSts(m)">Azzera</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </ng-template>
+      </li>
+
+      <!-- ============================================================ -->
+      <!-- 3) FOTOCELLULE (DB121 - PE)                                  -->
+      <!-- ============================================================ -->
+      <li ngbNavItem>
+        <a ngbNavLink>Fotocellule</a>
+        <ng-template ngbNavContent>
+
+          <div class="test-scroll">
+
+            <!-- NAVETTE DI CARICO SILO: una terna FWD/MID/REV per ogni silo.
+                 Le tre non sono mai attive insieme, quindi i pulsanti sono
+                 esclusivi; IN TRANSITO le spegne tutte e il carrello del
+                 sinottico resta all'ultima posizione nota. -->
+            <div class="test-section-title">Navette di carico silo (NCS) - posizione del carrello</div>
+            <table class="table table-sm table-striped table-bordered test-table">
+              <thead>
+                <tr>
+                  <th style="width:150px;">Silo</th>
+                  <th style="width:130px;">Posizione</th>
+                  <th style="width:300px;">Forza posizione</th>
+                  <th>Fotocellule (FWD / MID / REV)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of silos">
+                  <td class="align-middle">
+                    <div class="test-motor-name">{{s.name}}</div>
+                    <div class="test-motor-desc">{{s.description}}</div>
+                  </td>
+
+                  <td class="align-middle">
+                    <span class="badge" [ngClass]="s.SHUTTLE_IN_POSITION ? 'badge-success' : 'badge-warning'">{{s.SHUTTLE_POSITION_STR}}</span>
+                  </td>
+
+                  <td class="align-middle text-nowrap">
+                    <button type="button" class="btn btn-xs" [ngClass]="s.SHUTTLE_FWD ? 'btn-primary' : 'btn-default'" (click)="setShuttle(s, 'FWD')">AVANTI</button>
+                    <button type="button" class="btn btn-xs" [ngClass]="s.SHUTTLE_MID ? 'btn-primary' : 'btn-default'" (click)="setShuttle(s, 'MID')">INTERMEDIA</button>
+                    <button type="button" class="btn btn-xs" [ngClass]="s.SHUTTLE_REV ? 'btn-primary' : 'btn-default'" (click)="setShuttle(s, 'REV')">INDIETRO</button>
+                    <button type="button" class="btn btn-xs" [ngClass]="!s.SHUTTLE_IN_POSITION ? 'btn-warning' : 'btn-default'" (click)="setShuttle(s, '')">IN TRANSITO</button>
+                  </td>
+
+                  <td class="align-middle test-pe-cell">
+                    <label class="test-pe"><input #peFwd type="checkbox" [checked]="isOn(s.LS_NCS_FWD)" (change)="setOn(s.LS_NCS_FWD, peFwd.checked)" /> {{tagName(s.LS_NCS_FWD)}}</label>
+                    <label class="test-pe"><input #peMid type="checkbox" [checked]="isOn(s.LS_NCS_MID)" (change)="setOn(s.LS_NCS_MID, peMid.checked)" /> {{tagName(s.LS_NCS_MID)}}</label>
+                    <label class="test-pe"><input #peRev type="checkbox" [checked]="isOn(s.LS_NCS_REV)" (change)="setOn(s.LS_NCS_REV, peRev.checked)" /> {{tagName(s.LS_NCS_REV)}}</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- X-SHUTTLE DI LINEA: due sole posizioni e tag in comune fra due sili
+                 (S1,2 e S3,4), quindi qui le righe sono due, non quattro. -->
+            <div class="test-section-title">X-Shuttle di linea - nastri di alimentazione</div>
+            <table class="table table-sm table-striped table-bordered test-table">
+              <thead>
+                <tr>
+                  <th style="width:150px;">Sili</th>
+                  <th style="width:110px;">Linea</th>
+                  <th style="width:130px;">Posizione</th>
+                  <th style="width:250px;">Forza posizione</th>
+                  <th>Fotocellule (FWD / REV)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let p of xsPairs">
+
+                  <tr>
+                    <td class="align-middle" rowspan="2"><div class="test-motor-name">{{p.label}}</div></td>
+                    <td class="align-middle">Virginia</td>
+                    <td class="align-middle">
+                      <span class="badge" [ngClass]="(p.silo.XS_VIRGINIA_FWD || p.silo.XS_VIRGINIA_REV) ? 'badge-success' : 'badge-warning'">{{xsVirginiaStr(p.silo)}}</span>
+                    </td>
+                    <td class="align-middle text-nowrap">
+                      <button type="button" class="btn btn-xs" [ngClass]="p.silo.XS_VIRGINIA_FWD ? 'btn-primary' : 'btn-default'" (click)="setXsVirginia(p.silo, 'FWD')">AVANTI</button>
+                      <button type="button" class="btn btn-xs" [ngClass]="p.silo.XS_VIRGINIA_REV ? 'btn-primary' : 'btn-default'" (click)="setXsVirginia(p.silo, 'REV')">INDIETRO</button>
+                      <button type="button" class="btn btn-xs" [ngClass]="(!p.silo.XS_VIRGINIA_FWD && !p.silo.XS_VIRGINIA_REV) ? 'btn-warning' : 'btn-default'" (click)="setXsVirginia(p.silo, '')">IN TRANSITO</button>
+                    </td>
+                    <td class="align-middle test-pe-cell">
+                      <label class="test-pe"><input #vFwd type="checkbox" [checked]="isOn(p.silo.LS_XS_VIRGINIA_FWD)" (change)="setOn(p.silo.LS_XS_VIRGINIA_FWD, vFwd.checked)" /> {{tagName(p.silo.LS_XS_VIRGINIA_FWD)}}</label>
+                      <label class="test-pe"><input #vRev type="checkbox" [checked]="isOn(p.silo.LS_XS_VIRGINIA_REV)" (change)="setOn(p.silo.LS_XS_VIRGINIA_REV, vRev.checked)" /> {{tagName(p.silo.LS_XS_VIRGINIA_REV)}}</label>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="align-middle">Burley</td>
+                    <td class="align-middle">
+                      <span class="badge" [ngClass]="(p.silo.XS_BURLEY_FWD || p.silo.XS_BURLEY_REV) ? 'badge-success' : 'badge-warning'">{{xsBurleyStr(p.silo)}}</span>
+                    </td>
+                    <td class="align-middle text-nowrap">
+                      <button type="button" class="btn btn-xs" [ngClass]="p.silo.XS_BURLEY_FWD ? 'btn-primary' : 'btn-default'" (click)="setXsBurley(p.silo, 'FWD')">AVANTI</button>
+                      <button type="button" class="btn btn-xs" [ngClass]="p.silo.XS_BURLEY_REV ? 'btn-primary' : 'btn-default'" (click)="setXsBurley(p.silo, 'REV')">INDIETRO</button>
+                      <button type="button" class="btn btn-xs" [ngClass]="(!p.silo.XS_BURLEY_FWD && !p.silo.XS_BURLEY_REV) ? 'btn-warning' : 'btn-default'" (click)="setXsBurley(p.silo, '')">IN TRANSITO</button>
+                    </td>
+                    <td class="align-middle test-pe-cell">
+                      <label class="test-pe"><input #bFwd type="checkbox" [checked]="isOn(p.silo.LS_XS_BURLEY_FWD)" (change)="setOn(p.silo.LS_XS_BURLEY_FWD, bFwd.checked)" /> {{tagName(p.silo.LS_XS_BURLEY_FWD)}}</label>
+                      <label class="test-pe"><input #bRev type="checkbox" [checked]="isOn(p.silo.LS_XS_BURLEY_REV)" (change)="setOn(p.silo.LS_XS_BURLEY_REV, bRev.checked)" /> {{tagName(p.silo.LS_XS_BURLEY_REV)}}</label>
+                    </td>
+                  </tr>
+
+                </ng-container>
+              </tbody>
+            </table>
+
+          </div>
+
+        </ng-template>
+      </li>
+
+    </ul>
+    <div [ngbNavOutlet]="testTabs"></div>
+  </div>
+
+</div>

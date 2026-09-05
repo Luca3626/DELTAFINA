@@ -1,0 +1,1647 @@
+<!--
+  TITOLO A TRE COLONNE
+
+  Il titolo e' un flex a tre colonne: a sinistra icona + nome pagina, in mezzo i
+  comandi, a destra il badge di stato e, in fondo, lo switcher "Mostra Nomi" (spinto
+  al bordo destro da margin-left:auto). Le due colonne laterali hanno la stessa
+  larghezza (flex:1), cosi' il blocco delle label e dei pulsanti resta centrato
+  rispetto a tutta la riga del titolo e non solo allo spazio che avanza a destra.
+-->
+<h4 class="font-weight-bold py-3 mb-4 slicer-title" style="padding-top: 0px !important; ">
+  <span class="slicer-title-left">
+    <span class="title-icon-box">
+      <img src="assets/svg/svg-icon/slicer-icon.svg" alt="Slicer Virginia" />
+    </span>
+    <span class="slicer-title-text">Slicer Virginia</span>
+
+    <!-- Comandi di zona (DB120 - FROM_HMI) raccolti sotto un pulsante: la testata resta
+         pulita e i comandi restano a un click. Il pannello e' in posizione assoluta
+         rispetto a .zone-cmd, quindi non allarga la testata, e resta aperto finche' non
+         si ripreme il pulsante, cosi' si possono dare due comandi di fila (es. AUTO e
+         poi START). Mode 0=man / 1=AUT, State 0=stop / 1=start.
+         Qui VSL_State_ON non e' lo start/stop di una zona ma l'accensione
+         della macchina: i pulsanti si chiamano OFF/ON e il badge ACCESO/SPENTO. -->
+    <span class="zone-cmd">
+      <button type="button" class="btn btn-primary btn-sm zone-cmd-toggle" (click)="cmdOpen = !cmdOpen">
+        <i class="fas fa-sliders-h"></i> Comandi
+        <i class="fas" [ngClass]="cmdOpen ? 'fa-caret-up' : 'fa-caret-down'"></i>
+      </button>
+      <!-- Il feedback sta accanto ai pulsanti che lo comandano: il modo operativo a
+           destra di MAN/AUTO, lo stato a destra di STOP/START. Prima erano due badge
+           in testata, fuori dal menu. -->
+      <div class="zone-cmd-panel" *ngIf="cmdOpen">
+        <span class="slicer-cmd-group">
+          <span class="slicer-cmd-label">Modalità Operativa</span>
+          <button (click)="onZoneMode(TagList.FROM_HMI_VSL_Mode_AUTO, 'Slicer Virginia', false)" [ngClass]="!TagList.FROM_HMI_VSL_Mode_AUTO.value ? 'btn btn-primary' : 'btn btn-default'" type="button" style="width:96px;font-weight:bold;padding-left:0px;padding-right:0px;margin-right:4px;vertical-align:middle;">MAN</button>
+          <button (click)="onZoneMode(TagList.FROM_HMI_VSL_Mode_AUTO, 'Slicer Virginia', true)" [ngClass]="TagList.FROM_HMI_VSL_Mode_AUTO.value ? 'btn btn-primary' : 'btn btn-default'" type="button" style="width:96px;font-weight:bold;padding-left:0px;padding-right:0px;vertical-align:middle;">AUTO</button>
+          <span class="zone-cmd-badge">
+            <span *ngIf="TagList.FROM_HMI_VSL_Mode_AUTO.value" class="badge badge-primary" style="font-size:12px;vertical-align:middle;">AUTOMATICO</span>
+            <span *ngIf="!TagList.FROM_HMI_VSL_Mode_AUTO.value" class="badge badge-warning" style="font-size:12px;vertical-align:middle;">MANUALE</span>
+          </span>
+        </span>
+        <span class="slicer-cmd-group">
+          <span class="slicer-cmd-label">Stato di funzionamento</span>
+          <button (click)="onZoneState(TagList.FROM_HMI_VSL_State_ON, 'Slicer Virginia', false)" class="btn btn-danger" type="button" style="width:96px;font-weight:bold;padding-left:0px;padding-right:0px;margin-right:4px;vertical-align:middle;"><i class="fas fa-square"></i> OFF</button>
+          <button (click)="onZoneState(TagList.FROM_HMI_VSL_State_ON, 'Slicer Virginia', true)" class="btn btn-success" type="button" style="width:96px;font-weight:bold;padding-left:0px;padding-right:0px;vertical-align:middle;"><i class="fas fa-play"></i> ON</button>
+          <span class="zone-cmd-badge">
+            <span *ngIf="TagList.FROM_HMI_VSL_State_ON.value" class="badge badge-success" style="font-size:12px;vertical-align:middle;">ACCESO</span>
+            <span *ngIf="!TagList.FROM_HMI_VSL_State_ON.value" class="badge badge-secondary" style="font-size:12px;vertical-align:middle;">SPENTO</span>
+          </span>
+        </span>
+      </div>
+    </span>
+
+  </span>
+
+  <!-- Lo switcher sta da solo nella colonna di destra: il margin-left automatico
+       del CSS lo spinge fino al bordo destro della testata. -->
+  <span class="slicer-title-right">
+    <label class="switcher">
+      <input type="checkbox" class="switcher-input" [(ngModel)]="showName">
+      <span class="switcher-indicator">
+        <span class="switcher-yes"></span>
+        <span class="switcher-no"></span>
+      </span>
+      <span class="switcher-label">Mostra Nomi</span>
+    </label>
+  </span>
+</h4>
+
+<!--
+    Sostituzioni:
+    ="../../assets/svg/custom => ="../../assets/svg/assets/svg/custom
+    ="../../assets/svg/assets/svg/groov => ="../../assets/svg/assets/svg/groov
+
+    POMPE:
+    xlink:href="../../assets/svg/assets/svg/groov/pump1_blue.svg" -> [attr.xlink:href]="motorList.VB_TS6.SVG_PUMP" style="cursor:pointer" (click)="openValveDialogBySVG($event)"
+
+    MOTORI:
+    xlink:href="../../assets/svg/assets/svg/groov/motor2_blue.svg" -> [attr.xlink:href]="motorList.VB_TS6.SVG_MOTOR" style="cursor:pointer" (click)="openMotorDialogBySVG($event)"
+
+    VALVOLE:
+    xlink:href="../../assets/svg/assets/svg/groov/valve_3d_common2_nopipe_blue.svg" -> [attr.xlink:href]="valveList.VB_TS6.SVG_2W_SIMPLE" style="cursor:pointer" (click)="openValveDialogBySVG($event)"
+
+    MIXER:
+    xlink:href="../../assets/svg/assets/svg/groov/mixer1_blu.svg" -> [attr.xlink:href]="motorList.VB_TS6.SVG_MIXER" style="cursor:pointer" (click)="openMotorDialogBySVG($event)"
+
+    SEGUE ESEMPIO DI ANIMAZIONE CON ALLARME PER LA POMPA
+    <image preserveAspectRatio="none"
+       inkscape:svg-dpi="96"
+       width="15.874999"
+       height="15.874999"
+       [attr.xlink:href]="motorList.P1.SVG_PUMP"
+       id="image7874"
+       x="-24.838634"
+       y="126.99998"
+       transform="scale(-1,1)"
+       inkscape:label="P1" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+    <animate xlink:href="#image7874"
+             attributeName="href"
+             [attr.from]="motorList.P1.SVG_PUMP"
+             [attr.to]="motorList.P1.SVG_PUMP_ALM"
+             dur="1s"
+             fill="freeze"
+             repeatCount="indefinite" />
+    <image preserveAspectRatio="none"
+       inkscape:svg-dpi="96"
+       width="7.9374995"
+       height="7.9374995"
+       xlink:href="../../assets/svg/assets/svg/flowmeter_blue.svg"
+       id="image9513"
+       x="10.31875"
+       y="153.45833"
+       inkscape:label="FX_P1" />
+-->
+
+<div class="row">
+  <div class="col-md-12">
+
+    <svg width="100%"
+         viewBox="0 0 476.24999 216.95834"
+         version="1.1"
+         id="svg5">
+      <defs id="defs2">
+        <linearGradient id="linearGradient22325"
+                        inkscape:swatch="solid">
+          <stop style="stop-color:#000000;stop-opacity:1;"
+                offset="0"
+                id="stop22323" />
+        </linearGradient>
+        <marker style="overflow:visible;"
+                id="marker22822"
+                refX="0.0"
+                refY="0.0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="scale(1.1) rotate(180) translate(1,0)"
+                d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+                style="stroke:context-stroke;fill-rule:evenodd;fill:context-stroke;stroke-width:0.62500000;stroke-linejoin:round;"
+                id="path22582" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker10522"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path10520" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker10319"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path9840" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker35647"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lstart"
+                inkscape:isstock="true">
+          <path transform="matrix(1.1,0,0,1.1,1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path35645" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker35641"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lstart"
+                inkscape:isstock="true">
+          <path transform="matrix(1.1,0,0,1.1,1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path12555" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker34605"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path34603" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker27887"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path27885" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker21231"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path21229" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker20524"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path20522" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker13617"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path13615" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker13412"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path13410" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker13207"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path13205" />
+        </marker>
+        <marker style="overflow:visible"
+                id="marker13082"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path13080" />
+        </marker>
+        <marker style="overflow:visible"
+                id="Arrow2Lend"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lend"
+                inkscape:isstock="true">
+          <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path12558" />
+        </marker>
+        <marker style="overflow:visible"
+                id="Arrow2Lstart"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lstart"
+                inkscape:isstock="true">
+          <path transform="matrix(1.1,0,0,1.1,1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path18378" />
+        </marker>
+        <marker style="overflow:visible"
+                id="Arrow2Mend"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Mend"
+                inkscape:isstock="true">
+          <path transform="scale(-0.6)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path18387" />
+        </marker>
+        <linearGradient id="linearGradient17214"
+                        inkscape:swatch="solid">
+          <stop style="stop-color:#333333;stop-opacity:1;"
+                offset="0"
+                id="stop17212" />
+        </linearGradient>
+        <linearGradient id="linearGradient16854"
+                        inkscape:swatch="solid">
+          <stop style="stop-color:#808080;stop-opacity:1;"
+                offset="0"
+                id="stop16852" />
+        </linearGradient>
+        <marker style="overflow:visible"
+                id="Arrow2Lstart-1"
+                refX="0"
+                refY="0"
+                orient="auto"
+                inkscape:stockid="Arrow2Lstart"
+                inkscape:isstock="true">
+          <path transform="matrix(1.1,0,0,1.1,1.1,0)"
+                d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+                style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.625;stroke-linejoin:round"
+                id="path18378-8" />
+        </marker>
+        <filter inkscape:collect="always"
+                style="color-interpolation-filters:sRGB"
+                id="filter3"
+                x="-0.029714347"
+                y="-0.053576748"
+                width="1.0594287"
+                height="1.1071535">
+          <feGaussianBlur inkscape:collect="always"
+                          stdDeviation="1.5655235"
+                          id="feGaussianBlur3" />
+        </filter>
+        <filter inkscape:collect="always"
+                style="color-interpolation-filters:sRGB"
+                id="filter1"
+                x="-0.010428848"
+                y="-0.036383368"
+                width="1.0208577"
+                height="1.0727667">
+          <feGaussianBlur inkscape:collect="always"
+                          stdDeviation="0.26691317"
+                          id="feGaussianBlur1" />
+        </filter>
+        <filter inkscape:collect="always"
+                style="color-interpolation-filters:sRGB"
+                id="filter4"
+                x="-0.013364164"
+                y="-0.013110071"
+                width="1.0267283"
+                height="1.0262201">
+          <feGaussianBlur inkscape:collect="always"
+                          stdDeviation="0.083221646"
+                          id="feGaussianBlur4" />
+        </filter>
+      </defs>
+
+      <g inkscape:groupmode="layer"
+         id="SLICER"
+         inkscape:label="SLICER">
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="476.25"
+               height="216.95833"
+               xlink:href="assets/svg/custom/SLICER.svg"
+               id="SLICER_VIRGINIA"
+               x="-0.19165668"
+               y="-6.9583349"
+               inkscape:label="SLICER VIRGINIA" />
+      </g>
+
+      <g inkscape:groupmode="layer"
+         id="Motors"
+         inkscape:label="Motors"
+         inkscape:highlight-color="#2c21f3">
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V01.SVG_MOTOR_BASE"
+               id="V01"
+               x="149.94583"
+               y="-451.67065"
+               transform="rotate(90)"
+               inkscape:label="V01" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V01" attributeName="href" [attr.from]="motorList.V01.SVG_MOTOR_BASE" [attr.to]="motorList.V01.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V02.SVG_MOTOR_BASE"
+               id="V02"
+               x="149.94583"
+               y="-401.37088"
+               transform="rotate(90)"
+               inkscape:label="V02" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V02" attributeName="href" [attr.from]="motorList.V02.SVG_MOTOR_BASE" [attr.to]="motorList.V02.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V03.SVG_MOTOR_BASE"
+               id="V03"
+               x="149.94583"
+               y="-351.1001"
+               transform="rotate(90)"
+               inkscape:label="V03" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V03" attributeName="href" [attr.from]="motorList.V03.SVG_MOTOR_BASE" [attr.to]="motorList.V03.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V05.SVG_MOTOR_BASE"
+               id="V05"
+               x="-298.37656"
+               y="-161.64166"
+               transform="scale(-1)"
+               inkscape:label="V05" style="cursor:pointer" (click)="openMotorRevDialogBySVG($event)" />
+        <animate xlink:href="#V05" attributeName="href" [attr.from]="motorList.V05.SVG_MOTOR_BASE" [attr.to]="motorList.V05.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <!-- V04 (nastro superiore) e V06 (nastro inferiore) sono due disegni di un
+         unico motore: il PLC espone solo V04_06 (DB103). Gli id restano quelli
+         del disegno, l'inkscape:label porta il nome del device, cosi' i due
+         gruppi aprono lo stesso popup e si accendono insieme. -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V04_06.SVG_MOTOR_BASE"
+               id="V04"
+               x="-321.25531"
+               y="-161.64166"
+               transform="scale(-1)"
+               inkscape:label="V04_06" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V04" attributeName="href" [attr.from]="motorList.V04_06.SVG_MOTOR_BASE" [attr.to]="motorList.V04_06.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V04_06.SVG_MOTOR_BASE"
+               id="V06"
+               x="285.94583"
+               y="106.02348"
+               inkscape:label="V04_06" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V06" attributeName="href" [attr.from]="motorList.V04_06.SVG_MOTOR_BASE" [attr.to]="motorList.V04_06.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V07.SVG_MOTOR_BASE"
+               id="V07"
+               x="149.94583"
+               y="-263.25864"
+               transform="rotate(90)"
+               inkscape:label="V07" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V07" attributeName="href" [attr.from]="motorList.V07.SVG_MOTOR_BASE" [attr.to]="motorList.V07.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V08.SVG_MOTOR_BASE"
+               id="V08"
+               x="149.94583"
+               y="-209.08366"
+               transform="rotate(90)"
+               inkscape:label="V08" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V08" attributeName="href" [attr.from]="motorList.V08.SVG_MOTOR_BASE" [attr.to]="motorList.V08.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V09.SVG_MOTOR_BASE"
+               id="V09"
+               x="149.94583"
+               y="-153.52115"
+               transform="rotate(90)"
+               inkscape:label="V09" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V09" attributeName="href" [attr.from]="motorList.V09.SVG_MOTOR_BASE" [attr.to]="motorList.V09.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V09_SPINTORE.SVG_MOTOR_BASE"
+               id="V09_SPINTORE"
+               x="60.70927"
+               y="-197.442"
+               transform="rotate(90)"
+               inkscape:label="V09_SPINTORE" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V09_SPINTORE" attributeName="href" [attr.from]="motorList.V09_SPINTORE.SVG_MOTOR_BASE" [attr.to]="motorList.V09_SPINTORE.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V09_BLADE.SVG_MOTOR_BASE"
+               id="V09_BLADE"
+               x="-103.65687"
+               y="27.566628"
+               transform="scale(-1,1)"
+               inkscape:label="V09_BLADE" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V09_BLADE" attributeName="href" [attr.from]="motorList.V09_BLADE.SVG_MOTOR_BASE" [attr.to]="motorList.V09_BLADE.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="10.054167"
+               height="11.641666"
+               [attr.xlink:href]="motorList.V10.SVG_MOTOR_BASE"
+               id="V10"
+               x="-111.98685"
+               y="-136.76538"
+               transform="rotate(-156.92982)"
+               inkscape:label="V10" style="cursor:pointer" (click)="openMotorDialogBySVG($event)" />
+        <animate xlink:href="#V10" attributeName="href" [attr.from]="motorList.V10.SVG_MOTOR_BASE" [attr.to]="motorList.V10.SVG_MOTOR_BASE_ALM" dur="1s" fill="freeze" repeatCount="indefinite" />
+      </g>
+
+      <g inkscape:groupmode="layer"
+         id="Conveyors"
+         inkscape:label="Conveyors">
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436348"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V01_ON"
+               x="425.88666"
+               y="131.71396"
+               inkscape:label="CONVEYOR_V01_ON" *ngIf="motorList.V01.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436241"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V01_OFF"
+               x="425.8866"
+               y="131.714"
+               inkscape:label="CONVEYOR_V01_OFF" *ngIf="!motorList.V01.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436348"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V02_ON"
+               x="375.08664"
+               y="131.71393"
+               inkscape:label="CONVEYOR_V02_ON" *ngIf="motorList.V02.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436241"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V02_OFF"
+               x="375.08673"
+               y="131.71393"
+               inkscape:label="CONVEYOR_V02_OFF" *ngIf="!motorList.V02.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436348"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V03_ON"
+               x="324.81583"
+               y="131.71393"
+               inkscape:label="CONVEYOR_V03_ON" *ngIf="motorList.V03.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436241"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V03_OFF"
+               x="324.81583"
+               y="131.71393"
+               inkscape:label="CONVEYOR_V03_OFF" *ngIf="!motorList.V03.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="31.821434"
+               height="6.7254429"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V04_ON"
+               x="288.67294"
+               y="136.27455"
+               inkscape:label="CONVEYOR_V04_ON" *ngIf="motorList.V04_06.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="31.821524"
+               height="6.725503"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V04_OFF"
+               x="288.67303"
+               y="136.27444"
+               inkscape:label="CONVEYOR_V04_OFF" *ngIf="!motorList.V04_06.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="31.821434"
+               height="6.7254429"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V06_ON"
+               x="288.68777"
+               y="-123.44944"
+               inkscape:label="CONVEYOR_V06_ON"
+               transform="scale(1,-1)" *ngIf="motorList.V04_06.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="31.821524"
+               height="6.725503"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V06_OFF"
+               x="288.68787"
+               y="-123.44952"
+               transform="scale(1,-1)"
+               inkscape:label="CONVEYOR_V06_OFF" *ngIf="!motorList.V04_06.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436348"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V07_ON"
+               x="236.97447"
+               y="131.71393"
+               inkscape:label="CONVEYOR_V07_ON" *ngIf="motorList.V07.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436241"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V07_OFF"
+               x="236.9745"
+               y="131.71393"
+               inkscape:label="CONVEYOR_V07_OFF" *ngIf="!motorList.V07.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436348"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V08_ON"
+               x="187.9673"
+               y="131.71393"
+               inkscape:label="CONVEYOR_V08_ON" *ngIf="motorList.V08.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436241"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V08_OFF"
+               x="187.96741"
+               y="131.71405"
+               inkscape:label="CONVEYOR_V08_OFF" *ngIf="!motorList.V08.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436348"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V09_ON"
+               x="132.08493"
+               y="131.71393"
+               inkscape:label="CONVEYOR_V09_ON" *ngIf="motorList.V09.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="47.436241"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V09_OFF"
+               x="132.08502"
+               y="131.71402"
+               inkscape:label="CONVEYOR_V09_OFF" *ngIf="!motorList.V09.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="84.839355"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4_green.svg"
+               id="CONVEYOR_V10_ON"
+               x="61.095848"
+               y="109.90202"
+               inkscape:label="CONVEYOR_V10_ON"
+               transform="rotate(20.34185)" *ngIf="motorList.V10.RUNNING" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="84.839172"
+               height="11.906249"
+               xlink:href="assets/svg/custom/conveyor4.svg"
+               id="CONVEYOR_V10_OFF"
+               x="61.096016"
+               y="109.90211"
+               inkscape:label="CONVEYOR_V10_OFF"
+               transform="rotate(20.34185)" *ngIf="!motorList.V10.RUNNING" />
+      </g>
+
+      <g inkscape:groupmode="layer"
+         id="Label Motors"
+         inkscape:label="Label Motors"
+         transform="matrix(0.26458333,0,0,0.26458333,-155,10.000002)"
+         inkscape:highlight-color="#5eb664">
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="2263.2854"
+              y="589.85162"
+              id="LBL_V01_MOTOR"
+              inkscape:label="LBL_V01_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                           style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                           x="2263.2854"
+                                                                                           y="589.85162"
+                                                                                           id="tspan583-2-8-2" [attr.style]="motorList.V01.LabelStyle">V01</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="2073.0266"
+              y="589.93079"
+              id="LBL_V02_MOTOR"
+              inkscape:label="LBL_V02_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                           style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                           x="2073.0266"
+                                                                                           y="589.93079"
+                                                                                           id="tspan583-2-8-2-7" [attr.style]="motorList.V02.LabelStyle">V02</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="1883.0906"
+              y="589.83636"
+              id="LBL_V03_MOTOR"
+              inkscape:label="LBL_V03_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                           style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                           x="1883.0906"
+                                                                                           y="589.83636"
+                                                                                           id="tspan583-2-8-2-7-2" [attr.style]="motorList.V03.LabelStyle">V03</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="1773.0148"
+              y="598.51373"
+              id="LBL_V04_MOTOR"
+              inkscape:label="LBL_V04_06_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                              style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                              x="1773.0148"
+                                                                                              y="598.51373"
+                                                                                              id="tspan583-2-8-2-7-2-7" [attr.style]="motorList.V04_06.LabelStyle">V04</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="1687.1548"
+              y="598.41931"
+              id="LBL_V05_MOTOR"
+              inkscape:label="LBL_V05_MOTOR" (click)="openMotorRevDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                              style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                              x="1687.1548"
+                                                                                              y="598.41931"
+                                                                                              id="tspan583-2-8-2-7-2-7-7" [attr.style]="motorList.V05.LabelStyle">V05</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="1704.567"
+              y="389.29132"
+              id="LBL_V06_MOTOR"
+              inkscape:label="LBL_V04_06_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                              style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                              x="1704.567"
+                                                                                              y="389.29132"
+                                                                                              id="tspan583-2-8-2-7-2-7-7-2" [attr.style]="motorList.V04_06.LabelStyle">V06</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="1549.0144"
+              y="589.83636"
+              id="LBL_V07_MOTOR"
+              inkscape:label="LBL_V07_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                           style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                           x="1549.0144"
+                                                                                           y="589.83636"
+                                                                                           id="tspan583-2-8-2-7-2-7-7-2-3" [attr.style]="motorList.V07.LabelStyle">V07</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="1344.9718"
+              y="589.62933"
+              id="LBL_V08_MOTOR"
+              inkscape:label="LBL_V08_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                           style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                           x="1344.9718"
+                                                                                           y="589.62933"
+                                                                                           id="tspan583-2-8-2-7-2-7-7-2-3-6" [attr.style]="motorList.V08.LabelStyle">V08</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="1137.0114"
+              y="589.63239"
+              id="LBL_V09_MOTOR"
+              inkscape:label="LBL_V09_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                           style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                           x="1137.0114"
+                                                                                           y="589.63239"
+                                                                                           id="tspan583-2-8-2-7-2-7-7-2-3-6-0-4" [attr.style]="motorList.V09.LabelStyle">V09</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="1341.7323"
+              y="215.43306"
+              id="LBL_V09_SPINTORE_MOTOR"
+              inkscape:label="LBL_V09_SPINTORE_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                                    style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                                    x="1341.7323"
+                                                                                                    y="215.43306"
+                                                                                                    id="tspan583-2-8-2-7-2-7-7-2-3-6-0-4-3-5-2" [attr.style]="motorList.V09_SPINTORE.LabelStyle">SPINTORE</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="927.6908"
+              y="53.319603"
+              id="LBL_V09_BLADE_MOTOR"
+              inkscape:label="LBL_V09_BLADE_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                                 style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                                 x="927.6908"
+                                                                                                 y="53.319603"
+                                                                                                 id="tspan583-2-8-2-7-2-7-7-2-3-6-0-4-3-5-2-0" [attr.style]="motorList.V09_BLADE.LabelStyle">BLADE</tspan></text>
+        <text xml:space="preserve"
+              style="cursor:pointer;font-weight:normal;font-size:12.4724px;line-height:1.25;font-family:sans-serif;display:inline;stroke-width:0.999999"
+              x="791.0304"
+              y="585.19562"
+              id="LBL_V10_MOTOR"
+              inkscape:label="LBL_V10_MOTOR" (click)="openMotorDialogBySVG($event)"><tspan sodipodi:role="line"
+                                                                                           style="font-weight:normal;font-size:12.4724px;stroke-width:0.999999"
+                                                                                           x="791.0304"
+                                                                                           y="585.19562"
+                                                                                           id="tspan583-2-8-2-7-2-7-7-2-3-6-0" [attr.style]="motorList.V10.LabelStyle">V10</tspan></text>
+      </g>
+
+      <g inkscape:groupmode="layer"
+         id="Fotocellule"
+         inkscape:label="Fotocellule"
+         inkscape:highlight-color="#35f38a">
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VISC_V01_PE_ON"
+               x="447.53833"
+               y="146.18393"
+               style="display:inline"
+               inkscape:label="VISC_V01_PE_ON"
+               *ngIf="slicer.BALE_ON_CONV_1" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VISC_V01_PE_OFF"
+               x="447.53833"
+               y="146.18381"
+               style="display:inline"
+               inkscape:label="VISC_V01_PE_OFF"
+               *ngIf="!slicer.BALE_ON_CONV_1" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VISC_V02_PE_ON"
+               x="396.73825"
+               y="146.18413"
+               style="display:inline"
+               inkscape:label="VISC_V02_PE_ON"
+               *ngIf="slicer.BALE_ON_CONV_2" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VISC_V02_PE_OFF"
+               x="396.73825"
+               y="146.18401"
+               style="display:inline"
+               inkscape:label="VISC_V02_PE_OFF"
+               *ngIf="!slicer.BALE_ON_CONV_2" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VISC_V02_PE_ON-2"
+               x="346.46744"
+               y="146.18413"
+               style="display:inline"
+               inkscape:label="VISC_V03_PE_ON"
+               *ngIf="slicer.BALE_ON_CONV_3" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VISC_V03_PE_OFF"
+               x="346.46744"
+               y="146.18401"
+               style="display:inline"
+               inkscape:label="VISC_V03_PE_OFF"
+               *ngIf="!slicer.BALE_ON_CONV_3" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VISC_V04_PE_ON"
+               x="308.89676"
+               y="146.18413"
+               style="display:inline"
+               inkscape:label="VISC_V04_PE_ON"
+               *ngIf="slicer.BALE_ON_INV_1" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VISC_V04_PE_OFF"
+               x="308.89676"
+               y="146.18401"
+               style="display:inline"
+               inkscape:label="VISC_V04_PE_OFF"
+               *ngIf="!slicer.BALE_ON_INV_1" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VISC_V06_PE_ON"
+               x="295.66763"
+               y="146.18413"
+               style="display:inline"
+               inkscape:label="VISC_V06_PE_ON"
+               *ngIf="slicer.BALE_ON_INV_2" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VISC_V06_PE_OFF"
+               x="295.66763"
+               y="146.18401"
+               style="display:inline"
+               inkscape:label="VISC_V06_PE_OFF"
+               *ngIf="!slicer.BALE_ON_INV_2" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VISC_V07_PE_ON"
+               x="258.62616"
+               y="146.18413"
+               style="display:inline"
+               inkscape:label="VISC_V07_PE_ON"
+               *ngIf="slicer.BALE_ON_CONV_4" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VISC_V07_PE_OFF"
+               x="258.62616"
+               y="146.18401"
+               style="display:inline"
+               inkscape:label="VISC_V07_PE_OFF"
+               *ngIf="!slicer.BALE_ON_CONV_4" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VISC_V08_PE_ON"
+               x="209.61897"
+               y="146.18413"
+               style="display:inline"
+               inkscape:label="VISC_V08_PE_ON"
+               *ngIf="slicer.BALE_ON_CONV_5" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VISC_V08_PE_OFF"
+               x="209.61897"
+               y="146.18401"
+               style="display:inline"
+               inkscape:label="VISC_V08_PE_OFF"
+               *ngIf="!slicer.BALE_ON_CONV_5" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VSL_WBelt_PE_ON"
+               x="153.73665"
+               y="146.1839"
+               style="display:inline"
+               inkscape:label="VSL_WBelt_PE_ON"
+               *ngIf="slicer.BALE_ON_WEIGH_BELT" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VSL_WBelt_PE_OFF"
+               x="153.73665"
+               y="146.18378"
+               style="display:inline"
+               inkscape:label="VSL_WBelt_PE_OFF"
+               *ngIf="!slicer.BALE_ON_WEIGH_BELT" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VISC_V08_PE_ON-1-3"
+               x="125.27889"
+               y="146.18396"
+               style="display:inline"
+               inkscape:label="VSL_SBelt_PE_ON"
+               *ngIf="slicer.BALE_ON_SLICER_BELT" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VSL_SBelt_PE_OFF"
+               x="125.27889"
+               y="146.18384"
+               style="display:inline"
+               inkscape:label="VSL_SBelt_PE_OFF"
+               *ngIf="!slicer.BALE_ON_SLICER_BELT" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VSL_Pushr_PE_Clr_ON"
+               x="125.27895"
+               y="135.60056"
+               style="display:inline"
+               inkscape:label="VSL_Pushr_PE_Clr_ON"
+               *ngIf="slicer.PUSHER_PATH_CLEAR" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VSL_Pushr_PE_Clr_OFF"
+               x="125.27895"
+               y="135.60043"
+               style="display:inline"
+               inkscape:label="VSL_Pushr_PE_Clr_OFF"
+               *ngIf="!slicer.PUSHER_PATH_CLEAR" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1329999"
+               height="4.1329999"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="VSL_SBelt_PE_Lg_ON"
+               x="90.353905"
+               y="146.18396"
+               style="display:inline"
+               inkscape:label="VSL_SBelt_PE_Lg_ON"
+               *ngIf="slicer.BALE_IN_MEASURING_POS" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.1331277"
+               height="4.1331277"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="VSL_Pushr_PE_Clr_OFF-2"
+               x="90.353905"
+               y="146.18384"
+               style="display:inline"
+               inkscape:label="VSL_SBelt_PE_Lg_OFF"
+               *ngIf="!slicer.BALE_IN_MEASURING_POS" />
+      </g>
+
+      <g inkscape:groupmode="layer"
+         id="Warnings"
+         inkscape:label="Warnings"
+         inkscape:highlight-color="#f321da">
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V01"
+               x="452.70932"
+               y="152.47292"
+               inkscape:label="warning_V01" *ngIf="motorList.V01.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V02"
+               x="401.90945"
+               y="152.47292"
+               inkscape:label="warning_V02" *ngIf="motorList.V02.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V03"
+               x="351.63876"
+               y="152.47292"
+               inkscape:label="warning_V03" *ngIf="motorList.V03.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V04"
+               x="307.05423"
+               y="158.59756"
+               inkscape:label="warning_V04" *ngIf="motorList.V04_06.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V05"
+               x="297"
+               y="158.59756"
+               inkscape:label="warning_V05" *ngIf="motorList.V05.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V06"
+               x="295.60843"
+               y="101.88157"
+               inkscape:label="warning_V06" *ngIf="motorList.V04_06.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V07"
+               x="264.32639"
+               y="152.47292"
+               inkscape:label="warning_V07" *ngIf="motorList.V07.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V08"
+               x="210.35136"
+               y="152.47292"
+               inkscape:label="warning_V08" *ngIf="motorList.V08.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V09"
+               x="154.78877"
+               y="152.47292"
+               inkscape:label="warning_V09" *ngIf="motorList.V09.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V09_SPINTORE"
+               x="197.5419"
+               y="57.5839"
+               inkscape:label="warning_V09_SPINTORE" *ngIf="motorList.V09_SPINTORE.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V09_BLADE"
+               x="103.33662"
+               y="25.066628"
+               inkscape:label="warning_V09_BLADE" *ngIf="motorList.V09_BLADE.HasBypass" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="4.9999995"
+               height="4.9999995"
+               xlink:href="assets/svg/custom/warning.svg"
+               id="warning_V10"
+               x="38.338905"
+               y="165.46312"
+               inkscape:label="warning_V10" *ngIf="motorList.V10.HasBypass" />
+      </g>
+
+      <g inkscape:groupmode="layer"
+         id="layer_Spintore"
+         inkscape:label="Spintore"
+         style="display:inline"
+         transform="translate(100.00001,20.000017)">
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="64.261894"
+               height="37.913391"
+               xlink:href="assets/svg/custom/slicer_spintore.svg"
+               id="spintore"
+               x="40.57378"
+               y="78.095993"
+               inkscape:label="spintore" />
+      </g>
+
+      <g inkscape:groupmode="layer"
+         id="layer_Ritentore"
+         inkscape:label="Ritentore"
+         style="display:inline"
+         transform="translate(100,3.274241)">
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="70.969986"
+               height="65.422256"
+               xlink:href="assets/svg/custom/slicer_ritentore.svg"
+               id="ritentore"
+               x="-74.602249"
+               y="75.917503"
+               inkscape:label="ritentore" />
+      </g>
+
+      <g inkscape:groupmode="layer"
+         id="Maschera_Weight_Belt"
+         inkscape:label="Maschera_Weight_Belt"
+         inkscape:highlight-color="#35f3e8"
+         transform="translate(1.6920447e-4,1.5966773e-4)">
+        <rect style="fill:#cdc5b1;fill-opacity:0;fill-rule:evenodd;stroke:#c13fe4;stroke-width:0.274416;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              id="rect2-5-34"
+              width="33.180477"
+              height="9.5354214"
+              x="231.81966"
+              y="92.232132"
+              ry="0.39024335" />
+        <rect style="fill:#ee8ed8;fill-opacity:0.701794;fill-rule:evenodd;stroke:#c13fe4;stroke-width:0.242955;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:0;paint-order:stroke fill markers"
+              id="rect2-5-34-3"
+              width="30.999992"
+              height="8.000001"
+              x="232.99983"
+              y="92.99984"
+              ry="0.32740521" />
+        <rect style="fill:#ee8ed8;fill-opacity:0.701794;fill-rule:evenodd;stroke:#c13fe4;stroke-width:0.193262;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:0;paint-order:stroke fill markers"
+              id="rect2-5-34-3-2"
+              width="30.999987"
+              height="5.0621457"
+              x="232.99983"
+              y="104.46877"
+              ry="0.2071716" />
+        <rect style="fill:#cdc5b1;fill-opacity:0;fill-rule:evenodd;stroke:#c13fe4;stroke-width:0.227767;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              id="rect2-5-34-0"
+              width="33.20351"
+              height="6.5643978"
+              x="231.79633"
+              y="103.71764"
+              ry="0.26865223" />
+        <ellipse style="fill:#dfa1f2;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.772354;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+                 id="path14"
+                 cx="173.64571"
+                 cy="137.66699"
+                 rx="1.9308838"
+                 ry="1.9308851" />
+        <path style="fill:#ec7878;fill-opacity:0;fill-rule:evenodd;stroke:#e0a1f2;stroke-width:0.543968;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              d="m 173.86043,137.72645 h 11.09131 v -24.72661 h 92.0481"
+              id="path15"
+              sodipodi:nodetypes="cccc" />
+        <rect style="fill:#ffffff;fill-opacity:0;fill-rule:evenodd;stroke:#e0a0f2;stroke-width:1.337;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              id="VIEW_TERMOMETRO"
+              width="84.000008"
+              height="24.674528"
+              x="192.99983"
+              y="89.858147"
+              inkscape:label="VIEW_WEIGHT_BELT"
+              ry="1.1036476" />
+        <rect style="mix-blend-mode:normal;fill:#ffffff;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.304302;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;filter:url(#filter1)"
+              id="FRAME_VIEW_WEIGHT_BELT"
+              width="76.014397"
+              height="21.788599"
+              x="193.35059"
+              y="92.364197"
+              inkscape:label="FRAME_VIEW_WEIGHT_BELT"
+              ry="0.78763646"
+              transform="matrix(1.0919978,0,0,1.0847011,-17.665675,-9.8218227)" />
+        <!-- Bilancia del nastro pesatore: icona e cornice aprono il popup dell'ingresso
+         analogico VSL_WBelt_LC (DB101 - AI[56], cella di carico). Il nome dell'AI lo
+         ricava l'handler dall'inkscape:label, che va percio' scritto come
+         ICON_<nome AI> su tutti e due gli elementi. -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="20.293684"
+               height="20.778463"
+               xlink:href="assets/svg/custom/scale.svg"
+               id="SCALE_IMG"
+               x="195.1839"
+               y="91.694717"
+               style="cursor:pointer"
+               inkscape:label="ICON_VSL_WBelt_LC" (click)="openAnalogDialogBySVG($event)" />
+        <rect style="fill:#ffffff;fill-opacity:0;fill-rule:evenodd;stroke:#e0a0f2;stroke-width:0.502746;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;cursor:pointer"
+              id="rect3"
+              width="21.338179"
+              height="21.84831"
+              x="194.66165"
+              y="91.15979"
+              ry="1.0132847"
+              inkscape:label="ICON_VSL_WBelt_LC" (click)="openAnalogDialogBySVG($event)" />
+        <path style="fill:#ffffff;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.08;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              d="m 175.59924,137.45088 h 8.23767"
+              id="path4" />
+        <path style="fill:#ffffff;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.08;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              d="M 184.40393,137.40909 V 113.30062"
+              id="path4-8" />
+        <!-- Ombra della cornice: sta sopra a tutto e coprirebbe l'icona, quindi
+         non deve intercettare i click. -->
+        <rect style="fill:#e2ce9c;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.0997604;stroke-linecap:square;stroke-miterlimit:2;stroke-opacity:1;paint-order:stroke fill markers;filter:url(#filter4);pointer-events:none"
+              id="rect4"
+              width="18.677723"
+              height="19.039724"
+              x="194.83614"
+              y="93.69828"
+              ry="0.70742905"
+              transform="matrix(1.1213647,0,0,1.1213647,-23.625061,-13.715199)" />
+      </g>
+      <g inkscape:groupmode="layer"
+         id="Label_Weight_Belt"
+         inkscape:label="Label Weight Belt"
+         inkscape:highlight-color="#35f3e8"
+         transform="translate(1.6920447e-4,1.5966773e-4)">
+        <text xml:space="preserve"
+              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.36334px;line-height:1.15;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;display:inline;stroke-width:0.430022"
+              x="246.42857"
+              y="99.71769"
+              id="TXT_WEIGHT_BELT"
+              inkscape:label="TXT_WEIGHT_BELT"
+              transform="scale(1.0079109,0.99215119)"><tspan sodipodi:role="line"
+                                                             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.36334px;line-height:1.15;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.430022"
+                                                             x="246.42857"
+                                                             y="99.71769"
+                                                             id="tspan8-6-9-6-8-5-7-2-1-3-7-38-3-8-5-1-6">{{slicer.BELT_WEIGHT}}</tspan></text>
+        <text xml:space="preserve"
+              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.43966px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;stroke-width:0.436143"
+              x="229.27733"
+              y="93.934555"
+              id="LBL_WEIGHT_BELT"
+              inkscape:label="LBL_WEIGHT_BELT"
+              transform="scale(0.94864267,1.0541377)"><tspan sodipodi:role="line"
+                                                             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.43966px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.436143"
+                                                             x="229.27733"
+                                                             y="93.934555"
+                                                             id="tspan8-6-9-6-8-5-7-2-1-3-7-38-3-8-5-7-9">Peso:</tspan></text>
+        <text xml:space="preserve"
+              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.43966px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;stroke-width:0.436143"
+              x="282.33884"
+              y="93.455132"
+              id="UM_WEIGHT_BELT"
+              inkscape:label="UM_WEIGHT_BELT"
+              transform="scale(0.94864267,1.0541377)"><tspan sodipodi:role="line"
+                                                             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.43966px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.436143"
+                                                             x="282.33884"
+                                                             y="93.455132"
+                                                             id="tspan8-6-9-6-8-5-7-2-1-3-7-38-3-8-5-7-9-5">kg</tspan></text>
+        <text xml:space="preserve"
+              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.66681px;line-height:1.15;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;display:inline;stroke-width:0.374176"
+              x="246.48149"
+              y="109.46928"
+              id="TXT_WB_TOTALIZER"
+              inkscape:label="TXT_WB_TOTALIZER"
+              transform="scale(1.0079109,0.99215119)"><tspan sodipodi:role="line"
+                                                             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.66681px;line-height:1.15;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.374176"
+                                                             x="246.48149"
+                                                             y="109.46928"
+                                                             id="tspan8-6-9-6-8-5-7-2-1-3-7-38-3-8-5-1-6-2">{{slicer.TOTALIZER}}</tspan></text>
+        <text xml:space="preserve"
+              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.43966px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;stroke-width:0.436143"
+              x="234.00797"
+              y="103.44888"
+              id="LBL_..._WEIGHT_CONVEYOR_B46-5-2-0"
+              inkscape:label="LBL_TOTALIZER_WB"
+              transform="scale(0.94864267,1.0541377)"><tspan sodipodi:role="line"
+                                                             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.43966px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.436143"
+                                                             x="234.00797"
+                                                             y="103.44888"
+                                                             id="tspan8-6-9-6-8-5-7-2-1-3-7-38-3-8-5-7-9-3">Tot:</tspan></text>
+      </g>
+      <g inkscape:groupmode="layer"
+         id="Maschera_Produzione"
+         inkscape:label="Maschera_Produzione"
+         inkscape:highlight-color="#e57bf7">
+        <rect style="fill:#f4d68a;fill-opacity:0.150943;fill-rule:evenodd;stroke:#f3d68b;stroke-width:1.39593;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              id="rect1"
+              width="136.395"
+              height="107.396087"
+              x="334.00125"
+              y="4.7450395"
+              ry="2.0183308"
+              rx="2.0183308" />
+        <rect style="mix-blend-mode:normal;fill:#cdc5b1;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.550196;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;filter:url(#filter3)"
+              id="rect1-1"
+              width="134.80618"
+              height="93.156302"
+              x="334.00049"
+              y="20.000498"
+              ry="1.7609729"
+              transform="matrix(1.0117933,0,0,1.1818645,-4.9416385,-20.042247)"
+              rx="2.0340192" />
+        <!--
+      FINESTRA PRODUZIONE
+
+      Sostituisce i riquadri e le etichette che erano disegnati in Inkscape (layer
+      "Label Produzione" e i rect dentro Maschera_Produzione): stessi dati, ma in
+      HTML dentro un <foreignObject>, come i pannelli impostazioni di silo-fill.
+      Cosi' e' l'SVG a scalarlo e il pannello segue il sinottico quando si
+      ridimensiona, senza JavaScript. Della finestra disegnata resta la cornice.
+
+      Stessa tabella PARAMETRO / ATTUALE / NUOVO / OK dei pannelli di silo-fill e
+      del popup SettingCasingComponent. Le quattro righe di sola lettura riempiono la
+      colonna ATTUALE e lasciano vuote NUOVO e OK, cosi' i valori restano incolonnati
+      sotto la stessa intestazione invece di spostarsi da una riga all'altra.
+
+      Geometria (da rifare se si ridisegna la cornice rect1):
+        rect1  = 136,395 x 107,396087 in x=334,00125 y=4,7450395
+        scale  = (136,395 - 3) / 460          = 0,28998913
+        height = (107,396087 - 3) / 0,28998913 = 360
+      I 3 sono l'inset che tiene il pannello dentro il bordo (stroke 1,39593), e il
+      translate del <g> e' l'angolo della cornice piu' meta' inset (1,5).
+      26/08/2026: cornice spostata in alto e allungata da 75,063423 a 86,702324 per
+      far posto alla riga del modo di taglio; le misure arrivano da SLICER_VIRGINIA.svg
+      e valgono anche per la pagina Burley, il cui disegno non e' stato aggiornato.
+      27/08/2026: allungata di nuovo, da 86,702324 a 107,396087, per le due righe del
+      reset contatori e del registro pesate (il rect1-1 dell ombra segue la cornice: ha
+      un transform che scala y di 1,1818645, per questo il suo height non e lo stesso).
+      Sotto la cornice c e spazio libero fino a y=123 circa, dove comincia la linea dei
+      nastri: se servissero altre righe, e di li che si prende lo spazio.
+
+      Il setpoint di portata (V71 Virginia / V371 Burley) si digita nella colonna
+      NUOVO e si conferma con OK, con log del parametro prima della scrittura; in
+      ATTUALE resta il valore attivo sul PLC, che il disegno mostrava alla voce
+      "SP portata oraria:" e che la versione precedente di questo pannello aveva
+      perso sostituendolo con la sola casella di scrittura.
+    -->
+        <g transform="translate(335.50125,6.2450395) scale(0.28998913)">
+          <foreignObject x="0"
+                         y="0"
+                         width="460"
+                         height="360">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="slicer-settings-panel">
+              <div class="section-title"><h5>PRODUZIONE</h5></div>
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered card-table">
+                  <thead>
+                    <tr>
+                      <th>PARAMETRO</th>
+                      <th>ATTUALE</th>
+                      <th>NUOVO</th>
+                      <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- V71: unico parametro scrivibile della finestra -->
+                    <tr>
+                      <td>SP portata oraria</td>
+                      <td>{{slicer.FLOW_RATE_SETPOINT}} kg/h</td>
+                      <td class="text-right">
+                        <input type="number" class="form-control" [(ngModel)]="newFlowRateSetpoint" />
+                      </td>
+                      <td class="text-right">
+                        <button class="btn btn-success" type="button" (click)="onFlowRateSetpointConfirm()">OK</button>
+                      </td>
+                    </tr>
+                    <!-- Letture dal PLC: niente da impostare, NUOVO e OK restano vuote -->
+                    <tr>
+                      <td>Numero casse</td>
+                      <td>{{slicer.BOX_COUNT}}</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Peso medio casse</td>
+                      <td>{{slicer.BOX_AVG_WEIGHT}} Kg</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Flusso attuale</td>
+                      <td>{{slicer.FLOW_RATE}} Kg/h</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Numero tagli</td>
+                      <td>{{slicer.CUT_COUNT}}</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <!-- C1500: modo di taglio, lo stesso bit della pagina Parametri.
+                         Lo switcher scrive subito, quindi occupa NUOVO e OK insieme
+                         invece di lasciare una cella vuota accanto a un comando attivo. -->
+                    <tr>
+                      <td>Modo di taglio</td>
+                      <td>
+                        <span [ngClass]="{'badge': true,
+                                          'badge-info': cutModeOn,
+                                          'badge-secondary': !cutModeOn}">{{cutModeTxt}}</span>
+                      </td>
+                      <td class="text-center" colspan="2">
+                        <label class="switcher switcher-info">
+                          <input type="checkbox" class="switcher-input"
+                                 [checked]="cutModeOn"
+                                 (change)="onCutModeToggle($event.target.checked)" />
+                          <span class="switcher-indicator">
+                            <span class="switcher-yes"></span>
+                            <span class="switcher-no"></span>
+                          </span>
+                        </label>
+                      </td>
+                    </tr>
+                    <!-- V79 (totalizzatore) e V90 (numero casse): i due contatori di linea
+                         che l'operatore azzera a inizio lotto. Il RESET li scrive a zero
+                         insieme, dopo la conferma nella finestra swal, e occupano NUOVO
+                         e OK: non c'e' un valore da digitare. In ATTUALE il totalizzatore,
+                         che e' l'unico dei due a non avere gia' una riga sua. -->
+                    <tr>
+                      <td>Reset totalizzatore e numero casse</td>
+                      <td>{{slicer.TOTALIZER}} Kg</td>
+                      <td class="text-center" colspan="2">
+                        <!-- Il RESET non scrive subito: chiede conferma con la stessa
+                             finestra dei comandi globali della navbar (vedi
+                             global-cmd-plate). L'azzeramento parte dal (confirm). -->
+                        <button [swal]="{title:'Azzerare i contatori di linea?', text:'Totalizzatore e numero casse tornano a zero: i valori attuali non si recuperano!', icon:'warning', showCancelButton:true, confirmButtonText:'Sì, azzera!', cancelButtonText:'Annulla', showCloseButton:true, customClass: {confirmButton:'btn btn-lg btn-warning',cancelButton: 'btn btn-lg btn-default'}}"
+                                (confirm)="onResetTotalizerAndBoxCount()"
+                                class="btn btn-warning" type="button">RESET</button>
+                      </td>
+                    </tr>
+                    <!-- Registro delle pesate casse: non e' un valore del PLC ma l'archivio
+                         scritto da SlicerWeighingTask (tabella SlicerWeighings), quindi la
+                         riga ha il solo pulsante che apre la maschera, filtrabile per data. -->
+                    <tr>
+                      <td>Registro pesate casse</td>
+                      <td></td>
+                      <td class="text-center" colspan="2">
+                        <button class="btn btn-primary" type="button" (click)="openWeighingsDialog()">APRI</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </foreignObject>
+        </g>
+      </g>
+
+      <!-- Maschera del consenso di linea: la coppia verde/grigio funziona come le
+       fotocellule, si vede solo l'elemento che corrisponde allo stato. Il consenso
+       e' il bit CX del PLC (VSL_CX = DB121.dbx0.3, BSL_CX = DB121.dbx0.4), letto
+       dal modello: true = consenso attivo (verde), false = consenso assente (grigio). -->
+      <g inkscape:groupmode="layer"
+         id="layer3"
+         inkscape:label="Maschera_Consenso"
+         inkscape:highlight-color="#5ac97b">
+        <rect style="fill:#c2c2c2;fill-opacity:0.793722;fill-rule:evenodd;stroke:#787878;stroke-width:1.20823;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              id="RECT_CONSENSO_OFF"
+              width="60"
+              height="11.339063"
+              x="218.40833"
+              y="16.441988"
+              ry="0.30488855"
+              inkscape:label="RECT_CONSENSO_OFF"
+              *ngIf="!slicer.LINE_CONSENT" />
+        <rect style="fill:#99ffbb;fill-opacity:0.59641254;fill-rule:evenodd;stroke:#209447;stroke-width:1.20823;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+              id="RECT_CONSENSO_ON"
+              width="60"
+              height="11.339063"
+              x="218.40833"
+              y="16.441988"
+              ry="0.30488855"
+              inkscape:label="RECT_CONSENSO_ON"
+              *ngIf="slicer.LINE_CONSENT" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="9.2769699"
+               height="9.2769699"
+               xlink:href="assets/svg/groov/compass_background_grey.svg"
+               id="CONSENSO_OFF"
+               x="267.10098"
+               y="17.473034"
+               inkscape:label="CONSENSO_OFF"
+               *ngIf="!slicer.LINE_CONSENT" />
+        <text xml:space="preserve"
+              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.7826px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;stroke-width:0.303282"
+              x="232.46811"
+              y="22.258028"
+              id="LBL_CONSENSO"
+              inkscape:label="LBL_CONSENSO"
+              transform="scale(0.94864267,1.0541377)"><tspan sodipodi:role="line"
+                                                             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.7826px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.303282"
+                                                             x="232.46811"
+                                                             y="22.258028"
+                                                             id="tspan8-6-9-6-8-5-7-2-1-3-7-38-3-8-5-61">Consenso Slicer Virginia</tspan></text>
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="9.2770004"
+               height="9.2770004"
+               xlink:href="assets/svg/groov/compass_background_green.svg"
+               id="CONSENSO_ON"
+               x="267.10095"
+               y="17.473019"
+               inkscape:label="CONSENSO_ON"
+               *ngIf="slicer.LINE_CONSENT" />
+      </g>
+      <!-- SELETTORE -->
+      <g inkscape:groupmode="layer"
+         id="layer4"
+         inkscape:label="Selettore"
+         transform="translate(4.4055176e-4,-3.0029297e-4)">
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="7.7541695"
+               height="7.7541695"
+               xlink:href="assets/svg/custom/TwoPosToggl_ON.svg"
+               id="image1"
+               x="189.92656"
+               y="143.6203"
+               style="stroke-width:10.9188"
+               *ngIf="slicer.SELETTORE" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="7.7541695"
+               height="7.7541695"
+               xlink:href="assets/svg/custom/TwoPosToggle_OFF.svg"
+               id="image1-8"
+               x="189.92656"
+               y="143.6203"
+               style="stroke-width:10.9188"
+               *ngIf="!slicer.SELETTORE" />
+      </g>
+
+    </svg>
+
+
+
+
+  </div>
+</div>
+

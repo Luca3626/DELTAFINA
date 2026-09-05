@@ -1,0 +1,1024 @@
+<h4 class="font-weight-bold py-3 mb-4 cabinet-title" style="padding-top: 0px !important; border-bottom: 2px solid #696b6e;">
+  <span class="cabinet-title-left">
+    <span class="cabinet-title-text">Cabinets - Quadri elettrici</span>
+
+    <!-- Testata standard delle pagine sinottiche (vedi zona-2-1.component.html).
+         Qui non ci sono ancora il pulsante "Comandi" ne' i badge di zona: i quadri
+         non hanno tag sul PLC. Quando arriveranno, si copiano da li' il blocco
+         <span class="zone-cmd"> e le classi .zone-cmd* del foglio di stile. -->
+  </span>
+
+  <!-- Colonna centrale: libera, ospitera' il feedback cumulativo dei quadri. -->
+  <span class="cabinet-title-center"></span>
+
+  <!-- Colonna di destra: lo switcher che mostra/nasconde le etichette dei quadri
+       (sigla sul fronte e sulla pianta). -->
+  <span class="cabinet-title-right">
+    <label class="switcher">
+      <input type="checkbox" class="switcher-input" [(ngModel)]="showName">
+      <span class="switcher-indicator">
+        <span class="switcher-yes"></span>
+        <span class="switcher-no"></span>
+      </span>
+      <span class="switcher-label">Mostra Nomi</span>
+    </label>
+  </span>
+</h4>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <!-- Riferimento per gli eventuali pulsanti HTML sovrapposti al sinottico: le
+         percentuali si calcolano su questo div, che avvolge SOLO il disegno. -->
+    <div style="position:relative;">
+
+    <!-- Sinottico dei quadri elettrici: export Inkscape di Docs/HMI/Cabinets/CABINETS.svg.
+         Rispetto al file di disegno: via dichiarazione XML, xmlns e <sodipodi:namedview>,
+         e le immagini dei quadri puntano ad assets/ invece che al percorso relativo del
+         disegno (il binding sta su getCabinetImg, vedi cabinet.component.ts).
+         Layer: FRAME (cornici delle file), EMPTY CABINET (posti vuoti), CABINET (i quadri),
+         ETICHETTE CABINET (sigle sul fronte), TOP VIEW (pianta), TOP VIEW LABELS (sigle in pianta). -->
+    <svg width="1800"
+         height="820"
+         viewBox="0 0 476.24994 216.95831"
+         version="1.1"
+         id="svg1"
+         xml:space="preserve">
+
+      <defs id="defs1">
+        <rect x="957.08362"
+              y="2142.7246"
+              width="329.27792"
+              height="62.040482"
+              id="rect10" />
+        <rect x="968.95801"
+              y="2111.7571"
+              width="352.76926"
+              height="176.59238"
+              id="rect9" />
+        <rect x="1015.5486"
+              y="2111.957"
+              width="227.23163"
+              height="102.19164"
+              id="rect8" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-8" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-8-6" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-5" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-5-3" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-5-3-8" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-8-6-7" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-8-5" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-5-9" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-5-3-8-7" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-5-3-8-7-3" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-5-3-8-7-3-4" />
+        <rect x="1214.2104"
+              y="1285.6346"
+              width="142.8483"
+              height="142.8483"
+              id="rect6-5-3-8-7-3-4-5" />
+      </defs>
+
+      <!-- CORNICI DELLE QUATTRO FILE E NUMERO DI FILA -->
+      <g inkscape:groupmode="layer"
+         id="layer5"
+         inkscape:label="FRAME"
+         inkscape:highlight-color="#f33535">
+        <rect style="fill:#d4d9da;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:3.552, 3.552;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="rect2"
+              width="174"
+              height="72.106125"
+              x="4.9999938"
+              y="31.458332"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="LINE_1_FRAME" />
+        <rect style="fill:#d4d9da;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:3.552, 3.552;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="LINE_2_FRAME"
+              width="175"
+              height="72.106125"
+              x="185.4375"
+              y="31.458332"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="LINE_2_FRAME" />
+        <rect style="fill:#d4d9da;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:3.552, 3.552;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="LINE_3_FRAME"
+              width="175"
+              height="72.106125"
+              x="5"
+              y="110.83332"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="LINE_3_FRAME" />
+        <rect style="fill:#d4d9da;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:3.552, 3.552;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="LINE_4_FRAME"
+              width="175"
+              height="72.106125"
+              x="185.4375"
+              y="110.83332"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="LINE_4_FRAME" />
+        <rect style="fill:#d4d9da;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_FRAME"
+              width="195.00002"
+              height="101.05309"
+              x="10.000001"
+              y="-475.00009"
+              rx="5.5199138e-07"
+              ry="5.5199138e-07"
+              transform="rotate(90)"
+              inkscape:label="TOP_VIEW_FRAME" />
+        <text xml:space="preserve"
+              style="font-size:8.43272px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+              x="8.000001"
+              y="38.458336"
+              id="LINE_1_NUMBER"
+              inkscape:label="LINE_1_NUMBER"><tspan sodipodi:role="line"
+                                                    id="tspan7-7"
+                                                    style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                    x="8.000001"
+                                                    y="38.458336">1</tspan></text>
+        <text xml:space="preserve"
+              style="font-size:8.43272px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+              x="188.08884"
+              y="38.458233"
+              id="LINE_2_NUMBER"
+              inkscape:label="LINE_2_NUMBER"><tspan sodipodi:role="line"
+                                                    id="tspan7-7-7"
+                                                    style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                    x="188.08884"
+                                                    y="38.458233">2</tspan></text>
+        <text xml:space="preserve"
+              style="font-size:8.43272px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+              x="8.000001"
+              y="118.53958"
+              id="LINE_3_NUMBER"
+              inkscape:label="LINE_3_NUMBER"><tspan sodipodi:role="line"
+                                                    id="tspan7-7-0"
+                                                    style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                    x="8.000001"
+                                                    y="118.53958">3</tspan></text>
+        <text xml:space="preserve"
+              style="font-size:8.43272px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+              x="188.12625"
+              y="118.61607"
+              id="LINE_4_NUMBER"
+              inkscape:label="LINE_4_NUMBER"><tspan sodipodi:role="line"
+                                                    id="tspan7-7-0-6"
+                                                    style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                    x="188.12625"
+                                                    y="118.61607">4</tspan></text>
+        <text xml:space="preserve"
+              style="font-size:8.43272px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+              x="461.64807"
+              y="199.30424"
+              id="LINE_4_NUMBER-9"
+              inkscape:label="LINE_4_NUMBER"><tspan sodipodi:role="line"
+                                                    id="tspan7-7-0-6-1"
+                                                    style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                    x="461.64807"
+                                                    y="199.30424">4</tspan></text>
+      </g>
+
+      <!-- POSTAZIONI VUOTE (nessun quadro montato) -->
+      <g inkscape:groupmode="layer"
+         id="EMPTY_CABINET"
+         inkscape:label="EMPTY CABINET"
+         inkscape:highlight-color="#368ca9">
+        <rect style="fill:#d4d9da;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.343958;stroke-linecap:square;stroke-miterlimit:2;paint-order:stroke fill markers"
+              id="EMPTY_1"
+              width="14.849423"
+              height="51.798035"
+              x="123.81498"
+              y="49.458336"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="EMPTY_1" />
+        <rect style="fill:#d4d9da;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;paint-order:stroke fill markers"
+              id="EMPTY_5"
+              width="14.849423"
+              height="51.751263"
+              x="163.34352"
+              y="125.662"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="EMPTY_5" />
+        <rect style="fill:#d4d9da;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;paint-order:stroke fill markers"
+              id="EMPTY_4"
+              width="37.366783"
+              height="51.751263"
+              x="46.63448"
+              y="125.662"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="EMPTY_4" />
+        <rect style="fill:#d4d9da;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;paint-order:stroke fill markers"
+              id="EMPTY_3"
+              width="37.366783"
+              height="51.751263"
+              x="7.0000005"
+              y="125.662"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="EMPTY_3" />
+        <rect style="fill:#d4d9da;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.343958;stroke-linecap:square;stroke-miterlimit:2;paint-order:stroke fill markers"
+              id="EMPTY_2"
+              width="14.849423"
+              height="51.798035"
+              x="303.73166"
+              y="49.458336"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="EMPTY_2" />
+        <rect style="fill:#d4d9da;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;paint-order:stroke fill markers"
+              id="EMPTY_8"
+              width="14.849423"
+              height="51.751263"
+              x="343.78931"
+              y="125.662"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="EMPTY_8" />
+        <rect style="fill:#d4d9da;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;paint-order:stroke fill markers"
+              id="EMPTY_7"
+              width="37.366783"
+              height="51.751263"
+              x="227.08038"
+              y="125.662"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="EMPTY_7" />
+        <rect style="fill:#d4d9da;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;paint-order:stroke fill markers"
+              id="EMPTY_6"
+              width="37.366783"
+              height="51.751263"
+              x="187.44586"
+              y="125.662"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="EMPTY_6" />
+      </g>
+
+      <!-- QUADRI - fronte quadro.
+           I quadri larghi sono due immagini affiancate (C232_1 / C232_2).
+           Ogni immagine ha il suo <animate>: quando il quadro va in allarme
+           getCabinetImgAlm torna il fronte rosso e l'immagine lampeggia,
+           altrimenti from e to coincidono e non si vede niente. -->
+      <g inkscape:groupmode="layer"
+         id="CABINET"
+         inkscape:label="CABINET">
+
+        <!-- C230 -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C230')"
+               id="C230"
+               x="7.000001"
+               y="49.45834"
+               style="stroke-width:8.70554"
+               inkscape:label="C230" />
+        <animate xlink:href="#C230" attributeName="href" [attr.from]="getCabinetImg('C230')" [attr.to]="getCabinetImgAlm('C230')" dur="1s" fill="freeze" repeatCount="indefinite" />
+
+        <!-- C232 - due meta' affiancate -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C232')"
+               id="C232_1"
+               x="47.23518"
+               y="49.45834"
+               style="stroke-width:8.70554"
+               inkscape:label="C232_1" />
+        <animate xlink:href="#C232_1" attributeName="href" [attr.from]="getCabinetImg('C232')" [attr.to]="getCabinetImgAlm('C232')" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C232')"
+               id="C232_2"
+               x="84.323975"
+               y="49.45834"
+               style="stroke-width:8.70554"
+               inkscape:label="C232_2" />
+        <animate xlink:href="#C232_2" attributeName="href" [attr.from]="getCabinetImg('C232')" [attr.to]="getCabinetImgAlm('C232')" dur="1s" fill="freeze" repeatCount="indefinite" />
+
+        <!-- C123 -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C123')"
+               id="C123"
+               x="140.54201"
+               y="49.45834"
+               style="stroke-width:8.70554"
+               inkscape:label="C123" />
+        <animate xlink:href="#C123" attributeName="href" [attr.from]="getCabinetImg('C123')" [attr.to]="getCabinetImgAlm('C123')" dur="1s" fill="freeze" repeatCount="indefinite" />
+
+        <!-- C124 -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C124')"
+               id="C124"
+               x="186.9167"
+               y="49.45834"
+               style="stroke-width:8.70554"
+               inkscape:label="C124" />
+        <animate xlink:href="#C124" attributeName="href" [attr.from]="getCabinetImg('C124')" [attr.to]="getCabinetImgAlm('C124')" dur="1s" fill="freeze" repeatCount="indefinite" />
+
+        <!-- C233 - due meta' affiancate -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C233')"
+               id="C233_1"
+               x="227.15192"
+               y="49.45834"
+               style="stroke-width:8.70554"
+               inkscape:label="C233_1" />
+        <animate xlink:href="#C233_1" attributeName="href" [attr.from]="getCabinetImg('C233')" [attr.to]="getCabinetImgAlm('C233')" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C233')"
+               id="C233_2"
+               x="264.24075"
+               y="49.45834"
+               style="stroke-width:8.70554"
+               inkscape:label="C233_2" />
+        <animate xlink:href="#C233_2" attributeName="href" [attr.from]="getCabinetImg('C233')" [attr.to]="getCabinetImgAlm('C233')" dur="1s" fill="freeze" repeatCount="indefinite" />
+
+        <!-- C231 -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C231')"
+               id="C231"
+               x="320.45865"
+               y="49.45834"
+               style="stroke-width:8.70554"
+               inkscape:label="C231" />
+        <animate xlink:href="#C231" attributeName="href" [attr.from]="getCabinetImg('C231')" [attr.to]="getCabinetImgAlm('C231')" dur="1s" fill="freeze" repeatCount="indefinite" />
+
+        <!-- C234 - due meta' affiancate -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C234')"
+               id="C234_1"
+               x="86.373169"
+               y="125.66206"
+               style="stroke-width:8.706;stroke-dasharray:none"
+               inkscape:label="C234_1" />
+        <animate xlink:href="#C234_1" attributeName="href" [attr.from]="getCabinetImg('C234')" [attr.to]="getCabinetImgAlm('C234')" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C234')"
+               id="C234_2"
+               x="123.26015"
+               y="125.66206"
+               style="stroke-width:8.70554"
+               inkscape:label="C234_2" />
+        <animate xlink:href="#C234_2" attributeName="href" [attr.from]="getCabinetImg('C234')" [attr.to]="getCabinetImgAlm('C234')" dur="1s" fill="freeze" repeatCount="indefinite" />
+
+        <!-- C235 - due meta' affiancate -->
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C235')"
+               id="C235_1"
+               x="266.81912"
+               y="125.66206"
+               style="stroke-width:8.70554"
+               inkscape:label="C235_1" />
+        <animate xlink:href="#C235_1" attributeName="href" [attr.from]="getCabinetImg('C235')" [attr.to]="getCabinetImgAlm('C235')" dur="1s" fill="freeze" repeatCount="indefinite" />
+        <image preserveAspectRatio="none"
+               inkscape:svg-dpi="96"
+               width="38.18264"
+               height="54.81963"
+               [attr.xlink:href]="getCabinetImg('C235')"
+               id="C235_2"
+               x="303.70602"
+               y="125.66206"
+               style="stroke-width:8.70554"
+               inkscape:label="C235_2" />
+        <animate xlink:href="#C235_2" attributeName="href" [attr.from]="getCabinetImg('C235')" [attr.to]="getCabinetImgAlm('C235')" dur="1s" fill="freeze" repeatCount="indefinite" />
+      </g>
+
+      <!-- ETICHETTE DEI QUADRI (switcher "Mostra Nomi") -->
+      <g inkscape:groupmode="layer"
+         id="ETICHETTE_CABINET"
+         inkscape:label="ETICHETTE CABINET"
+         inkscape:highlight-color="#a98136"
+         *ngIf="showName">
+        <g id="LABEL_C230"
+           inkscape:label="LABEL_C230">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_C230"
+                width="21.000002"
+                height="5.0000005"
+                x="15.59132"
+                y="43.147316"
+                rx="0.12402344"
+                ry="0.16536528"
+                inkscape:label="RECT_C230" />
+          <text xml:space="preserve"
+                style="font-size:5.64444px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="26.029308"
+                y="47.674408"
+                id="LBL_C230"
+                inkscape:label="LBL_C230"><tspan sodipodi:role="line"
+                                                 id="tspan7"
+                                                 style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                 x="26.029308"
+                                                 y="47.674408">C230</tspan></text>
+        </g>
+        <g id="LABEL_C231"
+           inkscape:label="LABEL_C231">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_C231"
+                width="21.000002"
+                height="5.0000005"
+                x="329.04996"
+                y="43.147335"
+                rx="0.12402344"
+                ry="0.16536528"
+                inkscape:label="RECT_C231" />
+          <text xml:space="preserve"
+                style="font-size:5.64444px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="339.48795"
+                y="47.674496"
+                id="LBL_C231"
+                inkscape:label="LBL_C231"><tspan sodipodi:role="line"
+                                                 id="tspan7-8"
+                                                 style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                 x="339.48795"
+                                                 y="47.674496">C231</tspan></text>
+        </g>
+        <g id="LABEL_C232"
+           inkscape:label="LABEL_C232">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.243999;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="rect_C232"
+                width="36.797718"
+                height="5.0000005"
+                x="66.448494"
+                y="43.147335"
+                rx="0.12402343"
+                ry="0.16536528"
+                inkscape:label="rect_C232" />
+          <text xml:space="preserve"
+                style="font-size:5.64444px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="84.797745"
+                y="47.674427"
+                id="LBL_C232"
+                inkscape:label="LBL_C232"><tspan sodipodi:role="line"
+                                                 id="tspan7-0"
+                                                 style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                 x="84.797745"
+                                                 y="47.674427">C232</tspan></text>
+        </g>
+        <g id="LABEL_C234"
+           inkscape:label="LABEL_C234"
+           transform="translate(0,-0.52916667)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.243999;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_C234"
+                width="36.797718"
+                height="5.0000005"
+                x="105.222"
+                y="120.00002"
+                rx="0.12402343"
+                ry="0.16536528"
+                inkscape:label="RECT_C234" />
+          <text xml:space="preserve"
+                style="font-size:5.64444px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="123.57124"
+                y="124.5271"
+                id="LBL_C234"
+                inkscape:label="LBL_C234"><tspan sodipodi:role="line"
+                                                 id="tspan7-0-2"
+                                                 style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                 x="123.57124"
+                                                 y="124.5271">C234</tspan></text>
+        </g>
+        <g id="LABEL_C235"
+           inkscape:label="LABEL_C235"
+           transform="translate(0,-0.52916667)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.243999;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_C235"
+                width="36.797718"
+                height="5.0000005"
+                x="285.66788"
+                y="120.00002"
+                rx="0.12402343"
+                ry="0.16536528"
+                inkscape:label="RECT_C235" />
+          <text xml:space="preserve"
+                style="font-size:5.64444px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="304.01712"
+                y="124.5271"
+                id="LBL_C235"
+                inkscape:label="LBL_C235"><tspan sodipodi:role="line"
+                                                 id="tspan7-0-2-7"
+                                                 style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                 x="304.01712"
+                                                 y="124.5271">C235</tspan></text>
+        </g>
+        <g id="LABEL_C233"
+           inkscape:label="LABEL_C233">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.243999;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="rect_C233"
+                width="36.797718"
+                height="5.0000005"
+                x="246.4492"
+                y="43.147335"
+                rx="0.12402343"
+                ry="0.16536528"
+                inkscape:label="rect_C233" />
+          <text xml:space="preserve"
+                style="font-size:5.64444px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="264.7984"
+                y="47.674427"
+                id="LBL_C233"
+                inkscape:label="LBL_C233"><tspan sodipodi:role="line"
+                                                 id="tspan7-0-4"
+                                                 style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                 x="264.7984"
+                                                 y="47.674427">C233</tspan></text>
+        </g>
+        <g id="LABEL_C123"
+           inkscape:label="LABEL_C123">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_C123"
+                width="21.000002"
+                height="5.0000005"
+                x="149.13333"
+                y="43.147335"
+                rx="0.12402344"
+                ry="0.16536528"
+                inkscape:label="RECT_C123" />
+          <text xml:space="preserve"
+                style="font-size:5.64444px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="159.57133"
+                y="47.674496"
+                id="LBL_C123"
+                inkscape:label="LBL_C123"><tspan sodipodi:role="line"
+                                                 id="tspan7-0-6"
+                                                 style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                 x="159.57133"
+                                                 y="47.674496">C123</tspan></text>
+        </g>
+        <g id="LABEL_C124"
+           inkscape:label="LABEL_C124">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_C124"
+                width="21.000002"
+                height="5.0000005"
+                x="195.52592"
+                y="43.147335"
+                rx="0.12402344"
+                ry="0.16536528"
+                inkscape:label="RECT_C124" />
+          <text xml:space="preserve"
+                style="font-size:5.64444px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="205.96393"
+                y="47.674496"
+                id="LBL_C124"
+                inkscape:label="LBL_C124"><tspan sodipodi:role="line"
+                                                 id="tspan7-0-6-0"
+                                                 style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                 x="205.96393"
+                                                 y="47.674496">C124</tspan></text>
+        </g>
+      </g>
+
+      <!-- PIANTA - vista dall'alto delle quattro file.
+           I rettangoli dei quadri lampeggiano in rosso con la classe
+           .cabinet-alarm (@keyframes nel .css), quelli grigio scuro sono
+           le postazioni vuote. -->
+      <g inkscape:groupmode="layer"
+         id="TOP_VIEW"
+         inkscape:label="TOP VIEW">
+        <rect style="fill:#d8dddd;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_C230"
+              width="19.440001"
+              height="32.180195"
+              x="378.10919"
+              y="20.000002"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_C230"
+              [class.cabinet-alarm]="isCabinetAlarm('C230')" />
+        <rect style="fill:#d8dddd;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_C232"
+              width="19.440001"
+              height="71"
+              x="378.10919"
+              y="54.000008"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_C232"
+              [class.cabinet-alarm]="isCabinetAlarm('C232')" />
+        <rect style="fill:#4a5558;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_EMPTY_1"
+              width="40.747002"
+              height="29.633123"
+              x="378.10919"
+              y="126.58753"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_EMPTY_1" />
+        <rect style="fill:#d8dddd;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_C123"
+              width="19.440001"
+              height="32.180195"
+              x="378.10919"
+              y="157.8082"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_C123"
+              [class.cabinet-alarm]="isCabinetAlarm('C123')" />
+        <rect style="fill:#d8dddd;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_C124"
+              width="19.440001"
+              height="32.180195"
+              x="399.41656"
+              y="157.8082"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_C124"
+              [class.cabinet-alarm]="isCabinetAlarm('C124')" />
+        <rect style="fill:#d8dddd;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_C231"
+              width="19.440001"
+              height="32.180195"
+              x="399.41656"
+              y="20.000002"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_C231"
+              [class.cabinet-alarm]="isCabinetAlarm('C231')" />
+        <rect style="fill:#d8dddd;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_C233"
+              width="19.440001"
+              height="71"
+              x="399.41656"
+              y="54.000008"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_C233"
+              [class.cabinet-alarm]="isCabinetAlarm('C233')" />
+        <rect style="fill:#4a5558;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_EMPTY_2"
+              width="40.747055"
+              height="31.000004"
+              x="430.61469"
+              y="20.000002"
+              rx="5.5199138e-07"
+              ry="5.5199138e-07"
+              inkscape:label="TOP_VIEW_EMPTY_2" />
+        <rect style="fill:#4a5558;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_EMPTY_3"
+              width="40.747055"
+              height="30.629116"
+              x="430.61469"
+              y="53.000008"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_EMPTY_3" />
+        <rect style="fill:#d8dddd;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_C234"
+              width="19.439682"
+              height="71"
+              x="430.61469"
+              y="85.220818"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_C234"
+              [class.cabinet-alarm]="isCabinetAlarm('C234')" />
+        <rect style="fill:#d8dddd;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_C235"
+              width="19.439682"
+              height="71"
+              x="451.92206"
+              y="85.220818"
+              rx="5.5199138e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_C235"
+              [class.cabinet-alarm]="isCabinetAlarm('C235')" />
+        <rect style="fill:#4a5558;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.444;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+              id="TOP_VIEW_EMPTY_4"
+              width="40.747059"
+              height="32.180195"
+              x="430.61472"
+              y="157.8082"
+              rx="5.5199132e-07"
+              ry="5.5199132e-07"
+              inkscape:label="TOP_VIEW_EMPTY_4" />
+        <text xml:space="preserve"
+              style="font-size:8.43272px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+              x="388.19153"
+              y="199.15175"
+              id="FILA_1"
+              inkscape:label="FILA_1"><tspan sodipodi:role="line"
+                                             id="tspan7-7-8"
+                                             style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                             x="388.19153"
+                                             y="199.15175">1</tspan></text>
+        <text xml:space="preserve"
+              style="font-size:8.43272px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+              x="409.16537"
+              y="199.30424"
+              id="FILA_2"
+              inkscape:label="FILA_2"><tspan sodipodi:role="line"
+                                             id="tspan7-7-7-9"
+                                             style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                             x="409.16537"
+                                             y="199.30424">2</tspan></text>
+        <text xml:space="preserve"
+              style="font-size:8.43272px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+              x="440.34894"
+              y="199.30424"
+              id="FILA_3"
+              inkscape:label="FILA_3"><tspan sodipodi:role="line"
+                                             id="tspan7-7-0-8"
+                                             style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                             x="440.34894"
+                                             y="199.30424">3</tspan></text>
+      </g>
+
+      <!-- ETICHETTE DELLA PIANTA (switcher "Mostra Nomi") -->
+      <g inkscape:groupmode="layer"
+         id="TOP_VIEW_LABELS"
+         inkscape:label="TOP VIEW LABELS"
+         *ngIf="showName">
+        <g id="LABEL_MAP_C230"
+           inkscape:label="LABEL_MAP_C230">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_SMALL_C230"
+                width="26.582001"
+                height="6.3289924"
+                x="22.70912"
+                y="-391.00006"
+                rx="0.12402344"
+                ry="0.16536528"
+                transform="rotate(90)"
+                inkscape:label="RECT_SMALL_C230" />
+          <text xml:space="preserve"
+                style="font-size:7.14472px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="35.921509"
+                y="-385.26968"
+                id="LBL_SMALL_C230"
+                transform="rotate(90)"
+                inkscape:label="LBL_SMALL_C230"><tspan sodipodi:role="line"
+                                                       id="tspan7-9"
+                                                       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                       x="35.921509"
+                                                       y="-385.26968">C230</tspan></text>
+        </g>
+        <g id="LABEL_MAP_C232"
+           inkscape:label="LABEL_MAP_C232"
+           transform="translate(0,47.625003)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_SMALL_C232"
+                width="50.000008"
+                height="6.3289924"
+                x="16.875"
+                y="-390.99368"
+                rx="0.12402343"
+                ry="0.16536528"
+                transform="rotate(90)"
+                inkscape:label="RECT_SMALL_C232" />
+          <text xml:space="preserve"
+                style="font-size:7.14472px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="41.81221"
+                y="-385.26331"
+                id="LBL_SMALL_C232"
+                transform="rotate(90)"
+                inkscape:label="LBL_SMALL_C232"><tspan sodipodi:role="line"
+                                                       id="tspan7-9-6"
+                                                       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                       x="41.81221"
+                                                       y="-385.26331">C232</tspan></text>
+        </g>
+        <g id="LABEL_MAP_C123"
+           inkscape:label="LABEL_MAP_C123"
+           transform="translate(0.00637817,5.8341199)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_SMALL_C123"
+                width="26.582001"
+                height="6.3289924"
+                x="154.68317"
+                y="-390.99368"
+                rx="0.12402343"
+                ry="0.16536528"
+                transform="rotate(90)"
+                inkscape:label="RECT_SMALL_C123" />
+          <text xml:space="preserve"
+                style="font-size:7.14472px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="168.00137"
+                y="-385.25693"
+                id="LBL_SMALL_C123"
+                transform="rotate(90)"
+                inkscape:label="LBL_SMALL_C123"><tspan sodipodi:role="line"
+                                                       id="tspan7-9-6-2"
+                                                       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                       x="168.00137"
+                                                       y="-385.25693">C123</tspan></text>
+        </g>
+        <g id="LABEL_MAP_C124"
+           inkscape:label="LABEL_MAP_C124"
+           transform="translate(21.307379,5.9241277)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_SMALL_C124"
+                width="26.582001"
+                height="6.3289924"
+                x="154.68317"
+                y="-390.99368"
+                rx="0.12402343"
+                ry="0.16536528"
+                transform="rotate(90)"
+                inkscape:label="RECT_SMALL_C124" />
+          <text xml:space="preserve"
+                style="font-size:7.14472px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="168.00137"
+                y="-385.25693"
+                id="LBL_SMALL_C124"
+                transform="rotate(90)"
+                inkscape:label="LBL_SMALL_C124"><tspan sodipodi:role="line"
+                                                       id="tspan7-9-6-2-1"
+                                                       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                       x="168.00137"
+                                                       y="-385.25693">C124</tspan></text>
+        </g>
+        <g id="LABEL_MAP_C231"
+           inkscape:label="LABEL_MAP_C231"
+           transform="translate(21.301,0.08997917)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_SMALL_C231"
+                width="26.582001"
+                height="6.3289924"
+                x="22.70912"
+                y="-391.00006"
+                rx="0.12402344"
+                ry="0.16536528"
+                transform="rotate(90)"
+                inkscape:label="RECT_SMALL_C231" />
+          <text xml:space="preserve"
+                style="font-size:7.14472px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="35.921509"
+                y="-385.26968"
+                id="LBL_SMALL_C231"
+                transform="rotate(90)"
+                inkscape:label="LBL_SMALL_C231"><tspan sodipodi:role="line"
+                                                       id="tspan7-9-2"
+                                                       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                       x="35.921509"
+                                                       y="-385.26968">C231</tspan></text>
+        </g>
+        <g id="LABEL_MAP_C233"
+           inkscape:label="LABEL_MAP_C233"
+           transform="translate(21.307379,47.625008)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_SMALL_C233"
+                width="50"
+                height="6.3289924"
+                x="16.875"
+                y="-390.99368"
+                rx="0.12402343"
+                ry="0.16536528"
+                transform="rotate(90)"
+                inkscape:label="RECT_SMALL_C233" />
+          <text xml:space="preserve"
+                style="font-size:7.14472px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="41.81221"
+                y="-385.26331"
+                id="LBL_SMALL_C233"
+                transform="rotate(90)"
+                inkscape:label="LBL_SMALL_C233"><tspan sodipodi:role="line"
+                                                       id="tspan7-9-6-5"
+                                                       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                       x="41.81221"
+                                                       y="-385.26331">C233</tspan></text>
+        </g>
+        <g id="LABEL_MAP_C234"
+           inkscape:label="LABEL_MAP_C234"
+           transform="translate(52.50534,78.845817)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_SMALL_C234"
+                width="50"
+                height="6.3289924"
+                x="16.875"
+                y="-390.99368"
+                rx="0.12402343"
+                ry="0.16536528"
+                transform="rotate(90)"
+                inkscape:label="RECT_SMALL_C234" />
+          <text xml:space="preserve"
+                style="font-size:7.14472px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="41.81221"
+                y="-385.26331"
+                id="LBL_SMALL_C234"
+                transform="rotate(90)"
+                inkscape:label="LBL_SMALL_C234"><tspan sodipodi:role="line"
+                                                       id="tspan7-9-6-0"
+                                                       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                       x="41.81221"
+                                                       y="-385.26331">C234</tspan></text>
+        </g>
+        <g id="LABEL_MAP_C235"
+           inkscape:label="LABEL_MAP_C235"
+           transform="translate(73.812712,78.843661)">
+          <rect style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+                id="RECT_SMALL_C235"
+                width="50"
+                height="6.3289924"
+                x="16.875"
+                y="-390.99368"
+                rx="0.12402343"
+                ry="0.16536528"
+                transform="rotate(90)"
+                inkscape:label="RECT_SMALL_C235" />
+          <text xml:space="preserve"
+                style="font-size:7.14472px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.244;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"
+                x="41.81221"
+                y="-385.26331"
+                id="LBL_SMALL_C235"
+                transform="rotate(90)"
+                inkscape:label="LBL_SMALL_C235"><tspan sodipodi:role="line"
+                                                       id="tspan7-9-6-0-5"
+                                                       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.244;stroke-opacity:0"
+                                                       x="41.81221"
+                                                       y="-385.26331">C235</tspan></text>
+        </g>
+      </g>
+
+    </svg>
+
+
+    </div>
+
+  </div>
+</div>

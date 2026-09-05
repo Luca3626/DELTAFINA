@@ -1,0 +1,265 @@
+/* Stili specifici per la pagina Final Dryer. */
+
+/* Le dimensioni sono in "em" così scalano col carattere del titolo <h4>
+   (1.313rem -> circa 32x40 px) e il rapporto larghezza/altezza è quello del file
+   (378x302), quindi l'icona riempie lo spazio senza bordi vuoti ai lati. */
+.title-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 1.5em;
+  width: 1.9em;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.title-icon-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Riga del titolo su tre colonne. Le due colonne laterali hanno la stessa
+   larghezza (flex:1), quindi la colonna centrale con i pulsanti resta centrata
+   rispetto a tutta la riga; con un semplice margin-left il blocco sarebbe invece
+   centrato solo nello spazio che avanza dopo il titolo. */
+.dryer-title {
+  display: flex;
+  align-items: center;
+  /* su schermi stretti i comandi vanno a capo invece di finire sopra al titolo */
+  flex-wrap: wrap;
+}
+
+.dryer-title-left,
+.dryer-title-right {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* Nome della pagina. Il font-size sta sul solo testo e non sull'h4: sull'h4
+   farebbe crescere anche l'icona, che e' dimensionata in em, e con lei l'altezza
+   di tutta la testata. 1.313rem e' la misura degli h4 del tema, lo stesso valore
+   usato da tutte le altre pagine. */
+.dryer-title-text {
+  font-size: 1.313rem;
+  line-height: 1;
+}
+
+.dryer-title-commands {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+/* Colonna di destra: il badge resta appoggiato ai pulsanti, mentre lo switcher
+   "Mostra Nomi" viene spinto al bordo destro del titolo dal margin-left automatico
+   (il margine destro dello switcher lo azzero, altrimenti resterebbe staccato). */
+.dryer-title-right {
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+  .dryer-title-right .switcher {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+/* Sinottico SVG responsivo: si adatta alla larghezza del contenitore mantenendo
+   le proporzioni tramite il viewBox, ignorando le dimensioni fisse enormi
+   esportate da Inkscape. */
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Bottoni PID, sovrapposti al sinottico. La posizione (left/top in percentuale) e' nello
+   style inline di ogni pulsante, qui c'e' solo la resa comune: sono normali
+   .btn.btn-dark, quindi colori, hover e focus arrivano dal tema. Padding e font sono
+   ridotti perche' a dimensione nativa il pulsante coprirebbe le label del disegno.
+   Identici a quelli del burley dryer. */
+.pid-button {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 1px 7px;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: bold;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.pid-button:hover {
+  opacity: 0.65;
+}
+
+/* ------------------------------------------------
+   MENU "COMANDI" DELLA TESTATA
+   I comandi di zona non stanno piu' sparsi nel titolo: sono dentro un pannello
+   che si apre dal pulsante accanto al nome della pagina. Il pannello e' in
+   posizione assoluta rispetto a .zone-cmd, quindi non allarga la testata.
+------------------------------------------------ */
+.zone-cmd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 16px;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.zone-cmd-toggle {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+  .zone-cmd-toggle .fa-caret-down,
+  .zone-cmd-toggle .fa-caret-up {
+    margin-left: 6px;
+  }
+
+.zone-cmd-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1030;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #d9dee3;
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  text-align: left;
+}
+
+  /* Dentro il pannello i gruppi vanno uno sotto l'altro invece che in fila, e le
+     etichette hanno una larghezza minima comune cosi' i pulsanti restano allineati. */
+  .zone-cmd-panel .dryer-cmd-group {
+    display: flex;
+    align-items: center;
+  }
+
+    .zone-cmd-panel .dryer-cmd-group + .dryer-cmd-group {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+
+  .zone-cmd-panel .dryer-cmd-label {
+    min-width: 160px;
+  }
+
+
+/* ------------------------------------------------
+   TESTATA STANDARD (uguale su tutte le pagine)
+   Colonna di sinistra: titolo, pulsante "Comandi" e subito dopo i due badge di
+   feedback (modo operativo e stato). Colonna di destra: il solo switcher.
+------------------------------------------------ */
+
+.dryer-cmd-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.dryer-cmd-label {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #4E5155;
+}
+
+/* I due badge di feedback stanno subito dopo il pulsante "Comandi" e restano
+   sempre in testata, fuori dal menu. */
+.zone-cmd-badge {
+  margin-left: 16px;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+  /* Stacco fra il badge del modo operativo e quello di stato. */
+  .zone-cmd-badge .badge + .badge {
+    margin-left: 6px;
+  }
+
+/* ------------------------------------------------
+   PROPORZIONI DELLE DUE COLONNE
+   La colonna di sinistra (titolo + comandi + badge) prende lo spazio che le serve
+   e non si stringe; quella di destra si prende tutto il resto, cosi' lo switcher
+   resta appoggiato al bordo destro senza finire sopra ai comandi. Se la testata
+   non ci sta in larghezza, il flex-wrap manda a capo la colonna di destra.
+------------------------------------------------ */
+.dryer-title-left {
+  flex: 0 0 auto;
+}
+
+.dryer-title-right {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+
+/* ------------------------------------------------
+   TESTATA: colonna centrale e allarmi di zona
+   Le colonne diventano tre: a sinistra titolo, comandi e stato; al centro il
+   feedback "tutte le utenze in marcia"; a destra gli allarmi e lo switcher.
+   Il nome dell'animazione e' globale (su Angular 11 le @keyframes dei componenti
+   non sono isolate): e' lo stesso identico blocco su tutte le pagine.
+------------------------------------------------ */
+.dryer-title-left {
+  flex: 0 0 auto;
+}
+
+.dryer-title-center {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  font-weight: normal;
+}
+
+.dryer-title-right {
+  flex: 0 0 auto;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+  .dryer-title-right .switcher {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+
+@keyframes zona-allarme-badge {
+  0%, 49% {
+    opacity: 1;
+  }
+
+  50%, 100% {
+    opacity: 0.3;
+  }
+}
+
+.zona-allarme-badge {
+  animation: zona-allarme-badge 1s steps(1, end) infinite;
+}
+
+
+/* ------------------------------------------------
+   BADGE DENTRO IL PANNELLO DEI COMANDI
+   Il feedback non sta piu' in testata ma accanto ai pulsanti che lo comandano:
+   modo operativo a destra di MAN/AUTO, stato a destra di STOP/START. Le due coppie
+   di pulsanti sono larghe uguale (96 px), quindi i badge restano incolonnati.
+------------------------------------------------ */
+.zone-cmd-panel .zone-cmd-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 12px;
+  font-weight: normal;
+}
