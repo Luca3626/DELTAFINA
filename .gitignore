@@ -26,3 +26,9 @@ appsettings.Local.json
 appsettings.*.local.json
 secrets.json
 /Docs/Sopralluogo 29-06-2026
+
+# ---- Backup del database (SQL Server .bak): dati di produzione, 15 MB binari ----
+/Docs/*_DB
+
+# ---- Report di crash di Node generati da ng build (heap out of memory) ----
+report.*.json
