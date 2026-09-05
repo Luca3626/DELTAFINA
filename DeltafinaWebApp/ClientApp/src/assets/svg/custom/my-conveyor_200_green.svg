@@ -7,8 +7,8 @@
    viewBox="0 0 63.499999 13.229167"
    version="1.1"
    id="svg90797"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
-   sodipodi:docname="my-conveyor_200_Green.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="my-conveyor_200_green.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -25,15 +25,16 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="16.710735"
-     inkscape:cx="215.1611"
-     inkscape:cy="38.538102"
-     inkscape:window-width="1920"
-     inkscape:window-height="1009"
-     inkscape:window-x="-8"
+     inkscape:zoom="4.1776838"
+     inkscape:cx="170.19"
+     inkscape:cy="79.589557"
+     inkscape:window-width="2560"
+     inkscape:window-height="1417"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1">
+     inkscape:current-layer="layer1"
+     inkscape:pageshadow="2">
     <inkscape:grid
        type="xygrid"
        id="grid91281" />
@@ -45,7 +46,7 @@
        xlink:href="#linearGradient8595"
        id="radialGradient8635"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.99959864,0,0,1.0000022,-281.50811,-24.209444)"
+       gradientTransform="matrix(0.99959864,0,0,1.0000022,-282.06567,-24.421531)"
        cx="349.11835"
        cy="31.349377"
        fx="349.11835"
@@ -73,7 +74,7 @@
        fy="31.349377"
        r="2.1561821"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.99959864,0,0,1.0000022,-14.27884,-24.209444)" />
+       gradientTransform="matrix(0.99959864,0,0,1.0000022,-14.836398,-24.421531)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient1375"
@@ -84,7 +85,7 @@
        y2="29.501041"
        gradientUnits="userSpaceOnUse"
        spreadMethod="reflect"
-       gradientTransform="translate(-14.287492,-24.209375)" />
+       gradientTransform="translate(-14.84505,-24.421462)" />
     <linearGradient
        inkscape:collect="always"
        id="linearGradient1375">
@@ -111,8 +112,8 @@
        id="rect3733"
        width="52.916618"
        height="5.2916665"
-       x="4.6337318"
-       y="4.1940951"
+       x="4.0761738"
+       y="3.9820077"
        rx="2.6458333"
        ry="2.6458333" />
     <rect
@@ -120,13 +121,13 @@
        id="rect4005"
        width="51.81419"
        height="3.96875"
-       x="5.1849456"
-       y="4.8555636"
+       x="4.6273875"
+       y="4.6434765"
        rx="2.6458333"
        ry="2.6458333" />
     <ellipse
-       cx="6.9150147"
-       cy="6.776773"
+       cx="6.3574567"
+       cy="6.5646858"
        fill="#4d4d4d"
        id="circle1221"
        style="fill:url(#radialGradient8553);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.044;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.603922"
@@ -134,35 +135,35 @@
        ry="1.8300834" />
     <circle
        fill="#cccccc"
-       cx="6.9126072"
-       cy="5.4631238"
+       cx="6.3550491"
+       cy="5.2510366"
        id="circle3298"
        style="stroke-width:0.0899946"
        r="0.26458335" />
     <circle
        fill="#cccccc"
-       cx="5.7762876"
-       cy="6.8385472"
+       cx="5.2187295"
+       cy="6.6264601"
        id="circle3301"
        style="stroke-width:0.0899946"
        r="0.26458335" />
     <circle
        fill="#cccccc"
-       cx="8.0801153"
-       cy="6.8386178"
+       cx="7.5225573"
+       cy="6.6265306"
        id="circle3303"
        style="stroke-width:0.0899946"
        r="0.26458335" />
     <circle
        fill="#cccccc"
-       cx="6.9125881"
-       cy="8.2257938"
+       cx="6.3550301"
+       cy="8.0137062"
        id="circle3305"
        style="stroke-width:0.0899946"
        r="0.26458335" />
     <rect
-       x="6.5753455"
-       y="-5.1849437"
+       x="6.3632584"
+       y="-4.6273856"
        fill="#cccccc"
        width="0.52916664"
        height="0.55121475"
@@ -172,8 +173,8 @@
        rx="0.026458334"
        ry="0.026458336" />
     <rect
-       x="6.5753436"
-       y="-57.550396"
+       x="6.3632565"
+       y="-56.992836"
        fill="#cccccc"
        width="0.52916664"
        height="0.55121475"
@@ -181,184 +182,184 @@
        style="fill:#e6e6e6;stroke-width:0.356767"
        transform="rotate(90)" />
     <rect
-       x="12.460984"
-       y="8.8242979"
+       x="11.903426"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect1290"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="12.460984"
-       y="4.1940665"
+       x="11.903426"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect2242"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="8.0512676"
-       y="4.1940703"
+       x="7.4937096"
+       y="3.9819829"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect2244"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="8.0512619"
-       y="8.8242979"
+       x="7.4937038"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect2246"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="16.870705"
-       y="8.8242979"
+       x="16.313147"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3208"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="16.870705"
-       y="4.1940665"
+       x="16.313147"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3210"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="21.280426"
-       y="8.8242979"
+       x="20.722868"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3212"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="21.280426"
-       y="4.1940665"
+       x="20.722868"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3214"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="25.690149"
-       y="8.8242979"
+       x="25.132591"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3216"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="25.690149"
-       y="4.1940665"
+       x="25.132591"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3218"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="30.099873"
-       y="8.8242979"
+       x="29.542315"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3220"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="30.099873"
-       y="4.1940665"
+       x="29.542315"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3222"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="34.509598"
-       y="8.8242979"
+       x="33.952038"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3224"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="34.509598"
-       y="4.1940665"
+       x="33.952038"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3226"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="38.919319"
-       y="8.8242979"
+       x="38.361759"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3228"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="38.919319"
-       y="4.1940665"
+       x="38.361759"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3230"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="43.329041"
-       y="8.8242979"
+       x="42.771481"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3232"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="43.329041"
-       y="4.1940665"
+       x="42.771481"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3234"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="47.738766"
-       y="8.8242979"
+       x="47.181206"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3236"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="47.738766"
-       y="4.1940665"
+       x="47.181206"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3238"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="52.148483"
-       y="8.8242979"
+       x="51.590923"
+       y="8.6122103"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3240"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <rect
-       x="52.148483"
-       y="4.1940665"
+       x="51.590923"
+       y="3.9819791"
        fill="#cccccc"
        width="0.44097182"
        height="0.66145831"
        id="rect3242"
        style="fill:#e6e6e6;stroke-width:0.356767" />
     <ellipse
-       cx="55.249008"
-       cy="6.8402123"
+       cx="54.691448"
+       cy="6.6281252"
        fill="#4d4d4d"
        id="circle1072"
        style="fill:url(#radialGradient8635);fill-opacity:1;stroke:#000000;stroke-width:0.044;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.603922"
@@ -366,29 +367,29 @@
        ry="1.8300834" />
     <circle
        fill="#cccccc"
-       cx="55.323845"
-       cy="5.4156251"
+       cx="54.766285"
+       cy="5.2035379"
        id="circle1074"
        style="stroke-width:0.0899946"
        r="0.26458335" />
     <circle
        fill="#cccccc"
-       cx="54.187519"
-       cy="6.7910485"
+       cx="53.629959"
+       cy="6.5789614"
        id="circle1076"
        style="stroke-width:0.0899946"
        r="0.26458335" />
     <circle
        fill="#cccccc"
-       cx="56.491352"
-       cy="6.7911191"
+       cx="55.933792"
+       cy="6.5790319"
        id="circle1078"
        style="stroke-width:0.0899946"
        r="0.26458335" />
     <circle
        fill="#cccccc"
-       cx="55.323822"
-       cy="8.1782951"
+       cx="54.766262"
+       cy="7.966208"
        id="circle1080"
        style="stroke-width:0.0899946"
        r="0.26458335" />

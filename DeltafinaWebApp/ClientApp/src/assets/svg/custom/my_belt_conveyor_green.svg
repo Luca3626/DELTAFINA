@@ -7,8 +7,8 @@
    viewBox="0 0 76.729166 21.166667"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="my_belt_conveyor_grey.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="my_belt_conveyor_green.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -25,21 +25,89 @@
      inkscape:document-units="px"
      showgrid="true"
      units="px"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="124.62757"
-     inkscape:cy="82.908271"
+     inkscape:zoom="2"
+     inkscape:cx="37.75"
+     inkscape:cy="10.75"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g5361">
+     inkscape:current-layer="g5333"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#505050">
     <inkscape:grid
        type="xygrid"
-       id="grid824" />
+       id="grid824"
+       originx="0"
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
   </sodipodi:namedview>
   <defs
      id="defs2">
+    <linearGradient
+       class="linear"
+       id="linearGradient69"
+       gradientUnits="userSpaceOnUse"
+       x1="91"
+       y1="48"
+       x2="95"
+       y2="48">
+      <stop
+         offset="0"
+         style="stop-color:#0a7a00;stop-opacity:1;"
+         id="stop68" />
+      <stop
+         offset="0.46193951"
+         style="stop-color:#086600;stop-opacity:1;"
+         id="stop70" />
+      <stop
+         offset="1"
+         style="stop-color:#053d00;stop-opacity:1;"
+         id="stop69" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient66"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#0c7000;stop-opacity:1;"
+         offset="0"
+         id="stop66" />
+      <stop
+         style="stop-color:#0c9400;stop-opacity:1;"
+         offset="0.08759124"
+         id="stop78" />
+      <stop
+         style="stop-color:#0ead00;stop-opacity:1;"
+         offset="0.19499479"
+         id="stop77" />
+      <stop
+         style="stop-color:#0db800;stop-opacity:1;"
+         offset="0.3096976"
+         id="stop76" />
+      <stop
+         style="stop-color:#0fd500;stop-opacity:1;"
+         offset="0.44838372"
+         id="stop72" />
+      <stop
+         style="stop-color:#0ec100;stop-opacity:1;"
+         offset="0.61001045"
+         id="stop75" />
+      <stop
+         style="stop-color:#0eae00;stop-opacity:1;"
+         offset="0.73826903"
+         id="stop73" />
+      <stop
+         style="stop-color:#0c9300;stop-opacity:1;"
+         offset="0.88842541"
+         id="stop74" />
+      <stop
+         style="stop-color:#0a7000;stop-opacity:1;"
+         offset="1"
+         id="stop67" />
+    </linearGradient>
     <linearGradient
        class="linear"
        id="SVGID_2_"
@@ -1595,16 +1663,20 @@
        gradientTransform="matrix(1,0,0,-1,-91.897626,37.197512)">
       <stop
          offset="0"
-         style="stop-color:#00BA00"
+         style="stop-color:#053d00;stop-opacity:1;"
          id="stop99-7" />
       <stop
+         offset="0.47445256"
+         style="stop-color:#086600;stop-opacity:1;"
+         id="stop79" />
+      <stop
          offset="1"
-         style="stop-color:#00BA00"
+         style="stop-color:#0a7a00;stop-opacity:1;"
          id="stop101-4" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#SVGID_2_-3"
+       xlink:href="#linearGradient69"
        id="linearGradient5394"
        gradientUnits="userSpaceOnUse"
        x1="91"
@@ -1622,6 +1694,15 @@
        x2="95"
        y2="48"
        gradientTransform="translate(-91.845078,-63.585184)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient66"
+       id="linearGradient67"
+       x1="-88.864929"
+       y1="-13.225175"
+       x2="0.1350708"
+       y2="-13.225175"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <g
      inkscape:label="Livello 1"
@@ -1677,7 +1758,7 @@
            id="light"
            inkscape:groupmode="layer">
           <rect
-             style="fill:#00BA00;fill-opacity:0.85;stroke:#00BA00;stroke-width:0;stroke-miterlimit:5;stroke-dasharray:none;paint-order:markers stroke fill"
+             style="fill:url(#linearGradient67);fill-opacity:0.85;stroke:#00BA00;stroke-width:0;stroke-miterlimit:5;stroke-dasharray:none;paint-order:markers stroke fill"
              id="rect4397-1"
              width="89"
              height="22.292967"
@@ -1706,11 +1787,15 @@
              gradientTransform="translate(-91.897626,-63.485184)">
             <stop
                offset="0"
-               style="stop-color:#00BA00"
+               style="stop-color:#063d00;stop-opacity:1;"
                id="stop99" />
             <stop
+               offset="0.48592284"
+               style="stop-color:#086600;stop-opacity:1;"
+               id="stop80" />
+            <stop
                offset="1"
-               style="stop-color:#00BA00"
+               style="stop-color:#0a7a00;stop-opacity:1;"
                id="stop101" />
           </linearGradient>
           <path
@@ -1738,11 +1823,15 @@
              y2="48">
             <stop
                offset="0"
-               style="stop-color:#00BA00"
+               style="stop-color:#0a7c00;stop-opacity:1;"
                id="stop106" />
             <stop
+               offset="0.46298227"
+               style="stop-color:#096800;stop-opacity:1;"
+               id="stop71" />
+            <stop
                offset="1"
-               style="stop-color:#00BA00"
+               style="stop-color:#053f00;stop-opacity:1;"
                id="stop108" />
           </linearGradient>
           <path

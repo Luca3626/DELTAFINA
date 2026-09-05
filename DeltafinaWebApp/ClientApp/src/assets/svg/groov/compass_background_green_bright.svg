@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 100 100"
+   xml:space="preserve"
+   sodipodi:docname="compass_background_green_bright.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs4" /><sodipodi:namedview
+   id="namedview4"
+   pagecolor="#505050"
+   bordercolor="#ffffff"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="1"
+   inkscape:deskcolor="#505050"
+   inkscape:zoom="4.035"
+   inkscape:cx="43.990087"
+   inkscape:cy="44.981413"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="g4" /><desc
+   id="desc1">Copyright Opto 22</desc> <svg
+   version="1.1"
+   id="svg4"><g
+     id="g4">
+	<g
+   id="shape">
+		<path
+   fill="#00e30b"
+   d="M50,99.5C22.706,99.5,0.5,77.294,0.5,50C0.5,22.706,22.706,0.5,50,0.5c27.294,0,49.5,22.206,49.5,49.5    C99.5,77.294,77.294,99.5,50,99.5z"
+   id="path1"
+   style="fill:#00f80c;fill-opacity:1" />
+	</g>
+	<g
+   id="linear">
+		<linearGradient
+   class="linear"
+   id="SVGID_1_"
+   gradientUnits="userSpaceOnUse"
+   x1="50"
+   y1="1"
+   x2="50"
+   y2="98">
+			
+			
+		<stop
+   offset="0"
+   stop-color="#96ff94"
+   id="stop1" /><stop
+   offset="1"
+   stop-color="#012400"
+   id="stop2"
+   style="stop-color:#00b83e;stop-opacity:1;" /></linearGradient>
+		<circle
+   class="linear"
+   fill="url(#SVGID_1_)"
+   cx="50"
+   cy="50"
+   r="49"
+   id="circle2" />
+	</g>
+	<g
+   id="shadow">
+		<path
+   fill="#012400"
+   d="M50,96.75c-19.312,0-36.029-10.396-44.187-25.548C13.718,87.647,30.533,99,50,99    c19.467,0,36.282-11.353,44.187-27.798C86.029,86.354,69.311,96.75,50,96.75z"
+   id="path2"
+   style="fill:#00b628;fill-opacity:1" />
+	</g>
+	<g
+   id="hlight">
+		<path
+   fill="#ffffff"
+   d="M50,91.168C27.3,91.168,8.832,72.7,8.832,50S27.3,8.832,50,8.832S91.168,27.3,91.168,50    S72.7,91.168,50,91.168z"
+   id="path3"
+   style="fill:#78f199;fill-opacity:1" />
+	</g>
+	
+	<g
+   id="radial">
+		<radialGradient
+   class="radial"
+   id="SVGID_2_"
+   cx="50"
+   cy="50"
+   r="40.9275"
+   gradientUnits="userSpaceOnUse">
+			
+			
+		<stop
+   offset="0"
+   stop-color="#96ff94"
+   id="stop3" /><stop
+   offset="1"
+   stop-color="#012400"
+   id="stop4"
+   style="stop-color:#26ff62;stop-opacity:1;" /></radialGradient>
+		<circle
+   class="radial"
+   fill="url(#SVGID_2_)"
+   cx="50"
+   cy="50"
+   r="40.108"
+   id="circle4" />
+	</g>
+	
+	<g
+   id="light">
+		<path
+   fill="#96ff94"
+   d="M50,3.75c20.845,0,38.669,12.11,45.965,29.245C89.052,14.316,71.082,1,50,1    C28.917,1,10.947,14.317,4.035,32.997C11.33,15.861,29.154,3.75,50,3.75z"
+   id="path4"
+   style="fill:#a3ffb6;fill-opacity:1" />
+	</g>
+	
+</g></svg></svg>

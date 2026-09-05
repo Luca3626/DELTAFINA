@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+
+<svg
+   fill="#000000"
+   width="375"
+   height="298"
+   viewBox="0 0 15 11.92"
+   version="1.1"
+   stroke="#000000"
+   stroke-width="0.00032"
+   id="svg1"
+   sodipodi:docname="slicer-icon.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="57.717591"
+     inkscape:cy="208.86167"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <g
+     id="SVGRepo_iconCarrier"
+     transform="translate(-8.8548726,-0.88180549)">
+    <title
+       id="title1">guillotine</title>
+    <path
+       d="M 9.945,1.916 V 7.793 L 10.083723,7.7584899 22.752,4.607 V 1.916 Z M 22.752,5.742 9.945,8.928 V 11.74 L 22.752,8.517 Z"
+       id="path1"
+       sodipodi:nodetypes="ccccccccccc" />
+  </g>
+  <path
+     style="fill:#fafaf9;fill-opacity:0;fill-rule:evenodd;stroke:#f6f5f5;stroke-width:0.34148;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     d="M 1.7763909,5.9138135 11.851219,3.4079695"
+     id="path2"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:#fafaf9;fill-opacity:0;fill-rule:evenodd;stroke:#f6f5f5;stroke-width:0.18252;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     d="m 11.348066,6.2503293 1.978093,-0.491998"
+     id="path2-5"
+     sodipodi:nodetypes="cc" />
+  <rect
+     style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#f6f5f5;stroke-width:0;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     id="rect2"
+     width="0.63019657"
+     height="1.608668"
+     x="1.0899683"
+     y="6.5675664" />
+  <rect
+     style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.40076;stroke-linecap:square;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     id="rect3"
+     width="14.586496"
+     height="11.491673"
+     x="0.20038"
+     y="0.20038" />
+</svg>

@@ -1,0 +1,1700 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   width="269.39999mm"
+   height="387mm"
+   viewBox="0 0 269.40001 387.00001"
+   id="svg-quadro-automazione"
+   sodipodi:docname="quadro-automazione-fronte.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Quadro di automazione - vista frontale</title>
+  <desc
+     id="desc1">Vista frontale in scala 1:1 (1 unita utente = 1 mm). Armadio 1600 x 2000 mm su zoccolo 200 mm. Disegno organizzato in livelli Inkscape.</desc>
+  <sodipodi:namedview
+     id="namedview"
+     inkscape:document-units="mm"
+     units="mm"
+     inkscape:current-layer="targhetta-porta"
+     inkscape:zoom="0.3"
+     inkscape:cx="1176.6667"
+     inkscape:cy="568.33333"
+     showgrid="false"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <defs
+     id="defs39">
+    <linearGradient
+       id="gradPorta"
+       x1="0"
+       y1="0"
+       x2="1"
+       y2="0">
+      <stop
+         offset="0"
+         stop-color="#e9ecec"
+         id="stop1" />
+      <stop
+         offset="0.32"
+         stop-color="#e2e6e6"
+         id="stop2" />
+      <stop
+         offset="1"
+         stop-color="#cfd4d5"
+         id="stop3" />
+    </linearGradient>
+    <linearGradient
+       id="gradTelaio"
+       x1="0"
+       y1="0"
+       x2="1788.8544"
+       y2="0"
+       gradientTransform="matrix(0.71554181,0,0,0.89442727,58.669093,-119.34436)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#c6cbcc"
+         id="stop4" />
+      <stop
+         offset="1"
+         stop-color="#adb2b5"
+         id="stop5" />
+    </linearGradient>
+    <linearGradient
+       id="gradZoccolo"
+       x1="0"
+       y1="5656.854"
+       x2="0"
+       y2="6222.5396"
+       gradientTransform="matrix(1.4008943,0,0,0.17511179,9.4520941,-119.2781)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#565b5f"
+         id="stop6" />
+      <stop
+         offset="0.18"
+         stop-color="#43474b"
+         id="stop7" />
+      <stop
+         offset="1"
+         stop-color="#2b2e31"
+         id="stop8" />
+    </linearGradient>
+    <linearGradient
+       id="gradManiglia"
+       x1="2002.8096"
+       y1="353.07407"
+       x2="2140.5554"
+       y2="353.07407"
+       gradientTransform="scale(0.41367345,2.4173657)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#4b4d50"
+         id="stop9" />
+      <stop
+         offset="0.35"
+         stop-color="#191a1c"
+         id="stop10" />
+      <stop
+         offset="0.75"
+         stop-color="#2d2f31"
+         id="stop11" />
+      <stop
+         offset="1"
+         stop-color="#111214"
+         id="stop12" />
+    </linearGradient>
+    <linearGradient
+       id="gradAcciaio"
+       x1="0"
+       y1="0"
+       x2="1"
+       y2="0">
+      <stop
+         offset="0"
+         stop-color="#fafbfb"
+         id="stop13" />
+      <stop
+         offset="0.45"
+         stop-color="#c9ced1"
+         id="stop14" />
+      <stop
+         offset="1"
+         stop-color="#8b9093"
+         id="stop15" />
+    </linearGradient>
+    <linearGradient
+       id="gradLcd"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1">
+      <stop
+         offset="0"
+         stop-color="#c2ccbd"
+         id="stop16" />
+      <stop
+         offset="1"
+         stop-color="#98a693"
+         id="stop17" />
+    </linearGradient>
+    <linearGradient
+       id="gradSchermoHmi"
+       x1="903.2027"
+       y1="650.27264"
+       x2="1041.739"
+       y2="881.16656"
+       gradientTransform="scale(1.1780302,0.84887469)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#33383d"
+         id="stop18" />
+      <stop
+         offset="0.55"
+         stop-color="#22262a"
+         id="stop19" />
+      <stop
+         offset="1"
+         stop-color="#14171a"
+         id="stop20" />
+    </linearGradient>
+    <linearGradient
+       id="gradBlu"
+       x1="405.23984"
+       y1="368.79391"
+       x2="492.90399"
+       y2="368.79391"
+       gradientTransform="scale(0.60458022,1.6540402)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#3b5f8f"
+         id="stop21" />
+      <stop
+         offset="1"
+         stop-color="#2b4670"
+         id="stop22" />
+    </linearGradient>
+    <linearGradient
+       id="gradAnelloEmerg"
+       x1="1165.2111"
+       y1="1015.211"
+       x2="1165.2111"
+       y2="1084.7889"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#f4dc63"
+         id="stop23" />
+      <stop
+         offset="1"
+         stop-color="#d2ae21"
+         id="stop24" />
+    </linearGradient>
+    <radialGradient
+       id="gradFungo"
+       cx="1193.7026"
+       cy="1039.0037"
+       r="35.085754"
+       fx="1193.7026"
+       fy="1039.0037"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#ef6a70"
+         id="stop25" />
+      <stop
+         offset="0.55"
+         stop-color="#c4212c"
+         id="stop26" />
+      <stop
+         offset="1"
+         stop-color="#8d0f18"
+         id="stop27" />
+    </radialGradient>
+    <radialGradient
+       id="gradLenteVerde"
+       cx="0.36000001"
+       cy="0.30000001"
+       r="0.80000001">
+      <stop
+         offset="0"
+         stop-color="#a8e0a0"
+         id="stop28" />
+      <stop
+         offset="0.6"
+         stop-color="#4d9a44"
+         id="stop29" />
+      <stop
+         offset="1"
+         stop-color="#256b28"
+         id="stop30" />
+    </radialGradient>
+    <radialGradient
+       id="gradLenteRossa"
+       cx="0.36000001"
+       cy="0.30000001"
+       r="0.80000001">
+      <stop
+         offset="0"
+         stop-color="#f08b8f"
+         id="stop31" />
+      <stop
+         offset="0.6"
+         stop-color="#c02b34"
+         id="stop32" />
+      <stop
+         offset="1"
+         stop-color="#8a1220"
+         id="stop33" />
+    </radialGradient>
+    <radialGradient
+       id="gradLenteNera"
+       cx="0.36000001"
+       cy="0.30000001"
+       r="0.80000001">
+      <stop
+         offset="0"
+         stop-color="#63696e"
+         id="stop34" />
+      <stop
+         offset="0.6"
+         stop-color="#33383c"
+         id="stop35" />
+      <stop
+         offset="1"
+         stop-color="#1b1e21"
+         id="stop36" />
+    </radialGradient>
+    <radialGradient
+       id="gradOmbraPav"
+       cx="197.10347"
+       cy="9339.7646"
+       r="216.33308"
+       gradientTransform="matrix(3.3282014,0,0,0.19229609,58.669093,-119.34436)"
+       fx="197.10347"
+       fy="9339.7646"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#000000"
+         stop-opacity="0.34"
+         id="stop37" />
+      <stop
+         offset="0.6"
+         stop-color="#000000"
+         stop-opacity="0.12"
+         id="stop38" />
+      <stop
+         offset="1"
+         stop-color="#000000"
+         stop-opacity="0"
+         id="stop39" />
+    </radialGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient89"
+       x1="1190.5092"
+       y1="300.50912"
+       x2="1209.4908"
+       y2="300.50912"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient90"
+       x1="1661.8254"
+       y1="567.73248"
+       x2="1705.2917"
+       y2="567.73248"
+       gradientTransform="scale(0.71277588,1.4029655)"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#gradLenteVerde"
+       id="radialGradient90"
+       cx="1196.866"
+       cy="809.52295"
+       r="17.908312"
+       fx="1196.866"
+       fy="809.52295"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#gradLenteRossa"
+       id="radialGradient91"
+       cx="1196.866"
+       cy="835.52295"
+       r="17.908312"
+       fx="1196.866"
+       fy="835.52295"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient91"
+       x1="1005.3073"
+       y1="893.30731"
+       x2="1024.6927"
+       y2="893.30731"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient92"
+       x1="1693.9832"
+       y1="536.05701"
+       x2="1709.7197"
+       y2="536.05701"
+       gradientTransform="scale(0.5964093,1.6767009)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient93"
+       x1="1079.3073"
+       y1="893.30731"
+       x2="1098.6927"
+       y2="893.30731"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient94"
+       x1="1818.059"
+       y1="536.05701"
+       x2="1833.7955"
+       y2="536.05701"
+       gradientTransform="scale(0.5964093,1.6767009)"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#gradLenteNera"
+       id="radialGradient94"
+       cx="1160.146"
+       cy="900.92291"
+       r="16.308311"
+       fx="1160.146"
+       fy="900.92291"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#gradLenteNera"
+       id="radialGradient95"
+       cx="1234.146"
+       cy="900.92291"
+       r="16.308311"
+       fx="1234.146"
+       fy="900.92291"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#gradLenteVerde"
+       id="radialGradient96"
+       cx="1308.006"
+       cy="900.7229"
+       r="17.108313"
+       fx="1308.006"
+       fy="900.7229"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#gradLenteRossa"
+       id="radialGradient97"
+       cx="1382.006"
+       cy="900.7229"
+       r="17.108313"
+       fx="1382.006"
+       fy="900.7229"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient97"
+       x1="844.50916"
+       y1="1127.5092"
+       x2="869.49084"
+       y2="1127.5092"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient98"
+       x1="265.80731"
+       y1="594.30731"
+       x2="277.19269"
+       y2="594.30731"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradAcciaio"
+       id="linearGradient99"
+       x1="265.80731"
+       y1="759.30731"
+       x2="277.19269"
+       y2="759.30731"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradLcd"
+       id="linearGradient100"
+       x1="190.98221"
+       y1="821.78473"
+       x2="190.98221"
+       y2="854.55298"
+       gradientTransform="scale(1.3116883,0.76237623)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradLcd"
+       id="linearGradient101"
+       x1="463.93512"
+       y1="737.94366"
+       x2="463.93512"
+       y2="801.28925"
+       gradientTransform="scale(1.1521204,0.86796484)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradPorta"
+       id="linearGradient102"
+       x1="15.313942"
+       y1="6.0363765"
+       x2="1258.9087"
+       y2="6.0363765"
+       gradientTransform="scale(0.62783376,1.5927783)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradPorta"
+       id="linearGradient103"
+       x1="1289.5366"
+       y1="6.0363765"
+       x2="2533.1313"
+       y2="6.0363765"
+       gradientTransform="scale(0.62783376,1.5927783)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="00 Ombre"
+     id="layer-ombre"
+     transform="matrix(0.20763525,0,0,0.20763525,-12.181772,24.777196)"
+     style="stroke-width:4.81614">
+    <ellipse
+       cx="714.66913"
+       cy="1676.6725"
+       rx="720.00006"
+       ry="41.600002"
+       fill="url(#gradOmbraPav)"
+       id="ombra-pavimento"
+       style="fill:url(#gradOmbraPav);stroke-width:4.81614" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="01 Zoccolo"
+     id="layer-zoccolo"
+     transform="matrix(0.33537504,0,0,0.33537504,-3.169997,40)"
+     style="stroke-width:2.98174">
+    <rect
+       x="9.452095"
+       y="871.31415"
+       width="792.46552"
+       height="99.058189"
+       fill="url(#gradZoccolo)"
+       id="zoccolo-fronte"
+       style="fill:url(#gradZoccolo);stroke-width:2.98174" />
+    <rect
+       x="9.452095"
+       y="871.31415"
+       width="792.46552"
+       height="2.9717457"
+       fill="#6c7176"
+       id="zoccolo-spigolo-alto"
+       style="stroke-width:2.98174" />
+    <rect
+       x="9.452095"
+       y="966.40997"
+       width="792.46552"
+       height="3.9623275"
+       fill="#1d2022"
+       id="zoccolo-spigolo-basso"
+       style="stroke-width:2.98174" />
+    <g
+       inkscape:label="Targa dati"
+       id="targa-dati"
+       style="stroke-width:6.02017"
+       transform="matrix(0.49529093,0,0,0.49529093,9.4520942,-119.2781)">
+      <rect
+         x="248"
+         y="2120"
+         width="96"
+         height="30"
+         rx="12.040343"
+         fill="#f2f2ef"
+         stroke="#8d9296"
+         stroke-width="6.02017"
+         id="rect39"
+         ry="12.040343" />
+      <text
+         x="296"
+         y="2140"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="12px"
+         fill="#3a3d40"
+         text-anchor="middle"
+         id="text39"
+         style="stroke-width:6.02017">TARGA DATI</text>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="02 Corpo armadio"
+     id="layer-corpo"
+     transform="matrix(0.20763525,0,0,0.20763525,-12.181772,24.777196)"
+     style="stroke-width:4.81614">
+    <rect
+       x="58.669094"
+       y="-119.33039"
+       width="1280.0001"
+       height="1600.0001"
+       fill="url(#gradTelaio)"
+       id="telaio"
+       style="fill:url(#gradTelaio);stroke-width:4.81614" />
+    <rect
+       x="58.669094"
+       y="-119.33039"
+       width="1280.0001"
+       height="11.200001"
+       fill="#dfe3e4"
+       id="tetto"
+       style="stroke-width:4.81614" />
+    <rect
+       x="58.669094"
+       y="-109.7303"
+       width="1280.0001"
+       height="2.4000001"
+       fill="#9aa0a3"
+       id="tetto-ombra"
+       style="stroke-width:4.81614" />
+    <rect
+       x="689.06909"
+       y="-109.7303"
+       width="19.200001"
+       height="1580.8002"
+       fill="#b3b8bb"
+       id="montante-centrale"
+       style="stroke-width:4.81614" />
+    <rect
+       x="694.66913"
+       y="-109.7303"
+       width="3.2000003"
+       height="1580.8002"
+       fill="#8d9295"
+       id="montante-ombra"
+       style="stroke-width:4.81614" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="03 Porte"
+     id="layer-porte"
+     transform="matrix(0.20763525,0,0,0.20763525,-12.181772,24.777196)"
+     style="stroke-width:4.81614">
+    <g
+       inkscape:label="Porta sinistra"
+       id="porta-sinistra"
+       style="stroke-width:6.02017"
+       transform="matrix(0.80000006,0,0,0.80000006,58.669093,-119.34436)">
+      <rect
+         x="12"
+         y="12"
+         width="776"
+         height="1976"
+         fill="url(#gradPorta)"
+         stroke="#a9aeb1"
+         stroke-width="9.63227"
+         id="porta-sx-pannello"
+         style="fill:url(#linearGradient102)" />
+      <rect
+         x="20"
+         y="20"
+         width="760"
+         height="1960"
+         fill="none"
+         stroke="#ffffff"
+         stroke-width="7.2242"
+         opacity="0.3"
+         id="porta-sx-luce" />
+    </g>
+    <g
+       inkscape:label="Porta destra"
+       id="porta-destra"
+       style="stroke-width:6.02017"
+       transform="matrix(0.80000006,0,0,0.80000006,58.669093,-119.34436)">
+      <rect
+         x="812"
+         y="12"
+         width="776"
+         height="1976"
+         fill="url(#gradPorta)"
+         stroke="#a9aeb1"
+         stroke-width="9.63227"
+         id="porta-dx-pannello"
+         style="fill:url(#linearGradient103)" />
+      <rect
+         x="820"
+         y="20"
+         width="760"
+         height="1960"
+         fill="none"
+         stroke="#ffffff"
+         stroke-width="7.2242"
+         opacity="0.3"
+         id="porta-dx-luce" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="04 Strumenti porta sinistra"
+     id="layer-strumenti-sx"
+     transform="matrix(0.20763525,0,0,0.20763525,-12.181772,24.777196)"
+     style="stroke-width:4.81614">
+    <g
+       inkscape:label="Rele di protezione multifunzione"
+       id="rele-protezione"
+       style="stroke-width:6.02017"
+       transform="matrix(0.80000006,0,0,0.80000006,58.669093,-119.34436)">
+      <rect
+         x="234"
+         y="576"
+         width="75"
+         height="211"
+         rx="24.080687"
+         fill="#e3e6e6"
+         stroke="#9ba0a3"
+         stroke-width="7.2242"
+         id="rele-cornice"
+         ry="24.080687" />
+      <rect
+         x="240"
+         y="586"
+         width="63"
+         height="191"
+         rx="12.040343"
+         fill="#1d2023"
+         id="rele-frontale-nero"
+         style="stroke-width:6.02017"
+         ry="12.040343" />
+      <circle
+         cx="271.5"
+         cy="600"
+         r="4.5"
+         fill="url(#gradAcciaio)"
+         stroke="#5b6165"
+         stroke-width="4.81614"
+         id="rele-vite-alto"
+         style="fill:url(#linearGradient98)" />
+      <circle
+         cx="271.5"
+         cy="765"
+         r="4.5"
+         fill="url(#gradAcciaio)"
+         stroke="#5b6165"
+         stroke-width="4.81614"
+         id="rele-vite-basso"
+         style="fill:url(#linearGradient99)" />
+      <rect
+         x="245"
+         y="610"
+         width="53"
+         height="145"
+         fill="url(#gradBlu)"
+         id="rele-piastra-blu"
+         style="fill:url(#gradBlu);stroke-width:6.02017" />
+      <text
+         x="271.5"
+         y="622"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="7.5px"
+         fill="#ffffff"
+         text-anchor="middle"
+         id="rele-testo-marca"
+         style="stroke-width:6.02017">PROTEZIONE</text>
+      <rect
+         x="252"
+         y="628"
+         width="40"
+         height="22"
+         rx="6.0201716"
+         fill="url(#gradLcd)"
+         stroke="#0f1a2b"
+         stroke-width="6.02017"
+         id="rele-display"
+         style="fill:url(#linearGradient100)"
+         ry="6.0201716" />
+      <text
+         x="272"
+         y="643"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="9px"
+         fill="#2c382c"
+         text-anchor="middle"
+         id="rele-display-valore"
+         style="stroke-width:6.02017">400 A</text>
+      <g
+         id="rele-tasti"
+         style="stroke-width:6.02017">
+        <rect
+           x="272"
+           y="662"
+           width="13"
+           height="9"
+           rx="6.0201716"
+           fill="#eef0ef"
+           stroke="#12203a"
+           stroke-width="4.21412"
+           id="rect40"
+           ry="6.0201716" />
+        <circle
+           cx="292"
+           cy="666.5"
+           r="3.4000001"
+           fill="#e8c832"
+           stroke="#7d6a12"
+           stroke-width="3.6121"
+           id="circle40" />
+        <rect
+           x="272"
+           y="676"
+           width="13"
+           height="9"
+           rx="6.0201716"
+           fill="#eef0ef"
+           stroke="#12203a"
+           stroke-width="4.21412"
+           id="rect41"
+           ry="6.0201716" />
+        <circle
+           cx="292"
+           cy="680.5"
+           r="3.4000001"
+           fill="#e8c832"
+           stroke="#7d6a12"
+           stroke-width="3.6121"
+           id="circle41" />
+        <rect
+           x="272"
+           y="700"
+           width="13"
+           height="9"
+           rx="6.0201716"
+           fill="#b8232c"
+           stroke="#5c0d14"
+           stroke-width="4.21412"
+           id="rect42"
+           ry="6.0201716" />
+        <circle
+           cx="292"
+           cy="704.5"
+           r="3.4000001"
+           fill="#e8c832"
+           stroke="#7d6a12"
+           stroke-width="3.6121"
+           id="circle42" />
+      </g>
+      <g
+         id="rele-etichette"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="5px"
+         fill="#dfe6f2"
+         style="stroke-width:6.02017">
+        <text
+           x="252"
+           y="666"
+           id="text42"
+           style="stroke-width:6.02017">I &gt;</text>
+        <text
+           x="252"
+           y="680"
+           id="text43"
+           style="stroke-width:6.02017">I &gt;&gt;</text>
+        <text
+           x="252"
+           y="704"
+           id="text44"
+           style="stroke-width:6.02017">TRIP</text>
+      </g>
+      <rect
+         x="278"
+         y="762"
+         width="22"
+         height="10"
+         rx="6.0201716"
+         fill="#f4f4f0"
+         stroke="#8b9095"
+         stroke-width="3.6121"
+         id="rele-adesivo"
+         ry="6.0201716" />
+    </g>
+    <g
+       inkscape:label="Multimetro digitale 96x96"
+       id="multimetro"
+       style="stroke-width:6.02017"
+       transform="matrix(0.80000006,0,0,0.80000006,58.669093,-119.34436)">
+      <rect
+         x="523"
+         y="620"
+         width="96"
+         height="96"
+         rx="18.060516"
+         fill="#dfe2e3"
+         stroke="#9ba0a3"
+         stroke-width="7.2242"
+         id="multimetro-cornice"
+         ry="18.060516" />
+      <rect
+         x="528"
+         y="625"
+         width="86"
+         height="86"
+         rx="12.040343"
+         fill="#2b4670"
+         stroke="#16233a"
+         stroke-width="6.02017"
+         id="multimetro-frontale"
+         ry="12.040343" />
+      <text
+         x="534"
+         y="637"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="7px"
+         fill="#e6ecf5"
+         id="multimetro-marca"
+         style="stroke-width:6.02017">MULTIMETRO</text>
+      <text
+         x="608"
+         y="637"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="7px"
+         fill="#e6ecf5"
+         text-anchor="end"
+         id="multimetro-modello"
+         style="stroke-width:6.02017">96</text>
+      <rect
+         x="536"
+         y="642"
+         width="70"
+         height="52"
+         rx="6.0201716"
+         fill="url(#gradLcd)"
+         stroke="#16233a"
+         stroke-width="6.02017"
+         id="multimetro-display"
+         style="fill:url(#linearGradient101)"
+         ry="6.0201716" />
+      <text
+         x="600"
+         y="660"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="13px"
+         fill="#2c382c"
+         text-anchor="end"
+         id="multimetro-v"
+         style="stroke-width:6.02017">400 V</text>
+      <text
+         x="600"
+         y="676"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="13px"
+         fill="#2c382c"
+         text-anchor="end"
+         id="multimetro-a"
+         style="stroke-width:6.02017">128 A</text>
+      <text
+         x="600"
+         y="690"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="9px"
+         fill="#3c483c"
+         text-anchor="end"
+         id="multimetro-hz"
+         style="stroke-width:6.02017">50.0 Hz</text>
+      <g
+         id="multimetro-tasti"
+         fill="#dfe3e5"
+         stroke="#16233a"
+         stroke-width="3.6121">
+        <rect
+           x="538"
+           y="698"
+           width="14"
+           height="7"
+           rx="6.0201716"
+           id="rect44"
+           style="stroke-width:3.6121"
+           ry="6.0201716" />
+        <rect
+           x="556"
+           y="698"
+           width="14"
+           height="7"
+           rx="6.0201716"
+           id="rect45"
+           style="stroke-width:3.6121"
+           ry="6.0201716" />
+        <rect
+           x="574"
+           y="698"
+           width="14"
+           height="7"
+           rx="6.0201716"
+           id="rect46"
+           style="stroke-width:3.6121"
+           ry="6.0201716" />
+        <rect
+           x="592"
+           y="698"
+           width="14"
+           height="7"
+           rx="6.0201716"
+           id="rect47"
+           style="stroke-width:3.6121"
+           ry="6.0201716" />
+      </g>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="05 Strumenti porta destra"
+     id="layer-strumenti-dx"
+     transform="matrix(0.20763525,0,0,0.20763525,-12.181772,24.777196)"
+     style="stroke-width:4.81614">
+    <g
+       inkscape:label="Serratura a chiave"
+       id="serratura-chiave"
+       style="stroke-width:3.63075"
+       transform="matrix(1.3357849,0,0,1.3172561,-577.84333,-269.3486)">
+      <rect
+         x="1188"
+         y="290"
+         width="24"
+         height="32"
+         rx="7.210948"
+         fill="#1f2225"
+         stroke="#0e1012"
+         stroke-width="2.9046"
+         id="serratura-piastra"
+         ry="7.3123789" />
+      <circle
+         cx="1200"
+         cy="310"
+         r="8"
+         fill="url(#gradAcciaio)"
+         stroke="#4f5457"
+         stroke-width="3.63075"
+         id="serratura-cilindro"
+         style="fill:url(#linearGradient89)" />
+      <rect
+         x="1198.5"
+         y="304"
+         width="3"
+         height="12"
+         rx="5.4082108"
+         fill="#3c4145"
+         id="serratura-fessura"
+         style="stroke-width:3.63075"
+         ry="5.4842844" />
+    </g>
+    <g
+       inkscape:label="Spie luminose verde-rosso"
+       id="spie-doppie"
+       style="stroke-width:4.20132"
+       transform="matrix(1.1600887,0,0,1.132754,-373.43731,-408.79437)">
+      <rect
+         x="1186"
+         y="798"
+         width="28"
+         height="58"
+         rx="58.121361"
+         fill="url(#gradAcciaio)"
+         stroke="#6d7377"
+         stroke-width="4.20132"
+         id="spie-corpo"
+         style="fill:url(#linearGradient90)"
+         ry="59.523899" />
+      <circle
+         cx="1200"
+         cy="814"
+         r="10"
+         fill="url(#gradLenteVerde)"
+         stroke="#1f5722"
+         stroke-width="3.36105"
+         id="spia-verde"
+         style="fill:url(#radialGradient90)" />
+      <circle
+         cx="1200"
+         cy="840"
+         r="10"
+         fill="url(#gradLenteRossa)"
+         stroke="#7c1119"
+         stroke-width="3.36105"
+         id="spia-rossa"
+         style="fill:url(#radialGradient91)" />
+      <ellipse
+         cx="1196.5"
+         cy="810"
+         rx="3.4000001"
+         ry="2.4000001"
+         fill="#ffffff"
+         opacity="0.5"
+         id="spia-verde-luce"
+         style="stroke-width:4.20132" />
+      <ellipse
+         cx="1196.5"
+         cy="836"
+         rx="3.4000001"
+         ry="2.4000001"
+         fill="#ffffff"
+         opacity="0.5"
+         id="spia-rossa-luce"
+         style="stroke-width:4.20132" />
+    </g>
+    <g
+       inkscape:label="Pulsantiera"
+       id="pulsantiera"
+       style="stroke-width:5.28097"
+       transform="matrix(0.90850191,0,0,0.91547239,-71.533128,-208.88917)">
+      <g
+         inkscape:label="Selettore MAN-AUT"
+         id="selettore-1"
+         style="stroke-width:5.28097">
+        <rect
+           x="998"
+           y="872"
+           width="34"
+           height="14"
+           rx="5.3011861"
+           fill="#f5f5f2"
+           stroke="#9aa0a2"
+           stroke-width="4.22477"
+           id="rect54"
+           ry="5.2608228" />
+        <text
+           x="1015"
+           y="882.5"
+           font-family="Arial, Helvetica, sans-serif"
+           font-size="7px"
+           fill="#2f3234"
+           text-anchor="middle"
+           id="text55"
+           style="stroke-width:5.28097">MAN-AUT</text>
+        <rect
+           x="1000"
+           y="888"
+           width="30"
+           height="34"
+           rx="10.602372"
+           fill="#23272b"
+           id="rect55"
+           style="stroke-width:5.28097"
+           ry="10.521646" />
+        <circle
+           cx="1015"
+           cy="903"
+           r="8.5"
+           fill="url(#gradAcciaio)"
+           stroke="#5c6165"
+           stroke-width="4.22477"
+           id="circle55"
+           style="fill:url(#linearGradient91)" />
+        <rect
+           x="1011.5"
+           y="900"
+           width="7"
+           height="24"
+           rx="18.522738"
+           fill="url(#gradAcciaio)"
+           stroke="#5c6165"
+           stroke-width="4.22477"
+           transform="rotate(-28,1015,903)"
+           id="rect56"
+           style="fill:url(#linearGradient92)"
+           ry="18.443741" />
+      </g>
+      <g
+         inkscape:label="Selettore LOC-REM"
+         id="selettore-2"
+         style="stroke-width:5.28097">
+        <rect
+           x="1072"
+           y="872"
+           width="34"
+           height="14"
+           rx="5.3011861"
+           fill="#f5f5f2"
+           stroke="#9aa0a2"
+           stroke-width="4.22477"
+           id="rect57"
+           ry="5.2608228" />
+        <text
+           x="1089"
+           y="882.5"
+           font-family="Arial, Helvetica, sans-serif"
+           font-size="7px"
+           fill="#2f3234"
+           text-anchor="middle"
+           id="text57"
+           style="stroke-width:5.28097">LOC-REM</text>
+        <rect
+           x="1074"
+           y="888"
+           width="30"
+           height="34"
+           rx="10.602372"
+           fill="#23272b"
+           id="rect58"
+           style="stroke-width:5.28097"
+           ry="10.521646" />
+        <circle
+           cx="1089"
+           cy="903"
+           r="8.5"
+           fill="url(#gradAcciaio)"
+           stroke="#5c6165"
+           stroke-width="4.22477"
+           id="circle58"
+           style="fill:url(#linearGradient93)" />
+        <rect
+           x="1085.5"
+           y="900"
+           width="7"
+           height="24"
+           rx="18.522738"
+           fill="url(#gradAcciaio)"
+           stroke="#5c6165"
+           stroke-width="4.22477"
+           transform="rotate(-28,1089,903)"
+           id="rect59"
+           style="fill:url(#linearGradient94)"
+           ry="18.443741" />
+      </g>
+      <g
+         inkscape:label="Pulsante reset"
+         id="pulsante-reset"
+         style="stroke-width:5.28097">
+        <rect
+           x="1146"
+           y="872"
+           width="34"
+           height="14"
+           rx="5.3011861"
+           fill="#f5f5f2"
+           stroke="#9aa0a2"
+           stroke-width="4.22477"
+           id="rect60"
+           ry="5.2608228" />
+        <text
+           x="1163"
+           y="882.5"
+           font-family="Arial, Helvetica, sans-serif"
+           font-size="7px"
+           fill="#2f3234"
+           text-anchor="middle"
+           id="text60"
+           style="stroke-width:5.28097">RESET</text>
+        <rect
+           x="1148"
+           y="888"
+           width="30"
+           height="34"
+           rx="10.602372"
+           fill="#23272b"
+           id="rect61"
+           style="stroke-width:5.28097"
+           ry="10.521646" />
+        <circle
+           cx="1163"
+           cy="905"
+           r="9"
+           fill="url(#gradLenteNera)"
+           stroke="#101315"
+           stroke-width="4.22477"
+           id="circle61"
+           style="fill:url(#radialGradient94)" />
+        <ellipse
+           cx="1159.6"
+           cy="901.5"
+           rx="2.8"
+           ry="2"
+           fill="#ffffff"
+           opacity="0.28"
+           id="ellipse61"
+           style="stroke-width:5.28097" />
+      </g>
+      <g
+         inkscape:label="Pulsante prova lampade"
+         id="pulsante-prova-lampade"
+         style="stroke-width:5.28097">
+        <rect
+           x="1220"
+           y="872"
+           width="34"
+           height="14"
+           rx="5.3011861"
+           fill="#f5f5f2"
+           stroke="#9aa0a2"
+           stroke-width="4.22477"
+           id="rect62"
+           ry="5.2608228" />
+        <text
+           x="1237"
+           y="882.5"
+           font-family="Arial, Helvetica, sans-serif"
+           font-size="7px"
+           fill="#2f3234"
+           text-anchor="middle"
+           id="text62"
+           style="stroke-width:5.28097">PROVA</text>
+        <rect
+           x="1222"
+           y="888"
+           width="30"
+           height="34"
+           rx="10.602372"
+           fill="#23272b"
+           id="rect63"
+           style="stroke-width:5.28097"
+           ry="10.521646" />
+        <circle
+           cx="1237"
+           cy="905"
+           r="9"
+           fill="url(#gradLenteNera)"
+           stroke="#101315"
+           stroke-width="4.22477"
+           id="circle63"
+           style="fill:url(#radialGradient95)" />
+        <ellipse
+           cx="1233.6"
+           cy="901.5"
+           rx="2.8"
+           ry="2"
+           fill="#ffffff"
+           opacity="0.28"
+           id="ellipse63"
+           style="stroke-width:5.28097" />
+      </g>
+      <g
+         inkscape:label="Pulsante marcia"
+         id="pulsante-marcia"
+         style="stroke-width:5.28097">
+        <rect
+           x="1294"
+           y="872"
+           width="34"
+           height="14"
+           rx="5.3011861"
+           fill="#f5f5f2"
+           stroke="#9aa0a2"
+           stroke-width="4.22477"
+           id="rect64"
+           ry="5.2608228" />
+        <text
+           x="1311"
+           y="882.5"
+           font-family="Arial, Helvetica, sans-serif"
+           font-size="7px"
+           fill="#2f3234"
+           text-anchor="middle"
+           id="text64"
+           style="stroke-width:5.28097">MARCIA</text>
+        <rect
+           x="1296"
+           y="888"
+           width="30"
+           height="34"
+           rx="10.602372"
+           fill="#23272b"
+           id="rect65"
+           style="stroke-width:5.28097"
+           ry="10.521646" />
+        <circle
+           cx="1311"
+           cy="905"
+           r="9.5"
+           fill="url(#gradLenteVerde)"
+           stroke="#1f5722"
+           stroke-width="4.22477"
+           id="circle65"
+           style="fill:url(#radialGradient96)" />
+        <ellipse
+           cx="1307.4"
+           cy="901.5"
+           rx="3"
+           ry="2.2"
+           fill="#ffffff"
+           opacity="0.4"
+           id="ellipse65"
+           style="stroke-width:5.28097" />
+      </g>
+      <g
+         inkscape:label="Pulsante arresto"
+         id="pulsante-arresto"
+         style="stroke-width:5.28097">
+        <rect
+           x="1368"
+           y="872"
+           width="34"
+           height="14"
+           rx="5.3011861"
+           fill="#f5f5f2"
+           stroke="#9aa0a2"
+           stroke-width="4.22477"
+           id="rect66"
+           ry="5.2608228" />
+        <text
+           x="1385"
+           y="882.5"
+           font-family="Arial, Helvetica, sans-serif"
+           font-size="7px"
+           fill="#2f3234"
+           text-anchor="middle"
+           id="text66"
+           style="stroke-width:5.28097">ARRESTO</text>
+        <rect
+           x="1370"
+           y="888"
+           width="30"
+           height="34"
+           rx="10.602372"
+           fill="#23272b"
+           id="rect67"
+           style="stroke-width:5.28097"
+           ry="10.521646" />
+        <circle
+           cx="1385"
+           cy="905"
+           r="9.5"
+           fill="url(#gradLenteRossa)"
+           stroke="#7c1119"
+           stroke-width="4.22477"
+           id="circle67"
+           style="fill:url(#radialGradient97)" />
+        <ellipse
+           cx="1381.4"
+           cy="901.5"
+           rx="3"
+           ry="2.2"
+           fill="#ffffff"
+           opacity="0.4"
+           id="ellipse67"
+           style="stroke-width:5.28097" />
+      </g>
+    </g>
+    <g
+       inkscape:label="Pulsante di emergenza a fungo"
+       id="pulsante-emergenza"
+       style="stroke-width:6.02017"
+       transform="matrix(0.80000006,0,0,0.80000006,58.669093,-119.34436)">
+      <circle
+         cx="1200"
+         cy="1050"
+         r="33"
+         fill="url(#gradAnelloEmerg)"
+         stroke="#a88b12"
+         stroke-width="7.2242"
+         id="emergenza-anello"
+         style="fill:url(#gradAnelloEmerg)" />
+      <circle
+         cx="1200"
+         cy="1050"
+         r="25"
+         fill="none"
+         stroke="#c9a91f"
+         stroke-width="6.02017"
+         id="emergenza-anello-interno" />
+      <circle
+         cx="1200"
+         cy="1050"
+         r="22"
+         fill="#2b2d2f"
+         id="emergenza-base"
+         style="stroke-width:6.02017" />
+      <circle
+         cx="1200"
+         cy="1048"
+         r="21"
+         fill="url(#gradFungo)"
+         stroke="#6f0b13"
+         stroke-width="6.02017"
+         id="emergenza-fungo"
+         style="fill:url(#gradFungo)" />
+      <ellipse
+         cx="1192"
+         cy="1040"
+         rx="7"
+         ry="5"
+         fill="#ffffff"
+         opacity="0.32"
+         id="emergenza-luce"
+         style="stroke-width:6.02017" />
+    </g>
+    <g
+       inkscape:label="Maniglia con serratura"
+       id="maniglia"
+       style="stroke-width:6.02017"
+       transform="matrix(0.80000006,0,0,0.80000006,58.669093,-119.34436)">
+      <rect
+         x="830"
+         y="855"
+         width="54"
+         height="330"
+         rx="42.141205"
+         fill="url(#gradManiglia)"
+         stroke="#0e0f11"
+         stroke-width="6.02017"
+         id="maniglia-piastra"
+         style="fill:url(#gradManiglia)"
+         ry="42.141205" />
+      <rect
+         x="838"
+         y="878"
+         width="26"
+         height="212"
+         rx="78.26223"
+         fill="#26282a"
+         stroke="#0b0c0d"
+         stroke-width="6.02017"
+         id="maniglia-barra"
+         ry="78.26223" />
+      <rect
+         x="843"
+         y="884"
+         width="6"
+         height="200"
+         rx="18.060516"
+         fill="#ffffff"
+         opacity="0.12"
+         id="maniglia-luce"
+         style="stroke-width:6.02017"
+         ry="18.060516" />
+      <circle
+         cx="857"
+         cy="1140"
+         r="11"
+         fill="url(#gradAcciaio)"
+         stroke="#4b5053"
+         stroke-width="6.02017"
+         id="maniglia-serratura"
+         style="fill:url(#linearGradient97)" />
+      <rect
+         x="855.5"
+         y="1133"
+         width="3"
+         height="14"
+         rx="9.0302582"
+         fill="#3c4145"
+         id="maniglia-serratura-fessura"
+         style="stroke-width:6.02017"
+         ry="9.0302582" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="06 Etichette e segnaletica"
+     id="layer-etichette"
+     transform="matrix(0.20763525,0,0,0.20763525,-12.181772,24.777196)"
+     style="stroke-width:4.81614">
+    <g
+       inkscape:label="Targhetta identificazione quadro"
+       id="targhetta-porta"
+       style="stroke-width:4.81614"
+       transform="translate(58.669093,-119.34785)">
+      <rect
+         x="676.80005"
+         y="632.00354"
+         width="68.800003"
+         height="32.000004"
+         rx="7.2242069"
+         fill="#f6f6f3"
+         stroke="#9aa0a2"
+         stroke-width="4.33452"
+         id="rect68"
+         ry="7.2242069" />
+      <text
+         x="711.19379"
+         y="648.64734"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="6.4px"
+         fill="#2f3234"
+         text-anchor="middle"
+         id="text68"
+         style="stroke-width:4.81614">C230</text>
+      <text
+         x="695.20007"
+         y="652.00354"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="6.4px"
+         fill="#2f3234"
+         text-anchor="middle"
+         id="text69"
+         style="stroke-width:4.81614" />
+      <text
+         x="695.20007"
+         y="660.80353"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="6.4px"
+         fill="#a4232c"
+         text-anchor="middle"
+         id="text70"
+         style="stroke-width:4.81614" />
+    </g>
+    <g
+       inkscape:label="Segnaletica alta tensione 400 V"
+       id="segnaletica-alta-tensione"
+       style="stroke-width:3.75996"
+       transform="matrix(1.2852004,0,0,1.2766191,-120.56232,-898.93758)">
+      <rect
+         x="318"
+         y="1545"
+         width="164"
+         height="118"
+         rx="7.4947658"
+         fill="#fbfbf8"
+         stroke="#9aa0a2"
+         stroke-width="3.38396"
+         id="targa-bianca"
+         ry="7.545145" />
+      <g
+         inkscape:label="Triangolo di pericolo"
+         id="triangolo-pericolo"
+         style="stroke-width:3.75996">
+        <path
+           d="m 400,1436 64,112 H 336 Z"
+           fill="#f2df6a"
+           stroke="#1b1c1f"
+           stroke-width="21.0558"
+           stroke-linejoin="round"
+           id="triangolo-fondo"
+           style="stroke-width:10.5279;stroke-dasharray:none" />
+        <path
+           d="m 392,1470 h 19 l -11,24 h 15 l -23,40 7,-28 h -13 z"
+           fill="#1b1c1f"
+           id="simbolo-fulmine"
+           style="stroke-width:3.75996" />
+      </g>
+      <text
+         x="400"
+         y="1578"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="17px"
+         font-weight="bold"
+         fill="#1b1c1f"
+         text-anchor="middle"
+         id="testo-tensione"
+         style="stroke-width:3.75996">400 VOLT</text>
+      <g
+         id="riga-attenzione"
+         style="stroke-width:3.75996">
+        <path
+           d="m 340,1592 13,22 h -26 z"
+           fill="#f2df6a"
+           stroke="#1b1c1f"
+           stroke-width="9.02387"
+           stroke-linejoin="round"
+           id="path70" />
+        <path
+           d="m 338.5,1600 h 3.5 l -2.5,6 h 3 l -5.5,6 1.8,-5 H 336 Z"
+           fill="#1b1c1f"
+           id="path71"
+           style="stroke-width:3.75996" />
+        <text
+           x="400"
+           y="1610"
+           font-family="Arial, Helvetica, sans-serif"
+           font-size="12px"
+           font-weight="bold"
+           fill="#1b1c1f"
+           text-anchor="middle"
+           id="text71"
+           style="stroke-width:3.75996">ATTENZIONE</text>
+        <circle
+           cx="460"
+           cy="1603"
+           r="12"
+           fill="#ffffff"
+           stroke="#b3202c"
+           stroke-width="11.2799"
+           id="circle71" />
+        <path
+           d="m 452,1595 16,16"
+           stroke="#b3202c"
+           stroke-width="11.2799"
+           id="path72" />
+        <path
+           d="m 455,1608 v -10 h 7 v 10 z"
+           fill="#3a3d40"
+           id="path73"
+           style="stroke-width:3.75996" />
+      </g>
+      <text
+         x="400"
+         y="1628"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="7.5px"
+         fill="#a4232c"
+         text-anchor="middle"
+         id="text73"
+         style="stroke-width:3.75996">TOGLIERE TENSIONE PRIMA DI APRIRE</text>
+      <text
+         x="400"
+         y="1640"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="6.5px"
+         fill="#3a3d40"
+         text-anchor="middle"
+         id="text74"
+         style="stroke-width:3.75996">Accesso consentito solo a personale qualificato e</text>
+      <text
+         x="400"
+         y="1650"
+         font-family="Arial, Helvetica, sans-serif"
+         font-size="6.5px"
+         fill="#3a3d40"
+         text-anchor="middle"
+         id="text75"
+         style="stroke-width:3.75996">autorizzato, munito di idonei dispositivi di protezione.</text>
+    </g>
+  </g>
+  <metadata
+     id="metadata103">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Quadro di automazione - vista frontale</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
