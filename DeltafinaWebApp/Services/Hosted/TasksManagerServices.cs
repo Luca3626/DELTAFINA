@@ -47,6 +47,8 @@ namespace Services.Hosted
         MaintenanceToDoNotificationTask _maintenanceNotificationTask;
         //ComunicationAS400 Task
         ComunicationAS400Task _comunicationAS400Task;
+        //Registrazione peso casse slicer (Virginia / Burley)
+        SlicerWeighingTask _slicerWeighingTask;
 
         CancellationTokenSource canctokenSource;
         CancellationToken ct;
@@ -152,6 +154,9 @@ namespace Services.Hosted
 
                 if (count >= 10 && _syncPcPlcTask == null)
                     _syncPcPlcTask = new SyncPcPlcTask(_logger);
+
+                if (count >= 10 && _slicerWeighingTask == null)
+                    _slicerWeighingTask = new SlicerWeighingTask(_logger);
 
                 //if (count >= 10 && _reportTask == null)
                 //    _reportTask = new ReportsTask(_environment, _logger);

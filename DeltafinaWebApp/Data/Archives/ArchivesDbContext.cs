@@ -91,6 +91,7 @@ namespace DeltafinaWebApp.Data.Archives
         public virtual DbSet<ReportTypes> ReportTypes { get; set; }
         public virtual DbSet<ReportValueTypes> ReportValueTypes { get; set; }
         public virtual DbSet<RequestTypes> RequestTypes { get; set; }
+        public virtual DbSet<SlicerWeighings> SlicerWeighings { get; set; }
         public virtual DbSet<SpecialDays> SpecialDays { get; set; }
         public virtual DbSet<TagLogging> TagLogging { get; set; }
         public virtual DbSet<TagsToSave> TagsToSave { get; set; }
@@ -1389,6 +1390,54 @@ namespace DeltafinaWebApp.Data.Archives
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<SlicerWeighings>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.RegistrationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ProductionDate).HasColumnType("date");
+
+                entity.Property(e => e.Workshift)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LineCode)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Line)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PlcName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TriggerTagName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.WeightTagName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Unity)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Note)
+                    .HasMaxLength(250)
                     .IsUnicode(false);
             });
 
