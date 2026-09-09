@@ -1,7 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { NgbModal, ModalDismissReasons, NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { DropzoneDirective } from 'ngx-dropzone-wrapper';
 import { FileUploader } from 'ng2-file-upload';
 
 import { timer } from 'rxjs';
@@ -14,47 +13,11 @@ import { Router } from '@angular/router';
   selector: 'alarms', // tslint:disable-line
   templateUrl: './alarms.component.html',
   styleUrls: [
-    '../../vendor/libs/ngx-dropzone-wrapper/ngx-dropzone-wrapper.scss',
     './file-upload.scss'
   ],
   styles: ['textarea[autosize] { min-height: 100px !important; }']
 })
 export class AlarmsComponent {// implements AfterViewInit {
-
-  //
-  // ngx-dropzone-wrapper
-  //
-
-  dropzoneConfig = {
-    url: '/upload',
-    parallelUploads: 2,
-    maxFilesize: 50000,
-    filesizeBase: 1000,
-    addRemoveLinks: true,
-    previewTemplate: `
-<div class="dz-preview dz-file-preview">
-  <div class="dz-details">
-    <div class="dz-thumbnail">
-      <img data-dz-thumbnail>
-      <span class="dz-nopreview">No preview</span>
-      <div class="dz-success-mark"></div>
-      <div class="dz-error-mark"></div>
-      <div class="dz-error-message"><span data-dz-errormessage></span></div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-primary"
-          role="progressbar"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          data-dz-uploadprogress></div>
-      </div>
-    </div>
-    <div class="dz-filename" data-dz-name></div>
-    <div class="dz-size" data-dz-size></div>
-  </div>
-</div>`
-  };
-
-  //@ViewChild(DropzoneDirective, { static: false }) dropzoneInstance: DropzoneDirective;
 
   alarmsData: AlarmModel[] = [];
   originalAlarmsData: AlarmModel[] = [];

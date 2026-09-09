@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MaphilightModule } from 'ng-maphilight'
 
 import { DragulaModule } from 'ng2-dragula';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -29,7 +28,6 @@ import { AlarmsSettingsListComponent } from './alarms-settings-list/alarms-setti
     CommonModule,
     FormsModule,
     NgbModule,
-    MaphilightModule,
 
     DragulaModule,
     NgSelectModule,
